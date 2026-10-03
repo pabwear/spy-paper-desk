@@ -1,0 +1,16 @@
+{
+  "weights": {
+    "structure": 1.0,
+    "order_blocks": 1.0,
+    "rsi": 1.0,
+    "vwap": 1.0,
+    "volume": 1.0,
+    "session": 1.0
+  },
+  "indicators": {
+    "timeframe_minutes": 1,
+    "rsi_period": 14,
+    "volume_avg_bars": 20
+  },
+  "note": "Score = sum of weights for the confluence tags present. Highest score wins. Weights start equal; change them only from reviewed results."
+}

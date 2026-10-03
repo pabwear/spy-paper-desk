@@ -1,0 +1,9 @@
+# Secrets and local environment — never commit
+.env.alpaca
+.venv/
+__pycache__/
+*.pyc
+
+# Runtime output written by the desk
+journal.jsonl
+dashboard_state.json

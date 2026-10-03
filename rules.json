@@ -1,0 +1,27 @@
+{
+  "mode": "paper",
+  "account_usd": 1000,
+  "symbol": "SPY",
+  "study": "Mxwll Price Action Suite (TradingView)",
+  "chart": "https://www.tradingview.com/chart/pY9HoHBw/?symbol=AMEX:SPY",
+  "aoi": {
+    "source": "Live Mxwll boxes read from Roy's TradingView during 09:30-09:59 ET the same day",
+    "trade_only_inside": true,
+    "buy": "RED only",
+    "sell_short_tp": "GREEN only",
+    "no_chase_outside_zones": true,
+    "stale_or_approx_not_tradable": true
+  },
+  "confluence_required": {
+    "base": "AOI",
+    "plus_at_least_one": [
+      "structure (BOS/CHoCH, HH/LH/LL)",
+      "order blocks",
+      "RSI",
+      "VWAP",
+      "volume",
+      "session context"
+    ]
+  },
+  "live_trading": false
+}
