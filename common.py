@@ -65,7 +65,7 @@ def hhmm(value: str) -> time:
 
 
 def session_state(now: datetime, risk: dict) -> str:
-    """One of: weekend, pre_open, watch_only, trade_window, after_close."""
+    """One of: weekend, pre_open, watch_only, trade_window, flatten_window, after_close."""
     now = now.astimezone(ET)
     if now.weekday() >= 5:
         return "weekend"
@@ -74,8 +74,10 @@ def session_state(now: datetime, risk: dict) -> str:
         return "pre_open"
     if t < hhmm(risk["rth_watch_only_until"]):
         return "watch_only"
-    if t < hhmm(risk["rth_close"]):
+    if t < hhmm(risk.get("flatten_start", risk["rth_close"])):
         return "trade_window"
+    if t < hhmm(risk["rth_close"]):
+        return "flatten_window"
     return "after_close"
 
 
@@ -83,6 +85,7 @@ SESSION_LABELS = {
     "weekend": "Weekend — no orders",
     "pre_open": "Before the open — no orders",
     "watch_only": "09:30–09:59 watch only — no orders",
-    "trade_window": "10:00–16:00 entry window (gate still applies)",
+    "trade_window": "Entry window (gate still applies)",
+    "flatten_window": "15:55–16:00 flatten only — no entries",
     "after_close": "After the close — no orders",
 }

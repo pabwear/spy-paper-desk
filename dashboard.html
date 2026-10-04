@@ -117,6 +117,7 @@
     <span class="brand">SPY paper desk</span>
     <span class="pill paper"><span class="d"></span>PAPER ONLY</span>
     <span class="pill" id="acctPill">Paper 1000</span>
+    <span class="pill" id="instPill"><span class="d"></span><span id="instText">—</span></span>
     <span class="pill" id="sessionPill"><span class="d"></span><span id="sessionText">—</span></span>
     <span class="spacer"></span>
     <span class="clock num" id="clock">—</span>
@@ -129,6 +130,7 @@
     <button role="tab" data-tab="today" aria-selected="false">Today · AOI &amp; gate</button>
     <button role="tab" data-tab="trades" aria-selected="false">Trades</button>
     <button role="tab" data-tab="passes" aria-selected="false">Passes &amp; evals</button>
+    <button role="tab" data-tab="learning" aria-selected="false">Learning</button>
     <button role="tab" data-tab="journal" aria-selected="false">Journal</button>
     <button role="tab" data-tab="setup" aria-selected="false">Setup</button>
   </nav>
@@ -236,6 +238,26 @@
     </div>
   </section>
 
+  <!-- LEARNING -->
+  <section data-panel="learning" hidden>
+    <div class="grid g-4">
+      <div class="card"><div class="label">Learner mode</div><div class="value" id="mlMode">—</div><div class="sub2" id="mlModeNote">—</div></div>
+      <div class="card"><div class="label">Closed trades learned from</div><div class="value num" id="mlTrades">—</div><div class="sub2" id="mlTradesNote">—</div></div>
+      <div class="card"><div class="label">Loss model, walk-forward</div><div class="value num" id="mlAcc">—</div><div class="sub2 num" id="mlAccNote">—</div></div>
+      <div class="card"><div class="label">Last evaluation P(loss)</div><div class="value num" id="mlLast">—</div><div class="sub2" id="mlLastNote">—</div></div>
+    </div>
+    <div class="card section-gap"><h2>Lessons <span class="muted">patterns where losses cluster (3+ trades, 15+ points above the overall loss rate)</span></h2><div id="lessons"></div></div>
+    <div class="grid g-2 section-gap">
+      <div class="card"><h2>Mistake catalog <span class="muted">every closed trade, tagged</span></h2><div class="scroll" id="mistakes"></div></div>
+      <div class="card"><h2>Operational failures</h2><div id="opsFailures"></div>
+        <h2 class="section-gap">Signals <span class="muted">win rate → multiplier on the tag's weight</span></h2><div class="scroll" id="tagPerf"></div></div>
+    </div>
+    <div class="grid g-2 section-gap">
+      <div class="card"><h2>Recent closed trades <span class="muted">with what went wrong</span></h2><div class="scroll" id="recentTrips"></div></div>
+      <div class="card"><h2>What the loss model weighs <span class="muted">standardized coefficients; + means more likely to lose</span></h2><div id="coefs"></div></div>
+    </div>
+  </section>
+
   <!-- JOURNAL -->
   <section data-panel="journal" hidden>
     <div class="card">
@@ -250,6 +272,8 @@
         <button data-f="pulse" aria-pressed="false">Pulse</button>
         <button data-f="account" aria-pressed="false">Account</button>
         <button data-f="review" aria-pressed="false">Reviews</button>
+        <button data-f="failures" aria-pressed="false">Failures</button>
+        <button data-f="learn" aria-pressed="false">Learning</button>
       </div>
       <div class="scroll" id="journalTable"></div>
     </div>
@@ -259,9 +283,10 @@
   <section data-panel="setup" hidden>
     <div class="grid g-2">
       <div class="card"><h2>Safety</h2><div id="safety"></div></div>
-      <div class="card"><h2>Account &amp; venue</h2><div id="venue"></div></div>
+      <div class="card"><h2>Instruments <span class="muted">switches in rules.json</span></h2><div id="instruments"></div></div>
     </div>
-    <div class="grid g-2 section-gap">
+    <div class="grid g-3 section-gap">
+      <div class="card"><h2>Account &amp; venue</h2><div id="venue"></div></div>
       <div class="card"><h2>Rules</h2><div id="rules"></div></div>
       <div class="card"><h2>Confluence weights <span class="muted">learning_weights.json</span></h2><div id="weights"></div></div>
     </div>
@@ -292,21 +317,36 @@
     already_long: "Already long (no stacking)", already_short: "Already short", short_needs_whole_share: "Short needs a whole share",
     open_order_pending: "An order is still open", paper_client: "Client is not paper", live_locked: "Live unlock detected — stop",
     paper_1000_account: "Not the Paper 1000 account", symbol_spy: "Symbol is not SPY", weekday: "Not a weekday",
-    time_window: "Outside 10:00–16:00", market_clock: "Market closed per Alpaca", aoi_tradable: "AOI not tradable",
+    time_window: "Outside the entry window", market_clock: "Market closed per Alpaca", aoi_tradable: "AOI not tradable",
     aoi_from_today_open: "AOI not from today's open", aoi_not_approximate: "AOI approximate / withdrawn",
     zone_published: "Zone not in override", price_at_zone: "Price not at zone", zone_color_matches_side: "Zone color ≠ side",
-    confluence: "No confluence", size_within_cap: "Size over the cap", unspecified: "Unspecified",
+    confluence: "Fewer than 2 confluence signals", size_within_cap: "Size over the cap", unspecified: "Unspecified",
+    flatten_window: "15:55–16:00 flatten window", instrument_off: "Instrument switched off",
+    instrument_enabled: "Instrument switched off", underlying_spy: "Underlying is not SPY", sndk_off: "SNDK is off",
+    entries_today: "2 entries already today", one_position: "A position or order is already open",
+    option_right: "Wrong right for the signal", option_one_contract: "Not exactly 1 contract",
+    option_contract: "No nearest-expiry ATM contract", no_contract: "No listed option contract",
+    ml_veto: "Learner veto (P(loss) too high)", order_rejected: "Order rejected by the paper account",
+    exit_in_progress: "Exit sent this run", no_stop_reference: "No SPY entry price for the stop",
+    order_error: "Order error",
   };
   const CHECKS = {
     paper_client: "Client is paper (paper-api host)", live_locked: "live_unlocked false · mode paper",
     paper_1000_account: "Keys belong to Paper 1000", symbol_spy: "Symbol is SPY", weekday: "Weekday",
-    time_window: "10:00 ≤ time < 16:00 ET", market_clock: "Market open per Alpaca clock",
+    time_window: "10:00 ≤ time < 15:55 ET", market_clock: "Market open per Alpaca clock",
     aoi_tradable: "AOI tradable with zones", aoi_from_today_open: "AOI written today 09:30–09:59",
     aoi_not_approximate: "AOI is a real read (not approximate)", zone_published: "Zone is in today's override",
     price_at_zone: "Price inside zone or ≤ 0.15% from mid", zone_color_matches_side: "Red → buy · green → sell",
-    confluence: "At least one confluence signal", size_within_cap: "Size ≤ 25% of $1,000",
+    confluence: "At least 2 confluence signals", size_within_cap: "Shares ≤ $800 notional",
+    instrument_enabled: "Active instrument is switched on", underlying_spy: "Underlying is SPY", sndk_off: "SNDK is on",
+    entries_today: "Fewer than 2 entries today", one_position: "Flat, with no open orders",
+    option_right: "Call on buy · put on sell", option_one_contract: "Exactly 1 contract, buy to open",
+    option_contract: "Nearest listed expiry · strike nearest $1", desk_position: "Position is SPY or a SPY option",
   };
-  const BROKER = new Set(["paper_client", "paper_1000_account", "market_clock"]);
+  const BROKER = new Set(["paper_client", "paper_1000_account", "market_clock", "one_position", "option_contract"]);
+  const INST = { spy_options: "SPY options", spy_shares: "SPY shares", sndk_shares: "SNDK shares", sndk_options: "SNDK options" };
+  const pct0 = (v) => isNum(v) ? Math.round(Number(v) * 100) + "%" : "—";
+  const contractName = (p) => p && p.asset === "option" ? `SPY ${fmtNum(p.strike, p.strike % 1 ? 1 : 0)} ${esc(p.right)} · exp ${esc(p.expiry)}` : "SPY shares";
   const DECISION = { skip: "Pass", watch: "Watch only", would_enter: "Would enter", enter: "Entered" };
   const reason = (r) => REASONS[r] || r;
 
@@ -463,6 +503,9 @@
     const s = state, a = s.account || {}, p = s.pnl || {}, st = s.stats || {};
     $("updated").textContent = "Updated " + when(s.generated_at);
     $("acctPill").textContent = `${s.config.account_name || "Paper"} · ${s.config.account_number || "—"}`;
+    const ins = s.instrument || {};
+    $("instText").textContent = ins.enabled ? `${INST[ins.active] || ins.active} · ${ins.active === "spy_options" ? "1 contract" : "$800"} · ${ins.entries_today}/${ins.max_entries_per_day} entries today` : `No instrument on — ${ins.why || ""}`;
+    $("instPill").className = "pill " + (ins.enabled ? "ok" : "bad");
     const sess = s.session.state;
     $("sessionText").textContent = s.session.label || sess;
     $("sessionPill").className = "pill " + (sess === "trade_window" ? "ok" : sess === "watch_only" ? "warn" : "");
@@ -475,6 +518,10 @@
       b.push(`<div class="banner bad">The last snapshot came from account ${esc(a.account_number)}, not ${esc(s.config.account_number)} (Paper 1000). Orders are refused.</div>`);
     if (a.source === "initial")
       b.push(`<div class="banner">Showing the starting $1,000 book. Run <code>python3 alpaca_client.py --save</code> or <code>python3 run_study.py sync</code> for a paper account snapshot.</div>`);
+    (s.positions || []).forEach((q) => {
+      if (q.overnight) b.push(`<div class="banner bad"><b>Overnight hold.</b> ${esc(q.symbol)} was opened on an earlier day. The rules say flat by 16:00 — close it.</div>`);
+      else if (ins.past_flatten) b.push(`<div class="banner bad">${esc(q.symbol)} is still open after ${esc(ins.flatten_start)} ET. Run <code>python3 run_study.py manage</code>.</div>`);
+    });
     const badFiles = (s.files || []).filter((f) => f.status !== "ok");
     if (badFiles.length) b.push(`<div class="banner bad">File problems: ${badFiles.map((f) => esc(f.name + " (" + f.status + ")")).join(", ")}</div>`);
     $("banners").innerHTML = b.join("");
@@ -518,11 +565,16 @@
     // position
     const pos = s.position;
     $("position").innerHTML = pos && Number(pos.qty) !== 0 ? kv([
-      ["Side", Number(pos.qty) > 0 ? "Long" : "Short"], ["Quantity", fmtNum(pos.qty, 4) + " SPY"],
-      ["Average entry", money(pos.avg_entry_price)], ["Last price", money(pos.current_price)],
+      ["Holding", pos.asset === "option" ? `<b>${contractName(pos)}</b>` : `<b>SPY ${Number(pos.qty) > 0 ? "long" : "short"}</b>`],
+      ["Quantity", pos.asset === "option" ? `${fmtNum(pos.qty, 0)} contract` : fmtNum(pos.qty, 4) + " SPY"],
+      [pos.asset === "option" ? "Premium paid / share" : "Average entry", money(pos.avg_entry_price)],
+      [pos.asset === "option" ? "Premium now / share" : "Last price", money(pos.current_price)],
       ["Market value", money(pos.market_value)],
       ["Unrealized", `<span class="${cls(pos.unrealized_pl)}">${smoney(pos.unrealized_pl)} (${spct((pos.unrealized_plpc || 0) * 100)})</span>`],
-    ]) : `<div class="empty">Flat — no SPY position in the last snapshot.</div>`;
+      ["SPY at entry", money(pos.underlying_entry)],
+      ["Stop (SPY, 0.35% against)", isNum(pos.stop_level) ? `${money(pos.stop_level)} <span class="muted">${pos.exposure === "long" ? "at or below" : "at or above"}</span>` : "—"],
+      ["Flatten", `${esc(pos.flatten_at || "15:55")} ET → flat by 16:00`],
+    ]) : `<div class="empty">Flat — no SPY or SPY option position in the last snapshot.</div>`;
 
     // today glance
     const t = s.evals_today || {};
@@ -530,7 +582,8 @@
       ["Session", esc(s.session.label)],
       ["AOI", s.aoi.tradable && s.aoi.fresh && !s.aoi.approximate ? `<span class="pos">Tradable · ${s.aoi.zones.length} zone(s)</span>` : `<span class="muted">Not tradable</span>`],
       ["Market Pulse", s.pulse.is_today ? esc(s.pulse.bias) : `<span class="muted">none today</span>`],
-      ["Evaluated", t.evaluated ?? 0], ["Passes", t.passes ?? 0], ["Orders", t.entered ?? 0],
+      ["Entries", `${ins.entries_today ?? 0} of ${ins.max_entries_per_day ?? 2}`],
+      ["Evaluated", t.evaluated ?? 0], ["Passes", t.passes ?? 0],
       ["Realized today", `<span class="${cls(p.realized_today)}">${smoney(p.realized_today)}</span>`],
     ]);
 
@@ -541,6 +594,8 @@
       ["Why", (le.reasons || []).length ? esc(le.reasons.map(reason).join("; ")) : "—"],
       ["Price", le.market ? money(le.market.price) : "—"],
       ["Zone", zoneCell(le.zone)], ["Tags", tags(le.tags)],
+      ["Would trade", le.plan ? (le.plan.asset === "option" ? `1 SPY ${esc(le.plan.right)} ${le.plan.symbol ? esc(le.plan.symbol) : "≈ " + fmtNum(le.plan.target_strike, 0) + " strike"}` : `${esc(le.plan.order_side)} ${fmtNum(le.plan.qty, 4)} SPY`) : "—"],
+      ["P(loss)", isNum(le.p_loss) ? pct0(le.p_loss) : "—"],
     ]) : `<div class="empty">No evaluation yet. Run <code>python3 run_study.py eval</code>.</div>`;
 
     // AOI
@@ -553,7 +608,7 @@
         const mid = (Number(z.low) + Number(z.high)) / 2;
         const dist = lastPrice ? ((lastPrice - mid) / mid) * 100 : null;
         return `<tr><td><span class="sw ${esc(z.color)}"></span>${esc(z.color)}</td><td class="r num">${fmtNum(z.low)}</td><td class="r num">${fmtNum(z.high)}</td><td class="r num">${fmtNum(mid)}</td>
-          <td>${z.color === "red" ? "Buy" : z.color === "green" ? "Sell / TP" : "—"}</td><td class="r num">${isNum(dist) ? spct(dist) : "—"}</td><td>${tags(z.confluence)}</td></tr>`;
+          <td>${z.color === "red" ? "Buy (call)" : z.color === "green" ? "Sell (put)" : "—"}</td><td class="r num">${isNum(dist) ? spct(dist) : "—"}</td><td>${tags(z.confluence)}</td></tr>`;
       }), "No zones. The scout publishes them only from a same-day Mxwll read during 09:30–09:59 ET.");
 
     // gate
@@ -580,12 +635,15 @@
     // risk
     const r = s.risk;
     $("risk").innerHTML = kv([
-      ["Book", money(r.book, 0)], ["Max risk / idea", `${money(r.max_risk_usd, 0)} (${r.max_risk_pct}%)`],
-      ["Max notional / idea", `${money(r.max_notional_usd, 0)} (${r.max_notional_pct}%)`],
-      ["Qty at last price", isNum(r.qty_at_last_price) ? fmtNum(r.qty_at_last_price, 4) + " SPY" : "—"],
+      ["Book", money(r.book, 0)],
+      ["Options (on)", "1 contract — never resized to a dollar target"],
+      ["Shares (when on)", `${money(r.max_notional_usd, 0)} notional (${r.max_notional_pct}%)` + (isNum(r.qty_at_last_price) ? ` ≈ ${fmtNum(r.qty_at_last_price, 4)} SPY` : "")],
+      ["Stop", `SPY ${ins.stop_underlying_pct ?? 0.35}% against the entry`],
+      ["Leaving the zone", ins.exit_on_zone_leave ? "exits" : "does not exit"],
+      ["Max entries", `${ins.max_entries_per_day ?? 2} a day · one position at a time`],
       ["Zone tolerance", `±${r.zone_tolerance_pct}% of mid`],
-      ["Pulse contradicts", r.pulse_contradiction ? esc(r.pulse_contradiction.action === "skip" ? "skip" : `size × ${r.pulse_contradiction.size_factor}`) : "—"],
-      ["Windows (ET)", esc(`watch ${r.windows.rth_open}–${r.windows.rth_watch_only_until} · enter to ${r.windows.rth_close}`)],
+      ["Pulse contradicts", r.pulse_contradiction ? esc(r.pulse_contradiction.action === "skip" ? "skip" : `options skip · shares size × ${r.pulse_contradiction.size_factor}`) : "—"],
+      ["Windows (ET)", esc(`watch ${r.windows.rth_open}–${r.windows.rth_watch_only_until} · enter to ${ins.entry_cutoff || r.windows.rth_close} · flat by ${r.windows.rth_close}`)],
     ]);
 
     // zone scores
@@ -600,18 +658,22 @@
         (tradeFilter === "losses" && pnl !== null && pnl < 0) || (tradeFilter === "buys" && x.side === "buy") || (tradeFilter === "sells" && x.side === "sell");
     });
     $("tradesTable").innerHTML = table(
-      [["Filled (ET)"], ["Side"], ["Qty", "r"], ["Price", "r"], ["Notional", "r"], ["Position after", "r"], ["Avg cost", "r"], ["Realized P&L", "r"], ["Zone"], ["Confluence"], ["Score", "r"], ["Pulse"], ["Notes"]],
-      tr.map((x) => `<tr><td>${when(x.filled_at)}</td><td>${esc(x.side)}</td><td class="r num">${fmtNum(x.qty, 4)}</td><td class="r num">${money(x.price)}</td>
+      [["Filled (ET)"], ["Symbol"], ["Side"], ["Qty", "r"], ["Price", "r"], ["Notional", "r"], ["Position after", "r"], ["Avg cost", "r"], ["Realized P&L", "r"], ["Zone"], ["Confluence"], ["Score", "r"], ["Pulse"], ["Notes"]],
+      tr.map((x) => `<tr><td>${when(x.filled_at)}</td><td class="num">${esc(x.symbol || "SPY")}${x.exit_reason ? ` <span class="tag">${esc(x.exit_reason)}</span>` : ""}</td><td>${esc(x.side)}</td><td class="r num">${fmtNum(x.qty, 4)}</td><td class="r num">${money(x.price)}</td>
         <td class="r num">${money(x.notional)}</td><td class="r num">${fmtNum(x.position_qty_after, 4)}</td><td class="r num">${Number(x.position_qty_after) ? money(x.avg_cost_after) : "—"}</td>
         <td class="r num ${cls(x.realized_pnl)}">${isNum(x.realized_pnl) ? smoney(x.realized_pnl) : "—"}</td>
         <td>${x.zone_color ? zoneCell({ color: x.zone_color, low: x.zone_low, high: x.zone_high }) : "—"}</td>
         <td>${tags((x.confluence || "").split("|").filter(Boolean))}</td><td class="r num">${esc(x.score || "—")}</td><td>${esc(x.pulse_bias || "—")}</td><td>${esc(x.notes || "")}</td></tr>`),
       (s.trades || []).length ? "No fills match this filter." : "No paper fills yet. Fills appear here only from the Alpaca paper account.");
 
-    $("ordersTable").innerHTML = table([["Sent (ET)"], ["Side"], ["Qty", "r"], ["Price at submit", "r"], ["Notional", "r"], ["Zone"], ["Confluence"], ["Score", "r"], ["Pulse"], ["Status"], ["Order id"]],
-      (s.orders || []).map((o) => `<tr><td>${when(o.ts)}</td><td>${esc(o.side)}</td><td class="r num">${fmtNum(o.qty, 4)}</td><td class="r num">${money(o.price_at_submit)}</td>
-        <td class="r num">${money(o.notional)}</td><td>${zoneCell(o.zone)}</td><td>${tags(o.tags)}</td><td class="r num">${fmtNum(o.score)}</td><td>${esc(o.pulse_bias || "—")}</td>
-        <td>${esc(o.status || "—")}</td><td class="num muted">${esc(o.order_id)}</td></tr>`),
+    $("ordersTable").innerHTML = table([["Sent (ET)"], ["What"], ["Symbol"], ["Side"], ["Qty", "r"], ["SPY", "r"], ["Zone"], ["Confluence"], ["P(loss)", "r"], ["Pulse"], ["Status"], ["Order id"]],
+      (s.orders || []).map((o) => {
+        const what = o.event === "order_rejected" ? `<span class="neg">rejected</span>` : o.event === "exit_failed" ? `<span class="neg">exit failed</span>`
+          : o.role === "exit" ? `exit · ${esc(o.reason)}` : "entry";
+        return `<tr><td>${when(o.ts)}</td><td>${what}</td><td class="num">${esc(o.symbol || "—")}</td><td>${esc(o.side || "—")}</td><td class="r num">${isNum(o.qty) ? fmtNum(o.qty, o.asset === "option" ? 0 : 4) : "—"}</td>
+        <td class="r num">${money(o.underlying_price ?? o.price_at_submit)}</td><td>${zoneCell(o.zone)}</td><td>${tags(o.tags)}</td><td class="r num">${isNum(o.p_loss) ? pct0(o.p_loss) : "—"}</td><td>${esc(o.pulse_bias || "—")}</td>
+        <td>${esc(o.status || (o.reasons || []).map(reason).join("; ") || o.error || "—")}</td><td class="num muted">${esc(o.order_id || "")}</td></tr>`;
+      }),
       "No paper orders sent yet.");
 
     // passes
@@ -631,7 +693,8 @@
       "No reviews yet. Run <code>python3 run_study.py review</code> at 4:15 PM ET.");
 
     // journal
-    const evs = (s.activity || []).filter((e) => journalFilter === "all" || e.event === journalFilter || (journalFilter === "fill" && e.event === "close"));
+    const evs = (s.activity || []).filter((e) => journalFilter === "all" || e.event === journalFilter || (journalFilter === "fill" && e.event === "close")
+      || (journalFilter === "failures" && (e.event === "order_rejected" || e.event === "exit_failed")));
     $("journalTable").innerHTML = table([["Time (ET)"], ["Event"], ["Detail"]],
       evs.map((e) => `<tr><td>${when(e.ts)}</td><td>${esc(e.event)}${e.mode ? ` <span class="muted">(${esc(e.mode)})</span>` : ""}</td><td style="white-space:normal">${journalDetail(e)}</td></tr>`),
       "Nothing logged yet.");
@@ -651,14 +714,68 @@
       ["Study", esc(c.study)], ["Chart", c.chart ? `<a href="${esc(c.chart)}" target="_blank" rel="noopener noreferrer">TradingView SPY</a>` : "—"],
       ["First event", when(s.first_event_at)], ["Days logged", s.trading_days_logged],
     ]);
+    const fl = ins.flags || {};
+    $("instruments").innerHTML = Object.keys(INST).map((k) => `<div class="chk"><span class="ic ${fl[k] ? "ok" : "na"}" aria-hidden="true">${fl[k] ? "●" : "○"}</span>
+      <span class="nm">${esc(INST[k])}${ins.active === k ? ` <span class="tag">active</span>` : ""}</span>
+      <span class="dt">${fl[k] ? "ON" : "OFF"}${k.startsWith("sndk") ? " · no SNDK strategy in this codebase" : ""}</span></div>`).join("") + `<div style="height:8px"></div>` + kv([
+      ["Option", ins.option ? esc(`call on buy · put on sell · ${ins.option.contracts} contract · ATM nearest $1 · nearest expiry`) : "—"],
+      ["Stop", `SPY ${ins.stop_underlying_pct}% against entry`], ["Exit on zone leave", String(ins.exit_on_zone_leave)],
+      ["Hold to", esc(ins.hold_to)], ["Overnight", String(ins.overnight)],
+    ]);
     const ru = s.rules;
-    $("rules").innerHTML = kv([["Buy", esc(ru.buy)], ["Sell / short / TP", esc(ru.sell)]]) +
-      `<div class="sub2">Plus at least one of: ${(ru.confluence || []).map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>` +
+    $("rules").innerHTML = kv([["Buy (call)", esc(ru.buy)], ["Sell (put)", esc(ru.sell)]]) +
+      `<div class="sub2">Plus at least ${esc(ru.min_confluence ?? 2)} of: ${(ru.confluence || []).map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>` +
       (ru.notes ? `<div class="sub2">${esc(ru.notes)}</div>` : "");
     const w = (s.weights && s.weights.weights) || {};
     $("weights").innerHTML = kv(Object.entries(w).map(([k, v]) => [k, fmtNum(v)])) +
       `<div class="sub2">Indicators: ${esc(JSON.stringify((s.weights || {}).indicators || {}))}</div>`;
+    renderLearning(s);
     $("files").innerHTML = table([["File"], ["Status"]], (s.files || []).map((f) => `<tr><td class="num">${esc(f.name)}</td><td class="${f.status === "ok" ? "pos" : "neg"}">${esc(f.status)}</td></tr>`), "—");
+  }
+
+  function renderLearning(s) {
+    const L = s.learning || {}, cfg = L.config || {}, rep = L.report, model = L.model;
+    $("mlMode").textContent = cfg.mode === "veto" ? "Veto (skip only)" : "Shadow (log only)";
+    $("mlModeNote").textContent = cfg.mode === "veto"
+      ? `May skip an entry at P(loss) ≥ ${pct0(cfg.veto_threshold)}, from ${cfg.min_trades_to_act} trades, if it beats the base rate`
+      : "Predicts and logs. Never changes an order. Set ml.mode to \"veto\" in learning_weights.json to let it skip.";
+    $("mlTrades").textContent = rep ? rep.closed_trades : 0;
+    $("mlTradesNote").textContent = rep ? `Loss rate ${pct0(rep.loss_rate)} · retrained ${when(rep.trained_at)}` : "Retrains at the 4:15 review (python3 run_study.py review)";
+    const wf = model && model.walk_forward;
+    if (wf && wf.tested) {
+      $("mlAcc").textContent = pct0(wf.accuracy);
+      $("mlAccNote").innerHTML = `vs ${pct0(wf.base_accuracy)} for the base rate · Brier ${wf.brier} vs ${wf.base_brier} · <b class="${wf.beats_base_rate ? "pos" : "neg"}">${wf.beats_base_rate ? "beats" : "does not beat"} the base rate</b>`;
+    } else {
+      $("mlAcc").textContent = "—";
+      $("mlAccNote").textContent = "Needs 11+ closed trades with both wins and losses to score out-of-sample";
+    }
+    const le = s.last_eval;
+    $("mlLast").textContent = le && isNum(le.p_loss) ? pct0(le.p_loss) : "—";
+    $("mlLastNote").textContent = le && le.ml ? le.ml : "No prediction yet";
+    $("lessons").innerHTML = rep && rep.lessons && rep.lessons.length ? `<ul style="margin:0;padding-left:18px">${rep.lessons.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`
+      : `<div class="empty">${rep && rep.closed_trades ? "No pattern stands out yet." : "No closed trades yet. Lessons appear once trades close."}</div>`;
+    $("mistakes").innerHTML = table([["Mistake"], ["Trades", "r"], ["Lost", "r"], ["Loss rate", "r"], ["Avg P&L", "r"], ["Total", "r"]],
+      ((rep && rep.mistakes) || []).map((m) => `<tr><td>${esc(m.label)}</td><td class="r num">${m.trades}</td><td class="r num">${m.losses}</td><td class="r num">${pct0(m.loss_rate)}</td>
+        <td class="r num ${cls(m.avg_pnl)}">${smoney(m.avg_pnl)}</td><td class="r num ${cls(m.total_pnl)}">${m.trades ? smoney(m.total_pnl) : "—"}</td></tr>`), "Nothing to catalog yet.");
+    $("opsFailures").innerHTML = rep ? kv(rep.ops_failures.map((f) => [f.label, f.count ? `<span class="neg">${f.count}</span>` : "0"])) : `<div class="empty">—</div>`;
+    const mult = L.multipliers || {};
+    $("tagPerf").innerHTML = table([["Signal"], ["Trades", "r"], ["Win rate", "r"], ["P&L", "r"], ["Multiplier", "r"]],
+      ((rep && rep.tags) || Object.keys((s.weights && s.weights.weights) || {}).map((t) => ({ tag: t, trades: 0 }))).map((t) =>
+        `<tr><td>${esc(t.tag)}</td><td class="r num">${t.trades}</td><td class="r num">${pct0(t.win_rate)}</td><td class="r num ${cls(t.pnl)}">${smoney(t.pnl)}</td>
+         <td class="r num">${isNum(mult[t.tag]) ? "×" + fmtNum(mult[t.tag]) : `<span class="muted">×1.00 (needs ${cfg.min_tag_samples ?? 10})</span>`}</td></tr>`), "—");
+    $("recentTrips").innerHTML = table([["Closed (ET)"], ["Symbol"], ["P&L", "r"], ["Exit"], ["P(loss) at entry", "r"], ["Mistakes"]],
+      ((rep && rep.recent) || []).map((t) => `<tr><td>${when(t.closed_at)}</td><td class="num">${esc(t.symbol)}</td><td class="r num ${cls(t.pnl)}">${smoney(t.pnl)}</td>
+        <td>${esc(t.exit_reason)}</td><td class="r num">${isNum(t.p_loss) ? pct0(t.p_loss) : "—"}</td>
+        <td style="white-space:normal">${(t.mistakes || []).map((m) => `<span class="tag">${esc(m.replaceAll("_", " "))}</span>`).join("") || "—"}</td></tr>`), "No closed trades yet.");
+    const FEAT = { signal_buy: "buy signal (call) vs sell (put)", rsi_edge: "RSI on the zone's side of 50", vwap_edge_pct: "price on the zone's side of VWAP",
+      dist_mid_pct: "distance from zone mid", inside_box: "inside the box", minutes_after_10: "later in the day", pulse: "Market Pulse agrees",
+      entry_number: "second entry of the day", n_tags: "number of confluence signals" };
+    const co = model && model.weights ? Object.entries(model.weights).sort((x, y) => Math.abs(y[1]) - Math.abs(x[1])).slice(0, 10) : [];
+    if (!co.length) { $("coefs").innerHTML = `<div class="empty">The loss model trains after 10 closed trades with both wins and losses.</div>`; return; }
+    const mx = Math.max(...co.map(([, v]) => Math.abs(v))) || 1;
+    $("coefs").innerHTML = co.map(([k, v]) => `<div class="hbar"><span>${esc(FEAT[k] || k.replace("tag_", "signal: ").replaceAll("_", " "))}</span>
+      <span class="track"><span class="fill" style="display:block;width:${(Math.abs(v) / mx) * 100}%;background:${v > 0 ? "var(--bad)" : "var(--good)"}"></span></span>
+      <span class="num" style="text-align:right">${v > 0 ? "+" : "−"}${fmtNum(Math.abs(v))}</span></div>`).join("");
   }
 
   function journalDetail(e) {
@@ -668,14 +785,20 @@
         if ((e.reasons || []).length) bits.push(esc(e.reasons.map(reason).join("; ")));
         if (e.market) bits.push(`price ${money(e.market.price)}`);
         if (e.zone) bits.push(zoneCell(e.zone));
-        if (e.side) bits.push(`${esc(e.side)} ${fmtNum(e.qty, 4)} (${money(e.notional)})`);
+        if (e.plan) bits.push(e.plan.asset === "option" ? `1 SPY ${esc(e.plan.right)} ${esc(e.plan.symbol || "≈" + fmtNum(e.plan.target_strike, 0))}` : `${esc(e.plan.order_side)} ${fmtNum(e.plan.qty, 4)} SPY (${money(e.plan.notional)})`);
+        if (isNum(e.p_loss)) bits.push(`P(loss) ${pct0(e.p_loss)}`);
         if ((e.tags || []).length) bits.push(tags(e.tags));
         if (e.note) bits.push(esc(e.note));
         if (e.error) bits.push(`<span class="muted">${esc(e.error)}</span>`);
         return bits.join(" · ");
       }
-      case "order": return `${esc(e.side)} ${fmtNum(e.qty, 4)} SPY ≈ ${money(e.notional)} · ${zoneCell(e.zone)} · ${tags(e.tags)} · ${esc(e.status)} · <span class="muted">${esc(e.order_id)}</span>`;
-      case "fill": case "close": return `${esc(e.side)} ${fmtNum(e.qty, 4)} @ ${money(e.price)}${isNum(e.realized_pnl) ? ` · <span class="${cls(e.realized_pnl)}">${smoney(e.realized_pnl)}</span>` : ""} · position ${fmtNum(e.position_qty_after, 4)}`;
+      case "order": return e.role === "exit"
+        ? `<b>exit (${esc(e.reason)})</b> ${esc(e.side)} ${fmtNum(e.qty, 0)} ${esc(e.symbol)}${isNum(e.underlying_price) ? ` · SPY ${money(e.underlying_price)}` : ""}${isNum(e.stop_level) ? ` vs stop ${money(e.stop_level)}` : ""} · ${esc(e.status)}`
+        : `<b>entry</b> ${esc(e.side)} ${fmtNum(e.qty, e.asset === "option" ? 0 : 4)} ${esc(e.symbol || "SPY")} on a ${esc(e.signal || "")} · SPY ${money(e.underlying_price)} · ${zoneCell(e.zone)} · ${tags(e.tags)}${isNum(e.p_loss) ? ` · P(loss) ${pct0(e.p_loss)}` : ""} · ${esc(e.status)}`;
+      case "order_rejected": return `<span class="neg">rejected</span> ${esc(e.symbol || "")} · ${esc(e.error || "")}`;
+      case "exit_failed": return `<span class="neg">exit failed</span> ${esc(e.symbol || (e.symbols || []).join(", "))} ${e.reason ? "(" + esc(e.reason) + ")" : ""} · ${esc((e.reasons || []).map(reason).join("; "))} ${esc(e.error || e.note || "")}`;
+      case "learn": return `retrained on ${e.closed_trades} closed trade(s)${e.model_trained ? " · model updated" : ""}${(e.lessons || []).length ? " · " + e.lessons.map(esc).join(" ") : ""}`;
+      case "fill": case "close": return `${esc(e.symbol || "SPY")} ${esc(e.side)} ${fmtNum(e.qty, 4)} @ ${money(e.price)}${e.reason ? " (" + esc(e.reason) + ")" : ""}${isNum(e.realized_pnl) ? ` · <span class="${cls(e.realized_pnl)}">${smoney(e.realized_pnl)}</span>` : ""} · position ${fmtNum(e.position_qty_after, 4)}`;
       case "account": return `equity ${money(e.equity)} · cash ${money(e.cash)} · buying power ${money(e.buying_power)}`;
       case "aoi": return e.tradable ? `published ${(e.zones || []).map(zoneCell).join(", ")}` : `no tradable AOI${e.note ? " — " + esc(e.note) : ""}`;
       case "pulse": return `bias <b>${esc(e.bias)}</b>${e.note ? " — " + esc(e.note) : ""}`;

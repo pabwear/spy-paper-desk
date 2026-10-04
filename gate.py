@@ -1,7 +1,10 @@
-"""The order gate. A paper order may be sent only if every check here passes.
+"""The order gates. A paper order may be sent only if every check passes.
 
-Pure function: the caller supplies the clock, the files' contents and the
-client's host. Nothing here can place an order.
+check_order  — entries (SPY option or SPY shares, whichever is active and enabled)
+check_exit   — closing a desk position (stop or the 16:00 flatten)
+
+Pure functions: the caller supplies the clock, the files' contents and what the
+paper account reported. Nothing here can place an order.
 """
 
 from __future__ import annotations
@@ -10,6 +13,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from urllib.parse import urlparse
 
+import instruments
 from common import ET, LIVE_HOST, PAPER_HOST, hhmm, to_et
 from signals import COLOR_FOR_SIDE, price_near_zone
 
@@ -57,6 +61,19 @@ def is_approximate(override: dict | None) -> bool:
     return any(z.get("approximate") for z in override.get("zones", []) or [])
 
 
+def _paper_checks(add, *, base_url, client_is_paper, config, rules, account_number) -> None:
+    host = host_of(base_url)
+    add("paper_client", client_is_paper and host == PAPER_HOST and host != LIVE_HOST,
+        f"host {host or '(none)'}, paper={client_is_paper}")
+    live_off = (config.get("live_unlocked") is False and config.get("mode") == "paper"
+                and rules.get("live_trading") is False and rules.get("mode") == "paper")
+    add("live_locked", live_off,
+        "live_unlocked false, mode paper" if live_off else "live_unlocked/mode is not paper-only — stop")
+    expected = config.get("account_number")
+    add("paper_1000_account", bool(expected) and account_number == expected,
+        f"account {account_number or '(unknown)'} vs expected {expected}")
+
+
 def check_order(
     *,
     now: datetime,
@@ -66,39 +83,39 @@ def check_order(
     rules: dict,
     risk: dict,
     override: dict | None,
-    symbol: str,
-    side: str,
-    qty: float,
+    plan: dict,
     price: float,
     zone: dict | None,
     tags: list[str],
     account_number: str | None,
     market_open: bool | None,
+    entries_today: int,
+    open_positions: list[dict] | None,
+    open_orders: int | None,
 ) -> list[Check]:
     checks: list[Check] = []
     add = lambda name, ok, detail: checks.append(Check(name, bool(ok), detail))  # noqa: E731
 
-    host = host_of(base_url)
-    add("paper_client", client_is_paper and host == PAPER_HOST and host != LIVE_HOST,
-        f"host {host or '(none)'}, paper={client_is_paper}")
+    _paper_checks(add, base_url=base_url, client_is_paper=client_is_paper, config=config, rules=rules,
+                  account_number=account_number)
 
-    live_off = (config.get("live_unlocked") is False and config.get("mode") == "paper"
-                and rules.get("live_trading") is False and rules.get("mode") == "paper")
-    add("live_locked", live_off,
-        "live_unlocked false, mode paper" if live_off else "live_unlocked/mode is not paper-only — stop")
+    inst = instruments.active(rules)
+    add("instrument_enabled", inst["enabled"] and plan.get("instrument") == inst["name"],
+        inst["why"] if plan.get("instrument") == inst.get("name") else
+        f"plan is {plan.get('instrument')}, active is {inst.get('name')}")
 
-    expected = config.get("account_number")
-    add("paper_1000_account", bool(expected) and account_number == expected,
-        f"account {account_number or '(unknown)'} vs expected {expected}")
-
-    sym_ok = symbol == "SPY" and config.get("symbol") == "SPY" and risk.get("symbol") == "SPY"
-    add("symbol_spy", sym_ok, f"symbol {symbol}")
+    sym_ok = (plan.get("underlying") == "SPY" and rules.get("symbol_underlying", "SPY") == "SPY"
+              and config.get("symbol") == "SPY" and risk.get("symbol") == "SPY")
+    add("underlying_spy", sym_ok, f"underlying {plan.get('underlying')}")
+    if plan.get("underlying") == "SNDK":
+        add("sndk_off", rules.get("sndk_enabled") is True, "sndk_enabled is false")
 
     t = now.astimezone(ET)
     add("weekday", t.weekday() < 5, t.strftime("%A"))
-    in_window = hhmm(risk["rth_watch_only_until"]) <= t.time() < hhmm(risk["rth_close"])
+    cutoff = risk.get("entry_cutoff", risk["rth_close"])
+    in_window = hhmm(risk["rth_watch_only_until"]) <= t.time() < hhmm(cutoff)
     add("time_window", t.weekday() < 5 and in_window,
-        f"{t:%H:%M} ET; orders only {risk['rth_watch_only_until']}–{risk['rth_close']} ET")
+        f"{t:%H:%M} ET; entries {risk['rth_watch_only_until']}–{cutoff} ET")
 
     if market_open is None:
         add("market_clock", False, "Alpaca market clock not read")
@@ -109,34 +126,79 @@ def check_order(
     tradable = bool(override and override.get("tradable") is True and override.get("zones")
                     and override.get("symbol") == "SPY")
     add("aoi_tradable", tradable, "tradable with zones" if tradable else "tradable is false or zones empty")
-
     fresh, why = override_freshness(override, now, risk)
     add("aoi_from_today_open", fresh, why)
-
     approx = is_approximate(override)
-    add("aoi_not_approximate", not approx, "approximate/withdrawn levels" if approx else "real read")
-
+    add("aoi_not_approximate", not approx, "approximate/stand-in levels" if approx else "real read")
     in_override = bool(zone and override and zone in (override.get("zones") or []))
     add("zone_published", in_override, "zone is in today's override" if in_override else "zone not in override")
 
     tol = float(risk.get("zone_midpoint_tolerance_pct", 0.15))
     near = bool(zone) and price_near_zone(price, zone, tol)
-    add("price_at_zone", near,
-        f"price {price:.2f} vs zone {zone['low']}–{zone['high']}" if zone else "no zone")
+    add("price_at_zone", near, f"SPY {price:.2f} vs zone {zone['low']}–{zone['high']}" if zone else "no zone")
 
-    want = COLOR_FOR_SIDE.get(side)
-    color_ok = bool(zone) and want is not None and zone.get("color") == want
-    add("zone_color_matches_side", color_ok,
-        f"{side} needs {want}; zone is {zone.get('color') if zone else '(none)'}")
+    signal = plan.get("signal")
+    want = COLOR_FOR_SIDE.get(signal)
+    add("zone_color_matches_side", bool(zone) and want is not None and zone.get("color") == want,
+        f"{signal} needs {want}; zone is {zone.get('color') if zone else '(none)'}")
 
-    add("confluence", len(tags) >= 1, ", ".join(tags) if tags else "no extra signal agrees")
+    need = int(rules.get("min_confluence", 2))
+    add("confluence", len(tags) >= need, f"{len(tags)} of {need} needed: {', '.join(tags) or 'none'}")
 
-    cap = float(risk["size_as_if_equity_usd"]) * float(risk["max_notional_pct_of_sizing_equity"]) / 100.0
-    notional = qty * price
-    # round(..., 4) can land a hair over the cap; allow half a 0.0001-share step.
-    size_ok = qty > 0 and notional <= cap + price * 0.00005
-    add("size_within_cap", size_ok, f"qty {qty} ≈ ${notional:,.2f} vs cap ${cap:,.2f}")
+    cap = int(rules.get("max_entries_per_day", 2))
+    add("entries_today", entries_today < cap, f"{entries_today} of {cap} entries used today")
 
+    if open_positions is None or open_orders is None:
+        add("one_position", False, "paper positions/orders not read")
+    else:
+        busy = [p["symbol"] for p in open_positions if float(p.get("qty") or 0) != 0]
+        add("one_position", not busy and open_orders == 0,
+            "flat, no open orders" if not busy and open_orders == 0 else
+            f"open: {', '.join(busy) or '—'}; open orders {open_orders}")
+
+    if plan.get("asset") == "option":
+        opt = rules.get("option", {})
+        right_ok = plan.get("right") == (opt.get("right_on_buy") if signal == "buy" else opt.get("right_on_sell"))
+        add("option_right", right_ok, f"{signal} → {plan.get('right')}")
+        add("option_one_contract", plan.get("contracts") == 1 and plan.get("qty") == 1
+            and plan.get("order_side") == "buy", f"{plan.get('qty')} contract(s), {plan.get('order_side')} to open")
+        occ = instruments.parse_occ(plan.get("symbol") or "")
+        contract_ok = bool(occ and occ["underlying"] == "SPY" and occ["right"] == plan.get("right")
+                           and plan.get("expiry_is_nearest") and plan.get("strike_is_nearest"))
+        add("option_contract", contract_ok,
+            f"{plan.get('symbol')} (strike {occ['strike']:g}, exp {occ['expiry']})" if occ else "no contract chosen")
+    else:
+        sizing = float(risk["size_as_if_equity_usd"]) * float(risk["max_notional_pct_of_sizing_equity"]) / 100.0
+        qty = float(plan.get("qty") or 0)
+        notional = qty * price
+        # round(..., 4) can land a hair over the cap; allow half a 0.0001-share step.
+        add("size_within_cap", qty > 0 and notional <= sizing + price * 0.00005,
+            f"qty {qty} ≈ ${notional:,.2f} vs cap ${sizing:,.2f}")
+
+    return checks
+
+
+def check_exit(
+    *,
+    now: datetime,
+    base_url: str,
+    client_is_paper: bool,
+    config: dict,
+    rules: dict,
+    position: dict,
+    account_number: str | None,
+    market_open: bool | None,
+) -> list[Check]:
+    """Exits stay allowed even if the instrument was switched off: closing only removes risk."""
+    checks: list[Check] = []
+    add = lambda name, ok, detail: checks.append(Check(name, bool(ok), detail))  # noqa: E731
+    _paper_checks(add, base_url=base_url, client_is_paper=client_is_paper, config=config, rules=rules,
+                  account_number=account_number)
+    t = now.astimezone(ET)
+    add("weekday", t.weekday() < 5, t.strftime("%A"))
+    add("market_clock", market_open is True, "market open" if market_open else "market closed or not read")
+    add("desk_position", instruments.is_desk_symbol(position.get("symbol", "")) and float(position.get("qty") or 0) != 0,
+        f"{position.get('symbol')} qty {position.get('qty')}")
     return checks
 
 

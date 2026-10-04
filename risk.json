@@ -2,18 +2,21 @@
   "target_book_usd": 1000,
   "size_as_if_equity_usd": 1000,
   "max_risk_pct_per_idea": 10,
-  "max_notional_pct_of_sizing_equity": 25,
+  "max_notional_pct_of_sizing_equity": 80,
   "symbol": "SPY",
   "allow_fractional": true,
   "timezone": "America/New_York",
   "rth_open": "09:30",
   "rth_watch_only_until": "10:00",
   "rth_close": "16:00",
-  "rule": "No new paper orders 09:30-09:59 ET. After 10:00, orders only if today's Mxwll AOI was published from the open.",
+  "rule": "No new paper orders 09:30-09:59 ET. Entries 10:00 until the 15:55 flatten window, only if today's Mxwll AOI was published from the open. Flat by 16:00.",
   "zone_midpoint_tolerance_pct": 0.15,
   "pulse_contradiction": {
     "action": "reduce",
     "size_factor": 0.5,
     "note": "When Market Pulse contradicts the side: 'reduce' sizes by size_factor, 'skip' passes on the idea."
-  }
+  },
+  "entry_cutoff": "15:55",
+  "flatten_start": "15:55",
+  "sizing_note": "Shares mode: 80% of $1,000 = $800 notional. Options mode: always exactly 1 contract, never resized to a dollar target."
 }

@@ -59,23 +59,45 @@ def falling_bars(day: datetime, until: datetime, start: float = 600.0, end: floa
     return bars
 
 
+def rising_bars(day: datetime, until: datetime, start: float = 600.0, end: float = 610.0,
+                last_volume: float = 5000.0) -> list[dict]:
+    """Mirror of falling_bars: RSI > 50, price > VWAP."""
+    return falling_bars(day, until, start=start, end=end, last_volume=last_volume)
+
+
+def use_shares(enabled: bool = True) -> None:
+    from common import load_json, save_json
+
+    r = load_json("rules.json")
+    r.update(active="spy_shares", shares_enabled=enabled, spy_options_enabled=False)
+    save_json("rules.json", r)
+
+
 class FakeBroker:
+    """Stands in for alpaca_client.PaperBroker. Records what would have been sent."""
+
     base_url = "https://paper-api.alpaca.markets"
     is_paper = True
 
-    def __init__(self, account_number="PA3R32D8LP4Q", position=None, market_open=True, fills=None,
-                 open_orders=None):
+    def __init__(self, account_number="PA3R32D8LP4Q", positions=None, market_open=True, fills=None,
+                 open_orders=None, reject=False, expiries=(0, 1, 2)):
         self.account_number = account_number
-        self._position = position
+        self._positions = positions or []
         self._market_open = market_open
         self._fills = fills or []
         self._open = open_orders or []
+        self._reject = reject
+        self._expiries = expiries
         self.submitted: list[dict] = []
+
+    def positions(self):
+        return list(self._positions)
 
     def account_snapshot(self):
         return {"source": "fake_paper", "account_name": "Paper 1000", "account_number": self.account_number,
                 "status": "ACTIVE", "snapshot_at": "2026-10-01T10:30:00-04:00", "equity": 1000.0, "cash": 1000.0,
-                "buying_power": 2000.0, "last_equity": 1000.0, "position": self._position}
+                "buying_power": 2000.0, "last_equity": 1000.0,
+                "position": self._positions[0] if self._positions else None, "positions": self.positions()}
 
     def market_open(self):
         return self._market_open
@@ -86,6 +108,20 @@ class FakeBroker:
     def filled_orders_since(self, since):
         return list(self._fills)
 
-    def submit_market(self, side, qty, client_order_id):
-        self.submitted.append({"side": side, "qty": qty, "client_order_id": client_order_id})
+    def option_contracts(self, right, around, today):
+        from instruments import occ_symbol
+
+        out = []
+        for d in self._expiries:
+            exp = today + timedelta(days=d)
+            for k in range(int(around) - 3, int(around) + 4):
+                out.append({"symbol": occ_symbol("SPY", exp, right, k), "expiry": exp, "right": right,
+                            "strike": float(k), "tradable": True})
+        return out
+
+    def submit_market(self, side, qty, client_order_id, symbol="SPY", intent=None):
+        if self._reject:
+            raise RuntimeError("insufficient options buying power")
+        self.submitted.append({"side": side, "qty": qty, "client_order_id": client_order_id, "symbol": symbol,
+                               "intent": intent})
         return {"order_id": f"fake-{len(self.submitted)}", "status": "accepted", "submitted_at": "now"}

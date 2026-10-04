@@ -11,12 +11,48 @@ from __future__ import annotations
 import sys
 from datetime import datetime
 
+import instruments
 import journal
-from common import ET, SESSION_LABELS, load_json, now_et, save_json, session_state, to_et
+from common import ET, SESSION_LABELS, hhmm, load_json, now_et, save_json, session_state, to_et
 from gate import is_approximate, override_freshness
 
 FILES = ["alpaca_config.json", "rules.json", "risk.json", "study.json", "account.json", "aoi_override.json",
          "learning_weights.json", "market_pulse.json", "trades.csv"]
+
+
+def _desk_positions(account: dict, events: list[dict], rules: dict, risk: dict, now: datetime) -> list[dict]:
+    """Open SPY/SPY-option positions with their stop level and flatten time."""
+    raw = account.get("positions")
+    if raw is None:
+        raw = [account["position"]] if account.get("position") else []
+    out = []
+    pct = float(rules.get("stop_underlying_pct", 0.35))
+    for p in raw:
+        if not p or not instruments.is_desk_symbol(p.get("symbol", "")) or not float(p.get("qty") or 0):
+            continue
+        entry = next((e for e in reversed(events) if e.get("event") == "order" and e.get("role") == "entry"
+                      and e.get("symbol") == p["symbol"]), {})
+        exposure = instruments.direction(p["symbol"], float(p["qty"]))
+        ref = entry.get("underlying_price") or (p.get("avg_entry_price") if p["symbol"] == "SPY" else None)
+        occ = instruments.parse_occ(p["symbol"])
+        opened = to_et(entry.get("ts"))
+        out.append({
+            **p,
+            "asset": "option" if occ else "shares",
+            "right": occ["right"] if occ else None,
+            "strike": occ["strike"] if occ else None,
+            "expiry": occ["expiry"].isoformat() if occ else None,
+            "multiplier": 100 if occ else 1,
+            "exposure": exposure,
+            "underlying_entry": ref,
+            "stop_level": instruments.stop_level(exposure, float(ref), pct) if ref else None,
+            "flatten_at": risk.get("flatten_start"),
+            "overnight": bool(opened and opened.date() < now.date()),
+            "entry_tags": entry.get("tags"),
+            "entry_zone": entry.get("zone"),
+            "p_loss": entry.get("p_loss"),
+        })
+    return out
 
 
 def _files_status() -> list[dict]:
@@ -60,7 +96,6 @@ def build_state(now: datetime | None = None) -> dict:
     book = float(risk.get("target_book_usd") or study.get("starting_capital") or 1000)
     sizing = float(risk.get("size_as_if_equity_usd") or book)
     equity = _f(account.get("equity"))
-    pos = account.get("position") or None
 
     stats = journal.trade_stats(trades)
     daily = journal.daily_realized(trades)
@@ -100,7 +135,12 @@ def build_state(now: datetime | None = None) -> dict:
     fresh, fresh_why = override_freshness(override, now, risk) if risk else (False, "risk.json missing")
     notional_cap = sizing * float(risk.get("max_notional_pct_of_sizing_equity", 25)) / 100.0
 
-    unrealized = _f((pos or {}).get("unrealized_pl"))
+    positions = _desk_positions(account, events, rules, risk, now)
+    unrealized = round(sum(_f(p.get("unrealized_pl")) or 0.0 for p in positions), 2) if positions else None
+    inst = instruments.active(rules)
+    learn_report = load_json("learning_report.json", None)
+    model = load_json("ml_model.json", None)
+    entries_today = journal.entries_on(events, today)
     return {
         "generated_at": now.isoformat(timespec="seconds"),
         "session": {
@@ -129,7 +169,33 @@ def build_state(now: datetime | None = None) -> dict:
             "day_change_usd": round(equity - float(account["last_equity"]), 2)
             if equity is not None and _f(account.get("last_equity")) is not None else None,
         },
-        "position": pos,
+        "position": positions[0] if positions else None,
+        "positions": positions,
+        "instrument": {
+            "active": inst.get("name"),
+            "enabled": inst["enabled"],
+            "why": inst["why"],
+            "flags": instruments.flags(rules),
+            "option": rules.get("option"),
+            "stop_underlying_pct": rules.get("stop_underlying_pct"),
+            "exit_on_zone_leave": rules.get("exit_on_zone_leave"),
+            "hold_to": rules.get("hold_to"),
+            "overnight": rules.get("overnight"),
+            "min_confluence": rules.get("min_confluence"),
+            "max_entries_per_day": rules.get("max_entries_per_day"),
+            "entries_today": entries_today,
+            "entry_cutoff": risk.get("entry_cutoff"),
+            "flatten_start": risk.get("flatten_start"),
+            "past_flatten": bool(risk.get("flatten_start")) and now.time() >= hhmm(risk["flatten_start"]),
+        },
+        "learning": {
+            "config": (weights or {}).get("ml"),
+            "multipliers": (weights or {}).get("learned_multipliers") or {},
+            "learned_at": (weights or {}).get("learned_at"),
+            "report": learn_report,
+            "model": {k: model.get(k) for k in ("trained_on", "loss_rate", "walk_forward", "weights", "trained_at")}
+            if model else None,
+        },
         "pnl": {
             "book": book,
             "realized_total": stats["realized_pnl"],
@@ -171,14 +237,15 @@ def build_state(now: datetime | None = None) -> dict:
         "evals_today": tally(today_events),
         "evals_all": tally(events),
         "trades": list(reversed(trades)),
-        "orders": [e for e in reversed(events) if e.get("event") == "order"][:50],
+        "orders": [e for e in reversed(events) if e.get("event") in ("order", "order_rejected", "exit_failed")][:50],
         "reviews": [e for e in reversed(events) if e.get("event") == "review"][:30],
         "activity": list(reversed(events))[:150],
         "weights": weights,
         "rules": {
             "buy": (rules.get("aoi") or {}).get("buy"),
             "sell": (rules.get("aoi") or {}).get("sell_short_tp"),
-            "confluence": (rules.get("confluence_required") or {}).get("plus_at_least_one"),
+            "confluence": (rules.get("confluence_required") or {}).get("of"),
+            "min_confluence": rules.get("min_confluence"),
             "notes": (study.get("rules") or {}).get("notes"),
         },
         "files": _files_status(),

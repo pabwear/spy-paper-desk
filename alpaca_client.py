@@ -1,4 +1,4 @@
-"""Alpaca PAPER access. Snapshot the Paper 1000 account; never a live client.
+"""Alpaca PAPER access for SPY shares and SPY options. Never a live client.
 
     python3 alpaca_client.py          # print equity, cash, buying power (no keys)
     python3 alpaca_client.py --save   # also write account.json and log the snapshot
@@ -13,10 +13,11 @@ import argparse
 import os
 import re
 import sys
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 from common import ET, PAPER_HOST, load_json, now_et, path, save_json
 from gate import host_of
+from instruments import is_desk_symbol
 
 
 class LiveTradingRefused(RuntimeError):
@@ -75,7 +76,8 @@ class PaperBroker:
     # -- reads
     def account_snapshot(self) -> dict:
         a = self._client.get_account()
-        pos = self.position()
+        positions = self.positions()
+        desk = [p for p in positions if is_desk_symbol(p["symbol"])]
         return {
             "source": "alpaca_paper",
             "account_name": self.config.get("account_name"),
@@ -85,46 +87,53 @@ class PaperBroker:
             "equity": float(a.equity),
             "cash": float(a.cash),
             "buying_power": float(a.buying_power),
+            "options_buying_power": _f(getattr(a, "options_buying_power", None)),
             "last_equity": float(a.last_equity) if getattr(a, "last_equity", None) else None,
-            "position": pos,
+            "position": desk[0] if desk else None,
+            "positions": positions,
         }
 
     def market_open(self) -> bool:
         return bool(self._client.get_clock().is_open)
 
-    def position(self) -> dict | None:
+    def positions(self) -> list[dict]:
+        out = []
         for p in self._client.get_all_positions():
-            if p.symbol == "SPY":
-                return {
-                    "symbol": "SPY",
-                    "qty": float(p.qty),
-                    "avg_entry_price": float(p.avg_entry_price),
-                    "current_price": float(p.current_price) if p.current_price else None,
-                    "market_value": float(p.market_value) if p.market_value else None,
-                    "unrealized_pl": float(p.unrealized_pl) if p.unrealized_pl else None,
-                    "unrealized_plpc": float(p.unrealized_plpc) if p.unrealized_plpc else None,
-                }
-        return None
+            out.append({
+                "symbol": p.symbol,
+                "asset_class": str(getattr(p.asset_class, "value", p.asset_class)),
+                "qty": float(p.qty),
+                "avg_entry_price": float(p.avg_entry_price),
+                "current_price": _f(p.current_price),
+                "market_value": _f(p.market_value),
+                "unrealized_pl": _f(p.unrealized_pl),
+                "unrealized_plpc": _f(p.unrealized_plpc),
+            })
+        return out
 
     def open_orders(self) -> list[dict]:
         from alpaca.trading.enums import QueryOrderStatus
         from alpaca.trading.requests import GetOrdersRequest
 
-        orders = self._client.get_orders(filter=GetOrdersRequest(status=QueryOrderStatus.OPEN, symbols=["SPY"]))
-        return [{"id": str(o.id), "side": str(o.side.value), "qty": o.qty} for o in orders]
+        orders = self._client.get_orders(filter=GetOrdersRequest(status=QueryOrderStatus.OPEN))
+        return [{"id": str(o.id), "symbol": o.symbol, "side": str(o.side.value), "qty": o.qty} for o in orders]
 
     def filled_orders_since(self, since: datetime) -> list[dict]:
+        """Fills on SPY shares and SPY options only."""
         from alpaca.trading.enums import QueryOrderStatus
         from alpaca.trading.requests import GetOrdersRequest
 
-        req = GetOrdersRequest(status=QueryOrderStatus.CLOSED, symbols=["SPY"], after=since, limit=500)
+        req = GetOrdersRequest(status=QueryOrderStatus.CLOSED, after=since, limit=500)
         out = []
         for o in self._client.get_orders(filter=req):
             if o.filled_at is None or not o.filled_qty or float(o.filled_qty) == 0:
                 continue
+            if not is_desk_symbol(o.symbol):
+                continue
             out.append({
                 "order_id": str(o.id),
                 "client_order_id": o.client_order_id,
+                "symbol": o.symbol,
                 "side": str(o.side.value),
                 "qty": float(o.filled_qty),
                 "price": float(o.filled_avg_price),
@@ -134,22 +143,51 @@ class PaperBroker:
         out.sort(key=lambda r: r["filled_at"])
         return out
 
-    # -- the only write
-    def submit_market(self, side: str, qty: float, client_order_id: str) -> dict:
-        from alpaca.trading.enums import OrderSide, TimeInForce
+    def option_contracts(self, right: str, around: float, today: date) -> list[dict]:
+        """Listed, active SPY contracts of one right, expiring within 7 days, strikes within $5."""
+        from alpaca.trading.enums import AssetStatus, ContractType
+        from alpaca.trading.requests import GetOptionContractsRequest
+
+        req = GetOptionContractsRequest(
+            underlying_symbols=["SPY"], status=AssetStatus.ACTIVE,
+            type=ContractType.CALL if right == "call" else ContractType.PUT,
+            expiration_date_gte=today.isoformat(), expiration_date_lte=(today + timedelta(days=7)).isoformat(),
+            strike_price_gte=str(int(around) - 5), strike_price_lte=str(int(around) + 5), limit=500,
+        )
+        res = self._client.get_option_contracts(req)
+        return [{"symbol": c.symbol, "expiry": c.expiration_date, "right": right, "strike": float(c.strike_price),
+                 "tradable": bool(c.tradable)} for c in (res.option_contracts or [])]
+
+    # -- writes (paper only)
+    def submit_market(self, side: str, qty: float, client_order_id: str, symbol: str = "SPY",
+                      intent: str | None = None) -> dict:
+        from alpaca.trading.enums import OrderSide, PositionIntent, TimeInForce
         from alpaca.trading.requests import MarketOrderRequest
 
         if not self.is_paper or host_of(self.base_url) != PAPER_HOST:
             raise LiveTradingRefused("Refusing to submit: client is not paper.")
+        if not is_desk_symbol(symbol):
+            raise LiveTradingRefused(f"Refusing to submit {symbol}: not SPY or a SPY option.")
+        kwargs = {}
+        if intent in ("buy_to_open", "sell_to_close", "buy_to_close", "sell_to_open"):
+            kwargs["position_intent"] = PositionIntent(intent)
         req = MarketOrderRequest(
-            symbol="SPY",
+            symbol=symbol,
             qty=qty,
             side=OrderSide.BUY if side == "buy" else OrderSide.SELL,
             time_in_force=TimeInForce.DAY,
             client_order_id=client_order_id,
+            **kwargs,
         )
         o = self._client.submit_order(order_data=req)
         return {"order_id": str(o.id), "status": str(o.status.value), "submitted_at": str(o.submitted_at)}
+
+
+def _f(v):
+    try:
+        return float(v) if v is not None else None
+    except (TypeError, ValueError):
+        return None
 
 
 def fetch_bars(now: datetime, minutes: int = 1) -> list[dict]:
@@ -210,7 +248,7 @@ def main() -> int:
     print(f"Cash      ${snap['cash']:,.2f}")
     print(f"Buy power ${snap['buying_power']:,.2f}")
     pos = snap["position"]
-    print(f"SPY       {pos['qty']} @ {pos['avg_entry_price']:.2f}" if pos else "SPY       flat")
+    print(f"Position  {pos['symbol']} {pos['qty']} @ {pos['avg_entry_price']:.2f}" if pos else "Position  flat")
     if args.save:
         import journal
         import rebuild_dashboard

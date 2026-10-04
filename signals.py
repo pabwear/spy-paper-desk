@@ -107,12 +107,15 @@ def confluence_tags(zone: dict, price: float, rsi_value: float | None, vwap: flo
     return tags
 
 
-def score(tags: list[str], weights: dict) -> float:
-    return round(sum(float(weights.get(t, 0.0)) for t in tags), 4)
+def score(tags: list[str], weights: dict, multipliers: dict | None = None) -> float:
+    """Sum of base weight × learned multiplier (1.0 until the learner has enough samples)."""
+    m = multipliers or {}
+    return round(sum(float(weights.get(t, 0.0)) * float(m.get(t, 1.0)) for t in tags), 4)
 
 
 def rank_zones(zones: list[dict], price: float, rsi_value: float | None, vwap: float | None,
-               volume_up: bool | None, weights: dict, tolerance_pct: float = 0.15) -> list[dict]:
+               volume_up: bool | None, weights: dict, tolerance_pct: float = 0.15,
+               multipliers: dict | None = None) -> list[dict]:
     """Every zone with its proximity, tags and score, best candidate first.
 
     Candidates (price near the zone) sort ahead of non-candidates; ties break on
@@ -128,7 +131,8 @@ def rank_zones(zones: list[dict], price: float, rsi_value: float | None, vwap: f
             "near": price_near_zone(price, z, tolerance_pct),
             "distance_pct": round((price - mid) / mid * 100.0, 4),
             "tags": tags,
-            "score": score(tags, weights),
+            "inside": float(z["low"]) <= price <= float(z["high"]),
+            "score": score(tags, weights, multipliers),
         })
     ranked.sort(key=lambda r: (not r["near"], -r["score"], abs(r["distance_pct"])))
     return ranked

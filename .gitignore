@@ -7,3 +7,5 @@ __pycache__/
 # Runtime output written by the desk
 journal.jsonl
 dashboard_state.json
+ml_model.json
+learning_report.json
