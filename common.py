@@ -81,6 +81,26 @@ def session_state(now: datetime, risk: dict) -> str:
     return "after_close"
 
 
+SYMBOL_RE = r"^[A-Z]{1,5}(\.[A-Z])?$"
+
+
+def watchlist() -> dict:
+    w = load_json("watchlist.json", None) or {}
+    w.setdefault("focus", ["SPY"])
+    w.setdefault("symbols", {"SPY": {}})
+    return w
+
+
+def focus_symbols() -> list[str]:
+    w = watchlist()
+    return [s for s in w["focus"] if s in w["symbols"]]
+
+
+def aoi_file(symbol: str) -> str:
+    """SPY keeps the original aoi_override.json; other symbols get their own file."""
+    return "aoi_override.json" if symbol == "SPY" else f"aoi_override.{symbol}.json"
+
+
 SESSION_LABELS = {
     "weekend": "Weekend — no orders",
     "pre_open": "Before the open — no orders",

@@ -15,7 +15,7 @@ sys.path.insert(0, str(DESK))
 
 from common import ET  # noqa: E402
 
-DESK_FILES = ["alpaca_config.json", "rules.json", "risk.json", "study.json", "account.json", "aoi_override.json",
+DESK_FILES = ["watchlist.json", "alpaca_config.json", "rules.json", "risk.json", "study.json", "account.json", "aoi_override.json",
               "learning_weights.json", "market_pulse.json", "trades.csv", "console_pin.json"]
 
 # A weekday (Thursday) and a Saturday, in New York time.
@@ -108,14 +108,14 @@ class FakeBroker:
     def filled_orders_since(self, since):
         return list(self._fills)
 
-    def option_contracts(self, right, around, today):
+    def option_contracts(self, right, around, today, underlying="SPY"):
         from instruments import occ_symbol
 
         out = []
         for d in self._expiries:
             exp = today + timedelta(days=d)
             for k in range(int(around) - 3, int(around) + 4):
-                out.append({"symbol": occ_symbol("SPY", exp, right, k), "expiry": exp, "right": right,
+                out.append({"symbol": occ_symbol(underlying, exp, right, k), "expiry": exp, "right": right,
                             "strike": float(k), "tradable": True})
         return out
 

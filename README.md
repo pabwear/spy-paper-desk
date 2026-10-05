@@ -33,6 +33,92 @@ does not retry.
 It is separate from the HomeStack app in this repo: nothing here is imported by
 the Next.js site, and the site does not serve it.
 
+## Choosing which stocks to focus on (`watchlist.json`)
+
+The desk evaluates every stock on the **focus list** each run, in priority order.
+SPY is first by default. Change the list from the console's **Focus list** tab
+(add, stop watching, move up or down) or from the command line:
+
+```bash
+python3 run_study.py focus list
+python3 run_study.py focus add NVDA          # watch: read bars, score zones, log what it would do
+python3 run_study.py focus remove NVDA
+python3 run_study.py focus trade NVDA --instrument options --on   # local CLI only: paper-trade it
+python3 run_study.py focus trade NVDA --off
+```
+
+**Adding a stock only watches it.** It trades only after its switch is on:
+
+| Stock | Instrument | Switch |
+| --- | --- | --- |
+| SPY | `rules.json` `active` | `spy_options_enabled` / `shares_enabled` |
+| SNDK | `watchlist.json` `instrument` | `rules.json` `sndk_enabled` (false) |
+| any other | `watchlist.json` `instrument` (`options` or `shares`) | that entry's `trading_enabled` |
+
+The console can change the focus list but can't switch trading on. Each stock
+needs its own same-day Mxwll read from 09:30–09:59:
+`python3 run_study.py aoi set --symbol NVDA --zone red:LOW:HIGH`. That writes
+`aoi_override.NVDA.json`; SPY keeps `aoi_override.json`. These limits apply across
+all stocks: one position at a time and 2 entries a day. When more than one stock
+has a valid setup, the higher confluence score wins and ties go to focus order.
+The other stocks are logged as "another stock had the stronger setup".
+
+The exit manager also handles any position the desk itself opened, even after the
+stock leaves the focus list. It never touches holdings it didn't open, such as a
+manual SNDK position while SNDK is switched off.
+
+## Live Market Pulse (Stocklake + Stocktwits)
+
+Every weekday morning the pulse agent reads two live sources: Stocklake's market
+pulse (SPY change and RSI, VIX, fear & greed, breadth) and Stocktwits sentiment
+for the focus stocks. It writes the numbers to a JSON file and runs:
+
+```bash
+python3 run_study.py pulse ingest readings.json     # format: see pulse.py
+```
+
+Each reading votes bullish, bearish or not at all, using the thresholds in
+`rules.json` → `pulse_rules`. The bias needs at least ±2 net votes; otherwise it
+is **neutral**, and neutral never blocks a trade. For example, on Oct 2 the
+readings were SPY +0.62% (bull), fear & greed 31 (bear) and Stocktwits 72
+(bull). That nets +1, so the bias was neutral. These thresholds are starting
+defaults. Change them to match how you read the market. `pulse set` still
+works for a manual override.
+
+## Google Sheets mirror
+
+After every `sync` and `review`, the desk can replace three tabs in a Google
+Sheet: **Trades**, **Closed trades** and **Daily reviews**. One-time setup:
+
+1. Create a sheet, then go to **Extensions → Apps Script** and paste:
+
+   ```js
+   const TOKEN = 'choose-a-long-random-string';
+   function doPost(e) {
+     const body = JSON.parse(e.postData.contents);
+     if (body.token !== TOKEN) return ContentService.createTextOutput('forbidden');
+     const ss = SpreadsheetApp.getActiveSpreadsheet();
+     for (const [name, table] of Object.entries(body.tabs)) {
+       const sh = ss.getSheetByName(name) || ss.insertSheet(name);
+       sh.clearContents();
+       const rows = [table.header].concat(table.rows);
+       sh.getRange(1, 1, rows.length, table.header.length).setValues(rows);
+       sh.setFrozenRows(1);
+     }
+     return ContentService.createTextOutput('ok');
+   }
+   ```
+2. Go to **Deploy → New deployment → Web app**. Execute as *Me*, with access
+   *Anyone with the link*, then copy the URL.
+3. Add both values to `.env.alpaca`:
+   ```bash
+   export SHEETS_WEBHOOK_URL='https://script.google.com/macros/s/…/exec'
+   export SHEETS_WEBHOOK_TOKEN='the same long random string'
+   ```
+4. Run `python3 sheets_sync.py` to push now.
+
+The sheet is a mirror only. A failed push is logged and never blocks trading.
+
 ## Where the console runs: on your computer
 
 The console is a local page at `http://127.0.0.1:8765`, locked behind a PIN.
@@ -103,8 +189,9 @@ The console only reads. It cannot place orders. It refreshes every 15 seconds.
 
 | Time (ET, weekdays) | Who | Command |
 | --- | --- | --- |
-| 09:30–09:59 | Trader (watch only) | `python3 run_study.py eval` |
-| 09:39 → before 10:00 | Scout, from the boxes Ops read | `python3 run_study.py aoi set --zone red:LOW:HIGH --zone green:LOW:HIGH [--tag 1:CHoCH]` |
+| before 09:30 | Pulse agent | `python3 run_study.py pulse ingest readings.json` (Stocklake + Stocktwits) |
+| 09:30–09:59 | Trader (watch only) | `python3 run_study.py eval` (every focus stock) |
+| 09:39 → before 10:00 | Scout, from the boxes Ops read | `python3 run_study.py aoi set [--symbol NVDA] --zone red:LOW:HIGH --zone green:LOW:HIGH [--tag 1:CHoCH]` |
 | by 09:55 if unreadable | Scout | `python3 run_study.py aoi clear --reason "Mxwll boxes not readable"` |
 | morning | Market Pulse agents | `python3 run_study.py pulse set bullish\|bearish\|neutral --note "..."` |
 | 10:00–15:54 | Trader | `python3 run_study.py paper` (exits first, then at most one gated entry) |
@@ -230,7 +317,11 @@ mean much, and the console says so.
 | --- | --- |
 | `alpaca_config.json`, `rules.json`, `risk.json`, `study.json` | Venue, rules, risk and study settings |
 | `aoi_override.json` | Today's zones. Empty until a same-day read |
-| `market_pulse.json` | Today's bias from the pulse agents |
+| `market_pulse.json` | Today's bias, with the live readings and votes behind it |
+| `watchlist.json` | Focus list (priority order) and per-stock instrument and switch |
+| `aoi_override.<SYMBOL>.json` | Today's zones for a non-SPY focus stock |
+| `pulse.py` | Readings → bias rule |
+| `sheets_sync.py` | Google Sheets mirror |
 | `learning_weights.json` | Confluence weights, learned multipliers, learner settings |
 | `ml_model.json`, `learning_report.json` | Trained loss model and the latest learning report (gitignored, local) |
 | `account.json` | Last paper account snapshot. Starts at $1,000 |
@@ -238,7 +329,7 @@ mean much, and the console says so.
 | `journal.jsonl` | Event log (gitignored, local) |
 | `console_pin.json` | PIN hash for the console |
 | `alpaca_client.py` | Paper snapshot and paper client |
-| `run_study.py` | eval / paper / manage / sync / review / learn / aoi / pulse |
+| `run_study.py` | eval / paper / manage / sync / review / learn / aoi / pulse / focus |
 | `instruments.py` | Instrument switches, option symbols, contract choice, stop levels |
 | `gate.py`, `signals.py`, `journal.py`, `common.py` | Entry and exit gates, indicators, ledger and journal, shared helpers |
 | `learning.py` | Mistake catalog, signal multipliers, loss model |
@@ -264,5 +355,12 @@ They cover:
 - **Learner:** it finds a planted losing pattern, beats the base rate
   walk-forward, never acts in shadow mode, and in veto mode can only skip.
 - **Console lock:** wrong PIN, lockout, host check, loopback only.
+
+- **Focus list:** a new stock is watch-only; it trades once switched on (one NVDA
+  call or put); only one entry when two stocks qualify; an off-list stock never
+  trades; zones must match the stock; the NVDA stop uses NVDA's price; manual
+  holdings are left alone; the console can change focus but not trading.
+- **Pulse and Sheets:** readings become a bias, a bearish pulse blocks a call,
+  and the Sheets push never raises.
 
 No Alpaca keys or network are needed.

@@ -127,6 +127,7 @@
   </div>
   <nav class="tabs" role="tablist" aria-label="Console sections">
     <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+    <button role="tab" data-tab="focus" aria-selected="false">Focus list</button>
     <button role="tab" data-tab="today" aria-selected="false">Today · AOI &amp; gate</button>
     <button role="tab" data-tab="trades" aria-selected="false">Trades</button>
     <button role="tab" data-tab="passes" aria-selected="false">Passes &amp; evals</button>
@@ -177,7 +178,25 @@
   </section>
 
   <!-- TODAY -->
+  <section data-panel="focus" hidden>
+    <div class="card">
+      <h2>Focus list <span class="muted">the stocks the desk evaluates each run, in priority order</span></h2>
+      <form id="focusForm" class="filters" style="align-items:center" autocomplete="off">
+        <label for="focusSym" class="label">Add a stock</label>
+        <input id="focusSym" maxlength="7" placeholder="NVDA" style="text-transform:uppercase;border:1px solid var(--line);background:var(--panel-2);color:var(--ink);border-radius:8px;padding:6px 10px;font:inherit;width:120px">
+        <button class="btn" type="submit">Add to focus</button>
+        <span class="label" id="focusMsg" role="status" aria-live="polite"></span>
+      </form>
+      <div class="scroll" id="focusTable"></div>
+      <div class="sub2">Adding a stock here only <b>watches</b> it: the desk reads its bars, scores its zones and logs what it would do.
+        A stock trades only after its switch is turned on in the files, e.g. <code>python3 run_study.py focus trade NVDA --instrument options --on</code>.
+        SPY is switched in <code>rules.json</code>; SNDK also needs <code>sndk_enabled</code>. One position at a time and 2 entries a day apply across all stocks.
+        Each stock needs its own same-day Mxwll read: <code>python3 run_study.py aoi set --symbol NVDA --zone red:LOW:HIGH</code>.</div>
+    </div>
+  </section>
+
   <section data-panel="today" hidden>
+    <div class="filters" style="align-items:center"><span class="label">Stock</span><span id="todayPicker" class="filters" style="margin:0"></span></div>
     <div class="grid g-2">
       <div class="card">
         <h2>Today's areas of interest <span class="muted" id="aoiStatus"></span></h2>
@@ -293,7 +312,7 @@
     <div class="card section-gap"><h2>Desk files</h2><div id="files"></div></div>
   </section>
 </main>
-<footer>Paper-only simulated study. Not financial advice. This console is read-only and cannot place orders.</footer>
+<footer>Paper-only simulated study. Not financial advice. This console can change the focus list; it cannot place orders or switch trading on.</footer>
 
 <script>
 (() => {
@@ -328,7 +347,8 @@
     option_contract: "No nearest-expiry ATM contract", no_contract: "No listed option contract",
     ml_veto: "Learner veto (P(loss) too high)", order_rejected: "Order rejected by the paper account",
     exit_in_progress: "Exit sent this run", no_stop_reference: "No SPY entry price for the stop",
-    order_error: "Order error",
+    order_error: "Order error", another_symbol_chosen: "Another stock had the stronger setup",
+    symbol_in_focus: "Stock is not on the focus list", no_focus: "No stocks on the focus list",
   };
   const CHECKS = {
     paper_client: "Client is paper (paper-api host)", live_locked: "live_unlocked false · mode paper",
@@ -338,7 +358,7 @@
     aoi_not_approximate: "AOI is a real read (not approximate)", zone_published: "Zone is in today's override",
     price_at_zone: "Price inside zone or ≤ 0.15% from mid", zone_color_matches_side: "Red → buy · green → sell",
     confluence: "At least 2 confluence signals", size_within_cap: "Shares ≤ $800 notional",
-    instrument_enabled: "Active instrument is switched on", underlying_spy: "Underlying is SPY", sndk_off: "SNDK is on",
+    instrument_enabled: "Stock's trading switch is on", symbol_in_focus: "Stock is on the focus list", sndk_off: "SNDK is on",
     entries_today: "Fewer than 2 entries today", one_position: "Flat, with no open orders",
     option_right: "Call on buy · put on sell", option_one_contract: "Exactly 1 contract, buy to open",
     option_contract: "Nearest listed expiry · strike nearest $1", desk_position: "Position is SPY or a SPY option",
@@ -353,6 +373,8 @@
   let state = null;
   let tradeFilter = "all";
   let journalFilter = "all";
+  let todaySym = null;
+  try { todaySym = localStorage.getItem("deskTodaySym"); } catch { /* ignore */ }
 
   // ---------- tabs
   const tabs = [...document.querySelectorAll("nav.tabs button")];
@@ -504,8 +526,10 @@
     $("updated").textContent = "Updated " + when(s.generated_at);
     $("acctPill").textContent = `${s.config.account_name || "Paper"} · ${s.config.account_number || "—"}`;
     const ins = s.instrument || {};
-    $("instText").textContent = ins.enabled ? `${INST[ins.active] || ins.active} · ${ins.active === "spy_options" ? "1 contract" : "$800"} · ${ins.entries_today}/${ins.max_entries_per_day} entries today` : `No instrument on — ${ins.why || ""}`;
-    $("instPill").className = "pill " + (ins.enabled ? "ok" : "bad");
+    const trading = (s.focus || []).filter((x) => x.focus && x.trading).map((x) => x.symbol);
+    const watching = (s.focus || []).filter((x) => x.focus).map((x) => x.symbol);
+    $("instText").textContent = `Focus ${watching.join(", ") || "none"} · trading ${trading.join(", ") || "none"} · ${ins.entries_today}/${ins.max_entries_per_day} entries today`;
+    $("instPill").className = "pill " + (trading.length ? "ok" : "bad");
     const sess = s.session.state;
     $("sessionText").textContent = s.session.label || sess;
     $("sessionPill").className = "pill " + (sess === "trade_window" ? "ok" : sess === "watch_only" ? "warn" : "");
@@ -590,7 +614,7 @@
     // last eval
     const le = s.last_eval;
     $("lastEvalShort").innerHTML = le ? kv([
-      ["When", when(le.ts)], ["Mode", esc(le.mode || "—")], ["Decision", `<b>${esc(DECISION[le.decision] || le.decision)}</b>`],
+      ["Stock", `<b>${esc(le.symbol || "SPY")}</b>`], ["When", when(le.ts)], ["Mode", esc(le.mode || "—")], ["Decision", `<b>${esc(DECISION[le.decision] || le.decision)}</b>`],
       ["Why", (le.reasons || []).length ? esc(le.reasons.map(reason).join("; ")) : "—"],
       ["Price", le.market ? money(le.market.price) : "—"],
       ["Zone", zoneCell(le.zone)], ["Tags", tags(le.tags)],
@@ -598,11 +622,18 @@
       ["P(loss)", isNum(le.p_loss) ? pct0(le.p_loss) : "—"],
     ]) : `<div class="empty">No evaluation yet. Run <code>python3 run_study.py eval</code>.</div>`;
 
+    // Today tab follows one stock
+    const fl0 = s.focus || [];
+    const fsel = fl0.find((x) => x.symbol === todaySym && x.focus) || fl0.find((x) => x.focus) || null;
+    if (fsel) todaySym = fsel.symbol;
+    $("todayPicker").innerHTML = fl0.filter((x) => x.focus).map((x) => `<button type="button" data-sym="${esc(x.symbol)}" aria-pressed="${x.symbol === todaySym}">${esc(x.symbol)}</button>`).join("");
+    const tle = fsel ? fsel.last_eval : le;
+
     // AOI
-    const aoi = s.aoi;
+    const aoi = fsel ? fsel.aoi : s.aoi;
     $("aoiStatus").innerHTML = aoi.tradable && aoi.fresh && !aoi.approximate ? `<span class="pos">· tradable</span>` : `· not tradable`;
     $("aoiMeta").innerHTML = `${esc(aoi.freshness)}${aoi.approximate ? " · <span class='neg'>approximate — not tradable</span>" : ""}${aoi.source ? " · " + esc(aoi.source) : ""}${aoi.note ? "<br>" + esc(aoi.note) : ""}`;
-    const lastPrice = le && le.market ? Number(le.market.price) : null;
+    const lastPrice = tle && tle.market ? Number(tle.market.price) : null;
     $("aoiTable").innerHTML = table([["Zone"], ["Low", "r"], ["High", "r"], ["Mid", "r"], ["Side"], ["From price", "r"], ["Ops tags"]],
       aoi.zones.map((z) => {
         const mid = (Number(z.low) + Number(z.high)) / 2;
@@ -612,11 +643,11 @@
       }), "No zones. The scout publishes them only from a same-day Mxwll read during 09:30–09:59 ET.");
 
     // gate
-    $("gateWhen").textContent = le ? "· " + when(le.ts) + (le.mode === "eval" ? " (eval)" : " (paper)") : "";
-    $("gate").innerHTML = checksHtml(le && le.gate, le && le.reasons);
+    $("gateWhen").textContent = tle ? `· ${todaySym || ""} · ` + when(tle.ts) + (tle.mode === "eval" ? " (eval)" : " (paper)") : "";
+    $("gate").innerHTML = checksHtml(tle && tle.gate, tle && tle.reasons);
 
     // market
-    const m = le && le.market;
+    const m = tle && tle.market;
     $("market").innerHTML = m ? kv([
       ["Price", money(m.price)], ["Bar", when(m.bar_time)], ["RSI", isNum(m.rsi) ? fmtNum(m.rsi) : "—"],
       ["VWAP (session)", money(m.vwap)], ["Price vs VWAP", isNum(m.vwap) ? (m.price >= m.vwap ? "At / above" : "Below") : "—"],
@@ -626,10 +657,12 @@
     // pulse
     const pl = s.pulse;
     const src = pl.sources || {};
+    const VOTE = { spy_change_pct: "SPY change %", vix_change_pct: "VIX change %", fear_greed: "Fear & greed", stocktwits_spy_score: "Stocktwits SPY score" };
     $("pulse").innerHTML = kv([
-      ["Bias", pl.is_today ? `<b>${esc(pl.bias)}</b>` : `<span class="muted">none for today</span>`],
-      ["Date", esc(pl.date || "—")], ["Market Pulse", esc(src.market_pulse || "—")], ["Macro policy", esc(src.macro_policy || "—")],
-      ["Sentiment flow", esc(src.sentiment_flow || "—")], ["Rates / jobs", esc(src.rates_jobs || "—")],
+      ["Bias", pl.is_today ? `<b>${esc(pl.bias)}</b>${isNum(pl.net_votes) ? ` <span class="muted">(net ${pl.net_votes > 0 ? "+" : ""}${pl.net_votes}, needs ±${pl.min_net_votes})</span>` : ""}` : `<span class="muted">none for today</span>`],
+      ["Date", esc(pl.date || "—")], ["Readings as of", pl.as_of ? when(pl.as_of) : "—"],
+      ...((pl.votes || []).map((v) => [VOTE[v.reading] || v.reading, `${isNum(v.value) ? fmtNum(v.value) : "—"} <span class="${v.vote > 0 ? "pos" : v.vote < 0 ? "neg" : "muted"}">${v.vote > 0 ? "bull" : v.vote < 0 ? "bear" : "·"}</span>`])),
+      ["Sources", esc(Object.values(src).filter(Boolean).join(" · ") || "—")],
     ]) + (pl.note ? `<div class="sub2">${esc(pl.note)}</div>` : "");
 
     // risk
@@ -648,7 +681,7 @@
 
     // zone scores
     $("zoneScores").innerHTML = table([["Zone"], ["Near"], ["From mid", "r"], ["Confluence"], ["Score", "r"]],
-      ((le && le.zones) || []).map((z) => `<tr><td>${zoneCell(z)}</td><td>${z.near ? "Yes" : "No"}</td><td class="r num">${spct(z.distance_pct)}</td><td>${tags(z.tags)}</td><td class="r num">${fmtNum(z.score)}</td></tr>`),
+      ((tle && tle.zones) || []).map((z) => `<tr><td>${zoneCell(z)}</td><td>${z.near ? "Yes" : "No"}</td><td class="r num">${spct(z.distance_pct)}</td><td>${tags(z.tags)}</td><td class="r num">${fmtNum(z.score)}</td></tr>`),
       "No zones were scored at the last evaluation.");
 
     // trades
@@ -730,7 +763,39 @@
     $("weights").innerHTML = kv(Object.entries(w).map(([k, v]) => [k, fmtNum(v)])) +
       `<div class="sub2">Indicators: ${esc(JSON.stringify((s.weights || {}).indicators || {}))}</div>`;
     renderLearning(s);
+    renderFocus(s);
     $("files").innerHTML = table([["File"], ["Status"]], (s.files || []).map((f) => `<tr><td class="num">${esc(f.name)}</td><td class="${f.status === "ok" ? "pos" : "neg"}">${esc(f.status)}</td></tr>`), "—");
+  }
+
+  function renderFocus(s) {
+    const rows = s.focus || [];
+    $("focusTable").innerHTML = table([["#"], ["Stock"], ["Status"], ["Instrument"], ["Today's AOI"], ["Last evaluation"], ["Price", "r"], ["Chart"], [""]],
+      rows.map((x) => {
+        const le2 = x.last_eval, a2 = x.aoi;
+        const aoiTxt = a2.tradable && a2.fresh && !a2.approximate ? `<span class="pos">tradable · ${a2.zones.length} zone(s)</span>` : `<span class="muted">${esc(a2.zones.length ? "not tradable" : "no zones")}</span>`;
+        const evalTxt = le2 ? `${esc(DECISION[le2.decision] || le2.decision)}${(le2.reasons || []).length ? " — " + esc(le2.reasons.map(reason).join("; ")) : ""} <span class="muted">${when(le2.ts)}</span>` : `<span class="muted">not evaluated yet</span>`;
+        const actions = x.focus
+          ? `<button class="btn" data-act="up" data-sym="${esc(x.symbol)}" aria-label="Move ${esc(x.symbol)} up">↑</button> <button class="btn" data-act="down" data-sym="${esc(x.symbol)}" aria-label="Move ${esc(x.symbol)} down">↓</button> <button class="btn" data-act="remove" data-sym="${esc(x.symbol)}">Stop watching</button>`
+          : `<button class="btn" data-act="add" data-sym="${esc(x.symbol)}">Watch</button>`;
+        return `<tr><td class="num">${x.rank ?? "—"}</td><td><b>${esc(x.symbol)}</b></td>
+          <td>${x.trading ? `<span class="pos">● trading (paper)</span>` : x.focus ? "watching" : `<span class="muted">off the list</span>`}<div class="sub2" style="margin:0">${esc(x.why)}</div></td>
+          <td>${esc(x.asset === "option" ? "options · 1 contract" : x.asset === "shares" ? "shares · $800" : "—")}</td>
+          <td style="white-space:normal">${aoiTxt}</td><td style="white-space:normal;max-width:320px">${evalTxt}</td>
+          <td class="r num">${le2 && le2.market ? money(le2.market.price) : "—"}</td>
+          <td>${x.chart ? `<a href="${esc(x.chart)}" target="_blank" rel="noopener noreferrer">TradingView</a>` : "—"}</td><td>${actions}</td></tr>`;
+      }), "No stocks on the watchlist.");
+  }
+
+  async function focusAction(action, symbol) {
+    $("focusMsg").textContent = "";
+    try {
+      const res = await fetch("/api/focus", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action, symbol }) });
+      const data = await res.json().catch(() => ({}));
+      if (res.status === 401) { location.reload(); return; }
+      if (!res.ok) { $("focusMsg").textContent = data.error || "Could not change the focus list."; return; }
+      $("focusMsg").textContent = `Focus: ${(data.focus || []).join(", ") || "none"}`;
+      await load();
+    } catch { $("focusMsg").textContent = "Console is not reachable."; }
   }
 
   function renderLearning(s) {
@@ -781,7 +846,7 @@
   function journalDetail(e) {
     switch (e.event) {
       case "skip": case "eval": {
-        const bits = [`<b>${esc(DECISION[e.decision] || e.decision)}</b>`];
+        const bits = [`<b>${esc(e.symbol || "SPY")}</b> ${esc(DECISION[e.decision] || e.decision)}`];
         if ((e.reasons || []).length) bits.push(esc(e.reasons.map(reason).join("; ")));
         if (e.market) bits.push(`price ${money(e.market.price)}`);
         if (e.zone) bits.push(zoneCell(e.zone));
@@ -823,6 +888,20 @@
   $("lockBtn").addEventListener("click", async () => { await fetch("/lock", { method: "POST" }).catch(() => {}); location.reload(); });
   setInterval(() => { $("clock").textContent = ETfull.format(new Date()) + " ET"; }, 1000);
   $("clock").textContent = ETfull.format(new Date()) + " ET";
+  $("focusForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = $("focusSym").value.trim().toUpperCase();
+    if (v) { focusAction("add", v); $("focusSym").value = ""; }
+  });
+  $("focusTable").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-act]"); if (b) focusAction(b.dataset.act, b.dataset.sym);
+  });
+  $("todayPicker").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-sym]"); if (!b) return;
+    todaySym = b.dataset.sym;
+    try { localStorage.setItem("deskTodaySym", todaySym); } catch { /* ignore */ }
+    render();
+  });
   let resizeTimer;
   window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(render, 150); });
   load();

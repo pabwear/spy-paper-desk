@@ -4,7 +4,8 @@
     python3 console.py --port 9000
     python3 console.py set-pin         # change the PIN (stored as a salted PBKDF2 hash)
 
-Read-only: the console shows the desk; it cannot place orders.
+The console shows the desk and can change the focus list (which stocks are watched).
+It cannot place orders and cannot switch trading on for any symbol.
 """
 
 from __future__ import annotations
@@ -24,7 +25,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 import rebuild_dashboard
-from common import load_json, save_json
+import run_study
+from common import load_json, save_json, watchlist
 
 PIN_FILE = "console_pin.json"
 COOKIE = "desk_session"
@@ -172,6 +174,29 @@ def make_handler(guard: Guard):
                     return self._json(HTTPStatus.UNAUTHORIZED, {"ok": False, "message": msg})
                 cookie = f"{COOKIE}={token}; HttpOnly; SameSite=Strict; Path=/"
                 return self._json(HTTPStatus.OK, {"ok": True}, {"Set-Cookie": cookie})
+            if route == "/api/focus":
+                # Watch-list changes only: add/remove/reorder focus symbols. Trading switches stay in the files.
+                if not guard.check(self._token()):
+                    return self._json(HTTPStatus.UNAUTHORIZED, {"error": "locked"})
+                if not self.headers.get("Content-Type", "").startswith("application/json"):
+                    return self._json(HTTPStatus.UNSUPPORTED_MEDIA_TYPE, {"error": "JSON only"})
+                length = min(int(self.headers.get("Content-Length") or 0), 512)
+                try:
+                    body = json.loads(self.rfile.read(length) or b"{}")
+                    action, symbol = body.get("action"), str(body.get("symbol", ""))
+                    if action == "add":
+                        run_study.set_focus(symbol, True)
+                    elif action == "remove":
+                        run_study.set_focus(symbol, False)
+                    elif action in ("up", "down"):
+                        run_study.move_focus(symbol, -1 if action == "up" else 1)
+                    else:
+                        return self._json(HTTPStatus.BAD_REQUEST, {"error": "action must be add, remove, up or down"})
+                except SystemExit as e:  # validation messages from run_study
+                    return self._json(HTTPStatus.BAD_REQUEST, {"error": str(e)})
+                except (ValueError, AttributeError):
+                    return self._json(HTTPStatus.BAD_REQUEST, {"error": "bad request"})
+                return self._json(HTTPStatus.OK, {"ok": True, "focus": watchlist()["focus"]})
             if route == "/lock":
                 guard.drop(self._token())
                 return self._json(HTTPStatus.OK, {"ok": True},

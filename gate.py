@@ -92,22 +92,24 @@ def check_order(
     entries_today: int,
     open_positions: list[dict] | None,
     open_orders: int | None,
+    watch: dict | None = None,
 ) -> list[Check]:
     checks: list[Check] = []
+    watch = watch or {"focus": ["SPY"], "symbols": {"SPY": {}}}
     add = lambda name, ok, detail: checks.append(Check(name, bool(ok), detail))  # noqa: E731
 
     _paper_checks(add, base_url=base_url, client_is_paper=client_is_paper, config=config, rules=rules,
                   account_number=account_number)
 
-    inst = instruments.active(rules)
+    underlying = plan.get("underlying")
+    inst = instruments.for_symbol(underlying, rules, watch)
     add("instrument_enabled", inst["enabled"] and plan.get("instrument") == inst["name"],
         inst["why"] if plan.get("instrument") == inst.get("name") else
-        f"plan is {plan.get('instrument')}, active is {inst.get('name')}")
+        f"plan is {plan.get('instrument')}, {underlying} uses {inst.get('name')}")
 
-    sym_ok = (plan.get("underlying") == "SPY" and rules.get("symbol_underlying", "SPY") == "SPY"
-              and config.get("symbol") == "SPY" and risk.get("symbol") == "SPY")
-    add("underlying_spy", sym_ok, f"underlying {plan.get('underlying')}")
-    if plan.get("underlying") == "SNDK":
+    add("symbol_in_focus", underlying in (watch.get("focus") or []) and underlying in (watch.get("symbols") or {}),
+        f"{underlying} {'is' if underlying in (watch.get('focus') or []) else 'is not'} on the focus list")
+    if underlying == "SNDK":
         add("sndk_off", rules.get("sndk_enabled") is True, "sndk_enabled is false")
 
     t = now.astimezone(ET)
@@ -124,7 +126,7 @@ def check_order(
             else "Alpaca says the market is closed (holiday or halt)")
 
     tradable = bool(override and override.get("tradable") is True and override.get("zones")
-                    and override.get("symbol") == "SPY")
+                    and override.get("symbol") == underlying)
     add("aoi_tradable", tradable, "tradable with zones" if tradable else "tradable is false or zones empty")
     fresh, why = override_freshness(override, now, risk)
     add("aoi_from_today_open", fresh, why)
@@ -135,7 +137,7 @@ def check_order(
 
     tol = float(risk.get("zone_midpoint_tolerance_pct", 0.15))
     near = bool(zone) and price_near_zone(price, zone, tol)
-    add("price_at_zone", near, f"SPY {price:.2f} vs zone {zone['low']}–{zone['high']}" if zone else "no zone")
+    add("price_at_zone", near, f"{underlying} {price:.2f} vs zone {zone['low']}–{zone['high']}" if zone else "no zone")
 
     signal = plan.get("signal")
     want = COLOR_FOR_SIDE.get(signal)
@@ -163,7 +165,7 @@ def check_order(
         add("option_one_contract", plan.get("contracts") == 1 and plan.get("qty") == 1
             and plan.get("order_side") == "buy", f"{plan.get('qty')} contract(s), {plan.get('order_side')} to open")
         occ = instruments.parse_occ(plan.get("symbol") or "")
-        contract_ok = bool(occ and occ["underlying"] == "SPY" and occ["right"] == plan.get("right")
+        contract_ok = bool(occ and occ["underlying"] == underlying and occ["right"] == plan.get("right")
                            and plan.get("expiry_is_nearest") and plan.get("strike_is_nearest"))
         add("option_contract", contract_ok,
             f"{plan.get('symbol')} (strike {occ['strike']:g}, exp {occ['expiry']})" if occ else "no contract chosen")
@@ -188,6 +190,7 @@ def check_exit(
     position: dict,
     account_number: str | None,
     market_open: bool | None,
+    underlyings=("SPY",),
 ) -> list[Check]:
     """Exits stay allowed even if the instrument was switched off: closing only removes risk."""
     checks: list[Check] = []
@@ -197,7 +200,8 @@ def check_exit(
     t = now.astimezone(ET)
     add("weekday", t.weekday() < 5, t.strftime("%A"))
     add("market_clock", market_open is True, "market open" if market_open else "market closed or not read")
-    add("desk_position", instruments.is_desk_symbol(position.get("symbol", "")) and float(position.get("qty") or 0) != 0,
+    add("desk_position", instruments.is_desk_symbol(position.get("symbol", ""), underlyings)
+        and float(position.get("qty") or 0) != 0,
         f"{position.get('symbol')} qty {position.get('qty')}")
     return checks
 

@@ -13,31 +13,35 @@ from datetime import datetime
 
 import instruments
 import journal
-from common import ET, SESSION_LABELS, hhmm, load_json, now_et, save_json, session_state, to_et
+from common import ET, SESSION_LABELS, aoi_file, hhmm, load_json, now_et, save_json, session_state, to_et, watchlist
 from gate import is_approximate, override_freshness
 
-FILES = ["alpaca_config.json", "rules.json", "risk.json", "study.json", "account.json", "aoi_override.json",
+FILES = ["watchlist.json", "alpaca_config.json", "rules.json", "risk.json", "study.json", "account.json", "aoi_override.json",
          "learning_weights.json", "market_pulse.json", "trades.csv"]
 
 
 def _desk_positions(account: dict, events: list[dict], rules: dict, risk: dict, now: datetime) -> list[dict]:
     """Open SPY/SPY-option positions with their stop level and flatten time."""
+    entered = [e.get("symbol") for e in events if e.get("event") == "order" and e.get("role") == "entry"]
+    managed = instruments.desk_underlyings(rules, watchlist(), entered)
     raw = account.get("positions")
     if raw is None:
         raw = [account["position"]] if account.get("position") else []
     out = []
     pct = float(rules.get("stop_underlying_pct", 0.35))
     for p in raw:
-        if not p or not instruments.is_desk_symbol(p.get("symbol", "")) or not float(p.get("qty") or 0):
+        if not p or not instruments.is_desk_symbol(p.get("symbol", ""), managed) or not float(p.get("qty") or 0):
             continue
         entry = next((e for e in reversed(events) if e.get("event") == "order" and e.get("role") == "entry"
                       and e.get("symbol") == p["symbol"]), {})
         exposure = instruments.direction(p["symbol"], float(p["qty"]))
-        ref = entry.get("underlying_price") or (p.get("avg_entry_price") if p["symbol"] == "SPY" else None)
+        underlying = instruments.underlying_of(p["symbol"])
+        ref = entry.get("underlying_price") or (p.get("avg_entry_price") if p["symbol"] == underlying else None)
         occ = instruments.parse_occ(p["symbol"])
         opened = to_et(entry.get("ts"))
         out.append({
             **p,
+            "underlying": underlying,
             "asset": "option" if occ else "shares",
             "right": occ["right"] if occ else None,
             "strike": occ["strike"] if occ else None,
@@ -76,6 +80,46 @@ def _f(v):
         return float(v)
     except (TypeError, ValueError):
         return None
+
+
+def _aoi_state(symbol: str, now: datetime, risk: dict) -> dict:
+    override = load_json(aoi_file(symbol), None)
+    fresh, why = override_freshness(override, now, risk) if risk else (False, "risk.json missing")
+    return {
+        "symbol": symbol,
+        "file": aoi_file(symbol),
+        "tradable": bool(override and override.get("tradable")),
+        "fresh": fresh,
+        "freshness": why,
+        "approximate": is_approximate(override),
+        "written_at": (override or {}).get("written_at"),
+        "source": (override or {}).get("source"),
+        "note": (override or {}).get("note"),
+        "zones": (override or {}).get("zones") or [],
+    }
+
+
+def _focus_state(rules: dict, risk: dict, events: list[dict], now: datetime) -> list[dict]:
+    w = watchlist()
+    out = []
+    for sym, entry in w["symbols"].items():
+        inst = instruments.for_symbol(sym, rules, w)
+        last = next((e for e in reversed(events) if e.get("event") in ("eval", "skip")
+                     and (e.get("symbol") or "SPY") == sym), None)
+        out.append({
+            "symbol": sym,
+            "focus": sym in w["focus"],
+            "rank": w["focus"].index(sym) + 1 if sym in w["focus"] else None,
+            "instrument": inst.get("name"),
+            "asset": inst.get("asset"),
+            "trading": inst["enabled"],
+            "why": inst["why"],
+            "chart": entry.get("chart") or (rules.get("chart") if sym == "SPY" else None),
+            "aoi": _aoi_state(sym, now, risk),
+            "last_eval": last,
+        })
+    out.sort(key=lambda r: (r["rank"] is None, r["rank"] or 0, r["symbol"]))
+    return out
 
 
 def build_state(now: datetime | None = None) -> dict:
@@ -234,6 +278,7 @@ def build_state(now: datetime | None = None) -> dict:
             "is_today": pulse.get("date") == today.isoformat(),
         },
         "last_eval": last_eval,
+        "focus": _focus_state(rules, risk, events, now),
         "evals_today": tally(today_events),
         "evals_all": tally(events),
         "trades": list(reversed(trades)),

@@ -45,5 +45,27 @@
   "max_entries_per_day": 2,
   "max_open_positions": 1,
   "watch_only": "09:30-09:59 ET",
-  "book_usd": 1000
+  "book_usd": 1000,
+  "pulse_rules": {
+    "note": "Default rule for turning live readings into a Market Pulse bias. Each reading votes bullish (+1), bearish (-1) or not at all; the bias needs min_net_votes net votes, otherwise it is neutral, and neutral never contradicts a setup. Edit the thresholds to match how Roy reads the market.",
+    "votes": {
+      "spy_change_pct": {
+        "bullish_at_or_above": 0.3,
+        "bearish_at_or_below": -0.3
+      },
+      "vix_change_pct": {
+        "bearish_at_or_above": 5.0,
+        "bullish_at_or_below": -5.0
+      },
+      "fear_greed": {
+        "bullish_at_or_above": 55.0,
+        "bearish_at_or_below": 45.0
+      },
+      "stocktwits_spy_score": {
+        "bullish_at_or_above": 60.0,
+        "bearish_at_or_below": 40.0
+      }
+    },
+    "min_net_votes": 2
+  }
 }

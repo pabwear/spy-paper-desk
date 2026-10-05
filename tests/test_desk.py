@@ -102,7 +102,7 @@ class GateTests(DeskTestCase):
                 "order_side": "buy", "qty": 1, "symbol": "SNDK"}
         f = failures(self.base(plan=plan))
         self.assertIn("instrument_enabled", f)
-        self.assertIn("underlying_spy", f)
+        self.assertIn("symbol_in_focus", f)
         self.assertIn("sndk_off", f)
 
     def test_live_host_and_unlock_refused(self):

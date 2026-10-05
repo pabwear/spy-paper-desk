@@ -15,7 +15,7 @@ import re
 import sys
 from datetime import date, datetime, timedelta
 
-from common import ET, PAPER_HOST, load_json, now_et, path, save_json
+from common import ET, PAPER_HOST, load_json, now_et, path, save_json, watchlist
 from gate import host_of
 from instruments import is_desk_symbol
 
@@ -77,7 +77,7 @@ class PaperBroker:
     def account_snapshot(self) -> dict:
         a = self._client.get_account()
         positions = self.positions()
-        desk = [p for p in positions if is_desk_symbol(p["symbol"])]
+        desk = [p for p in positions if is_desk_symbol(p["symbol"], _watched())]
         return {
             "source": "alpaca_paper",
             "account_name": self.config.get("account_name"),
@@ -119,7 +119,7 @@ class PaperBroker:
         return [{"id": str(o.id), "symbol": o.symbol, "side": str(o.side.value), "qty": o.qty} for o in orders]
 
     def filled_orders_since(self, since: datetime) -> list[dict]:
-        """Fills on SPY shares and SPY options only."""
+        """Fills on watchlist symbols (shares and options) only."""
         from alpaca.trading.enums import QueryOrderStatus
         from alpaca.trading.requests import GetOrdersRequest
 
@@ -128,7 +128,7 @@ class PaperBroker:
         for o in self._client.get_orders(filter=req):
             if o.filled_at is None or not o.filled_qty or float(o.filled_qty) == 0:
                 continue
-            if not is_desk_symbol(o.symbol):
+            if not is_desk_symbol(o.symbol, _watched()):
                 continue
             out.append({
                 "order_id": str(o.id),
@@ -143,16 +143,17 @@ class PaperBroker:
         out.sort(key=lambda r: r["filled_at"])
         return out
 
-    def option_contracts(self, right: str, around: float, today: date) -> list[dict]:
-        """Listed, active SPY contracts of one right, expiring within 7 days, strikes within $5."""
+    def option_contracts(self, right: str, around: float, today: date, underlying: str = "SPY") -> list[dict]:
+        """Listed, active contracts of one right, expiring within 7 days, strikes within ±5 (or ±3%)."""
         from alpaca.trading.enums import AssetStatus, ContractType
         from alpaca.trading.requests import GetOptionContractsRequest
 
+        width = max(5.0, around * 0.03)
         req = GetOptionContractsRequest(
-            underlying_symbols=["SPY"], status=AssetStatus.ACTIVE,
+            underlying_symbols=[underlying], status=AssetStatus.ACTIVE,
             type=ContractType.CALL if right == "call" else ContractType.PUT,
             expiration_date_gte=today.isoformat(), expiration_date_lte=(today + timedelta(days=7)).isoformat(),
-            strike_price_gte=str(int(around) - 5), strike_price_lte=str(int(around) + 5), limit=500,
+            strike_price_gte=f"{max(around - width, 0.5):.2f}", strike_price_lte=f"{around + width:.2f}", limit=500,
         )
         res = self._client.get_option_contracts(req)
         return [{"symbol": c.symbol, "expiry": c.expiration_date, "right": right, "strike": float(c.strike_price),
@@ -166,8 +167,8 @@ class PaperBroker:
 
         if not self.is_paper or host_of(self.base_url) != PAPER_HOST:
             raise LiveTradingRefused("Refusing to submit: client is not paper.")
-        if not is_desk_symbol(symbol):
-            raise LiveTradingRefused(f"Refusing to submit {symbol}: not SPY or a SPY option.")
+        if not is_desk_symbol(symbol, _watched()):
+            raise LiveTradingRefused(f"Refusing to submit {symbol}: not a watchlist symbol or its option.")
         kwargs = {}
         if intent in ("buy_to_open", "sell_to_close", "buy_to_close", "sell_to_open"):
             kwargs["position_intent"] = PositionIntent(intent)
@@ -183,6 +184,10 @@ class PaperBroker:
         return {"order_id": str(o.id), "status": str(o.status.value), "submitted_at": str(o.submitted_at)}
 
 
+def _watched() -> set[str]:
+    return set(watchlist()["symbols"])
+
+
 def _f(v):
     try:
         return float(v) if v is not None else None
@@ -190,8 +195,8 @@ def _f(v):
         return None
 
 
-def fetch_bars(now: datetime, minutes: int = 1) -> list[dict]:
-    """Today's SPY bars (plus a little of yesterday for RSI warm-up).
+def fetch_bars(now: datetime, minutes: int = 1, symbol: str = "SPY") -> list[dict]:
+    """Today's bars for one symbol (plus a little of yesterday for RSI warm-up).
 
     Alpaca market data (IEX feed) first; yfinance as a fallback. Raises on no data.
     """
@@ -205,9 +210,9 @@ def fetch_bars(now: datetime, minutes: int = 1) -> list[dict]:
 
         key, secret = _keys()
         client = StockHistoricalDataClient(key, secret)
-        req = StockBarsRequest(symbol_or_symbols="SPY", timeframe=TimeFrame(minutes, TimeFrameUnit.Minute),
+        req = StockBarsRequest(symbol_or_symbols=symbol, timeframe=TimeFrame(minutes, TimeFrameUnit.Minute),
                                start=start, end=now, feed=DataFeed.IEX)
-        data = client.get_stock_bars(req).data.get("SPY", [])
+        data = client.get_stock_bars(req).data.get(symbol, [])
         bars = [{"t": b.timestamp, "o": float(b.open), "h": float(b.high), "l": float(b.low),
                  "c": float(b.close), "v": float(b.volume)} for b in data]
         if bars:
@@ -220,7 +225,7 @@ def fetch_bars(now: datetime, minutes: int = 1) -> list[dict]:
     try:
         import yfinance as yf
 
-        df = yf.download("SPY", period="5d", interval=f"{minutes}m", prepost=False, progress=False,
+        df = yf.download(symbol, period="5d", interval=f"{minutes}m", prepost=False, progress=False,
                          auto_adjust=False, multi_level_index=False)
         bars = [{"t": idx.to_pydatetime(), "o": float(r["Open"]), "h": float(r["High"]),
                  "l": float(r["Low"]), "c": float(r["Close"]), "v": float(r["Volume"])}

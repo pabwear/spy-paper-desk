@@ -1,13 +1,18 @@
-"""Instruments the desk knows about, which one is active, and what an entry looks like.
+"""Instruments the desk knows about, which one each focus symbol uses, and what an entry looks like.
 
 Pure: no I/O. Paths that are switched off stay here so turning them back on is a
 config change, not a rewrite.
 
-    spy_options  one long SPY call (buy signal) or put (sell signal), 1 contract,
-                 nearest listed expiry, strike nearest the dollar to SPY
-    spy_shares   SPY shares sized off risk.json (80% of the $1,000 book = $800)
-    sndk_*       switch only (sndk_enabled). There is no SNDK strategy in this
-                 codebase, so these always refuse.
+    options  one long call (buy signal) or put (sell signal), 1 contract,
+             nearest listed expiry, strike nearest the dollar to the stock
+    shares   shares sized off risk.json (80% of the $1,000 book = $800)
+
+Which one a symbol uses, and whether it may trade:
+    SPY    rules.json "active" (spy_options / spy_shares) and its switch
+           (spy_options_enabled / shares_enabled)
+    SNDK   watchlist.json instrument, switched by rules.json sndk_enabled
+    other  watchlist.json instrument, switched by that entry's "trading_enabled"
+           (absent → watch only)
 """
 
 from __future__ import annotations
@@ -20,24 +25,45 @@ from signals import size_qty, whole_shares
 INSTRUMENTS = {
     "spy_options": {"flag": "spy_options_enabled", "underlying": "SPY", "asset": "option", "implemented": True},
     "spy_shares": {"flag": "shares_enabled", "underlying": "SPY", "asset": "shares", "implemented": True},
-    "sndk_shares": {"flag": "sndk_enabled", "underlying": "SNDK", "asset": "shares", "implemented": False},
-    "sndk_options": {"flag": "sndk_enabled", "underlying": "SNDK", "asset": "option", "implemented": False},
+    "sndk_shares": {"flag": "sndk_enabled", "underlying": "SNDK", "asset": "shares", "implemented": True},
+    "sndk_options": {"flag": "sndk_enabled", "underlying": "SNDK", "asset": "option", "implemented": True},
 }
 
 OCC = re.compile(r"^(?P<root>[A-Z]{1,6})(?P<yy>\d{2})(?P<mm>\d{2})(?P<dd>\d{2})(?P<cp>[CP])(?P<strike>\d{8})$")
 
 
 def active(rules: dict) -> dict:
-    """The active instrument and whether it may trade. Unknown or disabled → enabled False."""
-    name = rules.get("active")
-    spec = INSTRUMENTS.get(name)
-    if spec is None:
-        return {"name": name, "enabled": False, "why": f"unknown instrument {name!r}"}
-    if rules.get(spec["flag"]) is not True:
-        return {"name": name, **spec, "enabled": False, "why": f"{spec['flag']} is false"}
-    if not spec["implemented"]:
-        return {"name": name, **spec, "enabled": False, "why": f"no {name} path in this codebase"}
-    return {"name": name, **spec, "enabled": True, "why": f"{name} on ({spec['flag']} true)"}
+    """SPY's instrument (rules.json "active") and whether it may trade."""
+    return for_symbol("SPY", rules, {"symbols": {"SPY": {}}})
+
+
+def for_symbol(symbol: str, rules: dict, watch: dict) -> dict:
+    """The instrument this symbol uses and whether it may trade. Unknown or switched off → enabled False."""
+    entry = (watch.get("symbols") or {}).get(symbol)
+    if entry is None:
+        return {"name": None, "underlying": symbol, "enabled": False, "why": f"{symbol} is not on the watchlist"}
+    if symbol == "SPY":
+        name = rules.get("active")
+        spec = INSTRUMENTS.get(name)
+        if spec is None or spec["underlying"] != "SPY":
+            return {"name": name, "underlying": "SPY", "enabled": False, "why": f"unknown SPY instrument {name!r}"}
+        if rules.get(spec["flag"]) is not True:
+            return {"name": name, **spec, "enabled": False, "why": f"{spec['flag']} is false"}
+        return {"name": name, **spec, "enabled": True, "why": f"{name} on ({spec['flag']} true)"}
+    kind = entry.get("instrument")
+    if kind not in ("options", "shares"):
+        return {"name": None, "underlying": symbol, "asset": None, "enabled": False,
+                "why": f"{symbol} has no instrument set (watch only)"}
+    asset = "option" if kind == "options" else "shares"
+    name = f"{symbol.lower()}_{kind}"
+    base = {"name": name, "underlying": symbol, "asset": asset, "implemented": True}
+    if symbol == "SNDK":
+        on = rules.get("sndk_enabled") is True
+        return {**base, "flag": "sndk_enabled", "enabled": on,
+                "why": f"{name} on (sndk_enabled true)" if on else "sndk_enabled is false"}
+    on = entry.get("trading_enabled") is True
+    return {**base, "flag": "trading_enabled", "enabled": on,
+            "why": f"{name} on (watchlist trading_enabled true)" if on else f"{symbol} is watch only (trading_enabled not true)"}
 
 
 def flags(rules: dict) -> dict:
@@ -67,9 +93,17 @@ def underlying_of(symbol: str) -> str:
     return occ["underlying"] if occ else symbol
 
 
-def is_desk_symbol(symbol: str) -> bool:
-    """SPY shares or a SPY option. SNDK (or anything else) is never managed by this desk."""
-    return underlying_of(symbol) == "SPY"
+def is_desk_symbol(symbol: str, underlyings=("SPY",)) -> bool:
+    """Shares or an option on one of the desk's underlyings. Anything else is never touched."""
+    return underlying_of(symbol) in set(underlyings)
+
+
+def desk_underlyings(rules: dict, watch: dict, entry_symbols=()) -> set[str]:
+    """Underlyings whose positions the desk manages: SPY, anything switched on, anything it entered."""
+    out = {"SPY"}
+    out |= {s for s in (watch.get("symbols") or {}) if for_symbol(s, rules, watch)["enabled"]}
+    out |= {underlying_of(x) for x in entry_symbols if x}
+    return out
 
 
 def multiplier(symbol: str) -> int:
@@ -91,18 +125,18 @@ def plan_entry(inst: dict, signal: str, price: float, risk: dict, rules: dict) -
     """What an entry on this signal would be. Options are always exactly 1 contract."""
     base = {"instrument": inst.get("name"), "asset": inst.get("asset"), "underlying": inst.get("underlying"),
             "signal": signal}
-    if inst.get("name") == "spy_options":
+    if inst.get("asset") == "option":
         opt = rules.get("option", {})
         right = opt.get("right_on_buy", "call") if signal == "buy" else opt.get("right_on_sell", "put")
         return {**base, "order_side": "buy", "intent": "buy_to_open", "right": right,
                 "contracts": int(opt.get("contracts", 1)), "qty": int(opt.get("contracts", 1)),
                 "target_strike": float(round(price)), "expiry": "nearest", "symbol": None}
-    if inst.get("name") == "spy_shares":
+    if inst.get("asset") == "shares":
         if signal == "buy":
             qty = size_qty(price, risk)
         else:
             qty = float(whole_shares(price, risk))  # fractional shares cannot be sold short
-        return {**base, "order_side": signal, "intent": "open", "qty": qty, "symbol": "SPY",
+        return {**base, "order_side": signal, "intent": "open", "qty": qty, "symbol": inst.get("underlying"),
                 "notional": round(qty * price, 2)}
     return {**base, "order_side": None, "qty": 0, "symbol": None}
 
