@@ -30,8 +30,8 @@ $1,000 book. Premium × 100 is often $100–$300 and can be more. The paper
 account rejects an order it cannot afford. The desk logs the rejection and
 does not retry.
 
-It is separate from the HomeStack app in this repo: nothing here is imported by
-the Next.js site, and the site does not serve it.
+This repository is standalone. It isn't connected to any website or web app,
+and nothing outside this folder imports it or serves it.
 
 ## Choosing which stocks to focus on (`watchlist.json`)
 
@@ -130,8 +130,7 @@ It does not run on the website, for these reasons:
 - A 4-digit PIN is a screen lock. On the public internet anyone can try all
   10,000 PINs. On `127.0.0.1` only you can reach it, and the console refuses
   to listen anywhere else.
-- The website is HomeStack, a homebuyer product. A trading desk does not belong
-  on it.
+- It stays off every website and app on purpose. Nothing is published.
 
 If you later want the desk online, give it proper sign-in (accounts, not a
 PIN) and a server that receives the desk state.
@@ -139,7 +138,7 @@ PIN) and a server that receives the desk state.
 ## Setup
 
 ```bash
-cd paper-trading
+git clone https://github.com/pabwear/spy-paper-desk.git && cd spy-paper-desk
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -206,10 +205,10 @@ structure, order-block or session confluence.
 Example cron (machine clock in New York time):
 
 ```cron
-*/5 9 * * 1-5      cd ~/DPA/paper-trading && .venv/bin/python run_study.py eval
-*/5 10-15 * * 1-5  cd ~/DPA/paper-trading && .venv/bin/python run_study.py paper
-* 10-15 * * 1-5    cd ~/DPA/paper-trading && .venv/bin/python run_study.py manage
-15 16 * * 1-5      cd ~/DPA/paper-trading && .venv/bin/python run_study.py sync && .venv/bin/python run_study.py review
+*/5 9 * * 1-5      cd ~/spy-paper-desk && .venv/bin/python run_study.py eval
+*/5 10-15 * * 1-5  cd ~/spy-paper-desk && .venv/bin/python run_study.py paper
+* 10-15 * * 1-5    cd ~/spy-paper-desk && .venv/bin/python run_study.py manage
+15 16 * * 1-5      cd ~/spy-paper-desk && .venv/bin/python run_study.py sync && .venv/bin/python run_study.py review
 ```
 
 The stop and the flatten only work while `manage` (or `paper`) is running. If

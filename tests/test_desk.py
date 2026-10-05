@@ -1,6 +1,6 @@
 """Paper desk tests: gates, instruments (SPY options on, SPY shares/SNDK off), exits, ledger, console.
 
-Run from paper-trading/:  python3 -m unittest discover -s tests -v
+Run from the repo root:  python3 -m unittest discover -s tests -v
 """
 
 from __future__ import annotations
