@@ -33,6 +33,36 @@ does not retry.
 This repository is standalone. It isn't connected to any website or web app,
 and nothing outside this folder imports it or serves it.
 
+## Running in the cloud (GitHub Actions): nothing to install
+
+This is the easiest way to run the desk. GitHub runs it for you on a schedule,
+inside this private repo.
+
+| Workflow | When | What it does |
+| --- | --- | --- |
+| **Desk (every 10 minutes)** | weekdays, about 09:30–16:20 New York time | `run_study.py tick`: watch-only until 10:00; then exits plus at most one gated entry; exits only from 15:40; at 16:10 sync and review |
+| **Today's zones** | you, 09:30–09:59 | A form: the stock, its RED and GREEN boxes as LOW-HIGH, optional tags, or "no readable boxes" |
+| **Focus list** | any time | add, remove, up, down; trade-on and trade-off for a non-SPY stock |
+| **Market Pulse** | mornings | live readings JSON → today's bias |
+| **Tests** | every push | the test suite |
+
+**One-time setup:** in **Settings → Secrets and variables → Actions → New
+repository secret**, add `ALPACA_API_KEY` and `ALPACA_SECRET_KEY`. Use the
+**paper** keys for Paper 1000. Never paste keys anywhere else.
+
+**Running state** (journal, ledger, account, zones, focus, pulse, learner) lives
+on the `desk-state` branch, so `main` keeps only code and settings. Each run
+loads it, works, and commits it back. Every run uses one queue, so two runs
+never write at the same time.
+
+**Timing.** GitHub's schedule can run a few minutes late. So the 0.35% stop is
+checked about every 10 minutes, and closing starts at 15:40 (`risk.json`) so
+the desk is flat by 16:00. If you need checks to the minute, run it on your own
+computer instead (below).
+
+**Cost.** About 48 short runs per weekday fit inside GitHub's free 2,000
+minutes a month for private repos.
+
 ## Choosing which stocks to focus on (`watchlist.json`)
 
 The desk evaluates every stock on the **focus list** each run, in priority order.
@@ -119,7 +149,9 @@ Sheet: **Trades**, **Closed trades** and **Daily reviews**. One-time setup:
 
 The sheet is a mirror only. A failed push is logged and never blocks trading.
 
-## Where the console runs: on your computer
+## Running it on your own computer instead
+
+### Where the console runs: on your computer
 
 The console is a local page at `http://127.0.0.1:8765`, locked behind a PIN.
 It does not run on the website, for these reasons:
@@ -193,8 +225,8 @@ The console only reads. It cannot place orders. It refreshes every 15 seconds.
 | 09:39 → before 10:00 | Scout, from the boxes Ops read | `python3 run_study.py aoi set [--symbol NVDA] --zone red:LOW:HIGH --zone green:LOW:HIGH [--tag 1:CHoCH]` |
 | by 09:55 if unreadable | Scout | `python3 run_study.py aoi clear --reason "Mxwll boxes not readable"` |
 | morning | Market Pulse agents | `python3 run_study.py pulse set bullish\|bearish\|neutral --note "..."` |
-| 10:00–15:54 | Trader | `python3 run_study.py paper` (exits first, then at most one gated entry) |
-| every minute 10:00–15:59 | Trader | `python3 run_study.py manage` (0.35% stop, flatten from 15:55) |
+| 10:00–15:39 | Trader | `python3 run_study.py paper` (exits first, then at most one gated entry) |
+| every minute 10:00–15:59 | Trader | `python3 run_study.py manage` (0.35% stop, flatten from 15:40) |
 | every few minutes | Trader | `python3 run_study.py sync` (fills → ledger, account snapshot) |
 | 16:15 | Trader | `python3 run_study.py review` (review + learning) |
 
@@ -212,14 +244,14 @@ Example cron (machine clock in New York time):
 ```
 
 The stop and the flatten only work while `manage` (or `paper`) is running. If
-the machine is off at 15:55, nothing flattens the position. The console then
+the machine is off at 15:40, nothing flattens the position. The console then
 shows a red **Overnight hold** banner, and the review prints a warning.
 
 ## How a decision is made
 
 1. Outside 09:30–16:00, or on a weekend: logged as a pass, nothing else happens.
 2. 09:30–09:59: the zones are scored and logged. No entries.
-3. From 10:00 until 15:55 the trader picks the zone that price is inside, or
+3. From 10:00 until 15:40 the trader picks the zone that price is inside, or
    within 0.15% of its midpoint. If several qualify, the highest confluence
    score wins. At least **2** of these must agree:
    - RSI (14, 1-minute) under 50 in red or over 50 in green
@@ -238,7 +270,7 @@ shows a red **Overnight hold** banner, and the review prints a warning.
 6. Max 2 entries a day. One position at a time, and no entry while an order is open.
 7. Exits: the loser exits when SPY moves 0.35% against the SPY price at entry.
    Leaving the zone is **not** an exit. Otherwise the position is flattened from
-   15:55, so it is flat by 16:00. No overnight holds. Exits are allowed even
+   15:40, so it is flat by 16:00. No overnight holds. Exits are allowed even
    after an instrument is switched off, because closing only removes risk.
 8. `paper` checks exits first. Then it asks the paper account for its account
    number, clock, positions, open orders and the listed SPY contracts. Then it
@@ -252,7 +284,7 @@ Every one of these must pass:
 - `live_unlocked` is false and the mode is paper in `alpaca_config.json` and `rules.json`
 - the keys belong to Paper 1000 (`PA3R32D8LP4Q`)
 - the active instrument's switch is on, and the underlying is SPY (SNDK is refused)
-- it is a weekday, 10:00 ≤ time < 15:55 ET, and Alpaca's clock says the market is open
+- it is a weekday, 10:00 ≤ time < 15:40 ET, and Alpaca's clock says the market is open
 - `aoi_override.json` is tradable, has zones, was written today between 09:30 and 09:59 ET, and is not approximate. The October 2 stand-in zones fail this.
 - the zone is in that override, price is at the zone, and the zone color matches the signal
 - at least 2 confluence signals
@@ -342,14 +374,14 @@ python3 -m unittest discover -s tests -v
 ```
 
 They cover:
-- **Gate:** weekend, before 10:00, after 15:55, prior-day or stand-in override,
+- **Gate:** weekend, before 10:00, after 15:40, prior-day or stand-in override,
   live host, live unlock, wrong account, color, 2-signal confluence, 2 entries
   a day, one position.
 - **Instruments:** one call on a buy and one put on a sell (1 contract, nearest
   expiry, nearest-dollar strike). With shares off, no share order. With SNDK
   off (or on), no SNDK order. Shares come back on by config alone, at $800.
 - **Exits:** the 0.35% stop for calls and puts, no exit on leaving the zone,
-  the flatten from 15:55 even with options switched off, no exit on a live host.
+  the flatten from 15:40 even with options switched off, no exit on a live host.
 - **Ledger:** option P&L uses the ×100 multiplier.
 - **Learner:** it finds a planted losing pattern, beats the base rate
   walk-forward, never acts in shadow mode, and in veto mode can only skip.

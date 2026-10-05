@@ -1,0 +1,45 @@
+name: Market Pulse
+
+# Live readings (Stocklake market pulse, Stocktwits sentiment) as one JSON object; see pulse.py.
+on:
+  workflow_dispatch:
+    inputs:
+      readings:
+        description: "Readings JSON, e.g. {\"spy_change_pct\": 0.6, \"fear_greed\": 31, \"stocktwits\": {\"SPY\": {\"score\": 72}}}"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: desk-state
+  cancel-in-progress: false
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: desk-state
+          path: .state
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - id: restore
+        run: python cloud_state.py restore .state
+      - env:
+          READINGS: ${{ inputs.readings }}
+        run: python cloud_state.py pulse
+      - name: Save state
+        run: |
+          python cloud_state.py save .state
+          cd .state
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "pulse: $(TZ=America/New_York date '+%F %H:%M') ET"
+          git push -q origin HEAD:desk-state

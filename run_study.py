@@ -2,7 +2,7 @@
 
     python3 run_study.py eval                 # evaluate and log. NEVER sends an order.
     python3 run_study.py paper                # manage exits, then at most ONE gated paper entry
-    python3 run_study.py manage               # exits only: 0.35% SPY stop, flatten from 15:55
+    python3 run_study.py manage               # exits only: 0.35% stop, flatten from risk.json flatten_start
     python3 run_study.py sync                 # pull paper fills into trades.csv, refresh account.json
     python3 run_study.py review               # 4:15 PM ET end-of-day review + learning
     python3 run_study.py learn                # retrain the learner and print what it found
@@ -582,6 +582,41 @@ def cmd_review(now: datetime) -> dict:
     return summary
 
 
+def review_done(day) -> bool:
+    return any(e.get("event") == "review" for e in journal.events_on(journal.read_events(), day))
+
+
+def cmd_tick(now: datetime, broker_factory=None, bars=None, fetch=None) -> str:
+    """One scheduled heartbeat (the cloud runs this every 10 minutes). Does what the clock calls for.
+
+    09:30–09:59 watch only · 10:00–cutoff exits + gated entry · cutoff–16:00 exits only
+    after 16:10 once a day: sync + review · otherwise nothing.
+    """
+    risk = load_json("risk.json", {})
+    state = session_state(now, risk)
+    t = now.astimezone(ET)
+    if state == "watch_only":
+        cmd_eval(now, bars, fetch)
+        return "watch"
+    if state in ("trade_window", "flatten_window"):
+        if broker_factory is None:
+            from alpaca_client import PaperBroker as broker_factory  # noqa: N813
+        broker = broker_factory()
+        cmd_paper(now, broker_factory=lambda: broker, bars=bars, fetch=fetch)
+        cmd_sync(now, broker=broker)
+        return state
+    if state == "after_close" and t.time() >= hhmm("16:10") and not review_done(t.date()):
+        if broker_factory is None:
+            from alpaca_client import PaperBroker as broker_factory  # noqa: N813
+        broker = broker_factory()
+        cmd_manage(now, broker, bars=bars, fetch=fetch)  # logs exit_failed if anything is still open
+        cmd_sync(now, broker=broker)
+        cmd_review(now)
+        return "review"
+    print(f"Nothing to do at {t:%a %H:%M} ET ({state}).")
+    return "idle"
+
+
 def cmd_aoi_set(now: datetime, zone_specs: list[str], tag_specs: list[str], source: str, symbol: str = "SPY") -> dict:
     """Scout: publish today's boxes for one symbol as Ops read them. Only inside 09:30–09:59 ET on a weekday."""
     if symbol not in watchlist()["symbols"]:
@@ -725,6 +760,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="SPY paper desk (paper only; SPY options active).")
     sub = parser.add_subparsers(dest="cmd", required=True)
     sub.add_parser("eval", help="evaluate and log; never sends an order")
+    sub.add_parser("tick", help="one scheduled heartbeat: does whatever the New York clock calls for")
     sub.add_parser("paper", help="manage exits, then submit one paper entry only if the gate passes")
     sub.add_parser("manage", help="exits only: 0.35% SPY stop and the 16:00 flatten")
     sub.add_parser("learn", help="retrain the learner from closed paper trades")
@@ -765,7 +801,9 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     now = now_et()
-    if args.cmd == "eval":
+    if args.cmd == "tick":
+        cmd_tick(now)
+    elif args.cmd == "eval":
         cmd_eval(now)
     elif args.cmd == "paper":
         cmd_paper(now)

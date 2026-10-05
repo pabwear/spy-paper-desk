@@ -340,7 +340,7 @@
     aoi_from_today_open: "AOI not from today's open", aoi_not_approximate: "AOI approximate / withdrawn",
     zone_published: "Zone not in override", price_at_zone: "Price not at zone", zone_color_matches_side: "Zone color ≠ side",
     confluence: "Fewer than 2 confluence signals", size_within_cap: "Size over the cap", unspecified: "Unspecified",
-    flatten_window: "15:55–16:00 flatten window", instrument_off: "Instrument switched off",
+    flatten_window: "Closing time (exits only)", instrument_off: "Instrument switched off",
     instrument_enabled: "Instrument switched off", underlying_spy: "Underlying is not SPY", sndk_off: "SNDK is off",
     entries_today: "2 entries already today", one_position: "A position or order is already open",
     option_right: "Wrong right for the signal", option_one_contract: "Not exactly 1 contract",
@@ -353,7 +353,7 @@
   const CHECKS = {
     paper_client: "Client is paper (paper-api host)", live_locked: "live_unlocked false · mode paper",
     paper_1000_account: "Keys belong to Paper 1000", symbol_spy: "Symbol is SPY", weekday: "Weekday",
-    time_window: "10:00 ≤ time < 15:55 ET", market_clock: "Market open per Alpaca clock",
+    time_window: "Inside the entry window (10:00 to the cutoff)", market_clock: "Market open per Alpaca clock",
     aoi_tradable: "AOI tradable with zones", aoi_from_today_open: "AOI written today 09:30–09:59",
     aoi_not_approximate: "AOI is a real read (not approximate)", zone_published: "Zone is in today's override",
     price_at_zone: "Price inside zone or ≤ 0.15% from mid", zone_color_matches_side: "Red → buy · green → sell",
@@ -597,7 +597,7 @@
       ["Unrealized", `<span class="${cls(pos.unrealized_pl)}">${smoney(pos.unrealized_pl)} (${spct((pos.unrealized_plpc || 0) * 100)})</span>`],
       ["SPY at entry", money(pos.underlying_entry)],
       ["Stop (SPY, 0.35% against)", isNum(pos.stop_level) ? `${money(pos.stop_level)} <span class="muted">${pos.exposure === "long" ? "at or below" : "at or above"}</span>` : "—"],
-      ["Flatten", `${esc(pos.flatten_at || "15:55")} ET → flat by 16:00`],
+      ["Flatten", `${esc(pos.flatten_at || "15:40")} ET → flat by 16:00`],
     ]) : `<div class="empty">Flat — no SPY or SPY option position in the last snapshot.</div>`;
 
     // today glance

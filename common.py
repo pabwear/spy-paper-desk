@@ -106,6 +106,6 @@ SESSION_LABELS = {
     "pre_open": "Before the open — no orders",
     "watch_only": "09:30–09:59 watch only — no orders",
     "trade_window": "Entry window (gate still applies)",
-    "flatten_window": "15:55–16:00 flatten only — no entries",
+    "flatten_window": "Closing time — exits only, no entries",
     "after_close": "After the close — no orders",
 }
