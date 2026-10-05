@@ -1,0 +1,316 @@
+{
+  "generated_at": "2026-10-05T01:14:18-04:00",
+  "session": {
+    "state": "pre_open",
+    "label": "Before the open \u2014 no orders",
+    "now_et": "2026-10-05T01:14:18-04:00"
+  },
+  "config": {
+    "account_name": "Paper 1000",
+    "account_number": "PA3R32D8LP4Q",
+    "mode": "paper",
+    "base_url": "https://paper-api.alpaca.markets",
+    "live_unlocked": false,
+    "live_trading": false,
+    "symbol": "SPY",
+    "chart": "https://www.tradingview.com/chart/pY9HoHBw/?symbol=AMEX:SPY",
+    "study": "Mxwll Price Action Suite"
+  },
+  "account": {
+    "source": "initial",
+    "account_number": null,
+    "status": null,
+    "snapshot_at": null,
+    "equity": 1000.0,
+    "cash": 1000.0,
+    "buying_power": null,
+    "last_equity": null,
+    "matches_expected": null,
+    "change_usd": 0.0,
+    "change_pct": 0.0,
+    "day_change_usd": null
+  },
+  "position": null,
+  "positions": [],
+  "instrument": {
+    "active": "spy_options",
+    "enabled": true,
+    "why": "spy_options on (spy_options_enabled true)",
+    "flags": {
+      "spy_options": true,
+      "spy_shares": false,
+      "sndk_shares": false,
+      "sndk_options": false
+    },
+    "option": {
+      "right_on_buy": "call",
+      "right_on_sell": "put",
+      "contracts": 1,
+      "strike": "atm_nearest_dollar",
+      "expiry": "nearest_listed"
+    },
+    "stop_underlying_pct": 0.35,
+    "exit_on_zone_leave": false,
+    "hold_to": "16:00 ET",
+    "overnight": false,
+    "min_confluence": 2,
+    "max_entries_per_day": 2,
+    "entries_today": 0,
+    "entry_cutoff": "15:40",
+    "flatten_start": "15:40",
+    "past_flatten": false
+  },
+  "learning": {
+    "config": {
+      "mode": "shadow",
+      "min_trades_to_act": 30,
+      "veto_threshold": 0.65,
+      "min_tag_samples": 10,
+      "multiplier_range": [
+        0.5,
+        1.5
+      ],
+      "l2": 1.0,
+      "note": "shadow: predicts and logs, never acts. veto: may only SKIP an entry, and only after min_trades_to_act closed trades AND beating the base rate walk-forward. It can never add an order, resize a contract or bypass the gate."
+    },
+    "multipliers": {},
+    "learned_at": null,
+    "report": null,
+    "model": null
+  },
+  "pnl": {
+    "book": 1000.0,
+    "realized_total": 0,
+    "realized_today": 0.0,
+    "unrealized": null,
+    "net": 0.0
+  },
+  "stats": {
+    "fills": 0,
+    "closed_trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "scratches": 0,
+    "win_rate_pct": null,
+    "realized_pnl": 0,
+    "gross_profit": 0,
+    "gross_loss": 0,
+    "avg_win": null,
+    "avg_loss": null,
+    "largest_win": null,
+    "largest_loss": null,
+    "profit_factor": null,
+    "expectancy": null,
+    "max_drawdown": 0.0,
+    "streak": null
+  },
+  "daily_pnl": [],
+  "equity_curve": [
+    {
+      "t": null,
+      "equity": 1000.0,
+      "label": "Start"
+    }
+  ],
+  "risk": {
+    "book": 1000.0,
+    "sizing_equity": 1000.0,
+    "max_risk_usd": 100.0,
+    "max_risk_pct": 10,
+    "max_notional_usd": 800.0,
+    "max_notional_pct": 80,
+    "last_price": null,
+    "qty_at_last_price": null,
+    "zone_tolerance_pct": 0.15,
+    "pulse_contradiction": {
+      "action": "reduce",
+      "size_factor": 0.5,
+      "note": "When Market Pulse contradicts the side: 'reduce' sizes by size_factor, 'skip' passes on the idea."
+    },
+    "windows": {
+      "rth_open": "09:30",
+      "rth_watch_only_until": "10:00",
+      "rth_close": "16:00"
+    }
+  },
+  "aoi": {
+    "tradable": false,
+    "fresh": false,
+    "freshness": "No written_at timestamp (with time zone) on the override",
+    "approximate": false,
+    "written_at": null,
+    "source": null,
+    "note": "Empty until a same-day Mxwll read from the 9:30-9:59 ET open.",
+    "zones": []
+  },
+  "pulse": {
+    "date": null,
+    "bias": "none",
+    "sources": {
+      "market_pulse": null,
+      "macro_policy": null,
+      "sentiment_flow": null,
+      "rates_jobs": null
+    },
+    "note": "Weekday morning bias only. 'none' until the pulse agents write today's read.",
+    "is_today": false
+  },
+  "last_eval": null,
+  "focus": [
+    {
+      "symbol": "SPY",
+      "focus": true,
+      "rank": 1,
+      "instrument": "spy_options",
+      "asset": "option",
+      "trading": true,
+      "why": "spy_options on (spy_options_enabled true)",
+      "chart": "https://www.tradingview.com/chart/pY9HoHBw/?symbol=AMEX:SPY",
+      "aoi": {
+        "symbol": "SPY",
+        "file": "aoi_override.json",
+        "tradable": false,
+        "fresh": false,
+        "freshness": "No written_at timestamp (with time zone) on the override",
+        "approximate": false,
+        "written_at": null,
+        "source": null,
+        "note": "Empty until a same-day Mxwll read from the 9:30-9:59 ET open.",
+        "zones": []
+      },
+      "last_eval": null
+    },
+    {
+      "symbol": "SNDK",
+      "focus": false,
+      "rank": null,
+      "instrument": "sndk_shares",
+      "asset": "shares",
+      "trading": false,
+      "why": "sndk_enabled is false",
+      "chart": null,
+      "aoi": {
+        "symbol": "SNDK",
+        "file": "aoi_override.SNDK.json",
+        "tradable": false,
+        "fresh": false,
+        "freshness": "aoi_override.json is missing",
+        "approximate": false,
+        "written_at": null,
+        "source": null,
+        "note": null,
+        "zones": []
+      },
+      "last_eval": null
+    }
+  ],
+  "evals_today": {
+    "evaluated": 0,
+    "passes": 0,
+    "watch": 0,
+    "would_enter": 0,
+    "entered": 0,
+    "pass_rate_pct": null,
+    "pass_reasons": []
+  },
+  "evals_all": {
+    "evaluated": 0,
+    "passes": 0,
+    "watch": 0,
+    "would_enter": 0,
+    "entered": 0,
+    "pass_rate_pct": null,
+    "pass_reasons": []
+  },
+  "trades": [],
+  "orders": [],
+  "reviews": [],
+  "activity": [],
+  "weights": {
+    "weights": {
+      "structure": 1.0,
+      "order_blocks": 1.0,
+      "rsi": 1.0,
+      "vwap": 1.0,
+      "volume": 1.0,
+      "session": 1.0
+    },
+    "indicators": {
+      "timeframe_minutes": 1,
+      "rsi_period": 14,
+      "volume_avg_bars": 20
+    },
+    "note": "Score = sum of weight x learned multiplier for each confluence tag present. Highest score wins. Base weights are hand-set; learned_multipliers are written by the 4:15 review from closed paper trades.",
+    "learned_multipliers": {},
+    "ml": {
+      "mode": "shadow",
+      "min_trades_to_act": 30,
+      "veto_threshold": 0.65,
+      "min_tag_samples": 10,
+      "multiplier_range": [
+        0.5,
+        1.5
+      ],
+      "l2": 1.0,
+      "note": "shadow: predicts and logs, never acts. veto: may only SKIP an entry, and only after min_trades_to_act closed trades AND beating the base rate walk-forward. It can never add an order, resize a contract or bypass the gate."
+    }
+  },
+  "rules": {
+    "buy": "RED only",
+    "sell": "GREEN only",
+    "confluence": [
+      "structure (BOS/CHoCH, HH/LH/LL)",
+      "order blocks",
+      "RSI",
+      "VWAP",
+      "volume",
+      "session context"
+    ],
+    "min_confluence": 2,
+    "notes": "Roy fades the study: buy red, sell green. Green is traditionally demand. Red is traditionally supply."
+  },
+  "files": [
+    {
+      "name": "watchlist.json",
+      "status": "ok"
+    },
+    {
+      "name": "alpaca_config.json",
+      "status": "ok"
+    },
+    {
+      "name": "rules.json",
+      "status": "ok"
+    },
+    {
+      "name": "risk.json",
+      "status": "ok"
+    },
+    {
+      "name": "study.json",
+      "status": "ok"
+    },
+    {
+      "name": "account.json",
+      "status": "ok"
+    },
+    {
+      "name": "aoi_override.json",
+      "status": "ok"
+    },
+    {
+      "name": "learning_weights.json",
+      "status": "ok"
+    },
+    {
+      "name": "market_pulse.json",
+      "status": "ok"
+    },
+    {
+      "name": "trades.csv",
+      "status": "ok"
+    }
+  ],
+  "first_event_at": null,
+  "trading_days_logged": 0
+}
