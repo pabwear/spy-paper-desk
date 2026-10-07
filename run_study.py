@@ -30,6 +30,7 @@ import re
 from common import (ET, SYMBOL_RE, aoi_file, focus_symbols, hhmm, load_json, now_et, save_json, session_state,
                     to_et, watchlist)
 from gate import check_exit, check_order, failures, is_approximate, override_freshness, passed
+from studies import auto as auto_study
 from signals import bars_today, pulse_contradicts, rank_zones, rsi, session_vwap, volume_above_average
 
 # Checks only the paper account can answer. `eval` never asks it, so these show as "checked at submit".
@@ -120,6 +121,42 @@ def market_read(now: datetime, source: Bars, symbol: str, weights: dict, risk: d
     }, None
 
 
+def study_read(now: datetime, source: Bars, symbol: str, rules: dict) -> dict | None:
+    """The ported Mxwll study on this symbol's chart right now. A study problem never stops the desk."""
+    try:
+        return auto_study.read(source.get(symbol)[0], now, auto_study.config(rules))
+    except Exception as e:  # noqa: BLE001
+        return {"error": f"{type(e).__name__}: {e}"[:200]}
+
+
+def cmd_auto_zones(now: datetime, source: Bars) -> list[str]:
+    """After the snapshot (09:39 ET), compute today's Mxwll zones for each focus symbol that has none for today.
+
+    Zones Ops published today (or a clear) are never replaced. Returns the symbols written.
+    """
+    cfg = auto_study.config(load_json("rules.json", {}))
+    if not cfg.get("auto_zones"):
+        return []
+    written = []
+    for sym in focus_symbols():
+        current = load_json(aoi_file(sym), None)
+        when = to_et((current or {}).get("written_at"))
+        if when is not None and when.date() == now.astimezone(ET).date():
+            continue
+        try:
+            data = auto_study.zones_file(sym, now, source.get(sym)[0], cfg)
+        except Exception as e:  # noqa: BLE001
+            journal.log("study_failed", now=now, symbol=sym, error=f"{type(e).__name__}: {e}"[:300])
+            continue
+        if not data:
+            continue
+        save_json(aoi_file(sym), data)
+        journal.log("aoi", now=now, symbol=sym, tradable=data["tradable"], zones=data["zones"],
+                    source=data["source"], approximate=data["approximate"], as_of=data["written_at"])
+        written.append(sym)
+    return written
+
+
 def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[dict] | None = None, fetch=None,
              account_number: str | None = None, market_open: bool | None = None, client_is_paper: bool = True,
              base_url: str | None = None, open_orders: int | None = None, contract_picker=None) -> dict:
@@ -138,7 +175,8 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
         result["reasons"] = [CLOSED_STATES[state]]
         return result
 
-    market, err = market_read(now, _bars(now, bars, fetch), symbol, weights, risk)
+    source = _bars(now, bars, fetch)
+    market, err = market_read(now, source, symbol, weights, risk)
     if market is None:
         result.update(reasons=["no_market_data"], error=err)
         return result
@@ -147,8 +185,11 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
 
     zones = (override or {}).get("zones") or []
     tol = float(risk.get("zone_midpoint_tolerance_pct", 0.15))
+    study = study_read(now, source, symbol, rules)
+    result["study"] = study
     ranked = rank_zones(zones, price, market["rsi"], market["vwap"], market["volume_above_avg"],
-                        weights.get("weights", {}), tol, weights.get("learned_multipliers"))
+                        weights.get("weights", {}), tol, weights.get("learned_multipliers"),
+                        study_tags=auto_study.zone_tags(study, zones, tol))
     result["zones"] = ranked
     fresh, fresh_why = override_freshness(override, now, risk)
     result["aoi"] = {"tradable": bool(override and override.get("tradable")), "fresh": fresh,
@@ -271,6 +312,8 @@ def _log_eval(now: datetime, mode: str, r: dict) -> dict:
         zone=cand.get("zone"), tags=cand.get("tags"), score=cand.get("score"), pulse_bias=r.get("pulse_bias"),
         p_loss=r.get("p_loss"), ml=r.get("ml"), entries_today=r.get("entries_today"),
         gate=r.get("gate"), note=r.get("note"), error=r.get("error"),
+        study={k: (r.get("study") or {}).get(k) for k in ("as_of", "aoi", "internal", "external", "error")}
+        if r.get("study") else None,
         zones=[{"color": z["zone"].get("color"), "low": z["zone"].get("low"), "high": z["zone"].get("high"),
                 "near": z["near"], "distance_pct": z["distance_pct"], "tags": z["tags"], "score": z["score"]}
                for z in r.get("zones", [])],
@@ -621,15 +664,18 @@ def cmd_tick(now: datetime, broker_factory=None, bars=None, fetch=None) -> str:
         journal.log("setup_needed", now=now, reasons=["no_alpaca_keys"],
                     note="Add ALPACA_API_KEY and ALPACA_SECRET_KEY as repository secrets.")
         if state != "after_close":
+            cmd_auto_zones(now, source)
             cmd_eval(now, source)
         _charts(now, source)
         print("Alpaca keys aren't set yet: watched the market and drew charts; no orders.")
         return "no_keys"
     if state == "watch_only":
+        cmd_auto_zones(now, source)
         cmd_eval(now, source)
         _charts(now, source)
         return "watch"
     if state in ("trade_window", "flatten_window"):
+        cmd_auto_zones(now, source)  # catches up if the cloud missed the watch window
         if broker_factory is None:
             from alpaca_client import PaperBroker as broker_factory  # noqa: N813
         broker = broker_factory()

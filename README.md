@@ -301,6 +301,31 @@ an order on any day.
 If anything sets `live_unlocked` to true without Roy saying so in chat, stop.
 The gate and `alpaca_client.py` both refuse to run.
 
+## The desk's own Mxwll read (`studies/`)
+
+`studies/mxwll.py` is a Python port of the Mxwll Suite by Mxwll Capital (Mozilla Public
+License 2.0; the license header stays on the file). It follows the Pine code line by line:
+
+- **Areas of Interest:** red = [highest candle body of the last 50 candles, + ATR(14)], above price;
+  green = [lowest body − ATR(14), lowest body], below price. Both roll with every candle.
+- **Structure:** internal (sensitivity 3) and external (25) pivots; I-BoS / I-CHoCH and BoS / CHoCH
+  breaks; HH / LH / HL / LL swing labels.
+- **Swing order blocks:** removed once price closes through them; the last 10 are kept.
+- Fair value gaps, Fibonacci levels and the session table are not ported yet.
+
+How the desk uses it (`rules.json` → `studies.mxwll`):
+
+- **Auto zones.** After 09:39 ET, any focus stock with no zones for today gets the study's boxes as
+  of 09:39, on `timeframe_minutes` candles (5 by default; regular hours only). Zones Ops publishes
+  through the form are never replaced. Auto zones are marked `approximate`, so the gate refuses
+  them, until Roy checks them against his TradingView chart and sets `trusted` to `true`.
+- **Confluence.** `structure` counts when the latest internal break points the trade's way;
+  `order_blocks` counts when a live swing order block overlaps or sits near the zone.
+- **Chart.** `charts.json` carries the study's current read, so the dashboard can show both boxes.
+
+The boxes depend on the chart's timeframe and on whether extended hours are shown, so set
+`timeframe_minutes` and `regular_hours_only` to match the chart the zones are read from.
+
 ## Learning from mistakes (`learning.py`)
 
 The desk learns from its own closed paper trades and its journal. It retrains

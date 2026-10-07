@@ -67,5 +67,20 @@
       }
     },
     "min_net_votes": 2
+  },
+  "studies": {
+    "mxwll": {
+      "_note": "Python port of the Mxwll Suite (MPL 2.0, Mxwll Capital) in studies/mxwll.py. Auto zones stay approximate (never tradable) until trusted is true, which only Roy sets after comparing them with his TradingView chart.",
+      "timeframe_minutes": 5,
+      "regular_hours_only": true,
+      "snapshot_time": "09:39",
+      "auto_zones": true,
+      "trusted": false,
+      "aoi_lookback": 50,
+      "atr_length": 14,
+      "internal_sensitivity": 3,
+      "external_sensitivity": 25,
+      "order_blocks_kept": 10
+    }
   }
 }

@@ -71,6 +71,12 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
         return None
     candles = resample(today)
     override = load_json(aoi_file(symbol), None) or {}
+    try:  # the desk's own Mxwll read right now: rolling AOI boxes, last breaks, order blocks
+        from studies import auto as auto_study
+
+        study = auto_study.read(bars, now, auto_study.config(load_json("rules.json", {}) or {}))
+    except Exception as e:  # noqa: BLE001 - a study problem never stops the chart
+        study = {"error": f"{type(e).__name__}: {e}"[:200]}
     return {
         "symbol": symbol,
         "date": now.astimezone(ET).date().isoformat(),
@@ -81,6 +87,9 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
         "zones": override.get("zones") or [],
         "zones_written_at": override.get("written_at"),
         "zones_tradable": bool(override.get("tradable")),
+        "zones_source": override.get("source"),
+        "zones_approximate": bool(override.get("approximate")),
+        "study": study,
         "trades": trade_marks(symbol, now.astimezone(ET).date(), events),
         "updated_at": now.astimezone(ET).isoformat(timespec="seconds"),
     }

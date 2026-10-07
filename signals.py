@@ -88,10 +88,14 @@ def price_near_zone(price: float, zone: dict, tolerance_pct: float = 0.15) -> bo
 
 
 def confluence_tags(zone: dict, price: float, rsi_value: float | None, vwap: float | None,
-                    volume_up: bool | None) -> list[str]:
-    """Weight keys for the extra signals that agree with this zone."""
+                    volume_up: bool | None, study_tags: list[str] | None = None) -> list[str]:
+    """Weight keys for the extra signals that agree with this zone.
+
+    study_tags: weight keys the desk's own chart study found for this zone (e.g. "structure").
+    A key counts once whether Ops tagged it, the study found it, or both.
+    """
     tags: list[str] = []
-    for raw in zone.get("confluence", []) or []:
+    for raw in list(zone.get("confluence", []) or []) + list(study_tags or []):
         key = OPS_TAG_KEYS.get(str(raw))
         if key and key not in tags:
             tags.append(key)
@@ -115,15 +119,17 @@ def score(tags: list[str], weights: dict, multipliers: dict | None = None) -> fl
 
 def rank_zones(zones: list[dict], price: float, rsi_value: float | None, vwap: float | None,
                volume_up: bool | None, weights: dict, tolerance_pct: float = 0.15,
-               multipliers: dict | None = None) -> list[dict]:
+               multipliers: dict | None = None, study_tags: dict[str, list[str]] | None = None) -> list[dict]:
     """Every zone with its proximity, tags and score, best candidate first.
+
+    study_tags maps a zone color to extra weight keys from the desk's chart study.
 
     Candidates (price near the zone) sort ahead of non-candidates; ties break on
     distance to the midpoint.
     """
     ranked = []
     for z in zones:
-        tags = confluence_tags(z, price, rsi_value, vwap, volume_up)
+        tags = confluence_tags(z, price, rsi_value, vwap, volume_up, (study_tags or {}).get(z.get("color")))
         mid = zone_mid(z)
         ranked.append({
             "zone": z,
