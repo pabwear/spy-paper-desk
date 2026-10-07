@@ -47,9 +47,11 @@ class RecordTests(DeskTestCase):
     def test_pulse_form_records_it(self):
         run_study.cmd_pulse_ingest(at(THURSDAY, 10, 5), READINGS)
         self.assertEqual(len(sentiment._read(sentiment.LOG)), 1)
-        state = load_json("dashboard_state.json")
-        self.assertEqual(state["sentiment"]["latest"]["whats_new"], READINGS["whats_new"])
-        self.assertEqual(state["sentiment"]["plays"]["open"], 1)
+        stub = load_json("dashboard_state.json")["sentiment"]  # its own file keeps the live state small
+        self.assertEqual((stub["stub"], stub["file"]), (True, "sentiment_state.json"))
+        sent = load_json("sentiment_state.json")
+        self.assertEqual(sent["latest"]["whats_new"], READINGS["whats_new"])
+        self.assertEqual(sent["plays"]["open"], 1)
 
 
 class DueTests(DeskTestCase):

@@ -441,6 +441,7 @@ def build_state(now: datetime | None = None) -> dict:
 
 CHART_FILE = "chart_{}.json"  # every focus stock's chart, one file each
 TESTS_FILE = "tests_state.json"
+SENTIMENT_FILE = "sentiment_state.json"
 
 
 def write_state(now: datetime | None = None) -> dict:
@@ -458,6 +459,10 @@ def write_state(now: datetime | None = None) -> dict:
     if tests:  # the backtests are big and change rarely: their own file, loaded when the Record view opens
         save_json(TESTS_FILE, tests, compact=True)
         state["tests"] = {"stub": True, "file": TESTS_FILE, "generated_at": state.get("generated_at")}
+    sent = state.get("sentiment") or {}
+    if sent and not sent.get("error"):  # the hourly reader's history: its own file, loaded after the main one
+        save_json(SENTIMENT_FILE, sent, compact=True)
+        state["sentiment"] = {"stub": True, "file": SENTIMENT_FILE, "generated_at": state.get("generated_at")}
     save_json("dashboard_state.json", state, compact=True)
     return state
 
