@@ -258,6 +258,37 @@ class PaperBroker:
         return {"order_id": str(o.id), "status": str(o.status.value), "submitted_at": str(o.submitted_at)}
 
 
+    def submit_limit(self, side: str, qty: float, limit_price: float, client_order_id: str, symbol: str = "SPY",
+                     intent: str | None = None) -> dict:
+        """One day limit order (an option leg with no quote, which Alpaca refuses at market)."""
+        from alpaca.trading.enums import OrderSide, PositionIntent, TimeInForce
+        from alpaca.trading.requests import LimitOrderRequest
+
+        if not self.is_paper or host_of(self.base_url) != PAPER_HOST:
+            raise LiveTradingRefused("Refusing to submit: client is not paper.")
+        if not is_desk_symbol(symbol, _watched()):
+            raise LiveTradingRefused(f"Refusing to submit {symbol}: not a watchlist symbol or its option.")
+        kwargs = {"position_intent": PositionIntent(intent)} if intent else {}
+        req = LimitOrderRequest(symbol=symbol, qty=qty, side=OrderSide.BUY if side == "buy" else OrderSide.SELL,
+                                time_in_force=TimeInForce.DAY, limit_price=round(float(limit_price), 2),
+                                client_order_id=client_order_id, **kwargs)
+        o = self._client.submit_order(order_data=req)
+        return {"order_id": str(o.id), "status": str(o.status.value), "submitted_at": str(o.submitted_at)}
+
+    def wait_filled(self, order_id: str, wait_s: float = 20.0) -> bool:
+        """Poll one order until it fills (True) or the wait runs out (False)."""
+        import time
+
+        end = time.monotonic() + wait_s
+        while True:
+            o = self._client.get_order_by_id(order_id)
+            status = str(getattr(o.status, "value", o.status))
+            if status == "filled":
+                return True
+            if status in ("canceled", "expired", "rejected") or time.monotonic() >= end:
+                return False
+            time.sleep(1.0)
+
     def submit_market_with_stop(self, qty: int, stop_price: float, client_order_id: str, symbol: str = "SPY") -> dict:
         """Buy whole shares at market and have Alpaca hold a stop to sell them (one order triggers the other).
         The stop fills the minute the price reaches it, whether or not the desk is running. Whole shares only:

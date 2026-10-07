@@ -121,7 +121,7 @@ class FakeBroker:
 
     def __init__(self, account_number="PA36VOEO5PHB", positions=None, market_open=True, fills=None,
                  open_orders=None, reject=False, expiries=(0, 1, 2, 7, 9, 14, 21, 28, 35, 42), ask_per_day=0.45, cash=1000.0,
-                 quote_fn=None, reject_spread_close=False):
+                 quote_fn=None, reject_spread_close=False, no_quote=(), unfilled_ids=()):
         self.account_number = account_number
         self._positions = positions or []
         self._market_open = market_open
@@ -138,6 +138,9 @@ class FakeBroker:
         self.spreads: list[dict] = []        # two-leg orders sent to open
         self.spread_closes: list[dict] = []  # two-leg orders sent to close
         self.cancelled_ids: list[str] = []
+        self.no_quote = set(no_quote)          # symbols Alpaca refuses at market ("no available quote")
+        self.unfilled_ids = set(unfilled_ids)  # order ids wait_filled reports as still open
+        self.waited: list[str] = []
 
     def positions(self):
         return list(self._positions)
@@ -225,9 +228,20 @@ class FakeBroker:
         self._open = [o for o in self._open if not (isinstance(o, dict) and o.get("symbol") == symbol)]
         return before - len(self._open)
 
+    def submit_limit(self, side, qty, limit_price, client_order_id, symbol="SPY", intent=None):
+        self.submitted.append({"side": side, "qty": qty, "client_order_id": client_order_id, "symbol": symbol,
+                               "intent": intent, "limit_price": limit_price})
+        return {"order_id": f"fake-{len(self.submitted)}", "status": "accepted", "submitted_at": "now"}
+
+    def wait_filled(self, order_id, wait_s=20.0):
+        self.waited.append(order_id)
+        return order_id not in self.unfilled_ids
+
     def submit_market(self, side, qty, client_order_id, symbol="SPY", intent=None):
         if self._reject:
             raise RuntimeError("insufficient options buying power")
+        if symbol in self.no_quote:
+            raise RuntimeError('{"code":40310000,"message":"order has been rejected due to no available quote for symbol."}')
         self.submitted.append({"side": side, "qty": qty, "client_order_id": client_order_id, "symbol": symbol,
                                "intent": intent})
         return {"order_id": f"fake-{len(self.submitted)}", "status": "accepted", "submitted_at": "now"}

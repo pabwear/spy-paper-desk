@@ -113,6 +113,31 @@ class SpreadBookTests(DeskTestCase):
         self.assertEqual([(o["symbol"], o["side"], o["intent"]) for o in broker.submitted],
                          [(legs[0]["symbol"], "buy", "buy_to_close"), (legs[1]["symbol"], "sell", "sell_to_close")])
 
+    def test_split_close_waits_for_the_short_then_sells_a_quoteless_long_at_a_cent(self):
+        broker = FakeBroker(cash=1000.0, quote_fn=quotes, reject_spread_close=True)
+        legs = self._open_spread(broker)
+        broker.no_quote = {legs[1]["symbol"]}
+        run_study.cmd_manage(at(THURSDAY, 15, 40), broker, bars=self.bars(at(THURSDAY, 15, 40)))
+        short_order, long_order = broker.submitted
+        self.assertEqual(broker.waited, ["fake-1"])  # the short's buy-back filled before the long was sold
+        self.assertEqual((long_order["symbol"], long_order["side"], long_order["limit_price"]), (legs[1]["symbol"], "sell", 0.01))
+
+    def test_long_not_sold_while_the_short_is_still_open(self):
+        broker = FakeBroker(cash=1000.0, quote_fn=quotes, reject_spread_close=True, unfilled_ids={"fake-1"})
+        legs = self._open_spread(broker)
+        run_study.cmd_manage(at(THURSDAY, 15, 40), broker, bars=self.bars(at(THURSDAY, 15, 40)))
+        self.assertEqual([o["symbol"] for o in broker.submitted], [legs[0]["symbol"]])
+        why = [e for e in journal.read_events() if e["event"] == "exit_failed"][-1]
+        self.assertEqual((why["symbol"], why["reasons"]), (legs[1]["symbol"], ["short_leg_not_filled_yet"]))
+
+    def test_a_lone_long_leg_is_sold_on_its_own(self):
+        broker = FakeBroker(cash=1000.0, quote_fn=quotes)
+        legs = self._open_spread(broker)
+        broker._positions = [broker._positions[1]]  # the short was bought back last run
+        run_study.cmd_manage(at(THURSDAY, 15, 50), broker, bars=self.bars(at(THURSDAY, 15, 50)))
+        self.assertEqual(broker.spread_closes, [])
+        self.assertEqual([(o["symbol"], o["side"]) for o in broker.submitted], [(legs[1]["symbol"], "sell")])
+
     def test_held_through_the_day_no_stock_stop_or_time_limit(self):
         broker = FakeBroker(cash=1000.0, quote_fn=quotes)
         self._open_spread(broker)

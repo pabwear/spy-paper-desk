@@ -712,6 +712,8 @@ def _manage_spreads(now, broker, legs_held, events, all_books, flatten, snap, ma
         qty = int(abs(float(held[0]["qty"])))
         coid = f"desk-{t:%Y%m%d-%H%M%S}-{book_id}-exit-{reason}"
         try:
+            if len(legs) < 2:
+                raise ValueError("one leg left: closed on its own")
             order = broker.close_spread(legs, qty, coid)
             journal.log("order", now=now, role="exit", reason=reason, order_id=order["order_id"], client_order_id=coid,
                         status=order.get("status"), symbol=legs[0]["symbol"], book=book_id, asset="spread",
@@ -723,9 +725,16 @@ def _manage_spreads(now, broker, legs_held, events, all_books, flatten, snap, ma
         except Exception as e:  # noqa: BLE001 - fall back to one leg at a time, short first
             journal.log("spread_close_split", now=now, book=book_id, error=f"{type(e).__name__}: {e}"[:300])
         for i, leg in enumerate(legs):
+            if i and legs[i - 1]["side"] == "buy" and hasattr(broker, "wait_filled") \
+                    and not broker.wait_filled(sent[-1]["order_id"]):
+                # selling the long leg while the short one is still open would leave the short uncovered:
+                # Alpaca refuses it anyway, and the next run sells it once the short is gone
+                journal.log("exit_failed", now=now, symbol=leg["symbol"], book=book_id, reason=reason,
+                            reasons=["short_leg_not_filled_yet"])
+                print(f"Roy: {legs[i - 1]['symbol']} not bought back yet; {leg['symbol']} is sold at the next run.")
+                break
             try:
-                order = broker.submit_market(leg["side"], abs(float(held[i]["qty"])), f"{coid}-{i}",
-                                             symbol=leg["symbol"], intent=leg["intent"])
+                order = _close_leg(broker, leg, abs(float(held[i]["qty"])), f"{coid}-{i}")
             except Exception as e:  # noqa: BLE001 - a failed exit must be loud
                 journal.log("exit_failed", now=now, symbol=leg["symbol"], book=book_id, reason=reason,
                             reasons=["order_error"], error=f"{type(e).__name__}: {e}"[:300])
@@ -736,6 +745,20 @@ def _manage_spreads(now, broker, legs_held, events, all_books, flatten, snap, ma
                         qty=abs(float(held[i]["qty"])), underlying=instruments.underlying_of(leg["symbol"]))
             sent.append({**order, "book": book_id, "symbol": leg["symbol"]})
     return sent
+
+
+NO_QUOTE_LIMIT = {"sell": 0.01, "buy": 0.05}  # a leg nobody quotes is (nearly) worthless: offer a cent, pay a nickel
+
+
+def _close_leg(broker, leg: dict, qty: float, coid: str) -> dict:
+    """Close one option leg at market; if Alpaca refuses for lack of a quote, at a limit instead."""
+    try:
+        return broker.submit_market(leg["side"], qty, coid, symbol=leg["symbol"], intent=leg["intent"])
+    except Exception as e:  # noqa: BLE001
+        if "no available quote" not in str(e) or not hasattr(broker, "submit_limit"):
+            raise
+        return broker.submit_limit(leg["side"], qty, NO_QUOTE_LIMIT[leg["side"]], f"{coid}-lmt", symbol=leg["symbol"],
+                                   intent=leg["intent"])
 
 
 # ------------------------------------------------------------------ commands
