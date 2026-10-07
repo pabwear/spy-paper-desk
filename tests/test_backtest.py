@@ -105,9 +105,10 @@ class RunTests(unittest.TestCase):
         res = bt.run(bt.group_days(bars, False), cfg)
         self.assertGreater(res["days"], 3)
         self.assertEqual(res["train_days"] + res["test_days"], res["days"])
-        self.assertEqual(len(res["table"]), len(bt.variants()))
+        self.assertEqual(len(res["table"]), len(bt.variants()) + 3)  # plus the live desk and its two companions
         self.assertIn("desk_now", res["named"])
-        self.assertIn("| Desk today |", bt.markdown(res))
+        self.assertIn("| Original rules (before Oct 7) |", bt.markdown(res))
+        self.assertIn("current", res["monthly"])
 
 
 class SummaryTests(unittest.TestCase):
@@ -161,3 +162,34 @@ class HoldAndExpiryTests(unittest.TestCase):
         self.assertLess(same_day, month)
         self.assertLess(month, 0)
         self.assertGreaterEqual(bt.expiry_for(date(2026, 10, 6), "7d"), date(2026, 10, 13))
+
+
+class LiveDeskRealismTests(unittest.TestCase):
+    def test_affordable_expiry(self):
+        from datetime import date
+
+        t_in = at(THURSDAY, 10, 0)
+        calm = bt.affordable_expiry(600.0, t_in, 0.10, True)       # a calm market: about a month fits under $1,000
+        stormy = bt.affordable_expiry(600.0, t_in, 0.40, True)     # a wild one: only a shorter expiry fits
+        self.assertIsNotNone(calm)
+        self.assertGreaterEqual((calm - THURSDAY.date()).days, 21)
+        self.assertTrue(stormy is None or stormy < calm)
+        self.assertIsNone(bt.affordable_expiry(600.0, t_in, 0.40, True, max_cost=50))  # nothing fits: no trade
+        self.assertGreaterEqual((bt.affordable_expiry(600.0, t_in, 0.10, True) - date(2026, 10, 1)).days, 7)
+
+    def test_checks_every_ten_minutes(self):
+        from common import hhmm
+
+        # in at the close of 09:50; falls through the stop at 09:53, but nobody looks until the 09:59 bar closes
+        bars = minutes([100.0, 100.0, 100.0, 99.7, 99.6, 99.6, 99.6, 99.6, 99.6, 99.5, 99.5])
+        px, why, j = bt.exit_walk(bars, 1, 100.0, True, 0.25, 0, hhmm("15:40"), 30, poll=10)
+        self.assertEqual((why, j, px), ("stop", 9, 99.5))
+        px2, why2, j2 = bt.exit_walk(bars, 1, 100.0, True, 0.25, 0, hhmm("15:40"), 30)
+        self.assertEqual((why2, j2), ("stop", 3))
+
+    def test_time_limit_on_heartbeats(self):
+        from common import hhmm
+
+        flat = minutes([100.0] * 50)  # in at 09:51 (off the grid); 10:20 is only 29 minutes in, so out at the 10:30 look
+        px, why, j = bt.exit_walk(flat, 1, 100.0, True, 0.25, 0, hhmm("15:40"), 30, poll=10)
+        self.assertEqual((why, flat[j]["t"].strftime("%H:%M")), ("time", "10:29"))  # the bar that closes at 10:30

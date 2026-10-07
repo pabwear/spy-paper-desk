@@ -52,6 +52,12 @@ EXPIRIES = ("0d", "7d", "30d")  # the nearest listed expiry, or the first one at
 HOLDS = (30, 90, 0)  # sell after this many minutes at most (0 = no time limit)
 
 DESK_NOW = {"rule": "touch", "areas": "both", "min_tags": 2, "stop": 0.35, "target": 0, "expiry": "0d", "hold": 0}
+# the live desk since 2026-10-07, as faithfully as the replay allows: red area only, no signal minimum, 0.25 % stop,
+# out after 30 minutes, the affordable ~30-day expiry, and a look every 10 minutes for entries and exits
+CURRENT = {"rule": "touch", "areas": "red", "min_tags": 0, "stop": 0.25, "target": 0, "expiry": "auto", "hold": 30, "poll": 10}
+CURRENT_EVERY_MINUTE = {**CURRENT, "poll": 0}
+CURRENT_BENCHMARK = {"rule": "always_call", "areas": "both", "min_tags": 0, "stop": 0.25, "target": 0, "expiry": "auto",
+                     "hold": 30, "poll": 10}
 OPTION_3 = {"rule": "confirm", "areas": "both", "min_tags": 2, "stop": 0.35, "target": 0, "expiry": "0d", "hold": 0}
 
 
@@ -83,11 +89,30 @@ def expiry_for(d: date, out: str = "0d") -> date:
     return e
 
 
+def affordable_expiry(entry_px: float, t_in: datetime, vol: float, call: bool, target_days: int = 30,
+                      min_days: int = 7, max_cost: float = 1000.0) -> date | None:
+    """The live desk's rule: the listed expiry closest to target_days out (at most target_days, since later ones
+    cost more) whose at-the-money contract costs max_cost or less; never under min_days. None: no trade."""
+    d, k = t_in.astimezone(ET).date(), round(entry_px)
+    tried = set()
+    for days in range(target_days, min_days - 1, -1):
+        e = expiry_for(d + timedelta(days=days))
+        if e in tried or (e - d).days < min_days or (e - d).days > target_days + 6:
+            continue
+        tried.add(e)
+        if 100 * bs_price(entry_px, k, trading_years(t_in, e), vol, call) <= max_cost:
+            return e
+    return None
+
+
 def option_pnl(entry_px: float, exit_px: float, t_in: datetime, t_out: datetime, vol: float, call: bool,
                out: str = "0d") -> float:
-    """One contract's dollars from the option's own price change (strike: nearest dollar at entry)."""
+    """One contract's dollars from the option's own price change (strike: nearest dollar at entry).
+    out "auto" is the live desk's affordable-expiry rule (the caller skips trades it can't afford)."""
     k = round(entry_px)
-    e = expiry_for(t_in.astimezone(ET).date(), out)
+    e = affordable_expiry(entry_px, t_in, vol, call) if out == "auto" else expiry_for(t_in.astimezone(ET).date(), out)
+    if e is None:
+        return 0.0
     return 100 * (bs_price(exit_px, k, trading_years(t_out, e), vol, call)
                   - bs_price(entry_px, k, trading_years(t_in, e), vol, call))
 
@@ -117,7 +142,8 @@ def variants() -> list[dict]:
 def vkey(v: dict) -> str:
     tp = f"tp {v['target']}x" if v["target"] else "no target"
     held = f"max {v['hold']}m" if v.get("hold") else "to 15:40"
-    return f"{v['rule']} · {v['areas']} · {v['min_tags']} signals · stop {v['stop']}% · {tp} · {held} · {v.get('expiry', '0d')} option"
+    looks = f" · checks every {v['poll']}m" if v.get("poll") else ""
+    return f"{v['rule']} · {v['areas']} · {v['min_tags']} signals · stop {v['stop']}% · {tp} · {held} · {v.get('expiry', '0d')} option{looks}"
 
 
 def _pos(price: float, z: dict) -> str:
@@ -152,11 +178,15 @@ class Day:
         self._exits: dict = {}
 
     # ------------------------------------------------------------ candidates (independent of positions)
-    def marks(self) -> list[int]:
-        """Indexes of the minutes that end on a 5-minute mark (the bar that closes at :00, :05, ...)."""
-        return [i for i, b in enumerate(self.m) if (b["t"].astimezone(ET).minute + 1) % self.step == 0]
+    def marks(self, every: int | None = None) -> list[int]:
+        """Indexes of the minutes that end on a mark (the bar that closes at :00, :05, ... for every 5)."""
+        every = every or self.step
+        return [i for i, b in enumerate(self.m) if (b["t"].astimezone(ET).minute + 1) % every == 0]
 
-    def candidates(self, rule: str) -> list[dict]:
+    def candidates(self, rule: str, poll: int = 0) -> list[dict]:
+        if poll:  # the live desk looks every `poll` minutes: only candidates that land on its heartbeats
+            ok = set(self.marks(poll))
+            return [c for c in self.candidates(rule) if c["i"] in ok]
         if rule in self._cands:
             return self._cands[rule]
         out: list[dict] = []
@@ -232,7 +262,7 @@ class Day:
         s_t, c_t = hhmm(start), hhmm(cutoff)
         out: list[dict] = []
         free_from = 0
-        for cand in self.candidates(v["rule"]):
+        for cand in self.candidates(v["rule"], v.get("poll", 0)):
             if len(out) >= max_entries:
                 break
             i = cand["i"]
@@ -246,10 +276,13 @@ class Day:
             tags = self.tags(i, cand["zone"], cand["long"]) if v["min_tags"] else []
             if len(tags) < v["min_tags"]:
                 continue
-            ek = (i, cand["long"], cand["entry"], v["stop"], v["target"], v.get("hold", 0))
+            t_in = self.m[i]["t"] + timedelta(minutes=1)
+            if v.get("expiry") == "auto" and affordable_expiry(cand["entry"], t_in, self.vol, cand["long"]) is None:
+                continue  # no contract the account can pay for: the desk skips it
+            ek = (i, cand["long"], cand["entry"], v["stop"], v["target"], v.get("hold", 0), v.get("poll", 0))
             if ek not in self._exits:
                 self._exits[ek] = exit_walk(self.m, i + 1, cand["entry"], cand["long"], v["stop"], v["target"], c_t,
-                                            v.get("hold", 0))
+                                            v.get("hold", 0), v.get("poll", 0))
             px, why, j = self._exits[ek]
             move = (px - cand["entry"]) if cand["long"] else (cand["entry"] - px)
             usd = move * PER_DOLLAR
@@ -264,8 +297,11 @@ class Day:
 
 
 def exit_walk(m: list[dict], i0: int, entry: float, long: bool, stop_pct: float, target_x: float,
-              cutoff, hold_min: int = 0) -> tuple[float, str, int]:
-    """Minute by minute from i0: the stop, the target (target_x × the stop distance), the time limit or the cutoff."""
+              cutoff, hold_min: int = 0, poll: int = 0) -> tuple[float, str, int]:
+    """Minute by minute from i0: the stop, the target (target_x × the stop distance), the time limit or the cutoff.
+    poll N: like the live desk, look only every N minutes, at that minute's close (a stop can fill past its level)."""
+    if poll:
+        return _exit_polled(m, i0, entry, long, stop_pct, target_x, cutoff, hold_min, poll)
     d = entry * stop_pct / 100
     until = m[i0 - 1]["t"] + timedelta(minutes=1 + hold_min) if hold_min and i0 >= 1 else None
     stop = entry - d if long else entry + d
@@ -280,6 +316,29 @@ def exit_walk(m: list[dict], i0: int, entry: float, long: bool, stop_pct: float,
             return (min(k["o"], stop) if long else max(k["o"], stop)), "stop", j
         if tgt is not None and ((k["h"] >= tgt) if long else (k["l"] <= tgt)):
             return (max(k["o"], tgt) if long else min(k["o"], tgt)), "target", j
+    last = m[-1] if m else None
+    return (last["c"] if last else entry), "close", len(m) - 1
+
+
+def _exit_polled(m, i0, entry, long, stop_pct, target_x, cutoff, hold_min, poll):
+    d = entry * stop_pct / 100
+    stop = entry - d if long else entry + d
+    tgt = (entry + target_x * d if long else entry - target_x * d) if target_x else None
+    start = m[i0 - 1]["t"] + timedelta(minutes=1) if i0 >= 1 else None
+    for j in range(i0, len(m)):
+        k = m[j]
+        t = k["t"].astimezone(ET)
+        if t.time() >= cutoff:
+            return k["o"], "close", j
+        if (t.minute + 1) % poll:
+            continue  # between heartbeats nobody is looking
+        c = k["c"]
+        if (c <= stop) if long else (c >= stop):
+            return c, "stop", j
+        if tgt is not None and ((c >= tgt) if long else (c <= tgt)):
+            return c, "target", j
+        if hold_min and start is not None and k["t"] + timedelta(minutes=1) - start >= timedelta(minutes=hold_min):
+            return c, "time", j
     last = m[-1] if m else None
     return (last["c"] if last else entry), "close", len(m) - 1
 
@@ -329,12 +388,13 @@ def group_days(bars: list[dict], regular_hours_only: bool) -> dict[date, list[di
 
 
 def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7, progress=None,
-        vix: dict[date, float] | None = None) -> dict:
-    """Every variant over every day; settings picked on the train days, judged on the test days."""
+        vix: dict[date, float] | None = None, only_current: bool = False) -> dict:
+    """Every variant over every day; settings picked on the train days, judged on the test days.
+    only_current: just the live desk's setup, the same with minute-by-minute checks, and its benchmark."""
     from studies import mxwll
 
     tf, rth_only = int(cfg["timeframe_minutes"]), bool(cfg.get("regular_hours_only"))
-    vs = variants()
+    vs = [CURRENT, CURRENT_EVERY_MINUTE, CURRENT_BENCHMARK, DESK_NOW] if only_current else variants() + [CURRENT, CURRENT_EVERY_MINUTE, CURRENT_BENCHMARK]
     per_day: list[tuple[date, dict]] = []
     history: list[dict] = []
     warm: list[dict] = []
@@ -366,8 +426,11 @@ def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7
     ranked = sorted((r for r in table if r["train"]["trades"] >= 30 and not r["variant"]["rule"].startswith("always")),
                     key=lambda r: r["train"]["total"], reverse=True)
     pick = ranked[0] if ranked else None
-    named = {"desk_now": vkey(DESK_NOW), "option_3": vkey(OPTION_3), "always_call": vkey(BENCHMARKS[0]),
-             "always_put": vkey(BENCHMARKS[3]), "always_call_30d": vkey(BENCHMARKS[2])}
+    named = {"current": vkey(CURRENT), "current_every_minute": vkey(CURRENT_EVERY_MINUTE),
+             "current_benchmark": vkey(CURRENT_BENCHMARK), "desk_now": vkey(DESK_NOW)}
+    if not only_current:
+        named.update({"option_3": vkey(OPTION_3), "always_call": vkey(BENCHMARKS[0]), "always_put": vkey(BENCHMARKS[3]),
+                      "always_call_30d": vkey(BENCHMARKS[2])})
     out = {
         "days": len(per_day), "first": per_day[0][0].isoformat() if per_day else None,
         "last": per_day[-1][0].isoformat() if per_day else None,
@@ -377,10 +440,12 @@ def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7
         "cost_per_trade": COST_PER_TRADE, "per_dollar": PER_DOLLAR,
         "picked": pick["key"] if pick else None,
         "named": {name: next(r for r in table if r["key"] == k) for name, k in named.items()},
+        "monthly": {name: _monthly([t for _, res in per_day for t in res[k]]) for name, k in named.items()},
         "top_train": ranked[:10],
         "picked_groups": by_group(collect(test, pick["key"])) if pick else {},
         "desk_now_groups": by_group(collect(per_day, named["desk_now"])),
-        "option_3_groups": by_group(collect(per_day, named["option_3"])),
+        "option_3_groups": by_group(collect(per_day, named["option_3"])) if "option_3" in named else {},
+        "current_groups": by_group(collect(per_day, named["current"])),
         "table": table,
     }
     if pick:
@@ -389,6 +454,14 @@ def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7
     out["by_year"] = {name: {y: summarize([t for d, res in per_day if d.year == y for t in res[r["key"]]])
                              for y in years} for name, r in out["named"].items()}
     return out
+
+
+def _monthly(trades: list[dict]) -> list[dict]:
+    """Net by calendar month (option priced, after costs), for a line chart of how it went over time."""
+    by: dict[str, list] = {}
+    for t in trades:
+        by.setdefault(t["t"][:7], []).append(t)
+    return [{"month": m, **summarize(v)} for m, v in sorted(by.items())]
 
 
 def _vol_for(vix: dict[date, float] | None, d: date) -> float:
@@ -411,7 +484,9 @@ def markdown(res: dict) -> str:
              f"(time decay in), after ${res['cost_per_trade']:.0f} a trade.", "",
              "| | Settings | Train trades | Train won | Train net | Test trades | Test won | Test net | Test per trade | Test worst drop |",
              "|---|---|---|---|---|---|---|---|---|---|"]
-    for name, label in (("desk_now", "Desk today"), ("option_3", "Option 3"), ("picked", "Picked on train"),
+    for name, label in (("current", "Desk now (red, ~30d affordable, 0.25%, 30 min, 10-min checks)"),
+                        ("current_every_minute", "Same, checked every minute"), ("current_benchmark", "Benchmark: same call at 10:00 daily"),
+                        ("desk_now", "Original rules (before Oct 7)"), ("option_3", "Option 3"), ("picked", "Picked on train"),
                         ("always_call", "Benchmark: call at 10:00 daily"), ("always_put", "Benchmark: put at 10:00 daily"),
                         ("always_call_30d", "Benchmark: 30-day call at 10:00 daily")):
         if name in res["named"]:
@@ -424,7 +499,8 @@ def markdown(res: dict) -> str:
     if yrs:
         lines += ["", "Net by year (option priced, after costs):", "", "| | " + " | ".join(str(y) for y in yrs) + " |",
                   "|---|" + "---|" * len(yrs)]
-        for name, label in (("desk_now", "Desk today"), ("option_3", "Option 3"), ("picked", "Picked"),
+        for name, label in (("current", "Desk now"), ("current_benchmark", "Call at 10:00, same rules"),
+                            ("desk_now", "Original rules"), ("option_3", "Option 3"), ("picked", "Picked"),
                             ("always_call", "Call at 10:00"), ("always_put", "Put at 10:00"), ("always_call_30d", "30-day call at 10:00")):
             if name in res["by_year"]:
                 lines.append(f"| {label} | " + " | ".join(f"${res['by_year'][name][y]['total']:,.0f} ({res['by_year'][name][y]['trades']})" for y in yrs) + " |")
@@ -488,6 +564,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--since", default="2020-01-01", help="first day (Alpaca)")
     ap.add_argument("--json", help="write the full result here")
     ap.add_argument("--md", help="write the summary table here (Markdown)")
+    ap.add_argument("--current", action="store_true", help="only the live desk's setup (quick)")
     a = ap.parse_args(argv)
     cfg = auto.desk_config()
     if a.source == "alpaca":
@@ -499,7 +576,7 @@ def main(argv: list[str] | None = None) -> int:
     del bars
     vix = vix_closes(min(days) - timedelta(days=10)) if days else {}
     print(f"{len(vix):,} VIX closes", flush=True)
-    res = run(days, cfg, progress=lambda n, t: print(f"  day {n} of {t}", flush=True), vix=vix)
+    res = run(days, cfg, progress=lambda n, t: print(f"  day {n} of {t}", flush=True), vix=vix, only_current=a.current)
     md = markdown(res)
     print(md)
     if a.json:
