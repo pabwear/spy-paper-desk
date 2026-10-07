@@ -1,63 +1,76 @@
 {
   "date": "2026-10-07",
-  "bias": "bullish",
-  "written_at": "2026-10-07T02:12:44-04:00",
-  "as_of": "2026-10-07T06:15:00Z",
+  "bias": "neutral",
+  "written_at": "2026-10-07T09:08:00-04:00",
+  "as_of": "2026-10-07T13:10:00Z",
   "readings": {
-    "as_of": "2026-10-07T06:15:00Z",
-    "spy_price": 779.35,
-    "spy_change_pct": 0.58,
+    "as_of": "2026-10-07T13:10:00Z",
+    "spy_price": 776.09,
+    "spy_change_pct": -0.05,
     "vix": 15.16,
     "fear_greed": 48,
     "stocktwits": {
       "SPY": {
-        "score": 78,
-        "bullish_pct": 56.9
+        "score": 79,
+        "bullish_pct": 56.3
       }
     },
-    "news": {
+    "reddit": {
       "score": 0,
+      "posts": 0,
+      "top": []
+    },
+    "news": {
+      "score": -0.15,
       "headlines": [
-        "Stocktwits chatter: Iran possibly charging toll for Hormuz oil traffic, fragile lull in fighting",
-        "AI stocks about 45% of S&P 500 market cap; bubble worries re-shared",
-        "Trucking groups pan Trump diesel executive order"
+        "Stocktwits chatter: yields and commodities rising, futures soft ahead of 10yr auction and FOMC minutes",
+        "Webull (BULL) down ~25% pre-market, top trending",
+        "SPY back below 776.84 level after breach earlier this week"
       ]
     },
     "rumors": [
       {
-        "text": "Iran may be charging a secret toll for ships passing Hormuz; war could restart",
+        "text": "Rhetoric of Russia possibly attacking NATO is scaring markets (poster says don't quote me)",
         "source": "stocktwits",
         "tickers": [
           "SPY"
         ],
         "direction": "down",
-        "credibility": 0.3
+        "credibility": 0.15,
+        "why": "Geopolitical escalation would trigger risk-off and lift yields and commodities"
       },
       {
-        "text": "Hanging-man blow-off candle at SPY highs; close below 780 expected",
+        "text": "Rising yields flashing a crash signal for equities",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "SPY",
+          "QQQ"
         ],
         "direction": "down",
-        "credibility": 0.3
+        "credibility": 0.3,
+        "why": "Higher yields pressure valuations of AI-heavy index"
       }
     ],
+    "names": {
+      "SPY": "SPDR S&P 500 ETF",
+      "QQQ": "Invesco QQQ Trust",
+      "BULL": "Webull Corp"
+    },
     "plays": [],
-    "whats_new": "No prior reading exists (placeholder file). SPY closed up 0.58% near highs with small caps lagging (IWM -1.06%); Stocktwits is extremely bullish (78) while a few posts flag a blow-off candle, so the crowd looks one-sided. Setup test outside market hours; Reddit and Stocklake calendar/news were unavailable.",
+    "whats_new": "SPY slipped from +0.58% near highs to flat/slightly lower pre-market, sitting right on the 776 support the crowd is watching. Stocktwits stays extremely bullish (79) while fresh posts turn bearish and talk of yields and Russia headlines, so the crowd looks split. The Iran/Hormuz toll rumor from last hour is not repeated; upcoming: 10yr auction and FOMC minutes today.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable",
-      "news": "stocktwits posts only"
+      "news": "stocktwits posts and web search"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.58,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": -0.05,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
@@ -73,18 +86,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 78.0,
+      "value": 79.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
   ],
-  "net_votes": 2,
+  "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable",
-    "news": "stocktwits posts only"
+    "news": "stocktwits posts and web search"
   },
-  "note": "Derived from live readings: net +2 votes (needs \u00b12) \u2192 bullish."
+  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
