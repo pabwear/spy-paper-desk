@@ -105,3 +105,14 @@ class EngineTests(unittest.TestCase):
             for s in specs:
                 self.assertIn(s["entry"], ("touch", "bounce", "ten", "close"))
                 self.assertIn(s["asset"], ("shares", "option"))
+
+
+class InTheMoneyTests(unittest.TestCase):
+    def test_itm_call_loses_less_overnight_than_at_the_money(self):
+        ctx = ctx_of((D1, FLAT), (D2, FLAT))
+        base = {"entry": "close", "asset": "option", "budget": 4000, "expiry_days": 60, "hold": {"until": "next_open"}}
+        atm = research.simulate(base, ctx)[0]
+        itm = research.simulate({**base, "itm_pct": 5}, ctx)[0]
+        self.assertGreater(itm["net"], atm["net"])
+        self.assertGreater(itm["cost"], atm["cost"])
+        self.assertEqual(research.simulate({**base, "itm_pct": 5, "budget": 1000}, ctx), [])  # costs over the budget

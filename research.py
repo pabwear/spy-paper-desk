@@ -73,6 +73,29 @@ ROUNDS: dict[str, list[dict]] = {
         {"name": "option30d_ten_30m", "entry": "ten", **OPTION, "stop": {"pct": 0.25}, "hold": {"minutes": 30}},
     ],
 }
+# 2. Round 1: options lost on every holding time; every shares version made money, most of it overnight;
+#    the desk's signal held overnight made half of holding SPY with under a third of the worst drop.
+#    So: the overnight family with filters and stop styles, and options given their fairest overnight shot.
+OVERNIGHT = {"entry": "touch", **SHARES, "stop": {"pct": 0.5}, "hold": {"until": "next_open"}}
+CLOSE_OPEN = {"entry": "close", **SHARES, "hold": {"until": "next_open"}}
+ROUNDS["2"] = [
+    {"name": "overnight", **OVERNIGHT},
+    {"name": "overnight_trend", **OVERNIGHT, "filter": {"trend": True}},
+    {"name": "overnight_no_stop", **{k: v for k, v in OVERNIGHT.items() if k != "stop"}},
+    {"name": "overnight_range_stop", **OVERNIGHT, "stop": {"range": 0.5}},
+    {"name": "overnight_wide_stop", **OVERNIGHT, "stop": {"pct": 1.0}},
+    {"name": "overnight_bounce", **OVERNIGHT, "entry": "bounce"},
+    {"name": "overnight_calm", **OVERNIGHT, "filter": {"vix_max": 20}},
+    {"name": "to_next_close", **OVERNIGHT, "hold": {"days": 1}},
+    {"name": "close_open_trend", **CLOSE_OPEN, "filter": {"trend": True}},
+    {"name": "close_open_calm", **CLOSE_OPEN, "filter": {"vix_max": 20}},
+    {"name": "close_open_fearful", **CLOSE_OPEN, "filter": {"vix_min": 20}},
+    {"name": "option_itm5_60d_overnight", **OVERNIGHT, **{**OPTION, "budget": 4000, "checks": 10},
+     "expiry_days": 60, "itm_pct": 5},
+    {"name": "option_itm5_60d_close_open", **CLOSE_OPEN, **{**OPTION, "budget": 4000, "checks": 10},
+     "expiry_days": 60, "itm_pct": 5},
+]
+
 FINAL_PICKS: list[str] = []  # chosen after the search rounds, then run once with --round final
 
 
@@ -169,14 +192,21 @@ def _years_calendar(t: datetime, expiry: date) -> float:
 
 
 def _option(spec: dict, entry_px: float, exit_px: float, t_in: datetime, t_out: datetime, vol: float) -> tuple | None:
-    e = bt.affordable_expiry(entry_px, t_in, vol, True, int(spec.get("expiry_days", 30)), 7, float(spec["budget"]))
+    itm = float(spec.get("itm_pct") or 0)
+    if itm:  # in the money: the listed expiry about expiry_days out, strike itm_pct under the price
+        e = bt.expiry_for(t_in.astimezone(ET).date() + timedelta(days=int(spec.get("expiry_days", 30))))
+        k = round(entry_px * (1 - itm / 100))
+    else:
+        e = bt.affordable_expiry(entry_px, t_in, vol, True, int(spec.get("expiry_days", 30)), 7, float(spec["budget"]))
+        k = round(entry_px)
     if e is None:
         return None
-    k = round(entry_px)
     same_day = t_in.astimezone(ET).date() == t_out.astimezone(ET).date()
     yrs = bt.trading_years if same_day else _years_calendar
     p_in = bt.bs_price(entry_px, k, yrs(t_in, e), vol, True)
     p_out = bt.bs_price(exit_px, k, yrs(t_out, e), vol, True)
+    if 100 * p_in > float(spec["budget"]):
+        return None
     return round(100 * (p_out - p_in) - OPTION_COST, 2), round(100 * p_in, 2), e
 
 
@@ -337,15 +367,17 @@ def run_round(ctx: Ctx, specs: list[dict], parts: dict[str, set[date]]) -> dict:
 
 def markdown(out: dict) -> str:
     parts = list(out["parts"])
-    head = " | ".join(f"{p}: trades · won · net · per trade · worst drop" for p in parts)
+    head = " | ".join(f"{p}: trades · won · net · per trade · worst drop · net ÷ worst drop" for p in parts)
     lines = [f"# Research round {out['round']} ({out['symbol']})", "",
              f"{out['days']} days used, {out['first']} to {out['last']}. "
              + " · ".join(f"{p} {r[0]} to {r[1]}" for p, r in out["parts"].items())
              + f". Locked final-exam days start {HOLDOUT_START}{' (included: final round)' if out['round'] == 'final' else ' (not loaded)'}.",
              "", f"| Idea | {head} |", "|---|" + "---|" * len(parts)]
     def cell(s):
+        dd = abs(s.get("max_drawdown") or 0)
+        ratio = f" · {s['total'] / dd:.1f}×" if dd else ""
         return (f"{s['trades']} · {s.get('win_pct', 0)}% · ${s['total']:,.0f} · ${s['per_trade']:,.2f} · "
-                f"${s.get('max_drawdown', 0):,.0f}") if s["trades"] else "—"
+                f"${s.get('max_drawdown', 0):,.0f}{ratio}") if s["trades"] else "—"
     for r in sorted(out["results"], key=lambda r: -r[parts[-1]]["total"]):
         lines.append(f"| {r['name']} | " + " | ".join(cell(r[p]) for p in parts) + " |")
     lines.append(f"| **Hold ${YARDSTICK_BUDGET:,.0f} of {out['symbol']}** | "
