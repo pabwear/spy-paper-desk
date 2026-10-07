@@ -239,6 +239,60 @@ def fetch_bars(now: datetime, minutes: int = 1, symbol: str = "SPY") -> list[dic
     raise RuntimeError("; ".join(errors))
 
 
+HISTORY = {  # unit → (Alpaca timeframe, days back, yfinance interval, yfinance period)
+    "30Min": ((30, "Minute"), 59, "30m", "60d"),
+    "1Day": ((1, "Day"), 400, "1d", "2y"),
+}
+
+
+def fetch_history(now: datetime, symbol: str, unit: str) -> list[dict]:
+    """Longer history for the chart's bigger timeframes: 30-minute bars (about 60 days) or daily bars.
+
+    Alpaca market data (IEX feed) first; yfinance as a fallback. Raises on no data.
+    """
+    (amount, tf_unit), days, yf_interval, yf_period = HISTORY[unit]
+    errors = []
+    try:
+        from alpaca.data.enums import DataFeed
+        from alpaca.data.historical import StockHistoricalDataClient
+        from alpaca.data.requests import StockBarsRequest
+        from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
+
+        key, secret = _keys()
+        client = StockHistoricalDataClient(key, secret)
+        req = StockBarsRequest(symbol_or_symbols=symbol, timeframe=TimeFrame(amount, getattr(TimeFrameUnit, tf_unit)),
+                               start=(now - timedelta(days=days)).astimezone(ET), end=now, feed=DataFeed.IEX)
+        data = client.get_stock_bars(req).data.get(symbol, [])
+        bars = [{"t": b.timestamp, "o": float(b.open), "h": float(b.high), "l": float(b.low),
+                 "c": float(b.close), "v": float(b.volume)} for b in data]
+        if bars:
+            return bars
+        errors.append("alpaca: no bars")
+    except SystemExit as e:
+        errors.append(f"alpaca: {e}")
+    except Exception as e:  # noqa: BLE001 - fall through to the fallback source
+        errors.append(f"alpaca: {type(e).__name__}")
+    try:
+        import yfinance as yf
+
+        df = yf.download(symbol, period=yf_period, interval=yf_interval, prepost=False, progress=False,
+                         auto_adjust=False, multi_level_index=False)
+        bars = []
+        for idx, r in df.iterrows():
+            t = idx.to_pydatetime()
+            if t.tzinfo is None:  # daily rows come without a time zone
+                t = t.replace(tzinfo=ET)
+            bars.append({"t": t, "o": float(r["Open"]), "h": float(r["High"]), "l": float(r["Low"]),
+                         "c": float(r["Close"]), "v": float(r["Volume"])})
+        bars = [b for b in bars if b["t"] <= now]
+        if bars:
+            return bars
+        errors.append("yfinance: no bars")
+    except Exception as e:  # noqa: BLE001
+        errors.append(f"yfinance: {type(e).__name__}")
+    raise RuntimeError("; ".join(errors))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Paper 1000 account snapshot (no keys printed).")
     parser.add_argument("--save", action="store_true", help="write account.json and log the snapshot")

@@ -1,4 +1,5 @@
-"""Chart data for the dashboard: today's 5-minute candles, session VWAP, zones and the desk's trades.
+"""Chart data for the dashboard: candles on every timeframe (1m → 1D), session VWAP, the desk's
+Mxwll read on each timeframe, today's zones and the desk's trades.
 
 Written to charts.json on every heartbeat that read prices, for each focus stock. The dashboard
 draws it. Pure except for `write`.
@@ -15,6 +16,11 @@ from signals import bars_today
 
 FILE = "charts.json"
 BUCKET_MIN = 5
+
+# Shortest to longest: (name, minutes per candle or None for daily, candles sent to the page).
+# The study reads every candle available; the page gets the most recent ones.
+TIMEFRAMES = [("1m", 1, 390), ("5m", 5, 156), ("15m", 15, 130), ("30m", 30, 130),
+              ("1h", 60, 140), ("4h", 240, 120), ("1D", None, 250)]
 
 
 def resample(bars: list[dict], minutes: int = BUCKET_MIN) -> list[dict]:
@@ -63,7 +69,91 @@ def trade_marks(symbol: str, day, events: list[dict]) -> list[dict]:
     return marks
 
 
-def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, events: list[dict]) -> dict | None:
+def daily_candles(daily_bars: list[dict] | None, minute_bars: list[dict] | None, now: datetime,
+                  open_hhmm: str = "09:30", close_hhmm: str = "16:00") -> list[dict]:
+    """Finished days from the daily history, plus today's candle built from today's regular-hours minutes."""
+    today = now.astimezone(ET).date()
+    out = []
+    for b in daily_bars or []:
+        d = b["t"].astimezone(ET).date()
+        if d < today and (not out or out[-1]["t"].date() != d):
+            out.append({"t": datetime(d.year, d.month, d.day, tzinfo=ET), "o": float(b["o"]), "h": float(b["h"]),
+                        "l": float(b["l"]), "c": float(b["c"]), "v": float(b["v"])})
+    o_t, c_t = hhmm(open_hhmm), hhmm(close_hhmm)
+    session = [b for b in minute_bars or [] if b["t"].astimezone(ET).date() == today
+               and o_t <= b["t"].astimezone(ET).time() < c_t]
+    if session:
+        out.append({"t": datetime(today.year, today.month, today.day, tzinfo=ET), "o": float(session[0]["o"]),
+                    "h": max(float(b["h"]) for b in session), "l": min(float(b["l"]) for b in session),
+                    "c": float(session[-1]["c"]), "v": sum(float(b["v"]) for b in session)})
+    return out
+
+
+def session_vwaps(candles: list[dict]) -> list[float | None]:
+    """VWAP that starts over each trading day."""
+    out, day, pv, vol = [], None, 0.0, 0.0
+    for c in candles:
+        d = c["t"].astimezone(ET).date()
+        if d != day:
+            day, pv, vol = d, 0.0, 0.0
+        pv += (c["h"] + c["l"] + c["c"]) / 3.0 * c["v"]
+        vol += c["v"]
+        out.append(round(pv / vol, 4) if vol else None)
+    return out
+
+
+def _row(c: dict, daily: bool) -> list:
+    t = c["t"].astimezone(ET)
+    return [t.date().isoformat() if daily else t.strftime("%Y-%m-%dT%H:%M"),
+            round(float(c["o"]), 4), round(float(c["h"]), 4), round(float(c["l"]), 4), round(float(c["c"]), 4),
+            round(float(c["v"]))]
+
+
+def _study(candles: list[dict], cfg: dict, daily: bool) -> dict | None:
+    from studies import mxwll
+
+    out = mxwll.analyze(candles, cfg)
+    if not out:
+        return None
+    lookback = int(cfg["aoi_lookback"])
+    return {"aoi": out["aoi"], "internal": out["internal"], "external": out["external"],
+            "from": _row(candles[-lookback], daily)[0] if len(candles) > lookback else None}
+
+
+def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailies: list[dict] | None,
+           now: datetime, cfg: dict) -> dict:
+    """Candles, VWAP and the Mxwll read for each timeframe there is enough data for.
+
+    1m–15m come from the minute bars; 30m–4h from ~60 days of 30-minute bars with the minute bars
+    on top; 1D from daily bars plus today's session.
+    """
+    from studies import mxwll
+
+    rth = bool(cfg.get("regular_hours_only", True))
+    minute = sorted(minute_bars or [], key=lambda b: b["t"])
+    first_day = minute[0]["t"].astimezone(ET).date() if minute else None
+    older = [b for b in half_hours or [] if first_day is None or b["t"].astimezone(ET).date() < first_day]
+    out = {}
+    for name, minutes, show in TIMEFRAMES:
+        if minutes is None:
+            candles = daily_candles(dailies, minute, now)
+        else:
+            candles = mxwll.resample(minute if minutes < 30 else older + minute, minutes, rth)
+        candles = [c for c in candles if c["t"] <= now]
+        if not candles:
+            continue
+        daily = minutes is None
+        try:
+            study = _study(candles, cfg, daily)
+        except Exception as e:  # noqa: BLE001 - a study problem never stops the chart
+            study = {"error": f"{type(e).__name__}: {e}"[:200]}
+        vw = session_vwaps(candles)[-show:] if minutes is not None and minutes <= 60 else None
+        out[name] = {"c": [_row(c, daily) for c in candles[-show:]], "vwap": vw, "study": study}
+    return out
+
+
+def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, events: list[dict],
+          half_hours: list[dict] | None = None, dailies: list[dict] | None = None) -> dict | None:
     if not bars:
         return None
     today = [b for b in bars_today(bars, now) if b["t"].astimezone(ET).time() >= hhmm(risk.get("rth_open", "09:30"))]
@@ -74,9 +164,15 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
     try:  # the desk's own Mxwll read right now: rolling AOI boxes, last breaks, order blocks
         from studies import auto as auto_study
 
-        study = auto_study.read(bars, now, auto_study.config(load_json("rules.json", {}) or {}))
+        cfg = auto_study.config(load_json("rules.json", {}) or {})
+        study = auto_study.read(bars, now, cfg)
     except Exception as e:  # noqa: BLE001 - a study problem never stops the chart
-        study = {"error": f"{type(e).__name__}: {e}"[:200]}
+        cfg, study = None, {"error": f"{type(e).__name__}: {e}"[:200]}
+    try:
+        tf = frames(bars, half_hours, dailies, now, cfg) if cfg else {}
+    except Exception as e:  # noqa: BLE001
+        journal.log("chart_failed", now=now, symbol=symbol, error=f"timeframes: {type(e).__name__}: {e}"[:300])
+        tf = {}
     return {
         "symbol": symbol,
         "date": now.astimezone(ET).date().isoformat(),
@@ -90,6 +186,8 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
         "zones_source": override.get("source"),
         "zones_approximate": bool(override.get("approximate")),
         "study": study,
+        "study_timeframe": (cfg or {}).get("timeframe_minutes"),
+        "frames": tf,
         "trades": trade_marks(symbol, now.astimezone(ET).date(), events),
         "updated_at": now.astimezone(ET).isoformat(timespec="seconds"),
     }
@@ -102,7 +200,10 @@ def write(now: datetime, source) -> dict:
     charts = load_json(FILE, {}) or {}
     for sym in focus_symbols():
         bars, _err = source.get(sym)
-        c = build(sym, bars, now, risk, events)
+        history = getattr(source, "history", None)
+        c = build(sym, bars, now, risk, events,
+                  history(sym, "30Min") if bars and history else None,
+                  history(sym, "1Day") if bars and history else None)
         if c:
             charts[sym] = c
     charts = {k: v for k, v in charts.items() if k in focus_symbols()}

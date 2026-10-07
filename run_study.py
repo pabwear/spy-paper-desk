@@ -94,6 +94,21 @@ class Bars:
                 self.errors[symbol] = str(e)[:300]
         return self.cache[symbol], self.errors.get(symbol)
 
+    def history(self, symbol: str, unit: str) -> list | None:
+        """Longer history ("30Min" or "1Day") for the chart's bigger timeframes. Injected as "SYM|unit" in tests."""
+        key = f"{symbol}|{unit}"
+        if key not in self.cache:
+            if self.offline or self.fetch is not None:  # injected data: never reach for the network
+                return None
+            try:
+                from alpaca_client import fetch_history
+
+                self.cache[key] = fetch_history(self.now, symbol, unit)
+            except Exception as e:  # noqa: BLE001 - no history means fewer timeframes, never a failed run
+                self.cache[key] = None
+                self.errors[key] = str(e)[:300]
+        return self.cache[key]
+
 
 def _bars(now: datetime, bars, fetch) -> Bars:
     if isinstance(bars, Bars):

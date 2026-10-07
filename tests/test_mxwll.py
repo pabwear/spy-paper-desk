@@ -222,3 +222,61 @@ class StudyTagTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TimeframeTests(DeskTestCase):
+    def setUp(self):
+        super().setUp()
+        self.now = at(THURSDAY, 15, 0)
+        self.minutes = minute_bars(WEDNESDAY, step=0.01) + minute_bars(THURSDAY, (9, 30), (15, 1), price=604.0, step=-0.01)
+        self.half = [{"t": at(THURSDAY - timedelta(days=d), 9, 30) + timedelta(minutes=30 * k), "o": 600.0, "h": 601.0,
+                      "l": 599.0, "c": 600.5, "v": 1e5} for d in range(30, 1, -1) for k in range(13)]
+        self.daily = [{"t": at(THURSDAY - timedelta(days=d), 0, 0), "o": 590.0 + d % 7, "h": 600.0, "l": 580.0,
+                       "c": 592.0, "v": 1e7} for d in range(120, 0, -1)]
+
+    def frames(self, **kw):
+        import charts
+
+        cfg = auto.config(load_json("rules.json"))
+        return charts.frames(kw.get("m", self.minutes), kw.get("h", self.half), kw.get("d", self.daily), self.now, cfg)
+
+    def test_every_timeframe_shortest_to_longest(self):
+        f = self.frames()
+        self.assertEqual(list(f), ["1m", "5m", "15m", "30m", "1h", "4h", "1D"])
+        self.assertEqual(len(f["1m"]["c"]), 390)
+        self.assertLessEqual(len(f["1D"]["c"]), 250)
+        self.assertIsNotNone(f["30m"]["study"]["aoi"])  # 30-minute history gives it 50+ candles
+        self.assertIsNone(f["15m"]["study"]["aoi"])  # two days of minutes is under 50 candles on 15m
+
+    def test_four_hour_candles_follow_the_session(self):
+        times = {row[0][11:] for row in self.frames()["4h"]["c"]}
+        self.assertEqual(times, {"09:30", "13:30"})
+
+    def test_today_daily_candle_comes_from_todays_minutes(self):
+        last = self.frames()["1D"]["c"][-1]
+        today = [b for b in self.minutes if b["t"].date() == THURSDAY.date()]
+        self.assertEqual(last[0], THURSDAY.date().isoformat())
+        self.assertEqual(last[1], round(today[0]["o"], 4))
+        self.assertEqual(last[4], round(today[-1]["c"], 4))
+        self.assertEqual(sum(1 for r in self.frames()["1D"]["c"] if r[0] == last[0]), 1)  # history's today row is not doubled
+
+    def test_vwap_starts_over_each_day(self):
+        f = self.frames()["5m"]
+        first_today = next(i for i, r in enumerate(f["c"]) if r[0].startswith(THURSDAY.date().isoformat()))
+        o, h, l, c = f["c"][first_today][1:5]
+        self.assertAlmostEqual(f["vwap"][first_today], round((h + l + c) / 3, 4), places=3)
+        self.assertIsNone(self.frames()["4h"]["vwap"])
+
+    def test_missing_history_drops_only_the_long_timeframes(self):
+        f = self.frames(h=None, d=None)
+        self.assertIn("1m", f)
+        self.assertEqual([r[0] for r in f["1D"]["c"]], [THURSDAY.date().isoformat()])
+
+    def test_heartbeat_sends_timeframes_to_the_dashboard(self):
+        bars = {"SPY": self.minutes, "SPY|30Min": self.half, "SPY|1Day": self.daily}
+        run_study.cmd_tick(at(THURSDAY, 9, 50), broker_factory=lambda: FakeBroker(), bars=bars)
+        chart = load_json("charts.json")["SPY"]
+        self.assertIn("1h", chart["frames"])
+        self.assertIn("frames", load_json("dashboard_state.json")["charts"]["SPY"])
+        offline = run_study.Bars(self.now, {"SPY": self.minutes})
+        self.assertIsNone(offline.history("SPY", "30Min"))
