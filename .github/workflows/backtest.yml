@@ -12,8 +12,11 @@ on:
       scope:
         description: "current = only the live desk's setup (quick); ideas = four ideas vs buy-and-hold; all = every setting (about 1,000)"
         type: choice
-        options: ["current", "ideas", "all"]
+        options: ["current", "ideas", "research", "all"]
         default: "current"
+      round:
+        description: "For scope 'research': the round (1, 2, ...) or final (the locked year, run once at the end)"
+        default: "1"
       symbol:
         description: "Stock for scope 'ideas' (SPY runs every idea; another stock runs the share ideas)"
         default: "SPY"
@@ -44,9 +47,17 @@ jobs:
           SINCE: ${{ inputs.since }}
           SCOPE: ${{ inputs.scope }}
           SYMBOL: ${{ inputs.symbol }}
+          ROUND: ${{ inputs.round }}
         run: |
           mkdir -p out
-          if [ "$SCOPE" = "ideas" ]; then
+          if [ "$SCOPE" = "research" ]; then
+            case "$ROUND" in final|[0-9]|[0-9][0-9]) ;; *) echo "Bad round"; exit 1 ;; esac
+            case "$SYMBOL" in ''|SPY) SYMBOL=SPY ;; *[!A-Za-z.]*) echo "Bad symbol"; exit 1 ;; esac
+            mkdir -p out/research
+            python research.py --source alpaca --since "$SINCE" --symbol "$SYMBOL" --round "$ROUND" \
+              --json "out/research/$SYMBOL-$ROUND.json" --md "out/research/$SYMBOL-$ROUND.md"
+            cat "out/research/$SYMBOL-$ROUND.md" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$SCOPE" = "ideas" ]; then
             case "$SYMBOL" in ''|SPY) NAME=ideas ;; *[!A-Za-z.]*) echo "Bad symbol"; exit 1 ;; *) NAME="ideas-$(echo "$SYMBOL" | tr 'A-Z' 'a-z')" ;; esac
             python backtest_ideas.py --source alpaca --since "$SINCE" --symbol "${SYMBOL:-SPY}" --json "out/$NAME.json" --md "out/$NAME.md"
             cat "out/$NAME.md" >> "$GITHUB_STEP_SUMMARY"
