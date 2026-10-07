@@ -55,7 +55,7 @@ class GateTests(DeskTestCase):
             now=at(THURSDAY, 10, 30), base_url="https://paper-api.alpaca.markets", client_is_paper=True,
             config=load_json("alpaca_config.json"), rules=load_json("rules.json"), risk=load_json("risk.json"),
             override=load_json("aoi_override.json"), plan=option_plan(), price=590.0, zone=RED,
-            tags=["rsi", "vwap"], account_number="PA3R32D8LP4Q", market_open=True, entries_today=0,
+            tags=["rsi", "vwap"], account_number="PA36VOEO5PHB", market_open=True, entries_today=0,
             open_positions=[], open_orders=0,
         )
         args.update(over)
@@ -134,7 +134,7 @@ class GateTests(DeskTestCase):
     def test_exit_gate(self):
         args = dict(now=at(THURSDAY, 15, 56), base_url="https://paper-api.alpaca.markets", client_is_paper=True,
                     config=load_json("alpaca_config.json"), rules=load_json("rules.json"),
-                    position={"symbol": CALL_590, "qty": 1}, account_number="PA3R32D8LP4Q", market_open=True)
+                    position={"symbol": CALL_590, "qty": 1}, account_number="PA36VOEO5PHB", market_open=True)
         self.assertTrue(passed(check_exit(**args)))
         self.assertIn("desk_position", failures(check_exit(**{**args, "position": {"symbol": "SNDK", "qty": 3}})))
         self.assertIn("paper_client", failures(check_exit(**{**args, "base_url": "https://api.alpaca.markets"})))

@@ -79,7 +79,7 @@ class FakeBroker:
     base_url = "https://paper-api.alpaca.markets"
     is_paper = True
 
-    def __init__(self, account_number="PA3R32D8LP4Q", positions=None, market_open=True, fills=None,
+    def __init__(self, account_number="PA36VOEO5PHB", positions=None, market_open=True, fills=None,
                  open_orders=None, reject=False, expiries=(0, 1, 2)):
         self.account_number = account_number
         self._positions = positions or []

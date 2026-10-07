@@ -1,6 +1,6 @@
 # SPY paper desk
 
-A weekday SPY desk on the **Alpaca paper** account *Paper 1000* (`PA3R32D8LP4Q`),
+A weekday SPY desk on the **Alpaca paper** account *Paper 1000* (`PA36VOEO5PHB`),
 a $1,000 book. It fades the Mxwll Price Action Suite areas of interest:
 buy only in red, sell only in green, and only after the 09:30–09:59 ET open has
 produced real zones from Roy's TradingView chart.
@@ -282,7 +282,7 @@ Every one of these must pass:
 
 - the client is paper (`paper-api.alpaca.markets`, built with `paper=True`)
 - `live_unlocked` is false and the mode is paper in `alpaca_config.json` and `rules.json`
-- the keys belong to Paper 1000 (`PA3R32D8LP4Q`)
+- the keys belong to Paper 1000 (`PA36VOEO5PHB`)
 - the active instrument's switch is on, and the underlying is SPY (SNDK is refused)
 - it is a weekday, 10:00 ≤ time < 15:40 ET, and Alpaca's clock says the market is open
 - `aoi_override.json` is tradable, has zones, was written today between 09:30 and 09:59 ET, and is not approximate. The October 2 stand-in zones fail this.
