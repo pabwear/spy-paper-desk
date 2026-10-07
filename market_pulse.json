@@ -1,36 +1,37 @@
 {
   "date": "2026-10-07",
   "bias": "neutral",
-  "written_at": "2026-10-07T14:06:54-04:00",
-  "as_of": "2026-10-07T18:08:00Z",
+  "written_at": "2026-10-07T15:06:48-04:00",
+  "as_of": "2026-10-07T19:08:00Z",
   "readings": {
-    "as_of": "2026-10-07T18:08:00Z",
-    "spy_price": 777.23,
-    "spy_change_pct": -0.24,
+    "as_of": "2026-10-07T19:08:00Z",
+    "spy_price": 777.68,
+    "spy_change_pct": -0.18,
     "vix": 15.38,
     "fear_greed": 44,
     "stocktwits": {
       "SPY": {
-        "score": 79,
-        "bullish_pct": 55.6
+        "score": 78,
+        "bullish_pct": 55.8
       }
     },
     "reddit": {
+      "score": 0,
       "posts": 0,
       "top": []
     },
     "news": {
-      "score": 0.1,
+      "score": 0.05,
       "headlines": [
-        "Stocktwits posters say stocks jumped to session highs as Fed minutes hit (unconfirmed)",
-        "Small caps lag: IWM -1.2%, gold -1.5%",
-        "AI data-center and miner names (APLD, IREN) fall 5-6%; memory ETF DRAM up"
+        "Fed September minutes due today; one calendar expects a dovish tone (forecast, unconfirmed)",
+        "IWM -1.1%, GLD -1.5%, QQQ -0.3% while SPY is roughly flat",
+        "AI data-center/miner names APLD -5.3% and IREN -6.2%; SMCI +4%, VST +4.2%"
       ]
     },
     "rumors": [
       {
-        "text": "Fed minutes show inflation declining in the medium term, sparking a rally to session highs",
-        "source": "stocktwits",
+        "text": "Dovish Fed minutes will keep indexes supported into the close",
+        "source": "news",
         "tickers": [
           "SPY",
           "QQQ"
@@ -41,50 +42,45 @@
         },
         "direction": "up",
         "credibility": 0.3,
-        "why": "A dovish read of the minutes would support further index gains"
+        "why": "A dovish read would ease rate worries and support large caps"
       },
       {
-        "text": "Bears were crowded and spammed the tape, so SPY is set to squeeze higher into the close",
+        "text": "QQQ is going to break down further this afternoon",
         "source": "stocktwits",
         "tickers": [
+          "QQQ",
           "SPY"
         ],
         "names": {
+          "QQQ": "Invesco QQQ Trust",
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.15,
-        "why": "A crowded short bet can fuel a squeeze if price keeps rising"
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Tech weakness could drag the index below 777 support"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "IWM": "iShares Russell 2000 ETF",
       "APLD": "Applied Digital",
-      "IREN": "IREN Limited"
+      "IREN": "IREN Limited",
+      "SMCI": "Super Micro Computer",
+      "VST": "Vistra Corp"
     },
-    "plays": [
-      {
-        "ticker": "SPY",
-        "direction": "up",
-        "horizon": "close",
-        "confidence": 0.54,
-        "reason": "Posters report a bounce on the Fed minutes and VIX is calm near 15.4, but the crowd is already very bullish and small caps lag",
-        "catalyst": "Fed minutes reaction into the close"
-      }
-    ],
-    "whats_new": "SPY edged up to about 777.2 (-0.24%) from 776.2 last hour and VIX eased to 15.4. Fed minutes appear to be out, with Stocktwits posters claiming a rally to session highs, though this is unconfirmed. Small caps (IWM -1.2%) and gold (-1.5%) lag while AI data-center names stay weak.",
+    "plays": [],
+    "whats_new": "SPY is about flat at 777.7 (-0.18%) and VIX is steady near 15.4. Stocktwits stays very bullish (score 78) while small caps and gold lag, and posters say 777 needs to hold. AI data-center names are still weak while SMCI and VST bounce. The Fed minutes reaction is still unconfirmed.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable",
-      "news": "stocktwits"
+      "news": "stocktwits+websearch"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.24,
+      "value": -0.18,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -102,7 +98,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 79.0,
+      "value": 78.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
@@ -113,7 +109,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable",
-    "news": "stocktwits"
+    "news": "stocktwits+websearch"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
