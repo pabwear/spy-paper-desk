@@ -146,7 +146,14 @@ ROUNDS["5"] = [
     {"name": "close_to_open", **CLOSE_OPEN},
 ]
 
-FINAL_PICKS: list[str] = []  # chosen after the search rounds, then run once with --round final
+# The final exam, run once on the locked year (chosen 2026-10-07 after round 5). Round 5: buying at 10:00 and
+# holding overnight with a range-sized stop made money on both periods for SPY, QQQ and TSLA; the bounce did
+# not carry to QQQ and is kept for SPY with its round 2–4 settings (the best net ÷ worst drop there).
+FINAL = [
+    {"name": "final_ten_overnight", **RANGE_ON, "entry": "ten"},
+    {"name": "final_bounce_overnight", **BOUNCE_ON},
+]
+
 
 
 # ---------------------------------------------------------------- the timeline every idea walks on
@@ -459,10 +466,9 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     if a.round != "final" and a.round not in ROUNDS:
         raise SystemExit(f"unknown round {a.round!r}; rounds: {', '.join(ROUNDS)} or final")
-    specs = ([s for r in ROUNDS.values() for s in r if s["name"] in FINAL_PICKS] if a.round == "final"
-             else ROUNDS[a.round])
+    specs = FINAL if a.round == "final" else ROUNDS[a.round]
     if not specs:
-        raise SystemExit("nothing to run (FINAL_PICKS is empty)")
+        raise SystemExit("nothing to run")
     cfg = auto.desk_config()
     end = datetime.now(ET).date() if a.round == "final" else HOLDOUT_START
     bars = (bt.alpaca_minutes(date.fromisoformat(a.since), end, a.symbol) if a.source == "alpaca"
