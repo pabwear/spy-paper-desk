@@ -312,3 +312,95 @@ def plan_trade(paths: np.ndarray, last: float, zone_low: float, zone_high: float
             "expected": round(float(dollars.mean()), 0),
         },
     }
+
+
+def _after_entry(paths: np.ndarray, last: float, entry: float) -> list[np.ndarray | None]:
+    """For each path: its log moves from the entry onward once price touches `entry`, or None if it never does."""
+    e = float(np.log(entry / last))
+    out = []
+    for p in paths:
+        if abs(e) < 1e-12:
+            out.append(p - 0.0)
+            continue
+        hit = np.nonzero(p <= e)[0] if e < 0 else np.nonzero(p >= e)[0]
+        out.append(p[hit[0] + 1:] - e if len(hit) and hit[0] + 1 < len(p) else (np.array([0.0]) if len(hit) else None))
+    return out
+
+
+def suggest(paths: np.ndarray, last: float, zone_low: float, zone_high: float, side: str, stop_pct: float,
+            risk_usd: float, contracts: int = 1) -> dict:
+    """Suggested entry, profit targets and size for one zone trade, from the look-alike paths.
+
+    Entries tried: the zone's near edge, its middle and its far edge (and the price now, when inside).
+    The suggestion is the one with the best expected option result across all paths (a price that
+    is rarely reached scores low however good it looks). Targets are 1× and 2× the stop distance;
+    each gets its chance of being hit before the stop and before the close. Size: the desk's fixed
+    contract count, checked against the risk limit.
+    """
+    long = side == "buy"
+    s = stop_pct / 100
+    near, far = (zone_high, zone_low) if long else (zone_low, zone_high)
+    if last > zone_high:
+        near, far = zone_high, zone_low
+    elif last < zone_low:
+        near, far = zone_low, zone_high
+    cands = [("near edge", near), ("middle", (zone_low + zone_high) / 2), ("far edge", far)]
+    if zone_low <= last <= zone_high:
+        cands.insert(0, ("price now", last))
+    per_dollar = 100 * OPTION_DELTA * contracts
+    n = len(paths)
+    rows = []
+    for name, price in cands:
+        moves = _after_entry(paths, last, price)
+        stop_l = np.log(1 - s) if long else np.log(1 + s)
+        t1, t2 = (np.log(1 + s), np.log(1 + 2 * s)) if long else (np.log(1 - s), np.log(1 - 2 * s))
+        reached, dollars, wins, hit1, hit2 = 0, [], 0, 0, 0
+        for m in moves:
+            if m is None:
+                continue
+            reached += 1
+            d = m if long else -m          # moves in the trade's favor are positive
+            stop_at = np.nonzero(d <= (stop_l if long else -stop_l))[0]
+            first_stop = stop_at[0] if len(stop_at) else len(d)
+            for target, bump in ((t1, 1), (t2, 2)):
+                tgt = target if long else -target
+                hit = np.nonzero(d >= tgt)[0]
+                if len(hit) and hit[0] < first_stop:
+                    if bump == 1:
+                        hit1 += 1
+                    else:
+                        hit2 += 1
+            res = -s if len(stop_at) else float(np.exp(d[-1]) - 1)
+            wins += int(res > 0)
+            dollars.append(res * price * per_dollar)
+        rows.append({
+            "name": name, "price": round(price, 2),
+            "reach_pct": round(100 * reached / n, 1),
+            "profit_pct": round(100 * wins / n, 1),
+            "win_if_entered_pct": round(100 * wins / reached, 1) if reached else None,
+            "target1_pct": round(100 * hit1 / reached, 1) if reached else None,
+            "target2_pct": round(100 * hit2 / reached, 1) if reached else None,
+            "expected": round(float(np.sum(dollars)) / n, 0),  # across all paths: no trade counts as $0
+        })
+    best = max(range(len(rows)), key=lambda i: (rows[i]["expected"], rows[i]["profit_pct"]))
+    entry = rows[best]["price"]
+    sign = 1 if long else -1
+    risk_per = s * entry * per_dollar / contracts
+    fits = int(risk_usd // risk_per) if risk_per > 0 else 0
+    return {
+        "entries": rows,
+        "suggested": best,
+        "targets": [
+            {"name": "Target 1 (1× the stop)", "price": round(entry * (1 + sign * s), 2), "hit_pct": rows[best]["target1_pct"]},
+            {"name": "Target 2 (2× the stop)", "price": round(entry * (1 + sign * 2 * s), 2), "hit_pct": rows[best]["target2_pct"]},
+        ],
+        "stop": round(entry * (1 - sign * s), 2),
+        "size": {
+            "contracts": contracts,
+            "risk_per_contract": round(risk_per, 0),
+            "risk_limit": round(risk_usd, 0),
+            "within_limit": risk_per * contracts <= risk_usd,
+            "contracts_within_limit": fits,
+            "stop_pct_that_fits": round(100 * risk_usd / (entry * 100 * OPTION_DELTA), 3) if entry else None,
+        },
+    }

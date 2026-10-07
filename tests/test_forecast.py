@@ -132,5 +132,32 @@ class PlanTests(unittest.TestCase):
         self.assertEqual((o["reach_pct"], o["profit_pct"]), (0.0, 0.0))
 
 
+class SuggestTests(unittest.TestCase):
+    def paths(self, *finals, n=10):
+        return np.array([np.linspace(0, np.log(1 + f / 100), n) for f in finals])
+
+    def test_picks_the_entry_with_the_best_expected_result(self):
+        o = forecast.suggest(self.paths(1.0, 1.0, -0.2), 100.0, 99.5, 100.5, "buy", 0.35, 100.0)
+        names = [r["name"] for r in o["entries"]]
+        self.assertEqual(names[0], "price now")  # inside the zone: buying now is one of the choices
+        best = o["entries"][o["suggested"]]
+        self.assertEqual(best["expected"], max(r["expected"] for r in o["entries"]))
+        self.assertEqual(o["targets"][0]["price"], round(best["price"] * 1.0035, 2))
+        self.assertEqual(o["stop"], round(best["price"] * 0.9965, 2))
+
+    def test_targets_hit_before_the_stop(self):
+        o = forecast.suggest(self.paths(1.0, 1.0), 100.0, 99.5, 100.5, "buy", 0.35, 100.0)
+        best = o["entries"][o["suggested"]]
+        self.assertEqual((best["target1_pct"], best["target2_pct"]), (100.0, 100.0))  # +1% clears both 0.35% and 0.70%
+
+    def test_size_against_the_risk_limit(self):
+        o = forecast.suggest(self.paths(1.0), 600.0, 599.0, 601.0, "buy", 0.35, 100.0)
+        size = o["size"]  # 0.35% of $600 × $50 per $1 ≈ $105 a contract: just over a $100 limit
+        self.assertFalse(size["within_limit"])
+        self.assertEqual(size["contracts_within_limit"], 0)
+        self.assertAlmostEqual(size["stop_pct_that_fits"], 100 / (600 * 50) * 100, places=2)
+        self.assertTrue(forecast.suggest(self.paths(1.0), 100.0, 99.5, 100.5, "buy", 0.35, 100.0)["size"]["within_limit"])
+
+
 if __name__ == "__main__":
     unittest.main()

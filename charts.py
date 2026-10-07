@@ -167,7 +167,7 @@ def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailie
 
 
 def trade_plans(bars: list[dict] | None, now: datetime, cfg: dict, zones: list[dict], zones_from: str,
-                stop_pct: float) -> dict | None:
+                stop_pct: float, risk_usd: float = 100.0, contracts: int = 1) -> dict | None:
     """Projected trades: for each zone, the chance price gets there and the chance the desk's trade would pay,
     along the look-alike paths on the desk's own timeframe and session. Display only."""
     from studies import forecast, mxwll
@@ -190,8 +190,9 @@ def trade_plans(bars: list[dict] | None, now: datetime, cfg: dict, zones: list[d
     for z in zones:
         side = "buy" if z.get("color") == "red" else "sell"
         odds = forecast.plan_trade(paths, last, float(z["low"]), float(z["high"]), side, stop_pct)
+        sug = forecast.suggest(paths, last, float(z["low"]), float(z["high"]), side, stop_pct, risk_usd, contracts)
         plans.append({"color": z.get("color"), "low": float(z["low"]), "high": float(z["high"]), "side": side,
-                      "contract": "call" if side == "buy" else "put", **odds})
+                      "contract": "call" if side == "buy" else "put", **odds, "suggest": sug})
     ends = forecast.future_times(_row(candles[-1], False)[0], horizon, minutes, True)[-1]
     return {"tf": f"{minutes}m", "horizon": horizon, "until": ends, "by_close": open_now, "last": round(last, 2),
             "stop_pct": stop_pct, "zones_from": zones_from, "plans": plans,
@@ -232,8 +233,12 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
             today_zones = [{"color": k, "low": study["aoi"][k]["low"], "high": study["aoi"][k]["high"]}
                            for k in ("red", "green") if study["aoi"][k]["visible"]]
             zones_from = "the desk's live Mxwll boxes (no zones for today yet)"
-        stop = float((load_json("rules.json", {}) or {}).get("stop_underlying_pct", 0.35))
-        plans = trade_plans(bars, now, cfg, today_zones, zones_from, stop) if cfg else None
+        rules = load_json("rules.json", {}) or {}
+        stop = float(rules.get("stop_underlying_pct", 0.35))
+        book = float(rules.get("book_usd") or risk.get("target_book_usd") or 1000)
+        risk_usd = book * float(risk.get("max_risk_pct_per_idea", 10)) / 100
+        contracts = int((rules.get("option") or {}).get("contracts", 1))
+        plans = trade_plans(bars, now, cfg, today_zones, zones_from, stop, risk_usd, contracts) if cfg else None
     except Exception as e:  # noqa: BLE001 - a plan problem never stops the chart
         plans = {"error": f"{type(e).__name__}: {e}"[:200]}
     return {
