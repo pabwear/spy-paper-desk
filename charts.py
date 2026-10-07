@@ -122,7 +122,7 @@ def _study(candles: list[dict], cfg: dict, daily: bool) -> dict | None:
 
 def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailies: list[dict] | None,
            now: datetime, cfg: dict) -> dict:
-    """Candles, VWAP and the Mxwll read for each timeframe there is enough data for.
+    """Candles, VWAP, the Mxwll read and the pattern projection for each timeframe there is enough data for.
 
     1m–15m come from the minute bars; 30m–4h from ~60 days of 30-minute bars with the minute bars
     on top; 1D from daily bars plus today's session.
@@ -148,7 +148,14 @@ def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailie
         except Exception as e:  # noqa: BLE001 - a study problem never stops the chart
             study = {"error": f"{type(e).__name__}: {e}"[:200]}
         vw = session_vwaps(candles)[-show:] if minutes is not None and minutes <= 60 else None
-        out[name] = {"c": [_row(c, daily) for c in candles[-show:]], "vwap": vw, "study": study}
+        rows = [_row(c, daily) for c in candles]
+        try:
+            from studies import forecast
+
+            proj = forecast.project([r[4] for r in rows], [r[0] for r in rows], name, minutes, regular_hours_only=rth)
+        except Exception as e:  # noqa: BLE001 - a projection problem never stops the chart
+            proj = {"error": f"{type(e).__name__}: {e}"[:200]}
+        out[name] = {"c": rows[-show:], "vwap": vw, "study": study, "projection": proj}
     return out
 
 
