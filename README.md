@@ -323,8 +323,12 @@ How the desk uses it (`rules.json` → `studies.mxwll`):
   `order_blocks` counts when a live swing order block overlaps or sits near the zone.
 - **Chart.** `charts.json` carries the study's current read, so the dashboard can show both boxes.
 
-The boxes depend on the chart's timeframe and on whether extended hours are shown, so set
-`timeframe_minutes` and `regular_hours_only` to match the chart the zones are read from.
+The boxes depend on the chart's timeframe and on whether extended hours are shown. Roy's
+TradingView chart is 5-minute candles with extended hours on (04:00–20:00 ET), so that is the
+default. To switch extended hours, run **Actions → Desk settings → Run workflow** and pick on or
+off; the choice is saved on `desk-state` (`settings.json`) and every later run uses it. The
+dashboard can show either view at any time; the chart also carries order blocks, every structure
+break, swing labels and a pattern projection (display only, never used for orders).
 
 ## Learning from mistakes (`learning.py`)
 

@@ -249,8 +249,25 @@ class TimeframeTests(DeskTestCase):
         self.assertIsNone(f["15m"]["study"]["aoi"])  # two days of minutes is under 50 candles on 15m
 
     def test_four_hour_candles_follow_the_session(self):
-        times = {row[0][11:] for row in self.frames()["4h"]["c"]}
-        self.assertEqual(times, {"09:30", "13:30"})
+        import charts
+
+        cfg = auto.config(load_json("rules.json"))
+        rth = charts.frames(self.minutes, self.half, self.daily, self.now, cfg, rth=True)
+        eth = charts.frames(self.minutes, self.half, self.daily, self.now, cfg, rth=False)
+        self.assertEqual({row[0][11:] for row in rth["4h"]["c"]}, {"09:30", "13:30"})  # regular hours: from the open
+        self.assertEqual({row[0][11:] for row in eth["4h"]["c"]}, {"08:00", "12:00"})  # extended: on the clock
+
+    def test_extended_hours_setting(self):
+        rules = load_json("rules.json")
+        self.assertFalse(auto.config(rules)["regular_hours_only"])  # Roy's chart: extended hours on
+        self.assertTrue(auto.config(rules, {"extended_hours": False})["regular_hours_only"])
+        self.assertFalse(auto.config(rules, {"extended_hours": "yes"})["regular_hours_only"])  # only a real true/false counts
+
+    def test_extended_session_bounds(self):
+        bars = minute_bars(THURSDAY, (3, 0), (21, 0), step=0.0)
+        eth = mxwll.resample(bars, 60, regular_hours_only=False)
+        self.assertEqual((eth[0]["t"].hour, eth[-1]["t"].hour), (4, 19))
+        self.assertEqual(len(mxwll.resample(bars, 60, regular_hours_only=True)), 7)
 
     def test_today_daily_candle_comes_from_todays_minutes(self):
         last = self.frames()["1D"]["c"][-1]
@@ -277,6 +294,12 @@ class TimeframeTests(DeskTestCase):
         run_study.cmd_tick(at(THURSDAY, 9, 50), broker_factory=lambda: FakeBroker(), bars=bars)
         chart = load_json("charts.json")["SPY"]
         self.assertIn("1h", chart["frames"])
+        self.assertIn("1h", chart["frames_eth"])
+        self.assertIs(chart["extended_hours"], True)
+        self.assertEqual(chart["frames_eth"]["1D"], chart["frames"]["1D"])
+        st = chart["frames"]["30m"]["study"]
+        for key in ("order_blocks", "internal_events", "external_events", "swing_points"):
+            self.assertIn(key, st)
         self.assertIn("frames", load_json("dashboard_state.json")["charts"]["SPY"])
         offline = run_study.Bars(self.now, {"SPY": self.minutes})
         self.assertIsNone(offline.history("SPY", "30Min"))

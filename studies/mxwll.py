@@ -31,13 +31,21 @@ DEFAULTS = {
 # ---------------------------------------------------------------- candles
 
 def resample(bars: list[dict], minutes: int, regular_hours_only: bool = True,
-             open_hhmm: str = "09:30", close_hhmm: str = "16:00") -> list[dict]:
-    """1-minute bars → `minutes` candles. Regular-hours candles start at 09:30, like TradingView's RTH chart."""
+             open_hhmm: str = "09:30", close_hhmm: str = "16:00",
+             ext_open: str = "04:00", ext_close: str = "20:00") -> list[dict]:
+    """1-minute bars → `minutes` candles.
+
+    Regular hours: candles start at 09:30, like TradingView's RTH chart. Extended hours: 04:00–20:00 ET,
+    candles on the clock (TradingView's session starts at 04:00, which lines up the same way).
+    """
     out: list[dict] = []
     o_t, c_t = hhmm(open_hhmm), hhmm(close_hhmm)
+    eo_t, ec_t = hhmm(ext_open), hhmm(ext_close)
     for b in bars:
         t = b["t"].astimezone(ET)
         if regular_hours_only and not (o_t <= t.time() < c_t):
+            continue
+        if not regular_hours_only and not (eo_t <= t.time() < ec_t):
             continue
         if regular_hours_only:
             start = t.replace(hour=o_t.hour, minute=o_t.minute, second=0, microsecond=0)
@@ -215,6 +223,11 @@ def analyze(candles: list[dict], cfg: dict | None = None) -> dict | None:
         return {"dir": e["dir"], "kind": e["kind"], "level": round(e["level"], 4),
                 "t": e["t"].isoformat(timespec="minutes"), "bars_ago": last_i - e["i"]}
 
+    def event(e):
+        return {"dir": e["dir"], "kind": e["kind"], "level": round(e["level"], 4),
+                "t": e["t"].isoformat(timespec="minutes"),
+                "from_t": candles[e["from_i"]]["t"].isoformat(timespec="minutes") if e.get("from_i") is not None else None}
+
     def block(b):  # Pine's low blocks have top < bottom; report them as a low–high band
         return {"low": round(min(b["top"], b["bottom"]), 4), "high": round(max(b["top"], b["bottom"]), 4),
                 "since": candles[b["from_i"]]["t"].isoformat(timespec="minutes")}
@@ -227,6 +240,10 @@ def analyze(candles: list[dict], cfg: dict | None = None) -> dict | None:
         "external": last_event(external["events"]),
         "swings": [{"label": s["label"], "price": round(s["price"], 4), "t": s["t"].isoformat(timespec="minutes")}
                    for s in external["swings"][-4:]],
+        "swing_points": [{"label": s["label"], "price": round(s["price"], 4), "t": s["t"].isoformat(timespec="minutes")}
+                         for s in external["swings"][-16:]],
+        "internal_events": [event(e) for e in internal["events"][-12:]],
+        "external_events": [event(e) for e in external["events"][-8:]],
         "order_blocks": {"high": [block(b) for b in external["high_blocks"]],
                          "low": [block(b) for b in external["low_blocks"]]},
     }

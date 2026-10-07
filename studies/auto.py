@@ -14,10 +14,20 @@ from studies import mxwll
 SOURCE = "desk_mxwll_auto"
 
 
-def config(rules: dict) -> dict:
-    """rules.json studies.mxwll over the port's defaults."""
-    return {**mxwll.DEFAULTS, "snapshot_time": "09:39", "auto_zones": True, "trusted": False,
-            **((rules.get("studies") or {}).get("mxwll") or {})}
+def config(rules: dict, settings: dict | None = None) -> dict:
+    """rules.json studies.mxwll over the port's defaults, then Roy's desk settings (the settings form)."""
+    cfg = {**mxwll.DEFAULTS, "snapshot_time": "09:39", "auto_zones": True, "trusted": False,
+           **((rules.get("studies") or {}).get("mxwll") or {})}
+    if settings and isinstance(settings.get("extended_hours"), bool):
+        cfg["regular_hours_only"] = not settings["extended_hours"]
+    return cfg
+
+
+def desk_config() -> dict:
+    """config() from the desk's files: rules.json plus settings.json (written by the settings form)."""
+    from common import load_json
+
+    return config(load_json("rules.json", {}) or {}, load_json("settings.json", {}) or {})
 
 
 def read(bars: list[dict] | None, until: datetime, cfg: dict) -> dict | None:

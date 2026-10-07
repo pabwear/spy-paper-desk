@@ -33,6 +33,11 @@ class FutureTimeTests(unittest.TestCase):
         self.assertEqual(forecast.future_times("2026-10-01T15:30", 2, 60), ["2026-10-02T09:30", "2026-10-02T10:30"])
         self.assertEqual(forecast.future_times("2026-10-01T13:30", 2, 240), ["2026-10-02T09:30", "2026-10-02T13:30"])
 
+    def test_extended_hours_run_four_to_eight(self):
+        self.assertEqual(forecast.future_times("2026-10-01T19:55", 2, 5, regular_hours_only=False),
+                         ["2026-10-02T04:00", "2026-10-02T04:05"])
+        self.assertEqual(forecast.future_times("2026-10-01T15:55", 1, 5, regular_hours_only=False), ["2026-10-01T16:00"])
+
     def test_daily_skips_weekends(self):
         self.assertEqual(forecast.future_times("2026-10-02", 2, None), ["2026-10-05", "2026-10-06"])
 

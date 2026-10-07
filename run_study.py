@@ -139,7 +139,7 @@ def market_read(now: datetime, source: Bars, symbol: str, weights: dict, risk: d
 def study_read(now: datetime, source: Bars, symbol: str, rules: dict) -> dict | None:
     """The ported Mxwll study on this symbol's chart right now. A study problem never stops the desk."""
     try:
-        return auto_study.read(source.get(symbol)[0], now, auto_study.config(rules))
+        return auto_study.read(source.get(symbol)[0], now, auto_study.desk_config())
     except Exception as e:  # noqa: BLE001
         return {"error": f"{type(e).__name__}: {e}"[:200]}
 
@@ -149,7 +149,7 @@ def cmd_auto_zones(now: datetime, source: Bars) -> list[str]:
 
     Zones Ops published today (or a clear) are never replaced. Returns the symbols written.
     """
-    cfg = auto_study.config(load_json("rules.json", {}))
+    cfg = auto_study.desk_config()
     if not cfg.get("auto_zones"):
         return []
     written = []

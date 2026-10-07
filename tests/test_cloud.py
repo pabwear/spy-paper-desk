@@ -88,6 +88,17 @@ class FormTests(DeskTestCase):
         with mock.patch.dict(os.environ, {"ACTION": "delete-everything", "SYMBOL": "NVDA"}):
             self.assertEqual(cloud_state.main(["x", "focus"]), 1)
 
+    def test_settings_form(self):
+        with mock.patch.dict(os.environ, {"EXTENDED_HOURS": "off"}):
+            self.assertEqual(cloud_state.main(["x", "settings"]), 0)
+        self.assertIs(load_json("settings.json")["extended_hours"], False)
+        from studies import auto
+
+        self.assertTrue(auto.desk_config()["regular_hours_only"])
+        with mock.patch.dict(os.environ, {"EXTENDED_HOURS": "maybe"}):
+            self.assertEqual(cloud_state.main(["x", "settings"]), 1)
+        self.assertIn("settings.json", cloud_state.STATE_FILES)
+
     def test_state_round_trip(self):
         journal.log("skip", reasons=["weekend"])
         save_json("aoi_override.NVDA.json", {"symbol": "NVDA"})

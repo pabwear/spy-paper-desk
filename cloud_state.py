@@ -9,6 +9,7 @@ today's zones, focus list, pulse, learner) lives on `desk-state`, so `main` stay
     python3 cloud_state.py zones           # apply the zones form (env: SYMBOL, RED, GREEN, TAGS, NONE)
     python3 cloud_state.py focus           # apply the focus form (env: ACTION, SYMBOL, INSTRUMENT)
     python3 cloud_state.py pulse           # apply live readings (env: READINGS, a JSON object)
+    python3 cloud_state.py settings        # apply the settings form (env: EXTENDED_HOURS on/off)
 
 Form values arrive as environment variables, never pasted into a shell command.
 """
@@ -23,11 +24,11 @@ import shutil
 import sys
 from pathlib import Path
 
-from common import desk_dir, load_json, now_et
+from common import desk_dir, load_json, now_et, save_json
 
 STATE_FILES = ["journal.jsonl", "trades.csv", "account.json", "market_pulse.json", "learning_weights.json",
                "ml_model.json", "learning_report.json", "dashboard_state.json", "watchlist.json",
-               "aoi_override.json", "charts.json"]
+               "aoi_override.json", "charts.json", "settings.json"]
 STATE_GLOBS = ["aoi_override.*.json"]
 RANGE_RE = re.compile(r"^\s*(\d+(?:\.\d+)?)\s*[-–to ]+\s*(\d+(?:\.\d+)?)\s*$")
 
@@ -125,6 +126,17 @@ def main(argv: list[str]) -> int:
             else:
                 raise ValueError("ACTION must be add, remove, up, down, trade-on or trade-off")
             print("Focus:", ", ".join(load_json("watchlist.json", {}).get("focus", [])))
+        elif cmd == "settings":
+            choice = (os.environ.get("EXTENDED_HOURS") or "").strip().lower()
+            if choice not in ("on", "off"):
+                raise ValueError("EXTENDED_HOURS must be on or off")
+            settings = {**(load_json("settings.json", {}) or {}), "extended_hours": choice == "on",
+                        "changed_at": now.isoformat(timespec="seconds")}
+            save_json("settings.json", settings)
+            import journal
+
+            journal.log("settings", now=now, extended_hours=settings["extended_hours"])
+            print(f"Extended hours for the Mxwll read: {choice}.")
         elif cmd == "pulse":
             readings = json.loads(os.environ.get("READINGS") or "{}")
             if not isinstance(readings, dict) or not readings:

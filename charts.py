@@ -117,11 +117,13 @@ def _study(candles: list[dict], cfg: dict, daily: bool) -> dict | None:
         return None
     lookback = int(cfg["aoi_lookback"])
     return {"aoi": out["aoi"], "internal": out["internal"], "external": out["external"],
-            "from": _row(candles[-lookback], daily)[0] if len(candles) > lookback else None}
+            "from": _row(candles[-lookback], daily)[0] if len(candles) > lookback else None,
+            "order_blocks": out["order_blocks"], "internal_events": out["internal_events"],
+            "external_events": out["external_events"], "swing_points": out["swing_points"]}
 
 
 def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailies: list[dict] | None,
-           now: datetime, cfg: dict) -> dict:
+           now: datetime, cfg: dict, rth: bool | None = None, daily_frame: dict | None = None) -> dict:
     """Candles, VWAP, the Mxwll read and the pattern projection for each timeframe there is enough data for.
 
     1m–15m come from the minute bars; 30m–4h from ~60 days of 30-minute bars with the minute bars
@@ -129,12 +131,15 @@ def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailie
     """
     from studies import mxwll
 
-    rth = bool(cfg.get("regular_hours_only", True))
+    rth = bool(cfg.get("regular_hours_only", True)) if rth is None else rth
     minute = sorted(minute_bars or [], key=lambda b: b["t"])
     first_day = minute[0]["t"].astimezone(ET).date() if minute else None
     older = [b for b in half_hours or [] if first_day is None or b["t"].astimezone(ET).date() < first_day]
     out = {}
     for name, minutes, show in TIMEFRAMES:
+        if minutes is None and daily_frame is not None:  # the daily chart is the same either way
+            out[name] = daily_frame
+            continue
         if minutes is None:
             candles = daily_candles(dailies, minute, now)
         else:
@@ -171,15 +176,16 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
     try:  # the desk's own Mxwll read right now: rolling AOI boxes, last breaks, order blocks
         from studies import auto as auto_study
 
-        cfg = auto_study.config(load_json("rules.json", {}) or {})
+        cfg = auto_study.desk_config()
         study = auto_study.read(bars, now, cfg)
     except Exception as e:  # noqa: BLE001 - a study problem never stops the chart
         cfg, study = None, {"error": f"{type(e).__name__}: {e}"[:200]}
     try:
-        tf = frames(bars, half_hours, dailies, now, cfg) if cfg else {}
+        tf = frames(bars, half_hours, dailies, now, cfg, rth=True) if cfg else {}
+        tf_eth = frames(bars, half_hours, dailies, now, cfg, rth=False, daily_frame=tf.get("1D")) if cfg else {}
     except Exception as e:  # noqa: BLE001
         journal.log("chart_failed", now=now, symbol=symbol, error=f"timeframes: {type(e).__name__}: {e}"[:300])
-        tf = {}
+        tf, tf_eth = {}, {}
     return {
         "symbol": symbol,
         "date": now.astimezone(ET).date().isoformat(),
@@ -195,6 +201,8 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
         "study": study,
         "study_timeframe": (cfg or {}).get("timeframe_minutes"),
         "frames": tf,
+        "frames_eth": tf_eth,
+        "extended_hours": not bool((cfg or {}).get("regular_hours_only", True)),
         "trades": trade_marks(symbol, now.astimezone(ET).date(), events),
         "updated_at": now.astimezone(ET).isoformat(timespec="seconds"),
     }

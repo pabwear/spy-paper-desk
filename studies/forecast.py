@@ -65,7 +65,10 @@ def _project(r: np.ndarray, shapes: np.ndarray, vols: np.ndarray, end: int, wind
 
 
 def future_times(last: str, n: int, minutes: int | None, regular_hours_only: bool = True) -> list[str]:
-    """The next `n` candle start times after `last` (ET wall clock), skipping nights and weekends."""
+    """The next `n` candle start times after `last` (ET wall clock), skipping nights and weekends.
+
+    Regular hours run 09:30–16:00; extended hours 04:00–20:00.
+    """
     out = []
     if minutes is None:
         d = datetime.fromisoformat(last[:10]).date()
@@ -74,17 +77,18 @@ def future_times(last: str, n: int, minutes: int | None, regular_hours_only: boo
             if d.weekday() < 5:
                 out.append(d.isoformat())
         return out
+    open_m, close_m = (9 * 60 + 30, 16 * 60) if regular_hours_only else (4 * 60, 20 * 60)
     t = datetime.fromisoformat(last).replace(tzinfo=ET)
     while len(out) < n:
         t += timedelta(minutes=minutes)
-        if regular_hours_only:
-            if t.weekday() >= 5 or t.hour * 60 + t.minute >= 16 * 60:
-                nxt = t + timedelta(days=1)
-                while nxt.weekday() >= 5:
-                    nxt += timedelta(days=1)
-                t = nxt.replace(hour=9, minute=30)
-            elif t.hour * 60 + t.minute < 9 * 60 + 30:
-                t = t.replace(hour=9, minute=30)
+        m = t.hour * 60 + t.minute
+        if t.weekday() >= 5 or m >= close_m:
+            nxt = t + timedelta(days=1)
+            while nxt.weekday() >= 5:
+                nxt += timedelta(days=1)
+            t = nxt.replace(hour=open_m // 60, minute=open_m % 60)
+        elif m < open_m:
+            t = t.replace(hour=open_m // 60, minute=open_m % 60)
         out.append(t.strftime("%Y-%m-%dT%H:%M"))
     return out
 

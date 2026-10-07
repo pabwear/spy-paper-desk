@@ -225,7 +225,7 @@ def fetch_bars(now: datetime, minutes: int = 1, symbol: str = "SPY") -> list[dic
     try:
         import yfinance as yf
 
-        df = yf.download(symbol, period="5d", interval=f"{minutes}m", prepost=False, progress=False,
+        df = yf.download(symbol, period="5d", interval=f"{minutes}m", prepost=True, progress=False,
                          auto_adjust=False, multi_level_index=False)
         bars = [{"t": idx.to_pydatetime(), "o": float(r["Open"]), "h": float(r["High"]),
                  "l": float(r["Low"]), "c": float(r["Close"]), "v": float(r["Volume"])}
@@ -275,7 +275,7 @@ def fetch_history(now: datetime, symbol: str, unit: str) -> list[dict]:
     try:
         import yfinance as yf
 
-        df = yf.download(symbol, period=yf_period, interval=yf_interval, prepost=False, progress=False,
+        df = yf.download(symbol, period=yf_period, interval=yf_interval, prepost=True, progress=False,
                          auto_adjust=False, multi_level_index=False)
         bars = []
         for idx, r in df.iterrows():
