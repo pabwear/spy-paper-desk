@@ -47,6 +47,13 @@ jobs:
       - id: restore
         if: steps.clock.outputs.run == 'true'
         run: python cloud_state.py restore .state
+      - name: Check the Alpaca keys (manual runs only)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+          APCA_API_BASE_URL: https://paper-api.alpaca.markets
+        run: python alpaca_client.py --save
       - name: Run the desk
         if: steps.clock.outputs.run == 'true'
         env:
