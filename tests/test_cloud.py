@@ -164,3 +164,39 @@ class NoKeysTests(DeskTestCase):
             self.assertEqual(run_study.cmd_tick(now, bars=falling_bars(THURSDAY, now)), "no_keys")
         self.assertIn("SPY", load_json("charts.json"))
         self.assertTrue(any(e["event"] == "setup_needed" for e in journal.read_events()))
+
+
+class TestResultsTests(DeskTestCase):
+    """The backtest and rehearsal files ride along with the desk state and reach the dashboard trimmed."""
+
+    def test_backtests_folder_round_trips(self):
+        save_json("backtests/current.json", {"named": {}})
+        with tempfile.TemporaryDirectory() as d:
+            names = cloud_state.copy_state(desk_dir(), Path(d))
+            self.assertIn("backtests/current.json", names)
+            self.assertTrue((Path(d) / "backtests" / "current.json").exists())
+
+    def test_dashboard_gets_a_trimmed_summary(self):
+        import rebuild_dashboard
+
+        self.assertEqual(rebuild_dashboard._tests_state(), {})
+        part = {"trades": 10, "win_pct": 50.0, "total": -12.5, "per_trade": -1.25, "max_drawdown": -40.0,
+                "avg_win": 9.0, "avg_loss": -11.5, "gross": 37.5}
+        save_json("backtests/current.json", {
+            "days": 3, "first": "2020-07-28", "last": "2020-07-30", "cost_per_trade": 5,
+            "named": {"current": {"key": "k", "train": part, "test": part, "all": part}},
+            "monthly": {"current": [{"month": "2020-07", "total": -12.5, "trades": 10, "win_pct": 50.0, "gross": 1}]},
+            "by_year": {"current": {"2020": part}}, "table": [{"big": "x" * 1000}]})
+        save_json("backtests/rehearsal.json", {"days": ["2026-10-06"], "heartbeats": 48, "crashes": [], "failures": [],
+                                               "equity": [["2026-10-06T09:00", 1000.0]], "trades": [], "folder": "/tmp/x"})
+        t = rebuild_dashboard._tests_state()
+        b = t["backtest"]
+        self.assertEqual([r["name"] for r in b["rows"]], ["current"])
+        self.assertEqual(b["rows"][0]["test"]["per_trade"], -1.25)
+        self.assertNotIn("gross", b["rows"][0]["test"])
+        self.assertEqual(b["monthly"]["current"], [["2020-07", -12.5, 10, 50.0]])
+        self.assertEqual(b["by_year"]["current"]["2020"], {"trades": 10, "total": -12.5, "win_pct": 50.0})
+        self.assertNotIn("table", b)
+        self.assertEqual(t["rehearsal"]["heartbeats"], 48)
+        self.assertNotIn("folder", t["rehearsal"])
+        self.assertIn("tests", rebuild_dashboard.build_state(at(THURSDAY, 10, 30)))

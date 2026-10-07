@@ -148,6 +148,21 @@ class SimBroker:
         return {"order_id": oid, "status": "filled", "submitted_at": t.isoformat(timespec="seconds")}
 
 
+def round_trips(fills: list[dict], exits: list[dict]) -> list[dict]:
+    """Pair each buy with the sell that closes it: times, prices, dollars and why it was sold."""
+    out, open_ = [], {}
+    why = {e["ts"][:16]: e.get("reason") for e in exits}
+    for f in fills:
+        if f["side"] == "buy":
+            open_[f["symbol"]] = f
+        elif f["symbol"] in open_:
+            b = open_.pop(f["symbol"])
+            out.append({"symbol": f["symbol"], "opened_at": b["filled_at"], "closed_at": f["filled_at"],
+                        "entry_price": b["price"], "exit_price": f["price"],
+                        "pnl": round((f["price"] - b["price"]) * 100 * f["qty"], 2), "exit_reason": why.get(f["filled_at"][:16])})
+    return out
+
+
 def heartbeats(day: date, every: int = 10):
     t = datetime(day.year, day.month, day.day, 9, 0, tzinfo=ET)
     end = datetime(day.year, day.month, day.day, 16, 50, tzinfo=ET)
@@ -215,7 +230,9 @@ def run(minute_bars: list[dict], half_hours: list[dict], dailies: list[dict], vi
                       "exits": [e.get("reason") for e in exits if e["ts"].startswith(ds)],
                       "zones": next((e.get("zones") for e in events if e.get("event") == "aoi" and e["ts"].startswith(ds)), None),
                       "equity_end": next((x["equity"] for x in reversed(log) if x["t"].startswith(ds)), None)}
-    return {"folder": str(tmp), "days": [d.isoformat() for d in days], "heartbeats": len(log),
+    return {"ran_at": datetime.now(ET).isoformat(timespec="seconds"), "folder": str(tmp),
+            "days": [d.isoformat() for d in days], "heartbeats": len(log),
+            "equity": [[x["t"], x["equity"]] for x in log], "trades": round_trips(broker.fills, exits),
             "crashes": errors, "failures": [{k: e.get(k) for k in ("ts", "event", "reasons", "error", "reason", "symbol")}
                                             for e in failures],
             "entries": [{k: e.get(k) for k in ("ts", "symbol", "strike", "expiry", "underlying_price", "zone", "tags")}

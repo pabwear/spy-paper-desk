@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       since:
-        description: "First day to test (YYYY-MM-DD). Alpaca's free 1-minute history starts around 2016."
+        description: "First day to test (YYYY-MM-DD). Alpaca's free 1-minute history starts in July 2020."
         default: "2016-01-01"
       scope:
         description: "current = only the live desk's setup (quick); all = every setting (about 1,000)"

@@ -38,6 +38,7 @@ def load_json(name: str, default: Any = None) -> Any:
 
 def save_json(name: str, data: Any) -> None:
     p = path(name)
+    p.parent.mkdir(parents=True, exist_ok=True)
     tmp = p.with_suffix(p.suffix + ".tmp")
     with tmp.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)

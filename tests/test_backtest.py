@@ -193,3 +193,15 @@ class LiveDeskRealismTests(unittest.TestCase):
         flat = minutes([100.0] * 50)  # in at 09:51 (off the grid); 10:20 is only 29 minutes in, so out at the 10:30 look
         px, why, j = bt.exit_walk(flat, 1, 100.0, True, 0.25, 0, hhmm("15:40"), 30, poll=10)
         self.assertEqual((why, flat[j]["t"].strftime("%H:%M")), ("time", "10:29"))  # the bar that closes at 10:30
+
+
+class RehearsalTests(unittest.TestCase):
+    def test_round_trips_pair_buys_and_sells(self):
+        import rehearsal
+
+        fills = [{"symbol": "A", "side": "buy", "qty": 1.0, "price": 9.8, "filled_at": "2026-10-02T10:10:00-04:00"},
+                 {"symbol": "A", "side": "sell", "qty": 1.0, "price": 8.37, "filled_at": "2026-10-02T11:10:00-04:00"}]
+        exits = [{"ts": "2026-10-02T11:10:00-04:00", "reason": "stop"}]
+        self.assertEqual(rehearsal.round_trips(fills, exits),
+                         [{"symbol": "A", "opened_at": "2026-10-02T10:10:00-04:00", "closed_at": "2026-10-02T11:10:00-04:00",
+                           "entry_price": 9.8, "exit_price": 8.37, "pnl": -143.0, "exit_reason": "stop"}])

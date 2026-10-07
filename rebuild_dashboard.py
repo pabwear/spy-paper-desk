@@ -133,6 +133,37 @@ def _sentiment_state(now: datetime) -> dict:
         return {"error": f"{type(e).__name__}: {e}"[:200]}
 
 
+BACKTEST_ROWS = [("current", "Desk now (checks every 10 min)"), ("current_every_minute", "Same rules, checked every minute"),
+                 ("current_benchmark", "Just a call at 10:00 every day"), ("desk_now", "Original rules (before Oct 7)")]
+_PART = ("trades", "win_pct", "total", "per_trade", "max_drawdown", "avg_win", "avg_loss")
+
+
+def _tests_state() -> dict:
+    """The backtest of the current setup (backtests/current.json) and the newest dress rehearsal
+    (backtests/rehearsal.json), trimmed for the Record view's charts. Missing files are just missing."""
+    out: dict = {}
+    bt = load_json("backtests/current.json", None)
+    if bt and bt.get("named"):
+        named, monthly, years = bt.get("named") or {}, bt.get("monthly") or {}, bt.get("by_year") or {}
+        out["backtest"] = {
+            "days": bt.get("days"), "first": bt.get("first"), "last": bt.get("last"),
+            "train_range": bt.get("train_range"), "test_range": bt.get("test_range"),
+            "cost_per_trade": bt.get("cost_per_trade"),
+            "rows": [{"name": n, "label": label, **{part: {k: (named[n].get(part) or {}).get(k) for k in _PART}
+                                                    for part in ("train", "test", "all")}}
+                     for n, label in BACKTEST_ROWS if n in named],
+            "monthly": {n: [[m["month"], m.get("total"), m.get("trades"), m.get("win_pct")] for m in monthly[n]]
+                        for n, _ in BACKTEST_ROWS if n in monthly},
+            "by_year": {n: {y: {k: v.get(k) for k in ("trades", "total", "win_pct")} for y, v in years[n].items()}
+                        for n, _ in BACKTEST_ROWS if n in years},
+        }
+    rh = load_json("backtests/rehearsal.json", None)
+    if rh and rh.get("days"):
+        out["rehearsal"] = {k: rh.get(k) for k in ("ran_at", "days", "heartbeats", "crashes", "failures", "equity",
+                                                    "trades", "start_equity", "end_equity", "skip_reasons", "still_open")}
+    return out
+
+
 def build_state(now: datetime | None = None) -> dict:
     now = (now or now_et()).astimezone(ET)
     config = load_json("alpaca_config.json", {})
@@ -272,6 +303,7 @@ def build_state(now: datetime | None = None) -> dict:
                                                "entry_price", "exit_price", "underlying_entry", "zone", "context")}
                         for t in journal.round_trips(trades, events)][-300:],
         "sentiment": _sentiment_state(now),
+        "tests": _tests_state(),
         "risk": {
             "book": book,
             "sizing_equity": sizing,
