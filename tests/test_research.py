@@ -27,6 +27,7 @@ def ctx_of(*days_closes, entries=None):
     for d, closes in days_closes:
         bars = session(d, closes)
         info = {"vol": 0.16, "vix": 16.0, "trend_up": True, "range_pct": 1.0, "touch": [], "bounce": [], "ten": [],
+                "bounce_any": [], "touch_or_bounce": [],
                 "close": [(bars[-1]["t"], bars[-1]["c"])]}
         info.update((entries or {}).get(d, {}))
         ctx.add_day(d, bars, info)
@@ -103,7 +104,7 @@ class EngineTests(unittest.TestCase):
             names = [s["name"] for s in specs]
             self.assertEqual(len(names), len(set(names)), name)
             for s in specs:
-                self.assertIn(s["entry"], ("touch", "bounce", "ten", "close"))
+                self.assertIn(s["entry"], ("touch", "bounce", "bounce_any", "touch_or_bounce", "ten", "close"))
                 self.assertIn(s["asset"], ("shares", "option"))
 
 

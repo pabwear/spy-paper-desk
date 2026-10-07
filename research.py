@@ -96,6 +96,25 @@ ROUNDS["2"] = [
      "expiry_days": 60, "itm_pct": 5},
 ]
 
+# 3. Round 2: the bounce held overnight in shares was the steadiest idea yet (train +$756, check +$566, every
+#    year positive, net about 5× its worst drop on both). In-the-money calls were leverage, not edge; calm/trend
+#    close-to-open filters worked on one period only. Is the bounce real, or a lucky choice of its settings?
+BOUNCE_ON = {**OVERNIGHT, "entry": "bounce"}
+ROUNDS["3"] = [
+    {"name": "bounce_overnight", **BOUNCE_ON},
+    {"name": "bounce_overnight_tight", **BOUNCE_ON, "stop": {"pct": 0.3}},
+    {"name": "bounce_overnight_wide", **BOUNCE_ON, "stop": {"pct": 1.0}},
+    {"name": "bounce_overnight_no_stop", **{k: v for k, v in BOUNCE_ON.items() if k != "stop"}},
+    {"name": "bounce_overnight_range", **BOUNCE_ON, "stop": {"range": 0.5}},
+    {"name": "bounce_to_close", **BOUNCE_ON, "hold": {"until": "close"}},
+    {"name": "bounce_next_close", **BOUNCE_ON, "hold": {"days": 1}},
+    {"name": "bounce_3days_trail", **BOUNCE_ON, "trail": True, "hold": {"days": 3}},
+    {"name": "bounce_any_overnight", **BOUNCE_ON, "entry": "bounce_any"},
+    {"name": "touch_or_bounce_overnight", **BOUNCE_ON, "entry": "touch_or_bounce"},
+    {"name": "bounce_overnight_trend", **BOUNCE_ON, "filter": {"trend": True}},
+    {"name": "bounce_overnight_option30d", **BOUNCE_ON, **OPTION, "stop": {"pct": 0.5}},
+]
+
 FINAL_PICKS: list[str] = []  # chosen after the search rounds, then run once with --round final
 
 
@@ -134,20 +153,24 @@ class Ctx:
         return lo
 
 
-def _mark_entries(day: "bt.Day", kinds: tuple[str, ...] = ("touch", "bounce")) -> dict[str, list[tuple]]:
-    """The desk's call signals that day at its 10-minute checks, 10:00–15:40: (the bar it read, its close)."""
+def _mark_entries(day: "bt.Day") -> dict[str, list[tuple]]:
+    """The day's buy signals at the desk's 10-minute checks, 10:00–15:40: (the bar it read, its close).
+    touch: at the red area · bounce: closed back above the red area after dipping in · bounce_any: the same off
+    either area · touch_or_bounce: whichever comes."""
     s_t, c_t = hhmm("10:00"), CUTOFF
-    out: dict[str, list[tuple]] = {}
-    for kind in kinds:
-        rule = "touch" if kind == "touch" else "confirm"
-        got = []
-        for c in day.candidates(rule, poll=10):
-            b = day.m[c["i"]]
-            ok_kind = kind == "touch" or c["kind"] == "bounce"
-            if ok_kind and c["long"] and c["zone"]["color"] == "red" \
-                    and s_t <= (b["t"].astimezone(ET) + timedelta(minutes=1)).time() < c_t:
-                got.append((b["t"], c["entry"]))
-        out[kind] = got
+    ok_time = lambda b: s_t <= (b["t"].astimezone(ET) + timedelta(minutes=1)).time() < c_t  # noqa: E731
+    out: dict[str, list[tuple]] = {"touch": [], "bounce": [], "bounce_any": []}
+    for c in day.candidates("touch", poll=10):
+        b = day.m[c["i"]]
+        if c["long"] and c["zone"]["color"] == "red" and ok_time(b):
+            out["touch"].append((b["t"], c["entry"]))
+    for c in day.candidates("confirm", poll=10):
+        b = day.m[c["i"]]
+        if c["long"] and c["kind"] == "bounce" and ok_time(b):
+            out["bounce_any"].append((b["t"], c["entry"]))
+            if c["zone"]["color"] == "red":
+                out["bounce"].append((b["t"], c["entry"]))
+    out["touch_or_bounce"] = sorted(set(out["touch"]) | set(out["bounce"]))
     return out
 
 
@@ -167,7 +190,7 @@ def build(bars_by_day: dict[date, list[dict]], cfg: dict, vix: dict[date, float]
         if len(mins) >= 60 and len(history) > int(cfg.get("aoi_lookback", 50)) and session:
             day = bt.Day(d, mins, warm, history, cfg, vol=bt._vol_for(vix, d))
             closes = [x["c"] for x in dailies[-20:]]
-            sig = _mark_entries(day) if day.zones else {"touch": [], "bounce": []}
+            sig = _mark_entries(day) if day.zones else {"touch": [], "bounce": [], "bounce_any": [], "touch_or_bounce": []}
             ten = next((b for b in session if (b["t"].astimezone(ET) + timedelta(minutes=1)).time() >= hhmm("10:00")), None)
             info = {"vol": day.vol, "vix": day.vol * 100,
                     "trend_up": bool(len(closes) >= 20 and dailies[-1]["c"] > sum(closes) / len(closes)),
