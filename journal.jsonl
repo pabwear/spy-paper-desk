@@ -6,3 +6,4 @@
 {"ts": "2026-10-07T02:05:04-04:00", "event": "account", "equity": 1000.0, "cash": 1000.0, "buying_power": 1000.0, "position": null}
 {"ts": "2026-10-07T02:12:44-04:00", "event": "pulse", "bias": "bullish", "note": "Derived from live readings: net +2 votes (needs \u00b12) \u2192 bullish.", "sources": {"market_pulse": "stocklake", "sentiment_flow": "stocktwits", "reddit": "unavailable", "news": "stocktwits posts only"}, "net_votes": 2}
 {"ts": "2026-10-07T03:47:37-04:00", "event": "focus", "symbol": "SNDK", "on": true, "focus": ["SPY", "SNDK"]}
+{"ts": "2026-10-07T03:47:50-04:00", "event": "focus", "symbol": "TSLA", "on": true, "focus": ["SPY", "SNDK", "TSLA"]}
