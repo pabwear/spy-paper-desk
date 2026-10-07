@@ -112,7 +112,33 @@ class RunTests(unittest.TestCase):
 
 class SummaryTests(unittest.TestCase):
     def test_summary(self):
-        s = bt.summarize([{"t": "2026-10-01T10:00", "usd": 25.0, "net": 20.0, "why": "close"},
-                          {"t": "2026-10-01T11:00", "usd": -12.5, "net": -17.5, "why": "stop"},
-                          {"t": "2026-10-02T10:00", "usd": -5.0, "net": -10.0, "why": "close"}])
+        s = bt.summarize([{"t": "2026-10-01T10:00", "usd": 25.0, "net": 20.0, "opt": 20.0, "why": "close"},
+                          {"t": "2026-10-01T11:00", "usd": -12.5, "net": -17.5, "opt": -17.5, "why": "stop"},
+                          {"t": "2026-10-02T10:00", "usd": -5.0, "net": -10.0, "opt": -10.0, "why": "close"}])
         self.assertEqual((s["trades"], s["win_pct"], s["total"], s["max_drawdown"], s["gross"]), (3, 33.3, -7.5, -27.5, 7.5))
+
+
+class OptionPriceTests(unittest.TestCase):
+    def test_black_scholes(self):
+        c = bt.bs_price(100, 100, 30 / 365, 0.2, True)
+        self.assertAlmostEqual(c, 2.28, delta=0.02)  # at the money: about 0.4 × S × σ × √T
+        p = bt.bs_price(100, 100, 30 / 365, 0.2, False)
+        self.assertAlmostEqual(c - p, 0.0, places=6)  # put-call parity with no rates
+        self.assertEqual(bt.bs_price(105, 100, 0, 0.2, True), 5)
+
+    def test_expiries(self):
+        from datetime import date
+
+        self.assertEqual(bt.expiry_for(date(2026, 10, 6)), date(2026, 10, 6))   # a Tuesday: same day
+        self.assertEqual(bt.expiry_for(date(2021, 6, 1)), date(2021, 6, 2))     # a Tuesday in 2021: Wednesday
+
+    def test_time_decay_costs_a_flat_day(self):
+        t_in, t_out = at(THURSDAY, 10, 0), at(THURSDAY, 15, 40)
+        self.assertAlmostEqual(bt.bs_price(600, 600, bt.trading_years(t_in, THURSDAY.date()), 0.16, True), 2.3, delta=0.15)
+        self.assertLess(bt.option_pnl(600.0, 600.0, t_in, t_out, 0.16, True), -150)  # same-day option, price unchanged
+        self.assertGreater(bt.option_pnl(600.0, 606.0, t_in, t_out, 0.16, True), 300)  # a 1 % move pays more than delta 0.5
+
+    def test_benchmark_buys_at_ten(self):
+        p = [100.5] * 40
+        tr = day_with(p, [RED]).trades({"rule": "always_call", "areas": "both", "min_tags": 0, "stop": 0.35, "target": 0})
+        self.assertEqual((tr[0]["kind"], tr[0]["t"][11:16], tr[0]["contract"]), ("benchmark", "09:59", "call"))

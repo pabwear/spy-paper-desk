@@ -18,8 +18,12 @@ Each variant = entry rule × areas (both / red only / green only) × 2-signal ch
 (0.25 / 0.35 / 0.5 %) × take profit (none / 1× / 2× the stop). Days are split in time order: the
 first 70 % pick the settings ("train"), the last 30 % judge them on days they never saw ("test").
 
-Option dollars use the desk's estimate: an at-the-money option moves about $50 per $1 of SPY per contract;
-`net` also takes off $5 a trade for spreads and fees. Time decay is left out, so real results would be lower.
+Option dollars, two ways, both after $5 a trade for spreads and fees:
+    opt    the option itself, priced with Black-Scholes at entry and exit: the at-the-money strike (nearest
+           dollar), the nearest listed expiry (every weekday since Nov 14 2022; Mon/Wed/Fri before), and that
+           day's VIX as the volatility. Time decay and big-move gains are in. This is the headline number.
+    net    the desk's quick estimate: $50 per $1 of SPY (delta 0.5), no time decay.
+Benchmarks: a call (or a put) bought at 10:00 every day with the same stop, wherever price is.
 
     python3 backtest_areas.py --source yfinance            # ~7 days of 1-minute bars, for a quick check
     python3 backtest_areas.py --source alpaca --since 2020-01-01 --json out.json --md out.md   # in the cloud
@@ -49,9 +53,61 @@ DESK_NOW = {"rule": "touch", "areas": "both", "min_tags": 2, "stop": 0.35, "targ
 OPTION_3 = {"rule": "confirm", "areas": "both", "min_tags": 2, "stop": 0.35, "target": 0}
 
 
+def _ncdf(x: float) -> float:
+    from math import erf, sqrt
+
+    return 0.5 * (1 + erf(x / sqrt(2)))
+
+
+def bs_price(spot: float, strike: float, years: float, vol: float, call: bool) -> float:
+    """Black-Scholes, no rates or dividends (fine for a few hours or days)."""
+    from math import log, sqrt
+
+    if years <= 0 or vol <= 0:
+        return max(0.0, spot - strike) if call else max(0.0, strike - spot)
+    sd = vol * sqrt(years)
+    d1 = (log(spot / strike) + 0.5 * sd * sd) / sd
+    c = spot * _ncdf(d1) - strike * _ncdf(d1 - sd)
+    return c if call else c - spot + strike
+
+
+def expiry_for(d: date) -> date:
+    """SPY's nearest listed expiry on day d: daily since Nov 14 2022, Mon/Wed/Fri before."""
+    days = (0, 1, 2, 3, 4) if d >= date(2022, 11, 14) else (0, 2, 4)
+    e = d
+    while e.weekday() not in days:
+        e += timedelta(days=1)
+    return e
+
+
+def option_pnl(entry_px: float, exit_px: float, t_in: datetime, t_out: datetime, vol: float, call: bool) -> float:
+    """One contract's dollars from the option's own price change (strike: nearest dollar at entry)."""
+    k = round(entry_px)
+    e = expiry_for(t_in.astimezone(ET).date())
+    return 100 * (bs_price(exit_px, k, trading_years(t_out, e), vol, call)
+                  - bs_price(entry_px, k, trading_years(t_in, e), vol, call))
+
+
+def trading_years(t: datetime, expiry: date) -> float:
+    """Market time left until 16:00 on the expiry day: 390 minutes a trading day, 252 days a year
+    (nearly all of a day's movement happens while the market is open). At least one minute."""
+    t = t.astimezone(ET)
+    today_left = max(0.0, min(390.0, (16 * 60) - (t.hour * 60 + t.minute + t.second / 60)))
+    full_days, d = 0, t.date()
+    while d < expiry:
+        d += timedelta(days=1)
+        if d.weekday() < 5:
+            full_days += 1
+    return max(1.0, today_left + 390.0 * full_days) / (252 * 390)
+
+
+BENCHMARKS = [{"rule": "always_call", "areas": "both", "min_tags": 0, "stop": 0.35, "target": 0},
+              {"rule": "always_put", "areas": "both", "min_tags": 0, "stop": 0.35, "target": 0}]
+
+
 def variants() -> list[dict]:
     return [{"rule": r, "areas": a, "min_tags": m, "stop": s, "target": t}
-            for r, a, m, s, t in itertools.product(RULES, AREAS, MIN_TAGS, STOPS, TARGETS)]
+            for r, a, m, s, t in itertools.product(RULES, AREAS, MIN_TAGS, STOPS, TARGETS)] + BENCHMARKS
 
 
 def vkey(v: dict) -> str:
@@ -67,10 +123,10 @@ class Day:
     """One trading day: its 1-minute bars, its 09:39 areas, its entry candidates and their signals."""
 
     def __init__(self, d: date, minutes: list[dict], warm: list[dict], history: list[dict], cfg: dict,
-                 tol_pct: float = 0.15, snapshot: str = "09:39", step: int = 5):
+                 tol_pct: float = 0.15, snapshot: str = "09:39", step: int = 5, vol: float = 0.16):
         from studies import mxwll
 
-        self.d, self.m, self.cfg, self.tol, self.step = d, minutes, cfg, tol_pct, step
+        self.d, self.m, self.cfg, self.tol, self.step, self.vol = d, minutes, cfg, tol_pct, step, vol
         self.warm = warm          # earlier 1-minute bars, for RSI
         self.history = history    # earlier 5-minute candles, for the study
         tf = int(cfg["timeframe_minutes"])
@@ -98,7 +154,13 @@ class Day:
         if rule in self._cands:
             return self._cands[rule]
         out: list[dict] = []
-        if rule == "touch":
+        if rule in ("always_call", "always_put"):
+            first = next((i for i in self.marks() if (self.m[i]["t"].astimezone(ET) + timedelta(minutes=1)).time() >= hhmm("10:00")), None)
+            if first is not None:
+                long = rule == "always_call"
+                out.append({"i": first, "zone": {"color": "red" if long else "green"}, "long": long, "kind": "benchmark",
+                            "entry": self.m[first]["c"]})
+        elif rule == "touch":
             for i in self.marks():
                 px = self.m[i]["c"]
                 near = []
@@ -181,10 +243,12 @@ class Day:
             px, why, j = exit_walk(self.m, i + 1, cand["entry"], cand["long"], v["stop"], v["target"], c_t)
             move = (px - cand["entry"]) if cand["long"] else (cand["entry"] - px)
             usd = move * PER_DOLLAR
+            opt = option_pnl(cand["entry"], px, self.m[i]["t"] + timedelta(minutes=1), self.m[min(j, len(self.m) - 1)]["t"],
+                             self.vol, cand["long"])
             out.append({"t": self.m[i]["t"].astimezone(ET).isoformat(timespec="minutes"), "zone": cand["zone"]["color"],
                         "kind": cand["kind"], "contract": "call" if cand["long"] else "put",
                         "entry": round(cand["entry"], 2), "exit": round(px, 2), "why": why, "tags": tags,
-                        "usd": round(usd, 2), "net": round(usd - COST_PER_TRADE, 2)})
+                        "usd": round(usd, 2), "net": round(usd - COST_PER_TRADE, 2), "opt": round(opt - COST_PER_TRADE, 2)})
             free_from = j + 1
         return out
 
@@ -207,7 +271,7 @@ def exit_walk(m: list[dict], i0: int, entry: float, long: bool, stop_pct: float,
     return (last["c"] if last else entry), "close", len(m) - 1
 
 
-def summarize(trades: list[dict], field: str = "net") -> dict:
+def summarize(trades: list[dict], field: str = "opt") -> dict:
     if not trades:
         return {"trades": 0, "total": 0.0, "per_trade": 0.0}
     usd = [t[field] for t in trades]
@@ -226,6 +290,7 @@ def summarize(trades: list[dict], field: str = "net") -> dict:
             "avg_loss": round(sum(losses) / len(losses), 2) if losses else None,
             "total": round(sum(usd), 2), "per_trade": round(sum(usd) / len(usd), 2),
             "gross": round(sum(t["usd"] for t in trades), 2),
+            "delta_net": round(sum(t["net"] for t in trades), 2),
             "worst_day": round(min(by_day.values()), 2), "best_day": round(max(by_day.values()), 2),
             "max_drawdown": round(dd, 2), "stopped_pct": round(100 * sum(t["why"] == "stop" for t in trades) / len(trades), 1),
             "target_pct": round(100 * sum(t["why"] == "target" for t in trades) / len(trades), 1)}
@@ -250,7 +315,8 @@ def group_days(bars: list[dict], regular_hours_only: bool) -> dict[date, list[di
     return days
 
 
-def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7, progress=None) -> dict:
+def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7, progress=None,
+        vix: dict[date, float] | None = None) -> dict:
     """Every variant over every day; settings picked on the train days, judged on the test days."""
     from studies import mxwll
 
@@ -264,7 +330,8 @@ def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7
     for n, d in enumerate(ds):
         mins = bars_by_day[d]
         if len(mins) >= 60 and len(history) > int(cfg.get("aoi_lookback", 50)):
-            day = Day(d, mins, warm, history, cfg)
+            vol = _vol_for(vix, d)
+            day = Day(d, mins, warm, history, cfg, vol=vol)
             if day.zones:
                 zones_seen += 1
                 per_day.append((d, {vkey(v): day.trades(v) for v in vs}))
@@ -283,9 +350,11 @@ def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7
         k = vkey(v)
         table.append({"variant": v, "key": k, "train": summarize(collect(train, k)), "test": summarize(collect(test, k)),
                       "all": summarize(collect(per_day, k))})
-    ranked = sorted((r for r in table if r["train"]["trades"] >= 30), key=lambda r: r["train"]["total"], reverse=True)
+    ranked = sorted((r for r in table if r["train"]["trades"] >= 30 and not r["variant"]["rule"].startswith("always")),
+                    key=lambda r: r["train"]["total"], reverse=True)
     pick = ranked[0] if ranked else None
-    named = {"desk_now": vkey(DESK_NOW), "option_3": vkey(OPTION_3)}
+    named = {"desk_now": vkey(DESK_NOW), "option_3": vkey(OPTION_3), "always_call": vkey(BENCHMARKS[0]),
+             "always_put": vkey(BENCHMARKS[1])}
     out = {
         "days": len(per_day), "first": per_day[0][0].isoformat() if per_day else None,
         "last": per_day[-1][0].isoformat() if per_day else None,
@@ -303,7 +372,18 @@ def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7
     }
     if pick:
         out["named"]["picked"] = pick
+    years = sorted({d.year for d, _ in per_day})
+    out["by_year"] = {name: {y: summarize([t for d, res in per_day if d.year == y for t in res[r["key"]]])
+                             for y in years} for name, r in out["named"].items()}
     return out
+
+
+def _vol_for(vix: dict[date, float] | None, d: date) -> float:
+    """The VIX's last close before day d, as a decimal; 16 % when there is none."""
+    if not vix:
+        return 0.16
+    prior = [k for k in vix if k < d]
+    return vix[max(prior)] / 100 if prior else 0.16
 
 
 def markdown(res: dict) -> str:
@@ -314,17 +394,26 @@ def markdown(res: dict) -> str:
 
     lines = ["# Call/put area backtest", "",
              f"{res['days']} trading days with areas, {res['first']} to {res['last']}. "
-             f"Train {res['train_range']}, test {res['test_range']}. Net of ${res['cost_per_trade']:.0f} a trade; "
-             "time decay left out.", "",
+             f"Train {res['train_range']}, test {res['test_range']}. Option priced with Black-Scholes at that day's VIX "
+             f"(time decay in), after ${res['cost_per_trade']:.0f} a trade.", "",
              "| | Settings | Train trades | Train won | Train net | Test trades | Test won | Test net | Test per trade | Test worst drop |",
              "|---|---|---|---|---|---|---|---|---|---|"]
-    for name, label in (("desk_now", "Desk today"), ("option_3", "Option 3"), ("picked", "Picked on train")):
+    for name, label in (("desk_now", "Desk today"), ("option_3", "Option 3"), ("picked", "Picked on train"),
+                        ("always_call", "Benchmark: call at 10:00 daily"), ("always_put", "Benchmark: put at 10:00 daily")):
         if name in res["named"]:
             lines.append(row(label, res["named"][name]))
     lines += ["", "Top 10 on the train days, and how they did on the test days:", "",
               "| Settings | Train net | Test trades | Test won | Test net |", "|---|---|---|---|---|"]
     for r in res["top_train"]:
         lines.append(f"| {r['key']} | ${r['train']['total']:,.0f} | {r['test']['trades']} | {r['test'].get('win_pct', '—')}% | ${r['test']['total']:,.0f} |")
+    yrs = sorted({y for v in res.get("by_year", {}).values() for y in v})
+    if yrs:
+        lines += ["", "Net by year (option priced, after costs):", "", "| | " + " | ".join(str(y) for y in yrs) + " |",
+                  "|---|" + "---|" * len(yrs)]
+        for name, label in (("desk_now", "Desk today"), ("option_3", "Option 3"), ("picked", "Picked"),
+                            ("always_call", "Call at 10:00"), ("always_put", "Put at 10:00")):
+            if name in res["by_year"]:
+                lines.append(f"| {label} | " + " | ".join(f"${res['by_year'][name][y]['total']:,.0f} ({res['by_year'][name][y]['trades']})" for y in yrs) + " |")
     return "\n".join(lines) + "\n"
 
 
@@ -356,6 +445,18 @@ def alpaca_minutes(since: date, until: date, symbol: str = "SPY") -> list[dict]:
     return out
 
 
+def vix_closes(since: date) -> dict[date, float]:
+    """Daily VIX closes (yfinance); empty when unavailable (the backtest then uses 16 %)."""
+    try:
+        import yfinance as yf
+
+        df = yf.download("^VIX", start=since.isoformat(), interval="1d", progress=False, auto_adjust=False,
+                         multi_level_index=False)
+        return {ts.date(): float(r["Close"]) for ts, r in df.iterrows()}
+    except Exception:  # noqa: BLE001
+        return {}
+
+
 def yfinance_minutes(symbol: str = "SPY") -> list[dict]:
     import yfinance as yf
 
@@ -382,7 +483,9 @@ def main(argv: list[str] | None = None) -> int:
     print(f"{len(bars):,} one-minute bars", flush=True)
     days = group_days(bars, bool(cfg.get("regular_hours_only")))
     del bars
-    res = run(days, cfg, progress=lambda n, t: print(f"  day {n} of {t}", flush=True))
+    vix = vix_closes(min(days) - timedelta(days=10)) if days else {}
+    print(f"{len(vix):,} VIX closes", flush=True)
+    res = run(days, cfg, progress=lambda n, t: print(f"  day {n} of {t}", flush=True), vix=vix)
     md = markdown(res)
     print(md)
     if a.json:
