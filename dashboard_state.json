@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-06T21:23:55-04:00",
+  "generated_at": "2026-10-07T02:05:04-04:00",
   "session": {
-    "state": "after_close",
-    "label": "After the close \u2014 no orders",
-    "now_et": "2026-10-06T21:23:55-04:00"
+    "state": "pre_open",
+    "label": "Before the open \u2014 no orders",
+    "now_et": "2026-10-07T02:05:04-04:00"
   },
   "config": {
     "account_name": "Paper 1000",
@@ -20,7 +20,7 @@
     "source": "alpaca_paper",
     "account_number": "PA36VOEO5PHB",
     "status": "ACTIVE",
-    "snapshot_at": "2026-10-06T21:23:55-04:00",
+    "snapshot_at": "2026-10-07T02:05:04-04:00",
     "equity": 1000.0,
     "cash": 1000.0,
     "buying_power": 1000.0,
@@ -47,18 +47,25 @@
       "right_on_sell": "put",
       "contracts": 1,
       "strike": "atm_nearest_dollar",
-      "expiry": "nearest_listed"
+      "expiry": "about 30 days out, at least 7, that one contract can afford",
+      "expiry_target_days": 30,
+      "expiry_min_days": 7,
+      "max_cost_usd": 1000
     },
-    "stop_underlying_pct": 0.35,
+    "stop_underlying_pct": 0.25,
     "exit_on_zone_leave": false,
-    "hold_to": "16:00 ET",
+    "hold_to": "30 minutes at most (max_hold_minutes), and never past the 15:40 flatten",
     "overnight": false,
-    "min_confluence": 2,
+    "min_confluence": 0,
+    "trade_colors": [
+      "red"
+    ],
+    "max_hold_minutes": 30,
     "max_entries_per_day": 2,
     "entries_today": 0,
     "entry_cutoff": "15:40",
     "flatten_start": "15:40",
-    "past_flatten": true
+    "past_flatten": false
   },
   "learning": {
     "config": {
@@ -251,6 +258,7 @@
     },
     "model": null
   },
+  "projection_learning": {},
   "pnl": {
     "book": 1000.0,
     "realized_total": 0,
@@ -295,8 +303,53 @@
     {
       "t": "2026-10-06T21:23:55-04:00",
       "equity": 1000.0
+    },
+    {
+      "t": "2026-10-07T02:05:04-04:00",
+      "equity": 1000.0
     }
   ],
+  "round_trips": [],
+  "sentiment": {
+    "series": [],
+    "latest": null,
+    "plays": {
+      "recent": [],
+      "all": {
+        "n": 0,
+        "right_pct": null
+      },
+      "by_horizon": {
+        "1h": {
+          "n": 0,
+          "right_pct": null
+        },
+        "close": {
+          "n": 0,
+          "right_pct": null
+        },
+        "1d": {
+          "n": 0,
+          "right_pct": null
+        }
+      },
+      "by_confidence": {
+        "low": {
+          "n": 0,
+          "right_pct": null
+        },
+        "mid": {
+          "n": 0,
+          "right_pct": null
+        },
+        "high": {
+          "n": 0,
+          "right_pct": null
+        }
+      },
+      "open": 0
+    }
+  },
   "risk": {
     "book": 1000.0,
     "sizing_equity": 1000.0,
@@ -1162,6 +1215,14 @@
   ],
   "activity": [
     {
+      "ts": "2026-10-07T02:05:04-04:00",
+      "event": "account",
+      "equity": 1000.0,
+      "cash": 1000.0,
+      "buying_power": 1000.0,
+      "position": null
+    },
+    {
       "ts": "2026-10-06T21:23:55-04:00",
       "event": "account",
       "equity": 1000.0,
@@ -1247,7 +1308,7 @@
   },
   "rules": {
     "buy": "RED only",
-    "sell": "GREEN only",
+    "sell": "GREEN only (switched off: trade_colors is red only)",
     "confluence": [
       "structure (BOS/CHoCH, HH/LH/LL)",
       "order blocks",
@@ -1256,7 +1317,7 @@
       "volume",
       "session context"
     ],
-    "min_confluence": 2,
+    "min_confluence": 0,
     "notes": "Roy fades the study: buy red, sell green. Green is traditionally demand. Red is traditionally supply."
   },
   "files": [
@@ -1302,5 +1363,5 @@
     }
   ],
   "first_event_at": "2026-10-06T21:22:20-04:00",
-  "trading_days_logged": 1
+  "trading_days_logged": 2
 }
