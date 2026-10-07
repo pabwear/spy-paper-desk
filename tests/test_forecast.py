@@ -98,5 +98,39 @@ class HedgeTests(unittest.TestCase):
         self.assertGreaterEqual(min(w.values()), forecast.FLOOR * 0.9)  # nobody is written off for good
 
 
+class PlanTests(unittest.TestCase):
+    """Odds for the desk's zone trades along given paths (log returns from now)."""
+
+    def paths(self, *finals, n=10):
+        return np.array([np.linspace(0, np.log(1 + f / 100), n) for f in finals])
+
+    def test_inside_the_zone_and_rising(self):
+        o = forecast.plan_trade(self.paths(1.0, 1.0), 100.0, 99.5, 100.5, "buy", 0.35)
+        self.assertEqual((o["reach_pct"], o["win_if_entered_pct"], o["profit_pct"]), (100.0, 100.0, 100.0))
+        self.assertTrue(o["inside_now"])
+        self.assertGreater(o["option_est"]["expected"], 0)
+
+    def test_the_stop(self):
+        o = forecast.plan_trade(self.paths(-1.0, -1.0, 1.0, 1.0), 100.0, 99.5, 100.5, "buy", 0.35)
+        self.assertEqual((o["stopped_if_entered_pct"], o["win_if_entered_pct"]), (50.0, 50.0))
+        self.assertEqual(o["option_est"]["at_stop"], -round(0.0035 * 100 * 50))  # 0.35% of $100 × 50 option-dollars per $1
+
+    def test_waiting_for_price_to_reach_the_zone(self):
+        # price 101 above a 99.5-100.5 buy zone: only paths that fall to 100.5 get a trade
+        o = forecast.plan_trade(self.paths(-1.0, 1.0, 1.0, 1.0), 101.0, 99.5, 100.5, "buy", 0.35)
+        self.assertEqual(o["reach_pct"], 25.0)
+        self.assertEqual(o["entry"], 100.5)
+        self.assertEqual(o["profit_pct"], 0.0)  # the one path that got there kept falling: stopped
+
+    def test_puts_profit_when_price_falls(self):
+        o = forecast.plan_trade(self.paths(-1.0, -1.0), 100.0, 99.5, 100.5, "sell", 0.35)
+        self.assertEqual(o["win_if_entered_pct"], 100.0)
+        self.assertEqual(o["stop"], 100.35)
+
+    def test_never_reached(self):
+        o = forecast.plan_trade(self.paths(0.1, 0.2), 100.0, 90.0, 91.0, "sell", 0.35)
+        self.assertEqual((o["reach_pct"], o["profit_pct"]), (0.0, 0.0))
+
+
 if __name__ == "__main__":
     unittest.main()

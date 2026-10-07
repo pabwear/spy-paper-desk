@@ -219,3 +219,96 @@ def project(closes: list[float], times: list[str], timeframe: str, minutes: int 
         "live": {key: (model or {}).get(key) for key in ("n", "direction_hit_pct", "inside_50_pct", "inside_80_pct", "updated")} if model else None,
         "version": 2,
     }
+
+
+# ---------------------------------------------------------------- projected trades
+
+OPTION_DELTA = 0.5  # an at-the-money option moves about half as much as the stock; a rough rule, not a quote
+
+
+def analog_paths(closes: list[float], horizon: int, k: int = 25, lengths: tuple = (10, 20, 40)) -> np.ndarray | None:
+    """What followed the look-alike moments (10, 20 and 40 candles), as cumulative log-return paths from now,
+    each scaled to today's volatility. Shape: paths × horizon."""
+    c = np.asarray(closes, dtype=float)
+    if len(c) < 60 + horizon or np.any(c <= 0):
+        return None
+    r = np.diff(np.log(c))
+    end, out = len(r) - 1, []
+    for w in lengths:
+        shapes, vols = _shapes(r, w)
+        cur = end - w + 1
+        if cur < 0 or np.isnan(vols[cur]):
+            continue
+        last_ok = cur - horizon
+        if last_ok < 1:
+            continue
+        d = np.sqrt(np.nansum((shapes[:last_ok] - shapes[cur]) ** 2, axis=1))
+        d[np.isnan(vols[:last_ok])] = np.inf
+        kk = min(k, int(np.isfinite(d).sum()))
+        if kk < 5:
+            continue
+        for j in np.argpartition(d, kk - 1)[:kk]:
+            out.append(np.cumsum(r[j + w: j + w + horizon]) * (vols[cur] / vols[j]))
+    return np.array(out) if len(out) >= 10 else None
+
+
+def plan_trade(paths: np.ndarray, last: float, zone_low: float, zone_high: float, side: str,
+               stop_pct: float) -> dict:
+    """Odds for one zone trade along the look-alike paths.
+
+    The desk buys a call in a red zone and a put in a green zone, stops out when the stock moves
+    `stop_pct` % against the entry, and is flat by the close (the end of the paths).
+    Entry: the price now if it's inside the zone, else the zone's near edge when a path first reaches it.
+    """
+    long = side == "buy"
+    lo, hi = np.log(zone_low / last), np.log(zone_high / last)
+    stop = np.log(1 - stop_pct / 100) if long else np.log(1 + stop_pct / 100)
+    inside = lo <= 0 <= hi
+    reached, results, stopped = 0, [], 0
+    for p in paths:
+        if inside:
+            j, entry = -1, 0.0
+        else:
+            edge = hi if 0 > hi else lo  # the near edge: the top if price is above the zone, the bottom if below
+            hit = np.nonzero(p <= edge)[0] if 0 > hi else np.nonzero(p >= edge)[0]
+            if not len(hit):
+                continue
+            j, entry = int(hit[0]), edge
+        reached += 1
+        after = p[j + 1:] - entry if j + 1 < len(p) else np.array([0.0])
+        if not len(after):
+            after = np.array([0.0])
+        moved = after if long else -after
+        stop_at = np.nonzero(moved <= (stop if long else -stop))[0]
+        if len(stop_at):
+            stopped += 1
+            results.append(-stop_pct / 100)
+        else:
+            results.append(float(np.exp(moved[-1]) - 1))
+    n = len(paths)
+    if not reached:
+        return {"paths": n, "reach_pct": 0.0, "profit_pct": 0.0}
+    res = np.array(results)
+    entry_price = last * float(np.exp(0.0 if inside else (hi if 0 > hi else lo)))
+    per_dollar = 100 * OPTION_DELTA  # option P/L per $1 the stock moves
+    dollars = res * entry_price * per_dollar
+    wins = res > 0
+    return {
+        "paths": n,
+        "entry": round(entry_price, 2),
+        "stop": round(entry_price * (1 - stop_pct / 100) if long else entry_price * (1 + stop_pct / 100), 2),
+        "inside_now": bool(inside),
+        "reach_pct": round(100 * reached / n, 1),
+        "win_if_entered_pct": round(100 * float(wins.mean()), 1),
+        "stopped_if_entered_pct": round(100 * stopped / reached, 1),
+        "loss_at_close_if_entered_pct": round(100 * float(((~wins) & (res > -stop_pct / 100 + 1e-12)).mean()), 1),
+        "profit_pct": round(100 * float(wins.sum()) / n, 1),
+        "median_move_pct": round(100 * float(np.median(res)), 3),
+        "option_est": {
+            "per_dollar": per_dollar,
+            "avg_win": round(float(dollars[wins].mean()), 0) if wins.any() else None,
+            "avg_loss": round(float(dollars[~wins].mean()), 0) if (~wins).any() else None,
+            "at_stop": round(-stop_pct / 100 * entry_price * per_dollar, 0),
+            "expected": round(float(dollars.mean()), 0),
+        },
+    }

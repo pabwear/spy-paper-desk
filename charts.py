@@ -11,7 +11,7 @@ from datetime import datetime
 
 import instruments
 import journal
-from common import ET, aoi_file, focus_symbols, hhmm, load_json, save_json
+from common import ET, aoi_file, focus_symbols, hhmm, load_json, save_json, to_et
 from signals import bars_today
 
 FILE = "charts.json"
@@ -166,6 +166,38 @@ def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailie
     return out
 
 
+def trade_plans(bars: list[dict] | None, now: datetime, cfg: dict, zones: list[dict], zones_from: str,
+                stop_pct: float) -> dict | None:
+    """Projected trades: for each zone, the chance price gets there and the chance the desk's trade would pay,
+    along the look-alike paths on the desk's own timeframe and session. Display only."""
+    from studies import forecast, mxwll
+
+    minutes = int(cfg.get("timeframe_minutes", 5))
+    # the desk only trades in regular hours, so the paths are regular-hours candles whatever the chart shows
+    candles = mxwll.resample(sorted(bars or [], key=lambda b: b["t"]), minutes, True)
+    candles = [c for c in candles if c["t"] <= now]
+    if len(candles) < 80 or not zones:
+        return None
+    t = now.astimezone(ET)
+    mins = t.hour * 60 + t.minute
+    open_now = t.weekday() < 5 and 570 <= mins < 960
+    horizon = max(6, min(78, (955 - mins) // minutes)) if open_now else min(78, 360 // minutes)  # to the close, or a full next session
+    paths = forecast.analog_paths([c["c"] for c in candles], horizon)
+    if paths is None:
+        return None
+    last = float(candles[-1]["c"])
+    plans = []
+    for z in zones:
+        side = "buy" if z.get("color") == "red" else "sell"
+        odds = forecast.plan_trade(paths, last, float(z["low"]), float(z["high"]), side, stop_pct)
+        plans.append({"color": z.get("color"), "low": float(z["low"]), "high": float(z["high"]), "side": side,
+                      "contract": "call" if side == "buy" else "put", **odds})
+    ends = forecast.future_times(_row(candles[-1], False)[0], horizon, minutes, True)[-1]
+    return {"tf": f"{minutes}m", "horizon": horizon, "until": ends, "by_close": open_now, "last": round(last, 2),
+            "stop_pct": stop_pct, "zones_from": zones_from, "plans": plans,
+            "note": "Odds from what followed the look-alike moments; option dollars use an at-the-money delta of 0.5 and leave out the option's price and time decay."}
+
+
 def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, events: list[dict],
           half_hours: list[dict] | None = None, dailies: list[dict] | None = None) -> dict | None:
     if not bars:
@@ -191,9 +223,23 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
     except Exception as e:  # noqa: BLE001
         journal.log("chart_failed", now=now, symbol=symbol, error=f"timeframes: {type(e).__name__}: {e}"[:300])
         tf, tf_eth = {}, {}
+    plans = None
+    try:
+        written = to_et(override.get("written_at"))
+        today_zones = override.get("zones") if written and written.date() == now.astimezone(ET).date() else []
+        zones_from = "today's zones"
+        if not today_zones and isinstance(study, dict) and study.get("aoi"):
+            today_zones = [{"color": k, "low": study["aoi"][k]["low"], "high": study["aoi"][k]["high"]}
+                           for k in ("red", "green") if study["aoi"][k]["visible"]]
+            zones_from = "the desk's live Mxwll boxes (no zones for today yet)"
+        stop = float((load_json("rules.json", {}) or {}).get("stop_underlying_pct", 0.35))
+        plans = trade_plans(bars, now, cfg, today_zones, zones_from, stop) if cfg else None
+    except Exception as e:  # noqa: BLE001 - a plan problem never stops the chart
+        plans = {"error": f"{type(e).__name__}: {e}"[:200]}
     return {
         "symbol": symbol,
         "date": now.astimezone(ET).date().isoformat(),
+        "plans": plans,
         "interval_min": BUCKET_MIN,
         "candles": candles,
         "vwap": vwap_series(candles),
