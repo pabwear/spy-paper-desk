@@ -242,7 +242,7 @@ class TimeframeTests(DeskTestCase):
 
     def test_every_timeframe_shortest_to_longest(self):
         f = self.frames()
-        self.assertEqual(list(f), ["1m", "5m", "15m", "30m", "1h", "4h", "1D"])
+        self.assertEqual(list(f), ["1m", "3m", "5m", "15m", "30m", "1h", "4h", "1D"])
         self.assertEqual(len(f["1m"]["c"]), 390)
         self.assertLessEqual(len(f["1D"]["c"]), 250)
         self.assertIsNotNone(f["30m"]["study"]["aoi"])  # 30-minute history gives it 50+ candles
@@ -308,3 +308,75 @@ class TimeframeTests(DeskTestCase):
         self.assertIn("frames", load_json("dashboard_state.json")["charts"]["SPY"])
         offline = run_study.Bars(self.now, {"SPY": self.minutes})
         self.assertIsNone(offline.history("SPY", "30Min"))
+
+
+class FibTests(unittest.TestCase):
+    def test_fibs_cover_the_leg_until_the_old_low_breaks(self):
+        # the pullback holds above the swing low: the line spans the whole leg up, levels measured from the high
+        k = candles([600.0] * 30 + leg(600, 610, 30) + leg(610, 604, 30) + [604.0] * 30)
+        f = mxwll.fibs(k, 25)
+        self.assertEqual(f["dir"], "up")
+        self.assertEqual((f["from"]["price"], f["to"]["price"]), (599.9, 610.1))
+        self.assertEqual([lv["ratio"] for lv in f["levels"]], [0.236, 0.382, 0.5, 0.618, 0.786])
+        self.assertAlmostEqual(f["levels"][0]["price"], 610.1 - 10.2 * 0.236, places=3)
+        self.assertLess(f["from"]["t"], f["to"]["t"])
+
+    def test_fibs_follow_a_break_below_the_old_low(self):
+        k = candles([600.0] * 30 + leg(600, 610, 30) + leg(610, 595, 30) + [595.0] * 30)
+        f = mxwll.fibs(k, 25)
+        self.assertEqual(f["dir"], "down")
+        self.assertEqual((f["from"]["price"], f["to"]["price"]), (610.1, 594.9))
+        self.assertAlmostEqual(f["levels"][2]["price"], (610.1 + 594.9) / 2, places=3)
+
+    def test_no_swing_no_fibs(self):
+        self.assertIsNone(mxwll.fibs(candles([600.0] * 20), 25))
+
+
+class FvgTests(unittest.TestCase):
+    def k(self, o, h, lo, c, i):
+        return {"t": at(THURSDAY, 9, 30) + timedelta(minutes=5 * i), "o": o, "h": h, "l": lo, "c": c, "v": 1.0}
+
+    def test_three_down_candles_leave_a_gap_until_price_returns(self):
+        rows = [self.k(601, 601.2, 600.5, 600.6, 0), self.k(600.6, 600.6, 598.0, 598.2, 1),
+                self.k(598.2, 598.3, 597.0, 597.1, 2)]
+        g = mxwll.fair_value_gaps(rows)
+        self.assertEqual(g["down"], [{"dir": "down", "low": 598.3, "high": 600.5, "t": rows[1]["t"].isoformat(timespec="minutes")}])
+        self.assertEqual(g["up"], [])
+        rows.append(self.k(597.1, 599.0, 597.0, 598.9, 3))  # trades into it but not through: still open
+        self.assertEqual(len(mxwll.fair_value_gaps(rows)["down"]), 1)
+        rows.append(self.k(598.9, 600.5, 598.8, 600.4, 4))  # reaches the first candle's low: closed
+        self.assertEqual(mxwll.fair_value_gaps(rows)["down"], [])
+
+    def test_overlapping_candles_are_no_gap(self):
+        rows = [self.k(600, 601, 599.5, 600.8, 0), self.k(600.8, 601.5, 600.2, 601.4, 1),
+                self.k(601.4, 602, 600.9, 601.9, 2)]  # third low 600.9 is below the first high 601
+        self.assertEqual(mxwll.fair_value_gaps(rows)["up"], [])
+
+    def test_up_gap(self):
+        rows = [self.k(600, 600.5, 599.8, 600.4, 0), self.k(600.4, 602, 600.4, 601.9, 1),
+                self.k(601.9, 603, 601.0, 602.8, 2)]
+        self.assertEqual([(g["low"], g["high"]) for g in mxwll.fair_value_gaps(rows)["up"]], [(600.5, 601.0)])
+
+
+class RollingLevelTests(unittest.TestCase):
+    def test_four_hour_and_day_levels_from_minutes(self):
+        bars = minute_bars(WEDNESDAY, step=0.01) + minute_bars(THURSDAY, step=-0.01)
+        bars[-10]["h"] = 650.0
+        r = mxwll.rolling_levels(bars, True)
+        self.assertEqual(r["4h"]["bars"], 240)
+        self.assertEqual(r["4h"]["high"], 650.0)
+        self.assertEqual(r["4h"]["high_t"], bars[-10]["t"].isoformat(timespec="minutes"))
+        self.assertEqual(r["1d"]["bars"], 780)  # two regular sessions are fewer than 1,440 minutes
+        self.assertFalse(r["1d"]["full"])
+        self.assertIn(r["4h"]["activity"], ("Very Low", "Low", "Average", "High", "Very High"))
+
+    def test_extended_hours_count_pre_market(self):
+        bars = minute_bars(THURSDAY, (4, 0), (9, 30), price=590.0) + minute_bars(THURSDAY)
+        self.assertEqual(mxwll.rolling_levels(bars, False)["1d"]["low"], 589.8)
+        self.assertEqual(mxwll.rolling_levels(bars, True)["1d"]["low"], 599.8)
+
+    def test_activity_ranks(self):
+        hist = list(range(1, 101))
+        self.assertEqual(mxwll.activity(hist, 5), "Very Low")
+        self.assertEqual(mxwll.activity(hist, 50), "Average")
+        self.assertEqual(mxwll.activity(hist, 99), "Very High")

@@ -95,6 +95,16 @@ class FormTests(DeskTestCase):
         from studies import auto
 
         self.assertTrue(auto.desk_config()["regular_hours_only"])
+        self.assertEqual(auto.desk_config()["timeframe_minutes"], 5)  # unchanged: rules.json's 5 minutes
+        with mock.patch.dict(os.environ, {"EXTENDED_HOURS": "on", "BOX_TIMEFRAME": "3 minutes"}):
+            self.assertEqual(cloud_state.main(["x", "settings"]), 0)
+        self.assertEqual(auto.desk_config()["timeframe_minutes"], 3)
+        with mock.patch.dict(os.environ, {"EXTENDED_HOURS": "on", "BOX_TIMEFRAME": "unchanged"}):
+            self.assertEqual(cloud_state.main(["x", "settings"]), 0)
+        self.assertEqual(auto.desk_config()["timeframe_minutes"], 3)  # a later form run keeps the choice
+        self.assertEqual(auto.config({}, {"timeframe_minutes": 7})["timeframe_minutes"], 5)  # only 3 or 5
+        with mock.patch.dict(os.environ, {"EXTENDED_HOURS": "on", "BOX_TIMEFRAME": "2 minutes"}):
+            self.assertEqual(cloud_state.main(["x", "settings"]), 1)
         with mock.patch.dict(os.environ, {"EXTENDED_HOURS": "maybe"}):
             self.assertEqual(cloud_state.main(["x", "settings"]), 1)
         self.assertIn("settings.json", cloud_state.STATE_FILES)

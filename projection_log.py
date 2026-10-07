@@ -25,7 +25,7 @@ from studies import forecast
 LOG = "projections.jsonl"
 MODEL = "projection_model.json"
 KEEP_DAYS = 45
-TF_MIN = {"1m": 1, "5m": 5, "15m": 15, "30m": 30, "1h": 60, "4h": 240, "1D": None}
+TF_MIN = {"1m": 1, "3m": 3, "5m": 5, "15m": 15, "30m": 30, "1h": 60, "4h": 240, "1D": None}
 RECENT = 60  # misses kept for band widths
 
 

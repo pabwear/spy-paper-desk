@@ -3,9 +3,9 @@
 #
 # Python port of "Mxwll Suite" by Mxwll Capital (Pine Script v5, MPL 2.0), as published on
 # TradingView ("Mxwll Price Action Suite [Mxwll]"). Ported for the paper desk; logic follows the
-# original line for line. Drawing-only features (labels, Fibonacci lines, the session table,
-# background colors, fair value gaps) are not ported yet.
-"""Mxwll Suite, ported: Areas of Interest, market structure (BoS / CHoCH), swing labels, order blocks.
+# original line for line. The session table and background colors are drawn by the dashboard.
+"""Mxwll Suite, ported: Areas of Interest, market structure (BoS / CHoCH), swing labels, order blocks,
+auto Fibonacci levels, fair value gaps and the rolling 4-hour / 1-day highs and lows.
 
 Pure functions over a list of candles {t, o, h, l, c, v}, oldest first, on the chart's timeframe.
 Index `i` plays the role of Pine's `bar_index`; "[1]" means the previous candle.
@@ -25,7 +25,10 @@ DEFAULTS = {
     "internal_sensitivity": 3,   # intSens
     "external_sensitivity": 25,  # extSens
     "order_blocks_kept": 10,     # showLast
+    "fvg_kept": 10,              # open gaps sent to the chart per side (Pine keeps every open one)
 }
+
+FIB_RATIOS = (0.236, 0.382, 0.5, 0.618, 0.786)  # fib1..fib5
 
 
 # ---------------------------------------------------------------- candles
@@ -203,6 +206,128 @@ def structure(candles: list[dict], length: int, internal: bool, keep_blocks: int
             "moving": moving}
 
 
+# ---------------------------------------------------------------- auto Fibs (updateMain / drawFibs)
+
+def fibs(candles: list[dict], length: int = 25) -> dict | None:
+    """The dashed swing line and its Fibonacci levels on the latest candle.
+
+    The line runs from the latest swing (high or low) to the most extreme price on the other side since the
+    swing before it; levels are measured from the line's later end: y2 + (y1 - y2) × ratio.
+    """
+    tops, bots = pivots(candles, length)
+    up, up_x, dn, dn_x = 0.0, 0, 0.0, 0   # bigData upaxis / upaxis2 / dnaxis / dnaxis2 start at 0
+    counter = 0
+    for i in range(len(candles)):
+        if tops[i]:
+            up, up_x, counter = tops[i], i - length, 1
+        if bots[i]:
+            dn, dn_x, counter = bots[i], i - length, -1
+    if counter == 0:
+        return None
+    last = len(candles) - 1
+    if counter == 1:  # from the swing high to the lowest low since the swing low before it
+        x1, y1 = up_x, up
+        lo, x2 = float("inf"), last
+        for i in range(last, dn_x - 1, -1):  # newest first; a tie moves to the older candle, as in Pine
+            if candles[i]["l"] <= lo:
+                lo, x2 = candles[i]["l"], i
+        y2 = lo
+    else:  # from the swing low to the highest high since the swing high before it
+        x1, y1 = dn_x, dn
+        hi, x2 = 0.0, last
+        for i in range(last, up_x - 1, -1):
+            if candles[i]["h"] >= hi:
+                hi, x2 = candles[i]["h"], i
+        y2 = hi
+    if x2 < x1:
+        x1, y1, x2, y2 = x2, y2, x1, y1
+    sub = y1 - y2
+    return {"from": {"t": candles[x1]["t"].isoformat(timespec="minutes"), "price": round(y1, 4)},
+            "to": {"t": candles[x2]["t"].isoformat(timespec="minutes"), "price": round(y2, 4)},
+            "dir": "down" if y2 < y1 else "up",
+            "levels": [{"ratio": r, "price": round(y2 + sub * r, 4)} for r in FIB_RATIOS]}
+
+
+# ---------------------------------------------------------------- fair value gaps (fvg)
+
+def fair_value_gaps(candles: list[dict], keep: int = 10) -> dict:
+    """Open fair value gaps: three candles in one direction leave a gap between the first and the third.
+
+    A down gap (first candle's low above the third's high) closes once a high reaches the first candle's low;
+    an up gap closes once a low reaches the first candle's high. Each box starts at the middle candle.
+    """
+    def sign(k):
+        d = k["c"] - k["o"]
+        return (d > 0) - (d < 0)
+
+    down: list[dict] = []
+    up: list[dict] = []
+    for i, k in enumerate(candles):
+        if i >= 2:
+            a, m = candles[i - 2], candles[i - 1]
+            s3 = sign(a) + sign(m) + sign(k)
+            if s3 == -3:  # box top = first low, bottom = third high
+                down.append({"top": a["l"], "bottom": k["h"], "i": i - 1})
+            elif s3 == 3:  # box top = third low, bottom = first high
+                up.append({"top": k["l"], "bottom": a["h"], "i": i - 1})
+        down = [g for g in down if not k["h"] >= g["top"]]
+        up = [g for g in up if not k["l"] <= g["bottom"]]
+
+    def out(g, d):
+        return {"dir": d, "low": round(min(g["top"], g["bottom"]), 4), "high": round(max(g["top"], g["bottom"]), 4),
+                "t": candles[g["i"]]["t"].isoformat(timespec="minutes")}
+
+    return {"down": [out(g, "down") for g in down[-keep:]], "up": [out(g, "up") for g in up[-keep:]]}
+
+
+# ---------------------------------------------------------------- rolling 4-hour / 1-day levels (tfDrawLower)
+
+def _nearest_rank(values: list[float], pct: float) -> float:
+    s = sorted(values)
+    k = max(1, -(-len(s) * pct // 100))  # ceil(n × p / 100)
+    return s[int(k) - 1]
+
+
+def activity(history: list[float], now: float) -> str:
+    """getActivity: where the latest rolling volume sits among its own history."""
+    p10, p33, p50, p66 = (_nearest_rank(history, p) for p in (10, 33, 50, 66))
+    if now <= p10:
+        return "Very Low"
+    if now <= p33:
+        return "Low"
+    if now <= p50:
+        return "Average"
+    if now <= p66:
+        return "High"
+    return "Very High"
+
+
+def rolling_levels(minute_bars: list[dict], regular_hours_only: bool = True) -> dict | None:
+    """High and low of the last 240 and 1,440 one-minute bars in the chart's session ("240H/L", "1DH/L"),
+    and how busy the latest 4-hour / 24-hour volume is next to the rolling volume before it."""
+    eo, ec = (hhmm("09:30"), hhmm("16:00")) if regular_hours_only else (hhmm("04:00"), hhmm("20:00"))
+    bars = sorted((b for b in minute_bars or [] if eo <= b["t"].astimezone(ET).time() < ec), key=lambda b: b["t"])
+    if not bars:
+        return None
+    out = {}
+    for name, n in (("4h", 240), ("1d", 1440)):
+        window = bars[-n:]
+        hi = max(window, key=lambda b: (b["h"], b["t"]))  # the latest candle that touched the high
+        lo = min(window, key=lambda b: (b["l"], -b["t"].timestamp()))
+        vols = [float(b["v"]) for b in bars]
+        sums, run = [], 0.0
+        for i, v in enumerate(vols):
+            run += v - (vols[i - n] if i >= n else 0.0)
+            if i >= n - 1:
+                sums.append(run)
+        out[name] = {"high": round(float(hi["h"]), 4), "high_t": hi["t"].astimezone(ET).isoformat(timespec="minutes"),
+                     "low": round(float(lo["l"]), 4), "low_t": lo["t"].astimezone(ET).isoformat(timespec="minutes"),
+                     "bars": len(window), "full": len(window) == n,
+                     "volume": round(sum(vols[-n:])),
+                     "activity": activity(sums, sums[-1]) if len(sums) >= 10 else None}
+    return out
+
+
 # ---------------------------------------------------------------- one call for the desk
 
 def analyze(candles: list[dict], cfg: dict | None = None) -> dict | None:
@@ -246,6 +371,8 @@ def analyze(candles: list[dict], cfg: dict | None = None) -> dict | None:
         "external_events": [event(e) for e in external["events"][-8:]],
         "order_blocks": {"high": [block(b) for b in external["high_blocks"]],
                          "low": [block(b) for b in external["low_blocks"]]},
+        "fibs": fibs(candles, cfg["external_sensitivity"]),
+        "fvgs": fair_value_gaps(candles, int(cfg["fvg_kept"])),
     }
 
 

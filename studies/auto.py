@@ -12,6 +12,7 @@ from signals import price_near_zone
 from studies import mxwll
 
 SOURCE = "desk_mxwll_auto"
+BOX_TIMEFRAMES = (3, 5)  # candle sizes Roy can pick for the desk's boxes on the settings form
 
 
 def config(rules: dict, settings: dict | None = None) -> dict:
@@ -20,6 +21,8 @@ def config(rules: dict, settings: dict | None = None) -> dict:
            **((rules.get("studies") or {}).get("mxwll") or {})}
     if settings and isinstance(settings.get("extended_hours"), bool):
         cfg["regular_hours_only"] = not settings["extended_hours"]
+    if settings and settings.get("timeframe_minutes") in BOX_TIMEFRAMES and not isinstance(settings["timeframe_minutes"], bool):
+        cfg["timeframe_minutes"] = int(settings["timeframe_minutes"])
     return cfg
 
 

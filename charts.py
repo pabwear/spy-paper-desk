@@ -19,7 +19,7 @@ BUCKET_MIN = 5
 
 # Shortest to longest: (name, minutes per candle or None for daily, candles sent to the page).
 # The study reads every candle available; the page gets the most recent ones.
-TIMEFRAMES = [("1m", 1, 390), ("5m", 5, 156), ("15m", 15, 130), ("30m", 30, 130),
+TIMEFRAMES = [("1m", 1, 390), ("3m", 3, 260), ("5m", 5, 156), ("15m", 15, 130), ("30m", 30, 130),
               ("1h", 60, 140), ("4h", 240, 120), ("1D", None, 250)]
 
 
@@ -119,7 +119,8 @@ def _study(candles: list[dict], cfg: dict, daily: bool) -> dict | None:
     return {"aoi": out["aoi"], "internal": out["internal"], "external": out["external"],
             "from": _row(candles[-lookback], daily)[0] if len(candles) > lookback else None,
             "order_blocks": out["order_blocks"], "internal_events": out["internal_events"],
-            "external_events": out["external_events"], "swing_points": out["swing_points"]}
+            "external_events": out["external_events"], "swing_points": out["swing_points"],
+            "fibs": out["fibs"], "fvgs": out["fvgs"]}
 
 
 def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailies: list[dict] | None,
@@ -224,6 +225,12 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
     except Exception as e:  # noqa: BLE001
         journal.log("chart_failed", now=now, symbol=symbol, error=f"timeframes: {type(e).__name__}: {e}"[:300])
         tf, tf_eth = {}, {}
+    try:  # the Mxwll Suite's rolling 4-hour and 1-day highs and lows, from the 1-minute bars
+        from studies import mxwll
+
+        rolling = {"rth": mxwll.rolling_levels(bars, True), "eth": mxwll.rolling_levels(bars, False)}
+    except Exception as e:  # noqa: BLE001
+        rolling = {"error": f"{type(e).__name__}: {e}"[:200]}
     plans = None
     try:
         written = to_et(override.get("written_at"))
@@ -258,6 +265,7 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
         "study_timeframe": (cfg or {}).get("timeframe_minutes"),
         "frames": tf,
         "frames_eth": tf_eth,
+        "rolling": rolling,
         "extended_hours": not bool((cfg or {}).get("regular_hours_only", True)),
         "trades": trade_marks(symbol, now.astimezone(ET).date(), events),
         "updated_at": now.astimezone(ET).isoformat(timespec="seconds"),

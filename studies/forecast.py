@@ -31,7 +31,7 @@ from common import ET
 
 QUANTILES = (10, 25, 50, 75, 90)
 # candles ahead per timeframe: about an hour, a session, a few sessions, two weeks
-HORIZON = {"1m": 30, "5m": 12, "15m": 8, "30m": 8, "1h": 7, "4h": 6, "1D": 10}
+HORIZON = {"1m": 30, "3m": 20, "5m": 12, "15m": 8, "30m": 8, "1h": 7, "4h": 6, "1D": 10}
 DEFAULTS = {"window": 20, "neighbours": 25, "tests": 60, "min_history": 120}
 
 

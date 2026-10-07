@@ -9,7 +9,7 @@ today's zones, focus list, pulse, learner) lives on `desk-state`, so `main` stay
     python3 cloud_state.py zones           # apply the zones form (env: SYMBOL, RED, GREEN, TAGS, NONE)
     python3 cloud_state.py focus           # apply the focus form (env: ACTION, SYMBOL, INSTRUMENT)
     python3 cloud_state.py pulse           # apply live readings (env: READINGS, a JSON object)
-    python3 cloud_state.py settings        # apply the settings form (env: EXTENDED_HOURS on/off)
+    python3 cloud_state.py settings        # apply the settings form (env: EXTENDED_HOURS on/off, BOX_TIMEFRAME)
 
 Form values arrive as environment variables, never pasted into a shell command.
 """
@@ -130,13 +130,20 @@ def main(argv: list[str]) -> int:
             choice = (os.environ.get("EXTENDED_HOURS") or "").strip().lower()
             if choice not in ("on", "off"):
                 raise ValueError("EXTENDED_HOURS must be on or off")
+            tf = (os.environ.get("BOX_TIMEFRAME") or "unchanged").strip().lower()
+            if tf not in ("unchanged", "3 minutes", "5 minutes"):
+                raise ValueError("BOX_TIMEFRAME must be unchanged, 3 minutes or 5 minutes")
             settings = {**(load_json("settings.json", {}) or {}), "extended_hours": choice == "on",
                         "changed_at": now.isoformat(timespec="seconds")}
+            if tf != "unchanged":
+                settings["timeframe_minutes"] = int(tf.split()[0])
             save_json("settings.json", settings)
             import journal
 
-            journal.log("settings", now=now, extended_hours=settings["extended_hours"])
-            print(f"Extended hours for the Mxwll read: {choice}.")
+            journal.log("settings", now=now, extended_hours=settings["extended_hours"],
+                        timeframe_minutes=settings.get("timeframe_minutes"))
+            print(f"Extended hours for the Mxwll read: {choice}."
+                  + (f" Box candles: {settings['timeframe_minutes']} minutes." if settings.get("timeframe_minutes") else ""))
         elif cmd == "pulse":
             readings = json.loads(os.environ.get("READINGS") or "{}")
             if not isinstance(readings, dict) or not readings:
