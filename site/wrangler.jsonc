@@ -1,0 +1,11 @@
+// trade.riosventures.org: deployed by .github/workflows/site.yml (secrets CLOUDFLARE_API_TOKEN,
+// CLOUDFLARE_ACCOUNT_ID, SITE_PASSWORD). The page (dist/index.html) is built there from dashboard.html.
+{
+  "name": "spy-desk-site",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": false,
+  "routes": [{ "pattern": "trade.riosventures.org", "custom_domain": true }],
+  "kv_namespaces": [{ "binding": "DESK", "id": "4bd0b89266be4f72ad1e73231e524459" }],
+  "rules": [{ "type": "Text", "globs": ["**/*.html"], "fallthrough": true }]
+}
