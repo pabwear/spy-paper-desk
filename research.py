@@ -133,6 +133,19 @@ ROUNDS["4"] = [
     {"name": "bounce_option30d_slip", **BOUNCE_ON, **OPTION, "stop": {"pct": 0.5}, "slip_pct": 0.05},
 ]
 
+# 5. Round 4: the no-signal 10:00 entry held overnight made more dollars than the bounce (check +$869 vs
+#    +$566) and was positive every year; the bounce made about twice as much per trade. Most of the money is
+#    being in the stock overnight; the signal adds a thin edge (fills 0.05% worse each way cut it by ~70%).
+#    Options on the bounce only won in 2023–25. Last search round: does it carry to other stocks? Stops are
+#    sized to each stock's range (0.5 × its 20-day average daily range; about 0.5% for SPY).
+RANGE_ON = {**BOUNCE_ON, "stop": {"range": 0.5}}
+ROUNDS["5"] = [
+    {"name": "bounce_overnight", **RANGE_ON},
+    {"name": "ten_overnight", **RANGE_ON, "entry": "ten"},
+    {"name": "touch_overnight", **RANGE_ON, "entry": "touch"},
+    {"name": "close_to_open", **CLOSE_OPEN},
+]
+
 FINAL_PICKS: list[str] = []  # chosen after the search rounds, then run once with --round final
 
 
