@@ -40,6 +40,8 @@ from common import ET, hhmm
 
 PER_DOLLAR = 50.0      # option dollars per $1 of SPY, delta 0.5 × 100 shares
 COST_PER_TRADE = 5.0   # spreads and fees, round trip, per contract (a rough allowance)
+SHARES_BOOK = 1000.0   # shares mode: buy this many dollars of SPY (fractional shares, no margin)
+SHARE_COST = 0.02      # shares mode: about a penny each way per share (Alpaca charges no commission)
 HISTORY_CANDLES = 600  # 5-minute candles the study reads (about three extended-hours days)
 RSI_WARMUP = 300       # 1-minute closes for the desk's RSI
 
@@ -273,25 +275,35 @@ class Day:
                 continue
             if v["areas"] != "both" and cand["zone"]["color"] != v["areas"]:
                 continue
+            if (v.get("kinds") and cand["kind"] not in v["kinds"]) or (v.get("calls_only") and not cand["long"]):
+                continue
             tags = self.tags(i, cand["zone"], cand["long"]) if v["min_tags"] else []
             if len(tags) < v["min_tags"]:
                 continue
             t_in = self.m[i]["t"] + timedelta(minutes=1)
-            if v.get("expiry") == "auto" and affordable_expiry(cand["entry"], t_in, self.vol, cand["long"]) is None:
+            shares = v.get("instrument") == "shares"
+            if not shares and v.get("expiry") == "auto" and affordable_expiry(cand["entry"], t_in, self.vol, cand["long"]) is None:
                 continue  # no contract the account can pay for: the desk skips it
-            ek = (i, cand["long"], cand["entry"], v["stop"], v["target"], v.get("hold", 0), v.get("poll", 0))
+            # exit_poll 0: the stop sits at the broker and fills the minute it's hit, whatever the entry checks
+            exit_poll = v.get("exit_poll", v.get("poll", 0))
+            ek = (i, cand["long"], cand["entry"], v["stop"], v["target"], v.get("hold", 0), exit_poll)
             if ek not in self._exits:
                 self._exits[ek] = exit_walk(self.m, i + 1, cand["entry"], cand["long"], v["stop"], v["target"], c_t,
-                                            v.get("hold", 0), v.get("poll", 0))
+                                            v.get("hold", 0), exit_poll)
             px, why, j = self._exits[ek]
             move = (px - cand["entry"]) if cand["long"] else (cand["entry"] - px)
-            usd = move * PER_DOLLAR
-            opt = option_pnl(cand["entry"], px, self.m[i]["t"] + timedelta(minutes=1), self.m[min(j, len(self.m) - 1)]["t"],
-                             self.vol, cand["long"], v.get("expiry", "0d"))
+            if shares:
+                qty = SHARES_BOOK / cand["entry"]
+                usd, cost = move * qty, SHARE_COST * qty
+                opt = usd
+            else:
+                usd, cost = move * PER_DOLLAR, COST_PER_TRADE
+                opt = option_pnl(cand["entry"], px, self.m[i]["t"] + timedelta(minutes=1),
+                                 self.m[min(j, len(self.m) - 1)]["t"], self.vol, cand["long"], v.get("expiry", "0d"))
             out.append({"t": self.m[i]["t"].astimezone(ET).isoformat(timespec="minutes"), "zone": cand["zone"]["color"],
-                        "kind": cand["kind"], "contract": "call" if cand["long"] else "put",
+                        "kind": cand["kind"], "contract": "shares" if shares else "call" if cand["long"] else "put",
                         "entry": round(cand["entry"], 2), "exit": round(px, 2), "why": why, "tags": tags,
-                        "usd": round(usd, 2), "net": round(usd - COST_PER_TRADE, 2), "opt": round(opt - COST_PER_TRADE, 2)})
+                        "usd": round(usd, 2), "net": round(usd - cost, 2), "opt": round(opt - cost, 2)})
             free_from = j + 1
         return out
 

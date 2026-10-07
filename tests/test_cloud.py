@@ -200,3 +200,18 @@ class TestResultsTests(DeskTestCase):
         self.assertEqual(t["rehearsal"]["heartbeats"], 48)
         self.assertNotIn("folder", t["rehearsal"])
         self.assertIn("tests", rebuild_dashboard.build_state(at(THURSDAY, 10, 30)))
+
+    def test_ideas_reach_the_dashboard(self):
+        import rebuild_dashboard
+
+        part = {"trades": 4, "win_pct": 50.0, "total": 8.0, "per_trade": 2.0, "max_drawdown": -3.0,
+                "avg_win": 5.0, "avg_loss": -1.0, "gross": 9.0}
+        save_json("backtests/ideas.json", {
+            "days": 2, "first": "2020-07-28", "last": "2020-07-29", "book": 1000.0,
+            "ideas": [{"name": "overnight", "label": "4. Overnight hold", "what": "w", "train": part, "test": part, "all": part}],
+            "monthly": {"overnight": [{"month": "2020-07", "total": 8.0, "trades": 4, "win_pct": 50.0}]},
+            "by_year": {"overnight": {"2020": part}}})
+        i = rebuild_dashboard._tests_state()["ideas"]
+        self.assertEqual((i["rows"][0]["name"], i["rows"][0]["test"]["per_trade"]), ("overnight", 2.0))
+        self.assertEqual(i["monthly"]["overnight"], [["2020-07", 8.0, 4, 50.0]])
+        self.assertNotIn("gross", i["by_year"]["overnight"]["2020"])

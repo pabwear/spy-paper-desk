@@ -139,8 +139,9 @@ _PART = ("trades", "win_pct", "total", "per_trade", "max_drawdown", "avg_win", "
 
 
 def _tests_state() -> dict:
-    """The backtest of the current setup (backtests/current.json) and the newest dress rehearsal
-    (backtests/rehearsal.json), trimmed for the Record view's charts. Missing files are just missing."""
+    """The backtest of the current setup (backtests/current.json), the four-ideas backtest (backtests/ideas.json)
+    and the newest dress rehearsal (backtests/rehearsal.json), trimmed for the Record view's charts.
+    Missing files are just missing."""
     out: dict = {}
     bt = load_json("backtests/current.json", None)
     if bt and bt.get("named"):
@@ -156,6 +157,19 @@ def _tests_state() -> dict:
                         for n, _ in BACKTEST_ROWS if n in monthly},
             "by_year": {n: {y: {k: v.get(k) for k in ("trades", "total", "win_pct")} for y, v in years[n].items()}
                         for n, _ in BACKTEST_ROWS if n in years},
+        }
+    ib = load_json("backtests/ideas.json", None)
+    if ib and ib.get("ideas"):
+        out["ideas"] = {
+            **{k: ib.get(k) for k in ("days", "first", "last", "train_range", "test_range", "book", "share_cost",
+                                      "option_cost", "trail_pct", "swing_days", "exits")},
+            "rows": [{"name": i["name"], "label": i["label"], "what": i["what"],
+                      **{part: {k: (i.get(part) or {}).get(k) for k in _PART} for part in ("train", "test", "all")}}
+                     for i in ib["ideas"]],
+            "monthly": {n: [[m["month"], m.get("total"), m.get("trades"), m.get("win_pct")] for m in ms]
+                        for n, ms in (ib.get("monthly") or {}).items()},
+            "by_year": {n: {y: {k: v.get(k) for k in ("trades", "total", "win_pct")} for y, v in ys.items()}
+                        for n, ys in (ib.get("by_year") or {}).items()},
         }
     rh = load_json("backtests/rehearsal.json", None)
     if rh and rh.get("days"):

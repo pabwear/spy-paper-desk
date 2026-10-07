@@ -29,7 +29,8 @@ from common import desk_dir, load_json, now_et, save_json
 STATE_FILES = ["journal.jsonl", "trades.csv", "account.json", "market_pulse.json", "learning_weights.json",
                "ml_model.json", "learning_report.json", "dashboard_state.json", "watchlist.json",
                "aoi_override.json", "charts.json", "settings.json", "projections.jsonl", "projection_model.json",
-               "sentiment.jsonl", "plays.jsonl", "backtests/current.json", "backtests/rehearsal.json"]
+               "sentiment.jsonl", "plays.jsonl", "backtests/current.json", "backtests/rehearsal.json",
+               "backtests/ideas.json"]
 STATE_GLOBS = ["aoi_override.*.json"]
 RANGE_RE = re.compile(r"^\s*(\d+(?:\.\d+)?)\s*[-–to ]+\s*(\d+(?:\.\d+)?)\s*$")
 

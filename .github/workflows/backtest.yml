@@ -8,11 +8,11 @@ on:
     inputs:
       since:
         description: "First day to test (YYYY-MM-DD). Alpaca's free 1-minute history starts in July 2020."
-        default: "2016-01-01"
+        default: "2020-07-01"
       scope:
-        description: "current = only the live desk's setup (quick); all = every setting (about 1,000)"
+        description: "current = only the live desk's setup (quick); ideas = four ideas vs buy-and-hold; all = every setting (about 1,000)"
         type: choice
-        options: ["current", "all"]
+        options: ["current", "ideas", "all"]
         default: "current"
 
 permissions:
@@ -42,7 +42,10 @@ jobs:
           SCOPE: ${{ inputs.scope }}
         run: |
           mkdir -p out
-          if [ "$SCOPE" = "current" ]; then
+          if [ "$SCOPE" = "ideas" ]; then
+            python backtest_ideas.py --source alpaca --since "$SINCE" --json out/ideas.json --md out/ideas.md
+            cat out/ideas.md >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$SCOPE" = "current" ]; then
             python backtest_areas.py --source alpaca --since "$SINCE" --current --json out/current.json --md out/current.md
             cat out/current.md >> "$GITHUB_STEP_SUMMARY"
           else
