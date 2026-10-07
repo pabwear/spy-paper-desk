@@ -423,8 +423,8 @@ def build_state(now: datetime | None = None) -> dict:
         "trades": list(reversed(trades)),
         "orders": [e for e in reversed(events) if e.get("event") in ("order", "order_rejected", "exit_failed")][:50],
         "reviews": [e for e in reversed(events) if e.get("event") == "review"][:30],
-        "activity": [{k: v for k, v in e.items() if k not in ("zones", "study", "features", "gate", "aoi")}
-                     for e in list(reversed(events))[:40]],
+        "activity": [{k: v for k, v in e.items() if k not in ("zones", "study", "features", "gate", "aoi", "quotes")}
+                     for e in list(reversed(events))[:25]],
         "weights": weights,
         "rules": {
             "buy": (rules.get("aoi") or {}).get("buy"),
