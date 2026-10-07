@@ -144,14 +144,14 @@ class SimBroker:
     def filled_orders_since(self, since):
         return [f for f in self.fills if f["filled_at_dt"] >= since]
 
-    def option_contracts(self, right, around, today, underlying="SPY"):
+    def option_contracts(self, right, around, today, underlying="SPY", first=None, last=None):
         from backtest_areas import expiry_for
         from instruments import occ_symbol
 
         out, seen = [], set()
         for d in range(0, 50):
             e = expiry_for(today + timedelta(days=d))
-            if e in seen:
+            if e in seen or (first and e < first) or (last and e > last):
                 continue
             seen.add(e)
             for k in range(int(around) - 5, int(around) + 6):
@@ -161,6 +161,26 @@ class SimBroker:
 
     def option_asks(self, symbols):
         return {s: round(self.mid(s) + HALF_SPREAD, 2) for s in symbols}
+
+    def option_quotes(self, symbols):
+        return {s: {"bid": max(round(self.mid(s) - HALF_SPREAD, 2), 0.0), "ask": round(self.mid(s) + HALF_SPREAD, 2)}
+                for s in symbols}
+
+    def _legs(self, legs, qty, name):
+        self.n += 1
+        oid = f"sim-{self.n}"
+        ids = []
+        for i, leg in enumerate(legs):
+            px = max(round(self.mid(leg["symbol"]) + (HALF_SPREAD if leg["side"] == "buy" else -HALF_SPREAD), 2), 0.0)
+            self._fill(f"{oid}-{i}", leg["symbol"], leg["side"], float(qty), px)
+            ids.append(f"{oid}-{i}")
+        return {"order_id": oid, "status": "filled", "submitted_at": self.now.isoformat(), "leg_order_ids": ids}
+
+    def submit_spread(self, legs, qty, limit_price, client_order_id):
+        return self._legs(legs, qty, client_order_id)
+
+    def close_spread(self, legs, qty, client_order_id):
+        return self._legs(legs, qty, client_order_id)
 
     def submit_market(self, side, qty, client_order_id, symbol="SPY", intent=None):
         from instruments import parse_occ
@@ -179,7 +199,11 @@ class SimBroker:
             if cost > self.cash + 1e-9:
                 raise RuntimeError("insufficient buying power")
             self.cash -= cost
-            if p:
+            if p and p["qty"] < 0:  # buying back a short
+                p["qty"] += qty
+                if abs(p["qty"]) < 1e-9:
+                    del self.pos[symbol]
+            elif p:
                 p["avg"] = (p["avg"] * p["qty"] + px * qty) / (p["qty"] + qty)
                 p["qty"] += qty
             else:
@@ -190,6 +214,8 @@ class SimBroker:
                 p["qty"] -= qty
                 if abs(p["qty"]) < 1e-9:
                     del self.pos[symbol]
+            else:  # sold to open (a spread's short leg)
+                self.pos[symbol] = {"qty": -qty, "avg": px}
         t = self.now.astimezone(ET)
         self.fills.append({"order_id": oid, "symbol": symbol, "side": side, "qty": qty, "price": px,
                            "filled_at": t.isoformat(timespec="seconds"), "filled_at_dt": t, "status": "filled"})
@@ -248,6 +274,8 @@ def run(minute_bars, half_hours, dailies, vix: dict[date, float], days: list[dat
             for now in heartbeats(d):
                 broker.advance(now)  # the stops Alpaca holds work between the desk's checks
                 src = {}
+                src["^VIX|1Day"] = [{"t": datetime(k.year, k.month, k.day, 16, tzinfo=ET), "o": v, "h": v, "l": v, "c": v,
+                                      "v": 0.0} for k, v in sorted(vix.items()) if k < d]
                 for sym, bars in minute_bars.items():
                     src[sym] = [b for b in bars if now - timedelta(days=4) < b["t"] <= now]
                     src[f"{sym}|30Min"] = [b for b in half_hours.get(sym, []) if b["t"] <= now]

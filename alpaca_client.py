@@ -123,12 +123,16 @@ class PaperBroker:
         from alpaca.trading.enums import QueryOrderStatus
         from alpaca.trading.requests import GetOrdersRequest
 
-        req = GetOrdersRequest(status=QueryOrderStatus.CLOSED, after=since, limit=500)
+        req = GetOrdersRequest(status=QueryOrderStatus.CLOSED, after=since, limit=500, nested=True)
         out = []
-        for o in self._client.get_orders(filter=req):
+        orders = []
+        for o in self._client.get_orders(filter=req):  # legs (a held stop, a spread's two options) are fills too
+            orders.append(o)
+            orders += list(getattr(o, "legs", None) or [])
+        for o in orders:
             if o.filled_at is None or not o.filled_qty or float(o.filled_qty) == 0:
                 continue
-            if not is_desk_symbol(o.symbol, _watched()):
+            if not o.symbol or not is_desk_symbol(o.symbol, _watched()):
                 continue
             out.append({
                 "order_id": str(o.id),
@@ -143,15 +147,19 @@ class PaperBroker:
         out.sort(key=lambda r: r["filled_at"])
         return out
 
-    def option_contracts(self, right: str, around: float, today: date, underlying: str = "SPY") -> list[dict]:
+    def option_contracts(self, right: str, around: float, today: date, underlying: str = "SPY",
+                         first: date | None = None, last: date | None = None) -> list[dict]:
         """Listed, active contracts of one right, strikes within ±5 (or ±3%), expiring in the window rules.json
-        asks for: within 7 days by default, or from expiry_min_days to expiry_target_days + 14."""
+        asks for: within 7 days by default, or from expiry_min_days to expiry_target_days + 14; or from first
+        to last when given (a spread expiring today passes today for both)."""
         from alpaca.trading.enums import AssetStatus, ContractType
         from alpaca.trading.requests import GetOptionContractsRequest
 
         opt = (load_json("rules.json", {}) or {}).get("option", {})
         target, least = int(opt.get("expiry_target_days", 0) or 0), int(opt.get("expiry_min_days", 0) or 0)
-        first, last = (today + timedelta(days=least), today + timedelta(days=target + 14)) if target else (today, today + timedelta(days=7))
+        if first is None or last is None:
+            first, last = ((today + timedelta(days=least), today + timedelta(days=target + 14)) if target
+                           else (today, today + timedelta(days=7)))
         width = max(5.0, around * 0.03)
         req = GetOptionContractsRequest(
             underlying_symbols=[underlying], status=AssetStatus.ACTIVE,
@@ -177,7 +185,49 @@ class PaperBroker:
                                                                          feed=OptionsFeed.INDICATIVE))
         return {s: float(q.ask_price) for s, q in quotes.items() if q is not None and q.ask_price}
 
+    def option_quotes(self, symbols: list[str]) -> dict[str, dict]:
+        """Latest bid and ask for option contracts (Alpaca's free indicative feed). Missing quotes are left out."""
+        from alpaca.data.enums import OptionsFeed
+        from alpaca.data.historical.option import OptionHistoricalDataClient
+        from alpaca.data.requests import OptionLatestQuoteRequest
+
+        if not symbols:
+            return {}
+        key, secret = _keys()
+        client = OptionHistoricalDataClient(key, secret)
+        quotes = client.get_option_latest_quote(OptionLatestQuoteRequest(symbol_or_symbols=list(symbols),
+                                                                         feed=OptionsFeed.INDICATIVE))
+        return {s: {"bid": float(q.bid_price or 0), "ask": float(q.ask_price or 0)} for s, q in quotes.items()
+                if q is not None and q.ask_price}
+
     # -- writes (paper only)
+    def _mleg(self, legs: list[dict], qty: int, client_order_id: str, limit_price: float | None):
+        from alpaca.trading.enums import OrderClass, OrderSide, PositionIntent, TimeInForce
+        from alpaca.trading.requests import LimitOrderRequest, MarketOrderRequest, OptionLegRequest
+
+        if not self.is_paper or host_of(self.base_url) != PAPER_HOST:
+            raise LiveTradingRefused("Refusing to submit: client is not paper.")
+        for leg in legs:
+            if not is_desk_symbol(leg["symbol"], _watched()):
+                raise LiveTradingRefused(f"Refusing to submit {leg['symbol']}: not an option on a watchlist symbol.")
+        req_legs = [OptionLegRequest(symbol=x["symbol"], ratio_qty=1, side=OrderSide.BUY if x["side"] == "buy" else OrderSide.SELL,
+                                     position_intent=PositionIntent(x["intent"])) for x in legs]
+        common = dict(qty=int(qty), order_class=OrderClass.MLEG, time_in_force=TimeInForce.DAY, legs=req_legs,
+                      client_order_id=client_order_id)
+        req = (LimitOrderRequest(limit_price=round(float(limit_price), 2), **common) if limit_price is not None
+               else MarketOrderRequest(**common))
+        o = self._client.submit_order(order_data=req)
+        return {"order_id": str(o.id), "status": str(o.status.value), "submitted_at": str(o.submitted_at),
+                "leg_order_ids": [str(x.id) for x in (getattr(o, "legs", None) or [])]}
+
+    def submit_spread(self, legs: list[dict], qty: int, limit_price: float, client_order_id: str) -> dict:
+        """Open a spread as one two-leg order at a limit price (Alpaca shows a credit as a negative price)."""
+        return self._mleg(legs, qty, client_order_id, limit_price)
+
+    def close_spread(self, legs: list[dict], qty: int, client_order_id: str) -> dict:
+        """Close a spread as one two-leg market order. Alpaca may refuse; the desk then closes leg by leg."""
+        return self._mleg(legs, qty, client_order_id, None)
+
     def submit_market(self, side: str, qty: float, client_order_id: str, symbol: str = "SPY",
                       intent: str | None = None) -> dict:
         from alpaca.trading.enums import OrderSide, PositionIntent, TimeInForce

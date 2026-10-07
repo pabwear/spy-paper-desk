@@ -171,6 +171,19 @@ def book_stop_pct(book: dict, source: Bars, symbol: str, now: datetime) -> tuple
     return None, f"{book['id']} has no stop rule"
 
 
+def position_owner(symbol: str, events: list[dict], all_books: list[dict]) -> dict | None:
+    """The book that opened this position: the newest entry naming it (as its symbol or one of its legs);
+    else the book its kind belongs to (a SPY option could be the options book's or a spread leg)."""
+    ids = {b["id"]: b for b in all_books}
+    for e in reversed(events):
+        if e.get("event") == "order" and e.get("role") == "entry" \
+                and (e.get("symbol") == symbol or symbol in (e.get("leg_symbols") or [])):
+            if e.get("book") in ids:
+                return ids[e["book"]]
+            break
+    return instruments.book_of(symbol, all_books)
+
+
 def book_entries_on(events: list[dict], day, book: dict, all_books: list[dict]) -> int:
     """Entries this book made on this day (entries logged before books carry no book: matched by their symbol)."""
     n = 0
@@ -229,6 +242,10 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
         book = next((b for b in all_books if b["symbol"] == symbol), None)
     if money is None:
         money = buying_power
+    if book is not None and book["asset"] == "spread":
+        return evaluate_spread(now, _bars(now, bars, fetch), book, positions=positions, open_orders=open_orders,
+                               account_number=account_number, market_open=market_open, client_is_paper=client_is_paper,
+                               base_url=base_url, contract_picker=contract_picker, quote_picker=None, money=money)
     result: dict = {"symbol": symbol, "session": state, "decision": "skip", "reasons": [],
                     "instrument": book["id"] if book else None, "book": book["id"] if book else None}
 
@@ -378,6 +395,113 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
     return result
 
 
+SPREAD_BROKER_CHECKS = {"paper_client", "paper_1000_account", "market_clock", "one_position", "two_legs",
+                        "credit_too_small", "worst_case_in_budget", "worst_case_affordable"}
+
+
+def _vix_before(source, today) -> float | None:
+    """The VIX's last close before today (the fear gauge the strikes are sized with)."""
+    days = [b for b in (source.history("^VIX", "1Day") or []) if b["t"].astimezone(ET).date() < today]
+    return float(days[-1]["c"]) if days else None
+
+
+def evaluate_spread(now: datetime, source, book: dict, *, positions=None, open_orders=None, account_number=None,
+                    market_open=None, client_is_paper=True, base_url=None, contract_picker=None, quote_picker=None,
+                    money=None) -> dict:
+    """A daily credit spread for this book: the strikes from the price and the VIX (spreads.legs), the contracts
+    expiring today, the credit from live quotes (short leg's bid − long leg's ask), and the gate. Never orders."""
+    import math
+
+    import backtest_areas as bt
+    import spreads
+    from gate import check_spread
+
+    f = load_all(book["symbol"])
+    risk, rules, sym = f["risk"], f["rules"], book["symbol"]
+    state = session_state(now, risk)
+    result: dict = {"symbol": sym, "book": book["id"], "instrument": book["id"], "asset": "spread", "session": state,
+                    "decision": "skip", "reasons": []}
+    if state in CLOSED_STATES:
+        result["reasons"] = [CLOSED_STATES[state]]
+        return result
+    if state == "watch_only":
+        result.update(decision="watch", reasons=["watch_only"])
+        return result
+    if not book["enabled"]:
+        result.update(reasons=["instrument_off"], note=book.get("why"))
+        return result
+    market, err = market_read(now, source, sym, f["weights"], risk)
+    if market is None:
+        result.update(reasons=["no_market_data"], error=err)
+        return result
+    result["market"] = market
+    t, price = now.astimezone(ET), market["price"]
+    today = t.date()
+    start, end = (book.get("entry_window") or ["10:00", "11:00"])[:2]
+    events = journal.read_events()
+    entries = book_entries_on(events, today, book, instruments.books(rules, f["watch"]))
+    result["entries_today"] = entries
+    if not hhmm(start) <= t.time() < hhmm(end):
+        result["reasons"] = ["time_window"]
+        return result
+    if entries >= int(book.get("max_entries_per_day", 1)):
+        result["reasons"] = ["entries_today"]
+        return result
+    vix = _vix_before(source, today)
+    if vix is None:
+        result.update(reasons=["no_vix"], note="No VIX close to size the strikes with.")
+        return result
+    spec = {**spreads.BASE, **(book.get("spread") or {})}
+    sigma = price * vix / 100 * math.sqrt(bt.trading_years(now, today))
+    right, ks, kl = spreads.legs(spec, price, sigma)[0]
+    width = float(spec["width"])
+    plan = {"book": book["id"], "asset": "spread", "underlying": sym, "expiry": today.isoformat(), "qty": 1,
+            "vix": vix, "sigma": round(sigma, 4), "underlying_price": price, "strikes": [ks, kl], "width": width,
+            "legs": [{"strike": ks, "side": "sell", "intent": "sell_to_open", "symbol": None},
+                     {"strike": kl, "side": "buy", "intent": "buy_to_open", "symbol": None}]}
+    if contract_picker is not None:
+        try:
+            listed = contract_picker(right, (ks + kl) / 2, today, sym, first=today, last=today)
+        except Exception as e:  # noqa: BLE001
+            result.update(reasons=["no_contract"], plan=plan, error=f"contract lookup: {type(e).__name__}: {e}"[:300])
+            return result
+        by_strike = {float(c["strike"]): c["symbol"] for c in listed if c["expiry"] == today and c["right"] == right}
+        for leg in plan["legs"]:
+            leg["symbol"] = by_strike.get(float(leg["strike"]))
+        if not all(leg["symbol"] for leg in plan["legs"]):
+            result.update(reasons=["no_contract"], plan=plan, note=f"No {sym} {right}s at {ks:g}/{kl:g} expiring today.")
+            return result
+        plan["symbol"] = plan["legs"][0]["symbol"]
+    if quote_picker is not None and plan.get("symbol"):
+        try:
+            q = quote_picker([leg["symbol"] for leg in plan["legs"]])
+        except Exception as e:  # noqa: BLE001
+            result.update(reasons=["no_quote"], plan=plan, error=f"option quotes: {type(e).__name__}: {e}"[:300])
+            return result
+        short_q, long_q = q.get(plan["legs"][0]["symbol"]), q.get(plan["legs"][1]["symbol"])
+        if not short_q or not long_q:
+            result.update(reasons=["no_quote"], plan=plan)
+            return result
+        credit = round(float(short_q["bid"]) - float(long_q["ask"]), 2)
+        plan.update(credit=credit, limit_price=-credit, worst_case=round((width - credit) * 100, 2),
+                    quotes={"short": short_q, "long": long_q})
+    if positions is None:
+        positions = _positions_from_account(f["account"])
+    checks = check_spread(now=now, base_url=base_url or f["config"].get("base_url", ""), client_is_paper=client_is_paper,
+                          config=f["config"], rules=rules, book=book, plan=plan,
+                          account_number=account_number or f["account"].get("account_number"), market_open=market_open,
+                          entries_today=entries, open_positions=positions, open_orders=open_orders, money=money)
+    result.update(plan=plan, gate=[c.to_dict() for c in checks], signal="premium")
+    failed = failures(checks)
+    if passed(checks):
+        result.update(decision="enter", reasons=[])
+    elif set(failed) <= SPREAD_BROKER_CHECKS:
+        result.update(decision="would_enter", reasons=[])
+    else:
+        result["reasons"] = [r for r in failed if r not in SPREAD_BROKER_CHECKS]
+    return result
+
+
 def _fetch(now: datetime, minutes: int, symbol: str = "SPY") -> list[dict]:
     from alpaca_client import fetch_bars
 
@@ -410,7 +534,8 @@ def _log_eval(now: datetime, mode: str, r: dict) -> dict:
         decision=r["decision"], reasons=r["reasons"],
         instrument=r.get("instrument"), signal=r.get("signal"), market=r.get("market"), aoi=r.get("aoi"),
         plan={k: plan.get(k) for k in ("asset", "symbol", "right", "contracts", "target_strike", "strike", "expiry",
-                                         "order_side", "qty", "notional", "cost", "stop_pct", "stop_level")}
+                                         "order_side", "qty", "notional", "cost", "stop_pct", "stop_level",
+                                         "strikes", "credit", "worst_case", "vix")}
         if plan else None,
         zone=cand.get("zone"), tags=cand.get("tags"), score=cand.get("score"), pulse_bias=r.get("pulse_bias"),
         p_loss=r.get("p_loss"), ml=r.get("ml"), entries_today=r.get("entries_today"),
@@ -429,6 +554,11 @@ def describe(r: dict) -> str:
         return f"{sym}: PASS — {', '.join(r['reasons'])}" + (f". {r['note']}" if r.get("note") else "")
     if r["decision"] == "watch":
         return f"{sym}: WATCH ONLY (09:30–09:59) — logged, no orders"
+    if r.get("asset") == "spread":
+        p = r.get("plan") or {}
+        head = {"enter": "SELL SPREAD", "would_enter": "WOULD SELL SPREAD (eval only)"}.get(r["decision"], r["decision"])
+        credit = f" for ${p['credit'] * 100:,.2f}, worst case ${p['worst_case']:,.2f}" if p.get("credit") is not None else ""
+        return f"{sym}: {head} — {p.get('strikes')} puts expiring {p.get('expiry')}{credit}"
     z, plan = r["candidate"]["zone"], r["plan"]
     head = {"enter": "ENTER", "would_enter": "WOULD ENTER (eval only)"}[r["decision"]]
     if plan["asset"] == "option":
@@ -477,6 +607,11 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
     snap = broker.account_snapshot()
     market_open = broker.market_open()
     sent = []
+    spread_legs = [p for p in desk if (position_owner(p["symbol"], events, all_books) or {}).get("asset") == "spread"]
+    desk = [p for p in desk if p not in spread_legs]
+    if spread_legs:
+        sent += _manage_spreads(now, broker, spread_legs, events, all_books, flatten, snap, market_open, rules,
+                                config, managed)
     for p in desk:
         qty = float(p["qty"])
         underlying = instruments.underlying_of(p["symbol"])
@@ -488,7 +623,7 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
                 print(f"Exit check: no {underlying} data to test the stop on {p['symbol']}.")
         exposure = instruments.direction(p["symbol"], qty)
         entry = latest_entry(p["symbol"], events)
-        book = instruments.book_of(p["symbol"], all_books) or {}
+        book = position_owner(p["symbol"], events, all_books) or {}
         # the stop the entry was sized with; else the book's fixed % (or the old rule)
         pct = float(entry.get("stop_pct") or (book.get("stop") or {}).get("pct") or rules.get("stop_underlying_pct", 0.35))
         hold_min = int(book.get("max_hold_minutes", rules.get("max_hold_minutes")) or 0)
@@ -542,6 +677,64 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
     return sent
 
 
+def _manage_spreads(now, broker, legs_held, events, all_books, flatten, snap, market_open, rules, config,
+                    managed) -> list[dict]:
+    """A spread is held as is during the day (its worst case is already capped) and bought back from the flatten
+    time on, or at once if it is somehow from an earlier day. Both legs go as one order; if Alpaca refuses that,
+    the short leg is bought back first, then the long one sold, so nothing short is ever left uncovered."""
+    t = now.astimezone(ET)
+    sent = []
+    by_book: dict[str, list[dict]] = {}
+    for p in legs_held:
+        by_book.setdefault((position_owner(p["symbol"], events, all_books) or {}).get("id"), []).append(p)
+    for book_id, held in by_book.items():
+        entry = next((e for e in reversed(events) if e.get("event") == "order" and e.get("role") == "entry"
+                      and e.get("book") == book_id), {})
+        opened = to_et(entry.get("ts"))
+        reason = "flatten" if flatten else "overnight" if opened is not None and opened.date() < t.date() else None
+        if reason is None:
+            continue
+        held.sort(key=lambda p: float(p["qty"]))  # short legs (negative) first
+        for p in held:
+            checks = check_exit(now=now, base_url=broker.base_url, client_is_paper=broker.is_paper, config=config,
+                                rules=rules, position=p, account_number=snap.get("account_number"),
+                                market_open=market_open, underlyings=managed)
+            if not passed(checks):
+                journal.log("exit_failed", now=now, symbol=p["symbol"], book=book_id, reason=reason,
+                            reasons=failures(checks), gate=[c.to_dict() for c in checks])
+                print(f"Roy: could NOT close the {book_id} spread ({reason}) — {', '.join(failures(checks))}.")
+                return sent
+        legs = [{"symbol": p["symbol"], "side": "buy" if float(p["qty"]) < 0 else "sell",
+                 "intent": "buy_to_close" if float(p["qty"]) < 0 else "sell_to_close"} for p in held]
+        qty = int(abs(float(held[0]["qty"])))
+        coid = f"desk-{t:%Y%m%d-%H%M%S}-{book_id}-exit-{reason}"
+        try:
+            order = broker.close_spread(legs, qty, coid)
+            journal.log("order", now=now, role="exit", reason=reason, order_id=order["order_id"], client_order_id=coid,
+                        status=order.get("status"), symbol=legs[0]["symbol"], book=book_id, asset="spread",
+                        leg_symbols=[x["symbol"] for x in legs], leg_order_ids=order.get("leg_order_ids") or [],
+                        underlying=instruments.underlying_of(legs[0]["symbol"]), qty=qty)
+            sent.append({**order, "book": book_id, "symbol": legs[0]["symbol"]})
+            print(f"Roy: bought back the {book_id} spread ({reason}).")
+            continue
+        except Exception as e:  # noqa: BLE001 - fall back to one leg at a time, short first
+            journal.log("spread_close_split", now=now, book=book_id, error=f"{type(e).__name__}: {e}"[:300])
+        for i, leg in enumerate(legs):
+            try:
+                order = broker.submit_market(leg["side"], abs(float(held[i]["qty"])), f"{coid}-{i}",
+                                             symbol=leg["symbol"], intent=leg["intent"])
+            except Exception as e:  # noqa: BLE001 - a failed exit must be loud
+                journal.log("exit_failed", now=now, symbol=leg["symbol"], book=book_id, reason=reason,
+                            reasons=["order_error"], error=f"{type(e).__name__}: {e}"[:300])
+                print(f"Roy: closing {leg['symbol']} FAILED ({type(e).__name__}). Close the spread by hand.")
+                break
+            journal.log("order", now=now, role="exit", reason=reason, order_id=order["order_id"], client_order_id=f"{coid}-{i}",
+                        status=order.get("status"), symbol=leg["symbol"], book=book_id, asset="spread", side=leg["side"],
+                        qty=abs(float(held[i]["qty"])), underlying=instruments.underlying_of(leg["symbol"]))
+            sent.append({**order, "book": book_id, "symbol": leg["symbol"]})
+    return sent
+
+
 # ------------------------------------------------------------------ commands
 
 def _log_all(now: datetime, mode: str, results: list[dict]) -> None:
@@ -592,7 +785,8 @@ def cmd_paper(now: datetime, broker_factory=None, bars=None, fetch=None) -> dict
     snap = broker.account_snapshot()
     positions = [p for p in (snap.get("positions") or []) if float(p.get("qty") or 0) != 0]
     orders = [o for o in broker.open_orders() if isinstance(o, dict)]
-    owner = lambda sym: (instruments.book_of(sym or "", all_books) or {}).get("id")  # noqa: E731
+    events_now = journal.read_events()
+    owner = lambda sym: (position_owner(sym or "", events_now, all_books) or {}).get("id")  # noqa: E731
     money = {"shares": _f(snap.get("cash")), "option": _option_money(snap)}
     shared = dict(account_number=snap.get("account_number"), market_open=broker.market_open(),
                   client_is_paper=broker.is_paper, base_url=broker.base_url, contract_picker=broker.option_contracts,
@@ -607,13 +801,18 @@ def cmd_paper(now: datetime, broker_factory=None, bars=None, fetch=None) -> dict
                 mine = [p for p in positions if book is not None and owner(p["symbol"]) == book["id"]]
                 buys = [o for o in orders if book is not None and owner(o.get("symbol")) == book["id"]
                         and o.get("side") == "buy"]
-                pool = "option" if book is not None and book["asset"] == "option" else "shares"
-                r = evaluate(now, source, symbol=sym, book=book, positions=mine, open_orders=len(buys),
-                             money=money[pool], **shared)
+                pool = "option" if book is not None and book["asset"] in ("option", "spread") else "shares"
+                if book is not None and book["asset"] == "spread":
+                    r = evaluate_spread(now, source, book, positions=mine, open_orders=len(buys), money=money[pool],
+                                        quote_picker=getattr(broker, "option_quotes", None),
+                                        **{k: v for k, v in shared.items() if k != "quote_picker"})
+                else:
+                    r = evaluate(now, source, symbol=sym, book=book, positions=mine, open_orders=len(buys),
+                                 money=money[pool], **shared)
             if r["decision"] == "would_enter":
                 r.update(decision="skip", reasons=[c["name"] for c in r.get("gate", []) if not c["ok"]])
             if r["decision"] == "enter":
-                spent = _submit_entry(now, broker, r)
+                spent = _submit_spread(now, broker, r) if r.get("asset") == "spread" else _submit_entry(now, broker, r)
                 if spent is not None:
                     entered.append(r)
                     for k in money:  # cash and options buying power both shrink by what was spent
@@ -634,6 +833,36 @@ def _f(v) -> float | None:
         return float(v) if v is not None else None
     except (TypeError, ValueError):
         return None
+
+
+def _submit_spread(now: datetime, broker, r: dict) -> float | None:
+    """Send one book's credit spread as a single two-leg order at the quoted credit. Returns the worst case
+    (what the account sets aside for it), or None if refused."""
+    plan, book = r["plan"], r["book"]
+    t = now.astimezone(ET)
+    coid = f"desk-{t:%Y%m%d-%H%M%S}-{book}-spread"
+    _log_eval(now, "paper", r)
+    legs = [{"symbol": x["symbol"], "side": x["side"], "intent": x["intent"]} for x in plan["legs"]]
+    try:
+        order = broker.submit_spread(legs, int(plan["qty"]), float(plan["limit_price"]), coid)
+    except Exception as e:  # noqa: BLE001
+        journal.log("order_rejected", now=now, symbol=plan.get("symbol"), underlying=r["symbol"], book=book, plan=plan,
+                    error=f"{type(e).__name__}: {e}"[:300])
+        print(f"Roy: the {book} spread was rejected ({type(e).__name__}). Nothing is open.")
+        r.update(decision="skip", reasons=["order_rejected"])
+        return None
+    journal.log("order", now=now, role="entry", order_id=order["order_id"], client_order_id=coid,
+                status=order.get("status"), symbol=plan["symbol"], underlying=r["symbol"], asset="spread", book=book,
+                side="sell", qty=plan["qty"], leg_symbols=[x["symbol"] for x in legs],
+                leg_order_ids=order.get("leg_order_ids") or [], strikes=plan["strikes"], expiry=plan["expiry"],
+                credit=plan["credit"], worst_case=plan["worst_case"], underlying_price=plan["underlying_price"],
+                vix=plan["vix"], sigma=plan["sigma"], signal="premium", context=_mood(),
+                entry_number=r.get("entries_today", 0) + 1)
+    print(f"Roy: paper spread sent ({book}) — sold the {r['symbol']} {plan['strikes'][0]:g}/{plan['strikes'][1]:g} put "
+          f"spread expiring today for ${plan['credit'] * 100:,.2f}; worst case ${plan['worst_case']:,.2f}; "
+          f"bought back at 15:40. Order {order['order_id']} ({order.get('status')}).")
+    r["order"] = order
+    return float(plan["worst_case"])
 
 
 def _submit_entry(now: datetime, broker, r: dict) -> float | None:

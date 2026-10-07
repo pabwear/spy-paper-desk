@@ -1,6 +1,7 @@
 """The order gates. A paper order may be sent only if every check passes.
 
-check_order  — entries (SPY option or SPY shares, whichever is active and enabled)
+check_order  — entries (a book's shares or one option)
+check_spread — a daily credit spread (two legs, capped worst case)
 check_exit   — closing a desk position (stop or the 16:00 flatten)
 
 Pure functions: the caller supplies the clock, the files' contents and what the
@@ -205,6 +206,54 @@ def check_order(
         lvl = plan.get("stop_level")
         add("stop_set", lvl is not None and (lvl < price if signal == "buy" else lvl > price),
             f"stop {lvl} ({plan.get('stop_pct')}%) vs {underlying} {price:.2f}" if lvl is not None else "no stop level")
+    return checks
+
+
+def check_spread(
+    *,
+    now: datetime,
+    base_url: str,
+    client_is_paper: bool,
+    config: dict,
+    rules: dict,
+    book: dict,
+    plan: dict,
+    account_number: str | None,
+    market_open: bool | None,
+    entries_today: int,
+    open_positions: list[dict] | None,
+    open_orders: int | None,
+    money: float | None,
+) -> list[Check]:
+    """A daily credit spread: paper only, inside its entry window, one a day and one open at a time, expiring
+    today, a real credit, and a worst case (width − credit) inside both the book's budget and the money free."""
+    checks: list[Check] = []
+    add = lambda name, ok, detail: checks.append(Check(name, bool(ok), detail))  # noqa: E731
+    _paper_checks(add, base_url=base_url, client_is_paper=client_is_paper, config=config, rules=rules,
+                  account_number=account_number)
+    add("instrument_enabled", book.get("enabled") is True, f"{book.get('id')} {'on' if book.get('enabled') else 'off'}")
+    t = now.astimezone(ET)
+    start, end = (book.get("entry_window") or ["10:00", "11:00"])[:2]
+    add("weekday", t.weekday() < 5, t.strftime("%A"))
+    add("time_window", t.weekday() < 5 and hhmm(start) <= t.time() < hhmm(end), f"{t:%H:%M} ET; entries {start}–{end} ET")
+    add("market_clock", market_open is True, "market open" if market_open else "market closed or not read")
+    cap = int(book.get("max_entries_per_day", 1))
+    add("entries_today", entries_today < cap, f"{entries_today} of {cap} today")
+    if open_positions is None or open_orders is None:
+        add("one_position", False, "positions/orders not read")
+    else:
+        busy = [p["symbol"] for p in open_positions if float(p.get("qty") or 0) != 0]
+        add("one_position", not busy and open_orders == 0, "flat" if not busy and not open_orders else f"open: {busy}")
+    add("expires_today", plan.get("expiry") == t.date().isoformat(), f"expiry {plan.get('expiry')}")
+    add("two_legs", len(plan.get("legs") or []) == 2 and all((x or {}).get("symbol") for x in plan.get("legs") or []),
+        f"{len(plan.get('legs') or [])} legs")
+    credit = float(plan.get("credit") or 0)
+    add("credit_too_small", credit >= 0.05, f"credit ${credit * 100:,.2f} (at least $5)")
+    worst = float(plan.get("worst_case") or 0)
+    budget = float(book.get("budget_usd") or 0)
+    add("worst_case_in_budget", 0 < worst <= budget, f"worst case ${worst:,.2f} vs the book's ${budget:,.0f}")
+    add("worst_case_affordable", money is not None and worst <= float(money),
+        f"worst case ${worst:,.2f} vs ${float(money or 0):,.2f} options buying power")
     return checks
 
 

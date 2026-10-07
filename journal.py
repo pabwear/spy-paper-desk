@@ -56,7 +56,7 @@ def order_context(order_id: str, events: list[dict]) -> dict:
     """The desk's order event for this order id. A fill of the stop Alpaca held for an entry (its stop_order_id)
     has no event of its own yet: that returns a stand-in exit context marked synthetic, for the caller to log."""
     for e in reversed(events):
-        if e.get("event") == "order" and e.get("order_id") == order_id:
+        if e.get("event") == "order" and (e.get("order_id") == order_id or order_id in (e.get("leg_order_ids") or [])):
             return e
     for e in reversed(events):
         if e.get("event") == "order" and e.get("stop_order_id") == order_id:
@@ -177,6 +177,7 @@ def round_trips(trades: list[dict], events: list[dict]) -> list[dict]:
                 "pulse_bias": ctx.get("pulse_bias"), "underlying_entry": ctx.get("underlying_price"),
                 "entry_number": ctx.get("entry_number"), "p_loss": ctx.get("p_loss"),
                 "context": ctx.get("context"), "underlying": instruments.underlying_of(sym), "book": ctx.get("book"),
+                "group": ctx.get("order_id") or t["order_id"],
             }
         if t.get("realized_pnl") not in ("", None):
             trip["pnl"] = round(trip["pnl"] + float(t["realized_pnl"]), 4)

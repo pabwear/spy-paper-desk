@@ -525,7 +525,9 @@ class PaperOnlyTests(DeskTestCase):
         books = rules["books"]
         self.assertEqual([(k, b["symbol"], b["asset"], b["enabled"], b["budget_usd"]) for k, b in books.items()],
                          [("spy_shares", "SPY", "shares", True, 4000), ("sndk_shares", "SNDK", "shares", True, 3000),
-                          ("spy_options", "SPY", "option", True, 3000)])
+                          ("spy_options", "SPY", "option", True, 3000), ("spy_spreads", "SPY", "spread", False, 600)])
+        self.assertEqual((books["spy_spreads"]["spread"], books["spy_spreads"]["max_entries_per_day"],
+                          books["spy_spreads"]["entry_window"]), ({"sd": 1.0, "width": 5}, 1, ["10:00", "11:00"]))
         self.assertEqual((books["spy_shares"]["stop"], books["sndk_shares"]["stop"], books["spy_options"]["stop"]),
                          ({"pct": 0.25}, {"range_fraction": 0.25, "days": 20}, {"pct": 0.25}))
         self.assertTrue(books["spy_shares"]["stop_at_broker"] and books["sndk_shares"]["stop_at_broker"])

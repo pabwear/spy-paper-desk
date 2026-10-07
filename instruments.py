@@ -88,8 +88,10 @@ def books(rules: dict, watch: dict) -> list[dict]:
     if isinstance(cfg, dict):
         for bid, b in cfg.items():
             on = b.get("enabled") is True
+            asset = ("option" if b.get("asset") in ("option", "options")
+                     else "spread" if b.get("asset") in ("spread", "spreads") else "shares")
             out.append({**defaults, **b, "id": bid, "symbol": str(b.get("symbol") or "SPY").upper(),
-                        "asset": "option" if b.get("asset") in ("option", "options") else "shares", "enabled": on,
+                        "asset": asset, "enabled": on,
                         "label": b.get("label") or bid, "why": f"{bid} {'on' if on else 'off'} (rules.json books)"})
         covered = {(b["symbol"], b["asset"]) for b in out}
         for sym, entry in (watch.get("symbols") or {}).items():
@@ -115,13 +117,14 @@ def books_for(symbol: str, rules: dict, watch: dict) -> list[dict]:
 
 
 def book_of(position_symbol: str, all_books: list[dict]) -> dict | None:
-    """The book a position or order belongs to: shares of a book's stock, or an option on it."""
+    """The book a position or order belongs to by its kind: shares of a book's stock, or an option on it (an
+    options book first, else a spread book). Who actually opened an option is in the journal
+    (run_study.position_owner); this is the fallback."""
     occ = parse_occ(position_symbol)
-    for b in all_books:
-        if occ and b["asset"] == "option" and b["symbol"] == occ["underlying"]:
-            return b
-        if not occ and b["asset"] == "shares" and b["symbol"] == position_symbol:
-            return b
+    for kinds in (("option",), ("spread",)) if occ else (("shares",),):
+        for b in all_books:
+            if b["asset"] in kinds and b["symbol"] == (occ["underlying"] if occ else position_symbol):
+                return b
     return None
 
 

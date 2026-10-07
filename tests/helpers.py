@@ -120,7 +120,8 @@ class FakeBroker:
     is_paper = True
 
     def __init__(self, account_number="PA36VOEO5PHB", positions=None, market_open=True, fills=None,
-                 open_orders=None, reject=False, expiries=(0, 1, 2, 7, 9, 14, 21, 28, 35, 42), ask_per_day=0.45, cash=1000.0):
+                 open_orders=None, reject=False, expiries=(0, 1, 2, 7, 9, 14, 21, 28, 35, 42), ask_per_day=0.45, cash=1000.0,
+                 quote_fn=None, reject_spread_close=False):
         self.account_number = account_number
         self._positions = positions or []
         self._market_open = market_open
@@ -132,6 +133,10 @@ class FakeBroker:
         self._cash = cash
         self.submitted: list[dict] = []
         self.cancelled: list[str] = []  # symbols whose open orders were cancelled, in order
+        self._quote_fn = quote_fn  # strike -> (bid, ask) for option_quotes
+        self._reject_spread_close = reject_spread_close
+        self.spreads: list[dict] = []        # two-leg orders sent to open
+        self.spread_closes: list[dict] = []  # two-leg orders sent to close
 
     def positions(self):
         return list(self._positions)
@@ -151,12 +156,14 @@ class FakeBroker:
     def filled_orders_since(self, since):
         return list(self._fills)
 
-    def option_contracts(self, right, around, today, underlying="SPY"):
+    def option_contracts(self, right, around, today, underlying="SPY", first=None, last=None):
         from instruments import occ_symbol
 
         out = []
         for d in self._expiries:
             exp = today + timedelta(days=d)
+            if (first and exp < first) or (last and exp > last):
+                continue
             for k in range(int(around) - 3, int(around) + 4):
                 out.append({"symbol": occ_symbol(underlying, exp, right, k), "expiry": exp, "right": right,
                             "strike": float(k), "tradable": True})
@@ -171,6 +178,33 @@ class FakeBroker:
             if o:
                 out[sym] = round(2.0 + self._ask_per_day * (o["expiry"] - THURSDAY.date()).days, 2)
         return out
+
+    def option_quotes(self, symbols):
+        from instruments import parse_occ
+
+        out = {}
+        for sym in symbols:
+            o = parse_occ(sym)
+            if o and self._quote_fn:
+                bid, ask = self._quote_fn(o["strike"])
+                out[sym] = {"bid": bid, "ask": ask}
+        return out
+
+    def submit_spread(self, legs, qty, limit_price, client_order_id):
+        if self._reject:
+            raise RuntimeError("insufficient options buying power")
+        self.spreads.append({"legs": legs, "qty": qty, "limit_price": limit_price, "client_order_id": client_order_id})
+        n = len(self.spreads)
+        return {"order_id": f"spread-{n}", "status": "accepted", "submitted_at": "now",
+                "leg_order_ids": [f"spread-{n}-{i}" for i in range(len(legs))]}
+
+    def close_spread(self, legs, qty, client_order_id):
+        if self._reject_spread_close:
+            raise RuntimeError("mleg uncovered short contracts not allowed, please use single leg order")
+        self.spread_closes.append({"legs": legs, "qty": qty, "client_order_id": client_order_id})
+        n = len(self.spread_closes)
+        return {"order_id": f"close-{n}", "status": "accepted", "submitted_at": "now",
+                "leg_order_ids": [f"close-{n}-{i}" for i in range(len(legs))]}
 
     def submit_market_with_stop(self, qty, stop_price, client_order_id, symbol="SPY"):
         if self._reject:

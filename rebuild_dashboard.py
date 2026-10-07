@@ -39,7 +39,9 @@ def _desk_positions(account: dict, events: list[dict], rules: dict, risk: dict, 
         underlying = instruments.underlying_of(p["symbol"])
         ref = entry.get("underlying_price") or (p.get("avg_entry_price") if p["symbol"] == underlying else None)
         occ = instruments.parse_occ(p["symbol"])
-        book = instruments.book_of(p["symbol"], all_books) or {}
+        from run_study import position_owner
+
+        book = position_owner(p["symbol"], events, all_books) or {}
         level = (float(entry["stop_level"]) if entry.get("stop_level") is not None
                  else instruments.stop_level(exposure, float(ref), pct) if ref else None)
         opened = to_et(entry.get("ts"))
@@ -122,8 +124,17 @@ def _books_state(rules: dict, events: list[dict], trips: list[dict], positions: 
     all_books = instruments.books(rules, w)
     out = []
     for b in all_books:
-        mine = [t for t in trips if (t.get("book") or (instruments.book_of(t.get("symbol") or "", all_books) or {}).get("id"))
+        legs = [t for t in trips if (t.get("book") or (instruments.book_of(t.get("symbol") or "", all_books) or {}).get("id"))
                 == b["id"] and t.get("closed_at")]
+        # a spread's two legs are one trade: join trips opened by the same order
+        grouped: dict[str, dict] = {}
+        for t in legs:
+            g = grouped.setdefault(t.get("group") or t.get("opened_at"), {**t, "pnl": 0.0, "legs": 0})
+            g["pnl"] = round(g["pnl"] + float(t.get("pnl") or 0), 2)
+            g["legs"] += 1
+            g["closed_at"] = max(g["closed_at"], t["closed_at"])
+            g["result"] = "win" if g["pnl"] > 0 else "loss" if g["pnl"] < 0 else "scratch"
+        mine = sorted(grouped.values(), key=lambda t: t["closed_at"])
         pnl = [float(t.get("pnl") or 0) for t in mine]
         cum, series = 0.0, []
         for t, v in zip(mine, pnl):
@@ -131,7 +142,10 @@ def _books_state(rules: dict, events: list[dict], trips: list[dict], positions: 
             series.append({"t": t["closed_at"], "v": round(cum, 2)})
         out.append({
             "id": b["id"], "label": b["label"], "symbol": b["symbol"], "asset": b["asset"], "enabled": b["enabled"],
-            "budget_usd": b.get("budget_usd"), "stop": _stop_text(b.get("stop")), "stop_at_broker": bool(b.get("stop_at_broker")),
+            "budget_usd": b.get("budget_usd"),
+            "stop": (f"none: the worst case is capped by the ${float((b.get('spread') or {}).get('width', 5)):g}-wide spread"
+                     if b["asset"] == "spread" else _stop_text(b.get("stop"))),
+            "stop_at_broker": bool(b.get("stop_at_broker")),
             "max_hold_minutes": b.get("max_hold_minutes"), "max_entries_per_day": b.get("max_entries_per_day"),
             "purpose": b.get("purpose"), "entries_today": book_entries_on(events, now.date(), b, all_books),
             "positions": [p for p in positions if p.get("book") == b["id"]],
