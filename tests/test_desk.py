@@ -10,10 +10,11 @@ import json
 import os
 import threading
 import unittest
-from datetime import date
+from datetime import date, timedelta
 from unittest import mock
 
-from helpers import SATURDAY, THURSDAY, DeskTestCase, FakeBroker, at, falling_bars, rising_bars, use_shares
+from helpers import (BOTH_AREAS, ORIGINAL_EXITS, SATURDAY, THURSDAY, DeskTestCase, FakeBroker, at, falling_bars,
+                     rising_bars, set_rules, use_shares)
 
 import alpaca_client
 import console
@@ -66,7 +67,16 @@ class GateTests(DeskTestCase):
         self.assertTrue(passed(checks), failures(checks))
 
     def test_two_confluence_signals_required(self):
+        set_rules(min_confluence=2)  # the original rule; the current setup asks for none
         self.assertIn("confluence", failures(self.base(tags=["rsi"])))
+
+    def test_current_setup_needs_no_extra_signals(self):
+        self.assertNotIn("confluence", failures(self.base(tags=[])))
+
+    def test_put_area_is_off_in_the_current_setup(self):
+        green = self.base(plan=option_plan(signal="sell", right="put", symbol="SPY261001P00610000"),
+                          zone=GREEN, price=610.0, override={**load_json("aoi_override.json"), "zones": [RED, GREEN]})
+        self.assertIn("area_traded", failures(green))
 
     def test_max_two_entries_a_day(self):
         self.assertNotIn("entries_today", failures(self.base(entries_today=1)))
@@ -82,6 +92,7 @@ class GateTests(DeskTestCase):
         self.assertIn("option_one_contract", failures(self.base(plan=option_plan(order_side="sell"))))
 
     def test_call_on_buy_put_on_sell(self):
+        set_rules(trade_colors=BOTH_AREAS)
         self.assertIn("option_right", failures(self.base(plan=option_plan(right="put"))))
         green = self.base(plan=option_plan(signal="sell", right="put", symbol="SPY261001P00610000"),
                           zone=GREEN, price=610.0,
@@ -222,14 +233,37 @@ class RunTests(DeskTestCase):
         o = broker.submitted[0]
         self.assertEqual((o["side"], o["qty"], o["intent"]), ("buy", 1, "buy_to_open"))
         occ = instruments.parse_occ(o["symbol"])
+        # about 30 days out, but one contract must fit $1,000: at $2 + $0.45 a day, 14 days ($830) is the closest
         self.assertEqual((occ["underlying"], occ["right"], occ["expiry"], occ["strike"]),
-                         ("SPY", "call", date(2026, 10, 1), 590.0))
+                         ("SPY", "call", date(2026, 10, 15), 590.0))
         entry = [e for e in journal.read_events() if e["event"] == "order"][0]
         self.assertEqual(entry["role"], "entry")
         self.assertIn("features", entry)
         self.assertIsNotNone(entry["underlying_price"])
 
+    def test_original_rule_buys_the_nearest_expiry(self):
+        set_rules(option={"expiry_target_days": 0})
+        publish(THURSDAY, [RED])
+        broker = FakeBroker()
+        self.paper(broker)
+        self.assertEqual(instruments.parse_occ(broker.submitted[0]["symbol"])["expiry"], date(2026, 10, 1))
+
+    def test_no_affordable_contract_no_order(self):
+        publish(THURSDAY, [RED])
+        broker = FakeBroker(ask_per_day=2.0)  # even 7 days out costs $1,600
+        r = self.paper(broker)
+        self.assertEqual(broker.submitted, [])
+        self.assertIn("no_contract", r["reasons"])
+
+    def test_green_area_sends_nothing_now(self):
+        publish(THURSDAY, [GREEN])
+        broker = FakeBroker()
+        r = self.paper(broker, bars=rising_bars(THURSDAY, at(THURSDAY, 10, 30)))
+        self.assertEqual(broker.submitted, [])
+        self.assertIn("area_traded", r["reasons"])
+
     def test_sell_in_green_sends_one_put(self):
+        set_rules(trade_colors=BOTH_AREAS)
         publish(THURSDAY, [RED, GREEN])
         broker = FakeBroker()
         now = at(THURSDAY, 10, 30)
@@ -302,8 +336,11 @@ class RunTests(DeskTestCase):
 
 
 class ExitTests(DeskTestCase):
+    """The exit mechanics, on the original 0.35% stop with no time limit."""
+
     def setUp(self):
         super().setUp()
+        set_rules(**ORIGINAL_EXITS)
         journal.log("order", now=at(THURSDAY, 10, 5), role="entry", order_id="e1", symbol=CALL_590,
                     underlying_price=600.0)
 
@@ -365,6 +402,32 @@ class ExitTests(DeskTestCase):
         self.assertEqual(len(broker.submitted), 1)
         self.assertEqual(r["reasons"], ["exit_in_progress"])
 
+
+
+class CurrentSetupExitTests(DeskTestCase):
+    """Today's setup: a 0.25% stop and out after 30 minutes."""
+
+    def setUp(self):
+        super().setUp()
+        journal.log("order", now=at(THURSDAY, 10, 5), role="entry", order_id="e1", symbol=CALL_590,
+                    underlying_price=600.0)
+
+    def manage(self, now, last_price):
+        broker = FakeBroker(positions=[{"symbol": CALL_590, "qty": 1.0, "avg_entry_price": 9.0}])
+        bars = falling_bars(THURSDAY, now, start=600.4, end=last_price)
+        bars[-1]["c"] = last_price
+        return run_study.cmd_manage(now, broker, bars=bars)
+
+    def test_held_inside_the_first_30_minutes(self):
+        self.assertEqual(self.manage(at(THURSDAY, 10, 25), 599.0), [])  # 0.17% against, 20 minutes in
+
+    def test_tighter_stop(self):
+        self.assertEqual(len(self.manage(at(THURSDAY, 10, 25), 598.45)), 1)  # stop 598.50
+        self.assertEqual([e for e in journal.read_events() if e["event"] == "order"][-1]["reason"], "stop")
+
+    def test_out_after_30_minutes(self):
+        self.assertEqual(len(self.manage(at(THURSDAY, 10, 35), 600.2)), 1)
+        self.assertEqual([e for e in journal.read_events() if e["event"] == "order"][-1]["reason"], "time")
 
 class LedgerTests(DeskTestCase):
     def test_average_cost_long_round_trip(self):
@@ -435,7 +498,9 @@ class PaperOnlyTests(DeskTestCase):
         self.assertEqual((rules["active"], rules["shares_enabled"], rules["sndk_enabled"],
                           rules["spy_options_enabled"], rules["min_confluence"], rules["max_entries_per_day"],
                           rules["stop_underlying_pct"], rules["live_trading"]),
-                         ("spy_options", False, False, True, 2, 2, 0.35, False))
+                         ("spy_options", False, False, True, 0, 2, 0.25, False))
+        self.assertEqual((rules["trade_colors"], rules["max_hold_minutes"], rules["option"]["expiry_target_days"],
+                          rules["option"]["expiry_min_days"], rules["option"]["max_cost_usd"]), (["red"], 30, 30, 7, 1000))
         self.assertFalse(json.loads((DESK / "alpaca_config.json").read_text())["live_unlocked"])
 
     def test_env_alpaca_is_gitignored(self):
@@ -508,3 +573,40 @@ class ConsoleTests(DeskTestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+
+class ExpiryPickTests(unittest.TestCase):
+    """instruments.pick_contract with an expiry target: about N days out, at least M, affordable."""
+
+    def contracts(self, days):
+        from instruments import occ_symbol
+
+        today = date(2026, 10, 1)
+        cs = [{"symbol": occ_symbol("SPY", today + timedelta(days=d), "call", k), "expiry": today + timedelta(days=d),
+               "right": "call", "strike": float(k), "tradable": True} for d in days for k in (589, 590, 591)]
+        return today, cs
+
+    def test_closest_to_target_that_fits(self):
+        today, cs = self.contracts([0, 7, 14, 28, 35])
+        asks = {c["symbol"]: round(2 + 0.3 * (c["expiry"] - today).days, 2) for c in cs}  # 28 days: $1,040, too much
+        p = instruments.pick_contract(cs, 590.2, "call", today, 30, 7, 1000, asks)
+        self.assertEqual(((p["expiry"] - today).days, p["strike"], p["cost"]), (14, 590.0, 620.0))
+        self.assertTrue(p["expiry_ok"])
+
+    def test_target_when_affordable_and_never_under_the_minimum(self):
+        today, cs = self.contracts([0, 3, 28, 35])
+        cheap = {c["symbol"]: 5.0 for c in cs}
+        self.assertEqual((instruments.pick_contract(cs, 590.0, "call", today, 30, 7, 1000, cheap)["expiry"] - today).days, 28)
+        dear = {c["symbol"]: 20.0 for c in cs if (c["expiry"] - today).days >= 7}
+        dear.update({c["symbol"]: 1.0 for c in cs if (c["expiry"] - today).days < 7})
+        self.assertIsNone(instruments.pick_contract(cs, 590.0, "call", today, 30, 7, 1000, dear))
+
+    def test_no_quote_no_pick(self):
+        today, cs = self.contracts([28])
+        self.assertIsNone(instruments.pick_contract(cs, 590.0, "call", today, 30, 7, 1000, {}))
+
+    def test_original_rule_unchanged(self):
+        today, cs = self.contracts([0, 7])
+        p = instruments.pick_contract(cs, 590.0, "call", today)
+        self.assertEqual((p["expiry"], p["expiry_is_nearest"]), (today, True))

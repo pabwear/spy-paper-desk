@@ -6,7 +6,7 @@ import http.client
 import json
 import threading
 
-from helpers import THURSDAY, DeskTestCase, FakeBroker, at, falling_bars, rising_bars
+from helpers import BOTH_AREAS, ORIGINAL_EXITS, THURSDAY, DeskTestCase, FakeBroker, at, falling_bars, rising_bars, set_rules
 
 import console
 import instruments
@@ -108,6 +108,7 @@ class FocusTests(DeskTestCase):
         self.assertEqual(load_json("aoi_override.TSLA.json")["zones"][0]["low"], 300.0)
 
     def test_sell_signal_on_nvda_buys_a_put(self):
+        set_rules(trade_colors=BOTH_AREAS)
         run_study.set_focus("NVDA", True)
         run_study.set_trading("NVDA", "options", True)
         publish("NVDA", [GREEN_NVDA])
@@ -132,6 +133,7 @@ class FocusTests(DeskTestCase):
         self.assertEqual(len(sent), 1)
 
     def test_nvda_stop_uses_nvda_price(self):
+        set_rules(**ORIGINAL_EXITS)
         run_study.set_focus("NVDA", True)
         run_study.set_trading("NVDA", "options", True)
         sym = "NVDA261001C00190000"

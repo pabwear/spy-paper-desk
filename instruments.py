@@ -4,7 +4,8 @@ Pure: no I/O. Paths that are switched off stay here so turning them back on is a
 config change, not a rewrite.
 
     options  one long call (buy signal) or put (sell signal), 1 contract,
-             nearest listed expiry, strike nearest the dollar to the stock
+             strike nearest the dollar to the stock; the nearest listed expiry, or (rules.json
+             option.expiry_target_days) the expiry about that many days out that the account can afford
     shares   shares sized off risk.json (80% of the $1,000 book = $800)
 
 Which one a symbol uses, and whether it may trade:
@@ -141,19 +142,43 @@ def plan_entry(inst: dict, signal: str, price: float, risk: dict, rules: dict) -
     return {**base, "order_side": None, "qty": 0, "symbol": None}
 
 
-def pick_contract(contracts: list[dict], price: float, right: str, today: date) -> dict | None:
-    """Nearest listed expiry on or after today, then the listed strike nearest the dollar to SPY.
+def pick_contract(contracts: list[dict], price: float, right: str, today: date, target_days: int = 0,
+                  min_days: int = 0, max_cost: float | None = None, asks: dict[str, float] | None = None) -> dict | None:
+    """The strike nearest the dollar to the stock, on the expiry the rules ask for.
 
-    contracts: [{symbol, expiry (date), right, strike, tradable}]
+    target_days 0: the nearest listed expiry on or after today (the desk's original rule).
+    target_days N: the expiry closest to N days out (a later one wins a tie), at least min_days out, whose ask
+    × 100 is at most max_cost; an expiry without a quote is skipped. None when nothing qualifies.
+
+    contracts: [{symbol, expiry (date), right, strike, tradable}]; asks: {symbol: ask per share}
     """
     usable = [c for c in contracts if c.get("tradable", True) and c["right"] == right and c["expiry"] >= today]
     if not usable:
         return None
+    if target_days:
+        target = float(round(price))
+        options = []
+        for exp in sorted({c["expiry"] for c in usable}):
+            days = (exp - today).days
+            if days < min_days:
+                continue
+            on_day = [c for c in usable if c["expiry"] == exp]
+            best = min(on_day, key=lambda c: (abs(c["strike"] - target), abs(c["strike"] - price)))
+            ask = (asks or {}).get(best["symbol"])
+            if ask is None or (max_cost is not None and ask * 100 > max_cost):
+                continue
+            options.append((abs(days - target_days), -days, best, ask, on_day))
+        if not options:
+            return None
+        _, _, best, ask, on_day = min(options, key=lambda o: (o[0], o[1]))
+        return {**best, "target_strike": target, "ask": ask, "cost": round(ask * 100, 2), "expiry_is_nearest": False,
+                "expiry_ok": True, "expiry_rule": f"about {target_days} days out (at least {min_days}), affordable",
+                "strike_is_nearest": abs(best["strike"] - target) == min(abs(c["strike"] - target) for c in on_day)}
     nearest_expiry = min(c["expiry"] for c in usable)
     target = float(round(price))
     same_day = [c for c in usable if c["expiry"] == nearest_expiry]
     best = min(same_day, key=lambda c: (abs(c["strike"] - target), abs(c["strike"] - price)))
-    return {**best, "target_strike": target, "expiry_is_nearest": True,
+    return {**best, "target_strike": target, "expiry_is_nearest": True, "expiry_ok": True, "expiry_rule": "nearest listed",
             "strike_is_nearest": abs(best["strike"] - target) == min(abs(c["strike"] - target) for c in same_day)}
 
 

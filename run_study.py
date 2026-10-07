@@ -174,7 +174,7 @@ def cmd_auto_zones(now: datetime, source: Bars) -> list[str]:
 
 def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[dict] | None = None, fetch=None,
              account_number: str | None = None, market_open: bool | None = None, client_is_paper: bool = True,
-             base_url: str | None = None, open_orders: int | None = None, contract_picker=None) -> dict:
+             base_url: str | None = None, open_orders: int | None = None, contract_picker=None, quote_picker=None) -> dict:
     """Decide on an entry for one symbol. Pure decision logic over the desk files, the bars and what the caller passes in.
 
     Never orders. contract_picker(right, price, today, underlying) -> listed contracts; only `paper` passes one.
@@ -256,12 +256,32 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
         except Exception as e:  # noqa: BLE001
             result.update(reasons=["no_contract"], plan=plan, error=f"contract lookup: {type(e).__name__}: {e}"[:300])
             return result
-        picked = instruments.pick_contract(listed, price, plan["right"], today)
+        opt = rules.get("option", {})
+        target_days, min_days = int(opt.get("expiry_target_days", 0) or 0), int(opt.get("expiry_min_days", 0) or 0)
+        max_cost = float(opt.get("max_cost_usd") or rules.get("book_usd") or 1000)
+        asks = {}
+        if target_days:
+            # the nearest-dollar strike on each expiry in the window, priced before choosing
+            near = {}
+            for c in listed:
+                k = c["expiry"]
+                if k not in near or abs(c["strike"] - round(price)) < abs(near[k]["strike"] - round(price)):
+                    near[k] = c
+            try:
+                asks = quote_picker([c["symbol"] for c in near.values()]) if quote_picker else {}
+            except Exception as e:  # noqa: BLE001
+                result.update(reasons=["no_contract"], plan=plan, error=f"option quotes: {type(e).__name__}: {e}"[:300])
+                return result
+        picked = instruments.pick_contract(listed, price, plan["right"], today, target_days, min_days, max_cost, asks)
         if picked is None:
-            result.update(reasons=["no_contract"], plan=plan, note=f"No listed {symbol} contract for that right.")
+            why = (f"No {symbol} {plan['right']} at least {min_days} days out costs ${max_cost:,.0f} or less right now."
+                   if target_days else f"No listed {symbol} contract for that right.")
+            result.update(reasons=["no_contract"], plan=plan, note=why)
             return result
         plan.update(symbol=picked["symbol"], strike=picked["strike"], expiry=picked["expiry"].isoformat(),
-                    expiry_is_nearest=picked["expiry_is_nearest"], strike_is_nearest=picked["strike_is_nearest"])
+                    expiry_is_nearest=picked["expiry_is_nearest"], strike_is_nearest=picked["strike_is_nearest"],
+                    expiry_ok=picked["expiry_ok"], expiry_rule=picked["expiry_rule"], ask=picked.get("ask"),
+                    cost=picked.get("cost"))
 
     features = learning.features_at_entry(signal=signal, tags=tags, market=market, ranked=best, now=now,
                                           pulse_bias=bias, entries_today=entries_today)
@@ -368,7 +388,8 @@ def desk_underlyings(events: list[dict]) -> set[str]:
 
 
 def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
-    """Close a desk position when its stock moves 0.35% against the entry, or from the flatten time on.
+    """Close a desk position when its stock moves the stop % against the entry, when it has been held
+    rules.json max_hold_minutes, or from the flatten time on.
 
     Leaving the zone is NOT an exit. Exits are allowed even if the instrument was switched off.
     Positions the desk never opened (e.g. a manual SNDK holding with SNDK switched off) are left alone.
@@ -385,6 +406,7 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
     source = _bars(now, bars, fetch)
     weights = load_json("learning_weights.json", {})
     pct = float(rules.get("stop_underlying_pct", 0.35))
+    hold_min = int(rules.get("max_hold_minutes") or 0)
     snap = broker.account_snapshot()
     market_open = broker.market_open()
     sent = []
@@ -409,6 +431,8 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
             reason = "overnight"  # should never exist; close it at the first chance
         elif level is not None and market is not None and instruments.stop_hit(exposure, market["price"], level):
             reason = "stop"
+        elif hold_min and opened is not None and (t - opened).total_seconds() >= hold_min * 60:
+            reason = "time"  # rules.json max_hold_minutes: out once the trade has had its time
         elif level is None:
             journal.log("exit_failed", now=now, reasons=["no_stop_reference"], symbol=p["symbol"],
                         note=f"No entry {underlying} price on record; only the flatten applies.")
@@ -436,7 +460,8 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
         journal.log("order", now=now, role="exit", reason=reason, order_id=order["order_id"], client_order_id=coid,
                     status=order.get("status"), symbol=p["symbol"], underlying=underlying, side=side, qty=abs(qty),
                     underlying_price=px, stop_level=level)
-        msg = {"stop": "stop hit", "flatten": "16:00 flatten", "overnight": "held overnight — closing"}[reason]
+        msg = {"stop": "stop hit", "flatten": "16:00 flatten", "overnight": "held overnight — closing",
+               "time": f"{hold_min}-minute time limit"}[reason]
         print(f"Roy: closing {p['symbol']} ({msg}) — {side} {abs(qty):g}"
               + (f"; {underlying} {px:.2f} vs stop {level:.2f}" if reason == "stop" else "") + ".")
         sent.append(order)
@@ -486,7 +511,8 @@ def cmd_paper(now: datetime, broker_factory=None, bars=None, fetch=None) -> dict
         results = evaluate_focus(now, source, positions=snap.get("positions"),
                                  account_number=snap.get("account_number"), market_open=broker.market_open(),
                                  client_is_paper=broker.is_paper, base_url=broker.base_url,
-                                 open_orders=len(broker.open_orders()), contract_picker=broker.option_contracts)
+                                 open_orders=len(broker.open_orders()), contract_picker=broker.option_contracts,
+                                 quote_picker=getattr(broker, "option_asks", None))
     r = pick(results)
     for other in results:
         if other is not r:

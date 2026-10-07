@@ -65,6 +65,23 @@ def rising_bars(day: datetime, until: datetime, start: float = 600.0, end: float
     return falling_bars(day, until, start=start, end=end, last_volume=last_volume)
 
 
+def set_rules(**kw) -> None:
+    """Change rules.json in the test desk (for tests that check a rule other than the desk's current setup)."""
+    from common import load_json, save_json
+
+    r = load_json("rules.json")
+    for k, v in kw.items():
+        if isinstance(v, dict) and isinstance(r.get(k), dict):
+            r[k] = {**r[k], **v}
+        else:
+            r[k] = v
+    save_json("rules.json", r)
+
+
+BOTH_AREAS = ["red", "green"]
+ORIGINAL_EXITS = {"stop_underlying_pct": 0.35, "max_hold_minutes": 0}
+
+
 def use_shares(enabled: bool = True) -> None:
     from common import load_json, save_json
 
@@ -80,7 +97,7 @@ class FakeBroker:
     is_paper = True
 
     def __init__(self, account_number="PA36VOEO5PHB", positions=None, market_open=True, fills=None,
-                 open_orders=None, reject=False, expiries=(0, 1, 2)):
+                 open_orders=None, reject=False, expiries=(0, 1, 2, 7, 9, 14, 21, 28, 35, 42), ask_per_day=0.45):
         self.account_number = account_number
         self._positions = positions or []
         self._market_open = market_open
@@ -88,6 +105,7 @@ class FakeBroker:
         self._open = open_orders or []
         self._reject = reject
         self._expiries = expiries
+        self._ask_per_day = ask_per_day  # a contract's ask: $2 plus this much per day to expiry
         self.submitted: list[dict] = []
 
     def positions(self):
@@ -117,6 +135,16 @@ class FakeBroker:
             for k in range(int(around) - 3, int(around) + 4):
                 out.append({"symbol": occ_symbol(underlying, exp, right, k), "expiry": exp, "right": right,
                             "strike": float(k), "tradable": True})
+        return out
+
+    def option_asks(self, symbols):
+        from instruments import parse_occ
+
+        out = {}
+        for sym in symbols:
+            o = parse_occ(sym)
+            if o:
+                out[sym] = round(2.0 + self._ask_per_day * (o["expiry"] - THURSDAY.date()).days, 2)
         return out
 
     def submit_market(self, side, qty, client_order_id, symbol="SPY", intent=None):

@@ -253,6 +253,11 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
         risk_usd = book * float(risk.get("max_risk_pct_per_idea", 10)) / 100
         contracts = int((rules.get("option") or {}).get("contracts", 1))
         plans = trade_plans(bars, now, cfg, today_zones, zones_from, stop, risk_usd, contracts) if cfg else None
+        if isinstance(plans, dict) and plans.get("plans"):
+            colors = rules.get("trade_colors") or ["red", "green"]
+            plans["trade_colors"] = colors
+            for p in plans["plans"]:
+                p["traded"] = p.get("color") in colors  # the desk only takes trades in these areas
     except Exception as e:  # noqa: BLE001 - a plan problem never stops the chart
         plans = {"error": f"{type(e).__name__}: {e}"[:200]}
     return {

@@ -8,7 +8,7 @@
     "source": "Live Mxwll boxes read from Roy's TradingView during 09:30-09:59 ET the same day",
     "trade_only_inside": true,
     "buy": "RED only",
-    "sell_short_tp": "GREEN only",
+    "sell_short_tp": "GREEN only (switched off: trade_colors is red only)",
     "no_chase_outside_zones": true,
     "stale_or_approx_not_tradable": true
   },
@@ -35,13 +35,16 @@
     "right_on_sell": "put",
     "contracts": 1,
     "strike": "atm_nearest_dollar",
-    "expiry": "nearest_listed"
+    "expiry": "about 30 days out, at least 7, that one contract can afford",
+    "expiry_target_days": 30,
+    "expiry_min_days": 7,
+    "max_cost_usd": 1000
   },
-  "stop_underlying_pct": 0.35,
+  "stop_underlying_pct": 0.25,
   "exit_on_zone_leave": false,
-  "hold_to": "16:00 ET",
+  "hold_to": "30 minutes at most (max_hold_minutes), and never past the 15:40 flatten",
   "overnight": false,
-  "min_confluence": 2,
+  "min_confluence": 0,
   "max_entries_per_day": 2,
   "max_open_positions": 1,
   "watch_only": "09:30-09:59 ET",
@@ -82,5 +85,10 @@
       "external_sensitivity": 25,
       "order_blocks_kept": 10
     }
-  }
+  },
+  "trade_colors": [
+    "red"
+  ],
+  "max_hold_minutes": 30,
+  "setup_note": "Since 2026-10-07: the setup that came closest to break-even in the backtest (backtests/areas.md on desk-state; touch, red area only, no 2-signal minimum, 0.25% stop, sell after 30 minutes, a ~30-day option). It still lost a little in the backtest; this is paper practice, not a proven edge."
 }

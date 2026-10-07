@@ -5,10 +5,24 @@ a $1,000 book. It fades the Mxwll Price Action Suite areas of interest:
 buy only in red, sell only in green, and only after the 09:30–09:59 ET open has
 produced real zones from Roy's TradingView chart.
 
-**Active instrument: SPY options.** One long contract per signal: a call on a
-buy (red), a put on a sell (green), nearest listed expiry, strike nearest the
-dollar to SPY. SPY shares stay in the code, switched off. SNDK has a switch
+**Active instrument: SPY options.** One long contract per signal, strike nearest
+the dollar to SPY. SPY shares stay in the code, switched off. SNDK has a switch
 that is off. No SNDK strategy exists in this codebase.
+
+**Current setup (since 2026-10-07).** The settings that came closest to break-even
+in the six-year backtest (`backtest_areas.py`; results in `backtests/areas.md` on
+desk-state). It still lost a little there, so this is paper practice, not a proven edge.
+
+| Setting (`rules.json`) | Now | Originally |
+|---|---|---|
+| `trade_colors` | `["red"]`: a call in the red area only | red and green (puts in green) |
+| `min_confluence` | 0 (signals still logged) | 2 |
+| `stop_underlying_pct` | 0.25 | 0.35 |
+| `max_hold_minutes` | 30 (checked each run, so about 30–40 minutes) | none (to the flatten) |
+| `option.expiry_target_days` / `expiry_min_days` / `max_cost_usd` | about 30 days out, at least 7, one contract at most $1,000 (priced from Alpaca's free option quotes before choosing; no affordable expiry → no trade) | nearest listed expiry |
+
+Where the rest of this README says 0.35 %, two signals, puts in green or the nearest
+expiry, it describes the original rules; the table wins.
 
 This is a simulated study, not financial advice. It never places a live order.
 

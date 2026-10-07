@@ -144,6 +144,10 @@ def check_order(
     add("zone_color_matches_side", bool(zone) and want is not None and zone.get("color") == want,
         f"{signal} needs {want}; zone is {zone.get('color') if zone else '(none)'}")
 
+    colors = rules.get("trade_colors") or ["red", "green"]
+    add("area_traded", bool(zone) and zone.get("color") in colors,
+        f"the desk trades the {' and '.join(colors)} area{'s' if len(colors) > 1 else ''}; this is {zone.get('color') if zone else '(none)'}")
+
     need = int(rules.get("min_confluence", 2))
     add("confluence", len(tags) >= need, f"{len(tags)} of {need} needed: {', '.join(tags) or 'none'}")
 
@@ -166,7 +170,7 @@ def check_order(
             and plan.get("order_side") == "buy", f"{plan.get('qty')} contract(s), {plan.get('order_side')} to open")
         occ = instruments.parse_occ(plan.get("symbol") or "")
         contract_ok = bool(occ and occ["underlying"] == underlying and occ["right"] == plan.get("right")
-                           and plan.get("expiry_is_nearest") and plan.get("strike_is_nearest"))
+                           and plan.get("expiry_ok", plan.get("expiry_is_nearest")) and plan.get("strike_is_nearest"))
         add("option_contract", contract_ok,
             f"{plan.get('symbol')} (strike {occ['strike']:g}, exp {occ['expiry']})" if occ else "no contract chosen")
     else:

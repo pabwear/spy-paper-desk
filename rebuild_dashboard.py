@@ -226,6 +226,8 @@ def build_state(now: datetime | None = None) -> dict:
             "hold_to": rules.get("hold_to"),
             "overnight": rules.get("overnight"),
             "min_confluence": rules.get("min_confluence"),
+            "trade_colors": rules.get("trade_colors") or ["red", "green"],
+            "max_hold_minutes": rules.get("max_hold_minutes") or 0,
             "max_entries_per_day": rules.get("max_entries_per_day"),
             "entries_today": entries_today,
             "entry_cutoff": risk.get("entry_cutoff"),

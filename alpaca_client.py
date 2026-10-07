@@ -144,20 +144,38 @@ class PaperBroker:
         return out
 
     def option_contracts(self, right: str, around: float, today: date, underlying: str = "SPY") -> list[dict]:
-        """Listed, active contracts of one right, expiring within 7 days, strikes within ±5 (or ±3%)."""
+        """Listed, active contracts of one right, strikes within ±5 (or ±3%), expiring in the window rules.json
+        asks for: within 7 days by default, or from expiry_min_days to expiry_target_days + 14."""
         from alpaca.trading.enums import AssetStatus, ContractType
         from alpaca.trading.requests import GetOptionContractsRequest
 
+        opt = (load_json("rules.json", {}) or {}).get("option", {})
+        target, least = int(opt.get("expiry_target_days", 0) or 0), int(opt.get("expiry_min_days", 0) or 0)
+        first, last = (today + timedelta(days=least), today + timedelta(days=target + 14)) if target else (today, today + timedelta(days=7))
         width = max(5.0, around * 0.03)
         req = GetOptionContractsRequest(
             underlying_symbols=[underlying], status=AssetStatus.ACTIVE,
             type=ContractType.CALL if right == "call" else ContractType.PUT,
-            expiration_date_gte=today.isoformat(), expiration_date_lte=(today + timedelta(days=7)).isoformat(),
+            expiration_date_gte=first.isoformat(), expiration_date_lte=last.isoformat(),
             strike_price_gte=f"{max(around - width, 0.5):.2f}", strike_price_lte=f"{around + width:.2f}", limit=500,
         )
         res = self._client.get_option_contracts(req)
         return [{"symbol": c.symbol, "expiry": c.expiration_date, "right": right, "strike": float(c.strike_price),
                  "tradable": bool(c.tradable)} for c in (res.option_contracts or [])]
+
+    def option_asks(self, symbols: list[str]) -> dict[str, float]:
+        """Latest asks for option contracts (Alpaca's free indicative feed). Missing quotes are left out."""
+        from alpaca.data.enums import OptionsFeed
+        from alpaca.data.historical.option import OptionHistoricalDataClient
+        from alpaca.data.requests import OptionLatestQuoteRequest
+
+        if not symbols:
+            return {}
+        key, secret = _keys()
+        client = OptionHistoricalDataClient(key, secret)
+        quotes = client.get_option_latest_quote(OptionLatestQuoteRequest(symbol_or_symbols=list(symbols),
+                                                                         feed=OptionsFeed.INDICATIVE))
+        return {s: float(q.ask_price) for s, q in quotes.items() if q is not None and q.ask_price}
 
     # -- writes (paper only)
     def submit_market(self, side: str, qty: float, client_order_id: str, symbol: str = "SPY",
