@@ -1,5 +1,8 @@
 {
-  "focus": ["SPY"],
+  "focus": [
+    "SPY",
+    "SNDK"
+  ],
   "symbols": {
     "SPY": {
       "chart": "https://www.tradingview.com/chart/pY9HoHBw/?symbol=AMEX:SPY",
