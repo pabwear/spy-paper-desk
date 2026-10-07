@@ -1,18 +1,18 @@
 {
   "date": "2026-10-07",
   "bias": "neutral",
-  "written_at": "2026-10-07T12:07:35-04:00",
-  "as_of": "2026-10-07T16:10:00Z",
+  "written_at": "2026-10-07T13:07:36-04:00",
+  "as_of": "2026-10-07T17:08:00Z",
   "readings": {
-    "as_of": "2026-10-07T16:10:00Z",
-    "spy_price": 776.29,
-    "spy_change_pct": -0.36,
+    "as_of": "2026-10-07T17:08:00Z",
+    "spy_price": 776.22,
+    "spy_change_pct": -0.37,
     "vix": 15.76,
     "fear_greed": 41,
     "stocktwits": {
       "SPY": {
         "score": 79,
-        "bullish_pct": 55.5
+        "bullish_pct": 55.6
       }
     },
     "reddit": {
@@ -22,30 +22,28 @@
     "news": {
       "score": 0.0,
       "headlines": [
-        "October rate-hike odds fell from 51% to 19% in one week",
-        "US trade deficit hit $105.6B, widest since before the tariffs",
-        "Futures lower pre-bell as traders await Fed meeting minutes",
-        "AI data-center/bitcoin-miner names (APLD, IREN) fall 4-6%"
+        "Fed meeting minutes due this afternoon",
+        "Treasury 10-year note auction ($39B) drew bid-to-cover 2.77, stopped through by 1.7bp",
+        "Memory chips surge: MU +4%, memory ETF DRAM +1%",
+        "AI data-center and bitcoin-miner names (IREN, APLD) fall 5-6%"
       ]
     },
     "rumors": [
       {
-        "text": "Oil and Treasury yields are being pushed down, a tailwind for stocks",
+        "text": "Possible Iran deal talk is being floated as a market driver",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "USO"
+          "SPY"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "USO": "United States Oil Fund"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.3,
-        "why": "Falling oil and yields would ease inflation and rate-hike worries and support equities"
+        "credibility": 0.15,
+        "why": "A geopolitical deal would cut risk premium and oil, supporting stocks"
       },
       {
-        "text": "SPY will pull back toward the 200-day average into the midterms, then rally",
+        "text": "Fed minutes are written the morning they are released to steer the narrative",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -54,13 +52,15 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.25,
-        "why": "A seasonal dip before the midterms would pull the index lower near-term"
+        "credibility": 0.05,
+        "why": "Distrust of the minutes signals a nervous crowd ahead of the release, not a real catalyst"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "MU": "Micron Technology"
+      "MU": "Micron Technology",
+      "IREN": "IREN Limited",
+      "APLD": "Applied Digital"
     },
     "plays": [
       {
@@ -68,22 +68,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Rate-hike odds fell sharply and oil is sliding, but the index is only down 0.4% and crowd bullishness is already high",
-        "catalyst": "Fed minutes release this afternoon"
+        "reason": "Dip to 773.6 was bought and price is recovering; decent 10-year auction eased bond worry, but crowd is already very bullish",
+        "catalyst": "Fed minutes this afternoon"
       }
     ],
-    "whats_new": "SPY is about flat versus the last hour near 776.3, down 0.36%. VIX eased slightly to 15.8 and fear and greed reads 41 (fear). Stocktwits is very bullish on SPY while small caps lag (IWM -1.3%) and the Fed minutes are due.",
+    "whats_new": "SPY is flat versus last hour near 776.2 (-0.37%) after a flush to 773.6 that was bought. VIX holds 15.8 and fear and greed is 41. A solid 10-year auction helped bonds, memory chips are leading while AI data-center and miner names slide, and the Fed minutes are the next event.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable",
-      "news": "desk feed headlines, web search"
+      "news": "stocktwits, web search"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.36,
+      "value": -0.37,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -112,7 +112,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable",
-    "news": "desk feed headlines, web search"
+    "news": "stocktwits, web search"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
