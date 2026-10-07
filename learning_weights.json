@@ -25,5 +25,6 @@
     ],
     "l2": 1.0,
     "note": "shadow: predicts and logs, never acts. veto: may only SKIP an entry, and only after min_trades_to_act closed trades AND beating the base rate walk-forward. It can never add an order, resize a contract or bypass the gate."
-  }
+  },
+  "learned_at": "2026-10-06T21:22:20-04:00"
 }

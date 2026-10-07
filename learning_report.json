@@ -1,0 +1,174 @@
+{
+  "trained_at": "2026-10-06T21:22:20-04:00",
+  "mode": "shadow",
+  "closed_trades": 0,
+  "learnable_trades": 0,
+  "min_trades_to_act": 30,
+  "model": null,
+  "tags": [
+    {
+      "tag": "structure",
+      "trades": 0,
+      "wins": 0,
+      "win_rate": null,
+      "pnl": 0,
+      "multiplier": 1.0,
+      "active": false
+    },
+    {
+      "tag": "order_blocks",
+      "trades": 0,
+      "wins": 0,
+      "win_rate": null,
+      "pnl": 0,
+      "multiplier": 1.0,
+      "active": false
+    },
+    {
+      "tag": "rsi",
+      "trades": 0,
+      "wins": 0,
+      "win_rate": null,
+      "pnl": 0,
+      "multiplier": 1.0,
+      "active": false
+    },
+    {
+      "tag": "vwap",
+      "trades": 0,
+      "wins": 0,
+      "win_rate": null,
+      "pnl": 0,
+      "multiplier": 1.0,
+      "active": false
+    },
+    {
+      "tag": "volume",
+      "trades": 0,
+      "wins": 0,
+      "win_rate": null,
+      "pnl": 0,
+      "multiplier": 1.0,
+      "active": false
+    },
+    {
+      "tag": "session",
+      "trades": 0,
+      "wins": 0,
+      "win_rate": null,
+      "pnl": 0,
+      "multiplier": 1.0,
+      "active": false
+    }
+  ],
+  "trades": 0,
+  "losses": 0,
+  "loss_rate": null,
+  "mistakes": [
+    {
+      "tag": "stopped_out",
+      "label": "Hit the 0.35% stop",
+      "trades": 0,
+      "losses": 0,
+      "loss_rate": null,
+      "avg_pnl": null,
+      "total_pnl": 0
+    },
+    {
+      "tag": "flattened_red_at_close",
+      "label": "Flattened at 16:00 for a loss",
+      "trades": 0,
+      "losses": 0,
+      "loss_rate": null,
+      "avg_pnl": null,
+      "total_pnl": 0
+    },
+    {
+      "tag": "held_overnight",
+      "label": "Held overnight (flatten missed)",
+      "trades": 0,
+      "losses": 0,
+      "loss_rate": null,
+      "avg_pnl": null,
+      "total_pnl": 0
+    },
+    {
+      "tag": "against_market_pulse",
+      "label": "Entered against Market Pulse",
+      "trades": 0,
+      "losses": 0,
+      "loss_rate": null,
+      "avg_pnl": null,
+      "total_pnl": 0
+    },
+    {
+      "tag": "minimum_confluence_only",
+      "label": "Only the minimum confluence",
+      "trades": 0,
+      "losses": 0,
+      "loss_rate": null,
+      "avg_pnl": null,
+      "total_pnl": 0
+    },
+    {
+      "tag": "outside_box_entry",
+      "label": "Entered near, not inside, the box",
+      "trades": 0,
+      "losses": 0,
+      "loss_rate": null,
+      "avg_pnl": null,
+      "total_pnl": 0
+    },
+    {
+      "tag": "late_entry_after_15",
+      "label": "Entered after 15:00",
+      "trades": 0,
+      "losses": 0,
+      "loss_rate": null,
+      "avg_pnl": null,
+      "total_pnl": 0
+    },
+    {
+      "tag": "rsi_near_50",
+      "label": "RSI within 5 of 50",
+      "trades": 0,
+      "losses": 0,
+      "loss_rate": null,
+      "avg_pnl": null,
+      "total_pnl": 0
+    },
+    {
+      "tag": "re_entry_after_loss",
+      "label": "Second entry right after a loss",
+      "trades": 0,
+      "losses": 0,
+      "loss_rate": null,
+      "avg_pnl": null,
+      "total_pnl": 0
+    }
+  ],
+  "lessons": [],
+  "ops_failures": [
+    {
+      "tag": "order_rejected",
+      "label": "Entry order rejected",
+      "count": 0
+    },
+    {
+      "tag": "exit_failed",
+      "label": "Exit order failed",
+      "count": 0
+    },
+    {
+      "tag": "no_market_data",
+      "label": "No market data",
+      "count": 0
+    },
+    {
+      "tag": "no_contract",
+      "label": "No listed option contract found",
+      "count": 0
+    }
+  ],
+  "recent": []
+}
