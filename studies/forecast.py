@@ -1,18 +1,24 @@
-"""Pattern projection: what followed the past setups that looked most like the last few candles.
+"""Pattern projection that learns: several forecasters ("experts") blended by how well each has done.
 
-An analog ("nearest neighbours") method, kept honest by a walk-forward record:
-  1. Take the last `window` candle-to-candle moves, each divided by that stretch's own volatility,
-     so the shape matters and not the size.
-  2. Find the `neighbours` most similar stretches earlier in history.
-  3. Collect what price did over the next `horizon` candles after each one, scaled to today's
-     volatility, and report the 10th/25th/50th/75th/90th percentile path.
-  4. Re-run the same recipe at many past points, using only data available at the time, and
-     count how often it called the direction and how often price ended inside the bands.
-  5. Widen the bands (never narrow them) by how far price actually landed from the middle path in
-     those tests, so the 50% and 80% bands mean what they say.
+Experts, each a guess at the next `horizon` candles:
+  analog_10 / analog_20 / analog_40 — what followed the 25 past stretches that looked most like the last
+      10, 20 or 40 candles (moves divided by that stretch's own volatility, so shape matters, not size)
+  momentum  — the last 40 candles' average move, carried forward
+  reversion — a drift back toward the 20-candle average
+  flat      — no move at all (the bar every forecaster has to beat)
 
-It is a range of outcomes from history, not a prediction. The gate never reads it.
-Pure: candles in, dict out. numpy for speed.
+How it learns:
+  * Walk-forward on history first: replay the recipe at many past points, using only what was known then,
+    and update the blend after each one (multiplicative weights: each expert's weight shrinks with its
+    error, measured in units of the band's width). That gives today's starting weights and an
+    out-of-sample record.
+  * Then live: every projection the desk shows is logged, scored once its candles close, and fed back
+    the same way (projection_log.py). Live weights and band widths replace the historical ones as soon
+    as there are enough scored projections.
+  * Bands come from the 20-candle analogs around the blended middle path, widened or narrowed so the
+    50% and 80% ranges hold price about half and 8 times in 10.
+
+A range from history, not a promise. The gate never reads it. Pure: numbers in, dict out.
 """
 
 from __future__ import annotations
@@ -93,52 +99,123 @@ def future_times(last: str, n: int, minutes: int | None, regular_hours_only: boo
     return out
 
 
-def project(closes: list[float], times: list[str], timeframe: str, minutes: int | None,
-            cfg: dict | None = None, regular_hours_only: bool = True) -> dict | None:
-    """The projection for the next candles plus its walk-forward record, or None without enough history."""
-    cfg = {**DEFAULTS, **(cfg or {})}
-    window, k, horizon = int(cfg["window"]), int(cfg["neighbours"]), HORIZON.get(timeframe, 10)
-    c = np.asarray(closes, dtype=float)
-    if len(c) < max(int(cfg["min_history"]), window + horizon * 2 + 10) or np.any(c <= 0):
-        return None
-    r = np.diff(np.log(c))
-    shapes, vols = _shapes(r, window)
-    q = _project(r, shapes, vols, len(r) - 1, window, horizon, k)
-    if q is None:
-        return None
-    last = float(c[-1])
+EXPERTS = ("analog_10", "analog_20", "analog_40", "momentum", "reversion", "flat")
+ETA = 0.3      # how fast weights move after each scored projection
+FLOOR = 0.02   # no expert is ever written off completely; markets change
+MIN_LIVE = 10  # scored live projections before live weights take over
+MIN_LIVE_BANDS = 15
 
-    # walk-forward record: same recipe at past points, scored against what actually happened
+
+def hedge(weights: dict, losses: dict, eta: float = ETA, floor: float = FLOOR) -> dict:
+    """One multiplicative-weights step: w_i ← w_i·e^(−η·loss_i), with a floor, normalized to 1."""
+    w = {e: float(weights.get(e, 1.0 / len(EXPERTS))) * float(np.exp(-eta * min(2.0, max(0.0, losses.get(e, 1.0)))))
+         for e in EXPERTS}
+    total = sum(w.values()) or 1.0
+    w = {e: max(floor, v / total) for e, v in w.items()}
+    total = sum(w.values())
+    return {e: round(v / total, 4) for e, v in w.items()}
+
+
+def _experts(r: np.ndarray, logc: np.ndarray, S: dict, end: int, horizon: int, k: int) -> tuple[dict, np.ndarray | None]:
+    """Each expert's middle path (cumulative log return) for the stretch ending at return `end`, plus the
+    20-candle analog quantiles used for the bands."""
+    paths, bands = {}, None
+    for w in (10, 20, 40):
+        shapes, vols = S[w]
+        q = _project(r[: end + 1], shapes[: end - w + 2], vols[: end - w + 2], end, w, horizon, k)
+        if q is not None:
+            paths[f"analog_{w}"] = q[2]
+            if w == 20:
+                bands = q
+    steps = np.arange(1, horizon + 1)
+    look = r[max(0, end - 39): end + 1]
+    paths["momentum"] = float(look.mean()) * steps if len(look) else np.zeros(horizon)
+    last = logc[end + 1]
+    sma = float(np.mean(np.exp(logc[max(0, end - 18): end + 2])))
+    paths["reversion"] = (np.log(sma) - last) * (1 - np.exp(-steps / max(1.0, horizon / 2)))
+    paths["flat"] = np.zeros(horizon)
+    return paths, bands
+
+
+def _blend(paths: dict, weights: dict) -> np.ndarray:
+    have = [e for e in EXPERTS if e in paths]
+    total = sum(weights.get(e, 0.0) for e in have) or 1.0
+    return sum(paths[e] * (weights.get(e, 0.0) / total) for e in have)
+
+
+def project(closes: list[float], times: list[str], timeframe: str, minutes: int | None,
+            cfg: dict | None = None, regular_hours_only: bool = True, model: dict | None = None) -> dict | None:
+    """The blended projection for the next candles, its walk-forward record and the learned weights.
+
+    `model` is this timeframe's live learning state from projection_model.json (weights, band widths,
+    scored count), or None before any live projection has been scored.
+    """
+    cfg = {**DEFAULTS, **(cfg or {})}
+    k, horizon = int(cfg["neighbours"]), HORIZON.get(timeframe, 10)
+    c = np.asarray(closes, dtype=float)
+    if len(c) < max(int(cfg["min_history"]), 40 + horizon * 2 + 10) or np.any(c <= 0):
+        return None
+    logc = np.log(c)
+    r = np.diff(logc)
+    S = {w: _shapes(r, w) for w in (10, 20, 40)}
+
+    # walk-forward, oldest first: score each expert and the blend, then update the blend's weights
+    ends = list(range(len(r) - 1 - horizon, 40 + horizon, -max(1, horizon // 2)))[: int(cfg["tests"])][::-1]
+    weights = {e: 1.0 / len(EXPERTS) for e in EXPERTS}
     hits = in50 = in80 = tests = 0
-    miss50, miss80 = [], []
-    for end in range(len(r) - 1 - horizon, window + horizon, -max(1, horizon // 2)):
-        if tests >= int(cfg["tests"]):
-            break
-        past = _project(r[: end + 1], shapes[: end - window + 2], vols[: end - window + 2], end, window, horizon, k)
-        if past is None:
+    miss50, miss80, expert_err = [], [], {e: [] for e in EXPERTS}
+    for end in ends:
+        paths, bq = _experts(r, logc, S, end, horizon, k)
+        if bq is None:
             continue
         actual = float(np.sum(r[end + 1: end + 1 + horizon]))
-        med = float(past[2][-1])
+        med = float(_blend(paths, weights)[-1])
+        half50 = max((bq[3][-1] - bq[1][-1]) / 2, 1e-9)
+        half80 = max((bq[4][-1] - bq[0][-1]) / 2, 1e-9)
         tests += 1
         hits += int(np.sign(med) == np.sign(actual) and actual != 0)
-        in50 += int(past[1][-1] <= actual <= past[3][-1])
-        in80 += int(past[0][-1] <= actual <= past[4][-1])
-        miss50.append(abs(actual - med) / max((past[3][-1] - past[1][-1]) / 2, 1e-9))
-        miss80.append(abs(actual - med) / max((past[4][-1] - past[0][-1]) / 2, 1e-9))
-    s50 = s80 = 1.0
-    if tests >= 20:
-        s50 = float(np.clip(np.percentile(miss50, 50), 1.0, 3.0))
-        s80 = float(np.clip(np.percentile(miss80, 80), 1.0, 3.0))
-    mid = q[2]
-    q = np.array([mid - (mid - q[0]) * s80, mid - (mid - q[1]) * s50, mid, mid + (q[3] - mid) * s50,
-                  mid + (q[4] - mid) * s80])
+        in50 += int(abs(actual - med) <= half50)
+        in80 += int(abs(actual - med) <= half80)
+        miss50.append(abs(actual - med) / half50)
+        miss80.append(abs(actual - med) / half80)
+        losses = {e: abs(float(paths[e][-1]) - actual) / half80 for e in paths}
+        for e, v in losses.items():
+            expert_err[e].append(v)
+        weights = hedge(weights, losses)
+
+    paths, bq = _experts(r, logc, S, len(r) - 1, horizon, k)
+    if bq is None:
+        return None
+    s50 = float(np.clip(np.percentile(miss50, 50), 0.8, 3.0)) if tests >= 20 else 1.0
+    s80 = float(np.clip(np.percentile(miss80, 80), 0.8, 3.0)) if tests >= 20 else 1.0
+    source = "history"
+    live = (model or {}).get("n", 0)
+    if model and live >= MIN_LIVE and model.get("weights"):
+        weights, source = {e: float(model["weights"].get(e, FLOOR)) for e in EXPERTS}, "live"
+    if model and live >= MIN_LIVE_BANDS and model.get("s50") and model.get("s80"):
+        s50, s80 = float(model["s50"]), float(model["s80"])
+    mid = _blend(paths, weights)
+    raw = bq - bq[2]  # analog spread around its own middle
+    q = np.array([mid + raw[0] * s80, mid + raw[1] * s50, mid, mid + raw[3] * s50, mid + raw[4] * s80])
+    last = float(c[-1])
     pct = lambda n: round(100.0 * n / tests, 1) if tests else None  # noqa: E731
+    ranked = sorted(EXPERTS, key=lambda e: -weights.get(e, 0))
     return {
         "t": future_times(times[-1], horizon, minutes, regular_hours_only),
         **{f"q{p}": [round(last * float(np.exp(v)), 4) for v in q[i]] for i, p in enumerate(QUANTILES)},
         "horizon": horizon,
         "neighbours": k,
-        "window": window,
+        "window": 20,
+        "last": round(last, 4),
+        "experts": {e: round(last * float(np.exp(paths[e][-1])), 4) for e in EXPERTS if e in paths},
+        "weights": {e: round(float(weights.get(e, 0)), 4) for e in EXPERTS},
+        "weights_source": source,
+        "leader": ranked[0],
+        "bands": {"s50": round(s50, 2), "s80": round(s80, 2), "source": "live" if live >= MIN_LIVE_BANDS and model and model.get("s80") else "history",
+                  "half80": round(float(raw[4][-1] - raw[0][-1]) / 2 * s80, 6)},
         "record": {"tests": tests, "direction_hit_pct": pct(hits), "inside_50_pct": pct(in50),
-                   "inside_80_pct": pct(in80), "widened_50": round(s50, 2), "widened_80": round(s80, 2)},
+                   "inside_80_pct": pct(in80),
+                   "expert_error": {e: round(float(np.mean(v)), 3) for e, v in expert_err.items() if v}},
+        "live": {key: (model or {}).get(key) for key in ("n", "direction_hit_pct", "inside_50_pct", "inside_80_pct", "updated")} if model else None,
+        "version": 2,
     }

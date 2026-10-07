@@ -123,7 +123,8 @@ def _study(candles: list[dict], cfg: dict, daily: bool) -> dict | None:
 
 
 def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailies: list[dict] | None,
-           now: datetime, cfg: dict, rth: bool | None = None, daily_frame: dict | None = None) -> dict:
+           now: datetime, cfg: dict, rth: bool | None = None, daily_frame: dict | None = None,
+           models: dict | None = None) -> dict:
     """Candles, VWAP, the Mxwll read and the pattern projection for each timeframe there is enough data for.
 
     1m–15m come from the minute bars; 30m–4h from ~60 days of 30-minute bars with the minute bars
@@ -157,7 +158,8 @@ def frames(minute_bars: list[dict] | None, half_hours: list[dict] | None, dailie
         try:
             from studies import forecast
 
-            proj = forecast.project([r[4] for r in rows], [r[0] for r in rows], name, minutes, regular_hours_only=rth)
+            proj = forecast.project([r[4] for r in rows], [r[0] for r in rows], name, minutes, regular_hours_only=rth,
+                                    model=(models or {}).get(name))
         except Exception as e:  # noqa: BLE001 - a projection problem never stops the chart
             proj = {"error": f"{type(e).__name__}: {e}"[:200]}
         out[name] = {"c": rows[-show:], "vwap": vw, "study": study, "projection": proj}
@@ -181,8 +183,11 @@ def build(symbol: str, bars: list[dict] | None, now: datetime, risk: dict, event
     except Exception as e:  # noqa: BLE001 - a study problem never stops the chart
         cfg, study = None, {"error": f"{type(e).__name__}: {e}"[:200]}
     try:
-        tf = frames(bars, half_hours, dailies, now, cfg, rth=True) if cfg else {}
-        tf_eth = frames(bars, half_hours, dailies, now, cfg, rth=False, daily_frame=tf.get("1D")) if cfg else {}
+        import projection_log
+
+        models = projection_log.models()
+        tf = frames(bars, half_hours, dailies, now, cfg, rth=True, models=models) if cfg else {}
+        tf_eth = frames(bars, half_hours, dailies, now, cfg, rth=False, daily_frame=tf.get("1D"), models=models) if cfg else {}
     except Exception as e:  # noqa: BLE001
         journal.log("chart_failed", now=now, symbol=symbol, error=f"timeframes: {type(e).__name__}: {e}"[:300])
         tf, tf_eth = {}, {}

@@ -330,6 +330,24 @@ off; the choice is saved on `desk-state` (`settings.json`) and every later run u
 dashboard can show either view at any time; the chart also carries order blocks, every structure
 break, swing labels and a pattern projection (display only, never used for orders).
 
+## The projection learns every day (`studies/forecast.py`, `projection_log.py`)
+
+Each timeframe's projection blends six forecasters: what followed the most similar past
+stretches (10, 20 and 40 candles), momentum, a drift back to the 20-candle average, and "no
+move". It learns in two ways:
+
+- **From history, before it says anything:** it replays itself at many past points using only
+  what was known then, and each forecaster's weight shrinks with its error (multiplicative
+  weights). That gives the starting blend and an honest out-of-sample record.
+- **From each day's results:** every projection shown is logged (`projections.jsonl`, once per
+  candle), scored after its last candle closes, and folded into `projection_model.json`. After
+  10 scored projections a timeframe uses its live weights; after 15, its live band widths, so the
+  50% and 80% ranges hold price about half and 8 times in 10. The 16:10 review logs the day's
+  record per timeframe.
+
+The dashboard shows the live record next to the history record. Display only: the gate never
+reads the projection.
+
 ## Learning from mistakes (`learning.py`)
 
 The desk learns from its own closed paper trades and its journal. It retrains

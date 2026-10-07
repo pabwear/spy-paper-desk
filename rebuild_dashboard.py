@@ -240,6 +240,11 @@ def build_state(now: datetime | None = None) -> dict:
             "model": {k: model.get(k) for k in ("trained_on", "loss_rate", "walk_forward", "weights", "trained_at")}
             if model else None,
         },
+        "projection_learning": {
+            tf: {k: m.get(k) for k in ("n", "direction_hit_pct", "inside_50_pct", "inside_80_pct", "weights", "leader",
+                                       "s50", "s80", "updated")} | {"days": dict(list((m.get("days") or {}).items())[-20:])}
+            for tf, m in (load_json("projection_model.json", {}) or {}).items()
+        },
         "pnl": {
             "book": book,
             "realized_total": stats["realized_pnl"],

@@ -654,11 +654,22 @@ def _keys_present() -> bool:
 
 
 def _charts(now: datetime, source) -> None:
-    """Refresh the dashboard's charts; a chart problem never stops the desk."""
+    """Refresh the dashboard's charts; a chart problem never stops the desk.
+
+    The projection learns first (score what has closed, update the model), so the new charts use
+    the updated model; then the projections now showing are logged for scoring later.
+    """
     import charts
+    import projection_log
 
     try:
-        charts.write(now, source)
+        projection_log.score(now, source)
+        projection_log.learn(now)
+    except Exception as e:  # noqa: BLE001
+        journal.log("projection_failed", now=now, error=f"{type(e).__name__}: {e}"[:300])
+    try:
+        drawn = charts.write(now, source)
+        projection_log.record(now, drawn, not auto_study.desk_config()["regular_hours_only"])
     except Exception as e:  # noqa: BLE001
         journal.log("chart_failed", now=now, error=f"{type(e).__name__}: {e}"[:300])
     rebuild_dashboard.write_state(now)
@@ -706,6 +717,10 @@ def cmd_tick(now: datetime, broker_factory=None, bars=None, fetch=None) -> str:
         cmd_sync(now, broker=broker)
         cmd_review(now)
         _charts(now, source)
+        import projection_log
+
+        journal.log("projection_review", now=now, timeframes=projection_log.daily_summary(now))
+        rebuild_dashboard.write_state(now)
         return "review"
     print(f"Nothing to do at {t:%a %H:%M} ET ({state}).")
     return "idle"

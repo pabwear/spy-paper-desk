@@ -297,6 +297,11 @@ class TimeframeTests(DeskTestCase):
         self.assertIn("1h", chart["frames_eth"])
         self.assertIs(chart["extended_hours"], True)
         self.assertEqual(chart["frames_eth"]["1D"], chart["frames"]["1D"])
+        import projection_log
+
+        logged = projection_log.read()
+        self.assertTrue(logged and all(r["extended"] for r in logged))  # the desk's own view gets logged for scoring
+        self.assertEqual(chart["frames_eth"]["30m"]["projection"]["version"], 2)
         st = chart["frames"]["30m"]["study"]
         for key in ("order_blocks", "internal_events", "external_events", "swing_points"):
             self.assertIn(key, st)

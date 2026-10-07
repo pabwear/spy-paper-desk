@@ -57,7 +57,22 @@ class ProjectionTests(unittest.TestCase):
         rec = p["record"]
         self.assertGreater(rec["tests"], 20)
         self.assertTrue(0 <= rec["direction_hit_pct"] <= 100)
-        self.assertGreaterEqual(rec["widened_80"], 1.0)  # bands only ever get wider
+        self.assertTrue(0.8 <= p["bands"]["s80"] <= 3.0)  # widened or narrowed to match past misses, within limits
+        self.assertAlmostEqual(sum(p["weights"].values()), 1.0, places=2)
+        self.assertEqual(p["leader"], max(p["weights"], key=p["weights"].get))
+        self.assertEqual(p["weights_source"], "history")
+        self.assertEqual(set(p["experts"]), set(forecast.EXPERTS))
+
+    def test_live_model_takes_over(self):
+        live = {"n": forecast.MIN_LIVE_BANDS, "weights": {e: (0.9 if e == "flat" else 0.02) for e in forecast.EXPERTS},
+                "s50": 1.5, "s80": 2.0}
+        p = forecast.project(self.closes, self.times, "5m", 5, model=live)
+        self.assertEqual(p["weights_source"], "live")
+        self.assertEqual(p["leader"], "flat")
+        self.assertEqual((p["bands"]["s80"], p["bands"]["source"]), (2.0, "live"))
+        few = forecast.project(self.closes, self.times, "5m", 5, model={**live, "n": 3})
+        self.assertEqual(few["weights_source"], "history")  # three scored projections aren't enough to trust
+
 
     def test_too_little_history(self):
         self.assertIsNone(forecast.project(self.closes[:60], self.times[:60], "5m", 5))
@@ -70,6 +85,17 @@ class ProjectionTests(unittest.TestCase):
         a = forecast._project(r, full_s, full_v, end, w, h, k)
         b = forecast._project(r[: end + 1], part_s, part_v, end, w, h, k)
         np.testing.assert_allclose(a, b)
+
+
+class HedgeTests(unittest.TestCase):
+    def test_weight_moves_to_the_better_expert(self):
+        even = {e: 1 / len(forecast.EXPERTS) for e in forecast.EXPERTS}
+        w = forecast.hedge(even, {e: (0.1 if e == "momentum" else 1.5) for e in forecast.EXPERTS})
+        self.assertEqual(max(w, key=w.get), "momentum")
+        self.assertAlmostEqual(sum(w.values()), 1.0, places=3)
+        for _ in range(200):
+            w = forecast.hedge(w, {e: (0.0 if e == "momentum" else 2.0) for e in forecast.EXPERTS})
+        self.assertGreaterEqual(min(w.values()), forecast.FLOOR * 0.9)  # nobody is written off for good
 
 
 if __name__ == "__main__":
