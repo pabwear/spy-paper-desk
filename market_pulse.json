@@ -1,138 +1,73 @@
 {
   "date": "2026-10-07",
   "bias": "neutral",
-  "written_at": "2026-10-07T10:07:26-04:00",
-  "as_of": "2026-10-07T14:08:00Z",
+  "written_at": "2026-10-07T11:19:16-04:00",
+  "as_of": "2026-10-07T11:19:16-04:00",
   "readings": {
-    "as_of": "2026-10-07T14:08:00Z",
-    "spy_price": 774.74,
-    "spy_change_pct": -0.01,
-    "vix": 15.76,
-    "fear_greed": 47,
+    "as_of": "2026-10-07T11:19:16-04:00",
+    "source": "desk_feeds",
+    "sources": {
+      "sentiment_flow": "stocktwits public stream",
+      "news": "yahoo finance rss",
+      "vix": "yfinance"
+    },
+    "spy_price": 774.69,
+    "spy_change_pct": -0.566,
     "stocktwits": {
       "SPY": {
-        "score": 79,
-        "bullish_pct": 56.3
+        "score": 64.7,
+        "bullish_pct": 64.7
       }
-    },
-    "reddit": {
-      "score": 0,
-      "posts": 0,
-      "top": []
     },
     "news": {
-      "score": -0.2,
       "headlines": [
-        "Stocktwits chatter: global bond yields rising, TLT RSI deeply oversold, IWM down 1.8%",
-        "Webull (BULL) down ~20% and top trending",
-        "Posters point to French sovereign debt worries and a stronger dollar"
+        "Joby Falls 2% as Jury Hands Aerosonic a $116.9 Million Trade-Secret Verdict; Archer Slips, EHang Declines 3%",
+        "Exchange-Traded Funds, Equity Futures Down Pre-Bell Wednesday as Traders Await Fed Meeting Minutes",
+        "Most Undervalued Chip Stocks In October 2026: Four Are Cheaper Than The S&P 500",
+        "America\u2019s Trade Deficit Just Hit $105.6 Billion, the Widest Since Before the Tariffs",
+        "Why Jim Cramer Is All-In on Intel\u2019s CPU Comeback",
+        "Applied Digital Falls 4% Ahead of Earnings Despite Its First International Data Center Deal; IREN and Core Scientific Also Drop 4%",
+        "What If You Invested $1,000 in Bitcoin 5 Years Ago? Gold and US Stocks Both Did Better",
+        "A $1,000 Bet on Palo Alto Networks Beat the S&P 500 by More Than 5x Over Ten Years",
+        "FuelCell Tumbles 12% as Its Finance Chief of 15 Years Steps Down; Bloom Energy Dips, Plug Power Slides 3%",
+        "SpaceX Slips 2% on a Reported $40 Billion Chip Financing Plan; Rocket Lab Eases, AST SpaceMobile Falls 3%"
       ]
     },
-    "rumors": [
-      {
-        "text": "French sovereign debt crisis is driving markets lower along with higher yields and a higher dollar",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "IWM"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust",
-          "IWM": "iShares Russell 2000 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "A euro-area debt scare would lift global yields and the dollar and pressure equities, small caps most"
-      },
-      {
-        "text": "Bond market is imploding globally, all at the same time",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "TLT"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "A synchronized global bond selloff would pressure equity valuations"
-      },
-      {
-        "text": "Headline imminent that will smash crude oil",
-        "source": "stocktwits",
-        "tickers": [
-          "USO"
-        ],
-        "names": {
-          "USO": "United States Oil Fund"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "Lower crude would ease yield and inflation pressure, a mild plus for SPY"
-      }
-    ],
-    "names": {
-      "SPY": "SPDR S&P 500 ETF",
-      "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF"
-    },
-    "plays": [
-      {
-        "ticker": "SPY",
-        "direction": "down",
-        "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Small caps are down 1.8% and yields are rising while SPY sits flat on 774-776 support with crowd bullishness elevated",
-        "catalyst": "10yr auction and FOMC minutes today"
-      }
-    ],
-    "whats_new": "SPY is flat at 774.74 (about 1 point lower than last hour) and VIX rose to 15.76 from 15.16. Talk shifted from the Russia/NATO and Hormuz rumors to a global bond selloff and French debt worries, with IWM down 1.8%. Stocktwits stays extremely bullish at 79 even as fresh posts lean bearish; 10yr auction and FOMC minutes are still ahead.",
-    "sources": {
-      "market_pulse": "stocklake",
-      "sentiment_flow": "stocktwits",
-      "reddit": "unavailable",
-      "news": "stocktwits posts"
-    }
+    "vix": 15.72,
+    "vix_change_pct": 4.73
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.01,
+      "value": -0.566,
+      "vote": -1,
+      "why": "\u2264 -0.3"
+    },
+    {
+      "reading": "vix_change_pct",
+      "value": 4.73,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
-      "reading": "vix_change_pct",
+      "reading": "fear_greed",
       "value": null,
       "vote": 0,
       "why": "missing"
     },
     {
-      "reading": "fear_greed",
-      "value": 47.0,
-      "vote": 0,
-      "why": "in the neutral band"
-    },
-    {
       "reading": "stocktwits_spy_score",
-      "value": 79.0,
+      "value": 64.7,
       "vote": 1,
       "why": "\u2265 60.0"
     }
   ],
-  "net_votes": 1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
-    "sentiment_flow": "stocktwits",
-    "reddit": "unavailable",
-    "news": "stocktwits posts"
+    "sentiment_flow": "stocktwits public stream",
+    "news": "yahoo finance rss",
+    "vix": "yfinance"
   },
-  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
