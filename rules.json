@@ -73,12 +73,12 @@
   },
   "studies": {
     "mxwll": {
-      "_note": "Python port of the Mxwll Suite (MPL 2.0, Mxwll Capital) in studies/mxwll.py. Matches Roy's TradingView chart: 5-minute candles with extended hours (04:00-20:00 ET). The settings form can switch extended hours on or off (settings.json on desk-state). Auto zones stay approximate (never tradable) until trusted is true, which only Roy sets after comparing them with his TradingView chart.",
+      "_note": "Python port of the Mxwll Suite (MPL 2.0, Mxwll Capital) in studies/mxwll.py, read on the desk's candles (5 minutes; extended hours 04:00-20:00 ET by default; both changeable on the settings form). trusted: the desk's own 09:39 boxes are tradable when Ops publishes none that morning. Roy switched this on 2026-10-07 (\"let the desk trade its own boxes\") without a side-by-side check against his TradingView chart; set it back to false to make them practice-only again.",
       "timeframe_minutes": 5,
       "regular_hours_only": false,
       "snapshot_time": "09:39",
       "auto_zones": true,
-      "trusted": false,
+      "trusted": true,
       "aoi_lookback": 50,
       "atr_length": 14,
       "internal_sensitivity": 3,

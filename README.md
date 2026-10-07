@@ -20,6 +20,7 @@ desk-state). It still lost a little there, so this is paper practice, not a prov
 | `stop_underlying_pct` | 0.25 | 0.35 |
 | `max_hold_minutes` | 30 (checked each run, so about 30–40 minutes) | none (to the flatten) |
 | `option.expiry_target_days` / `expiry_min_days` / `max_cost_usd` | about 30 days out, at least 7, one contract at most $1,000 (priced from Alpaca's free option quotes before choosing; no affordable expiry → no trade) | nearest listed expiry |
+| `studies.mxwll.trusted` | true: the desk trades its own 09:39 boxes when you enter none that morning (yours win when you do) | false: its own boxes were practice-only |
 
 Where the rest of this README says 0.35 %, two signals, puts in green or the nearest
 expiry, it describes the original rules; the table wins.

@@ -153,8 +153,8 @@ class AutoZoneTests(DeskTestCase):
         return minute_bars(WEDNESDAY, step=-0.01) + minute_bars(THURSDAY, (9, 30), (10, 30), price=596.0, step=0.01)
 
     def test_snapshot_zones_are_approximate_until_trusted(self):
-        cfg = auto.config(load_json("rules.json"))
-        self.assertFalse(cfg["trusted"])
+        self.assertTrue(auto.config(load_json("rules.json"))["trusted"])  # Roy switched it on 2026-10-07
+        cfg = {**auto.config(load_json("rules.json")), "trusted": False}
         self.assertIsNone(auto.zones_file("SPY", at(THURSDAY, 9, 35), self.bars(), cfg))
         z = auto.zones_file("SPY", at(THURSDAY, 10, 5), self.bars(), cfg)
         self.assertEqual(z["written_at"], at(THURSDAY, 9, 39, 59).isoformat())
@@ -186,7 +186,25 @@ class AutoZoneTests(DeskTestCase):
         self.assertEqual(run_study.cmd_auto_zones(now, source), [])
         self.assertEqual(load_json("aoi_override.json"), ops)
 
-    def test_auto_zones_never_reach_the_broker(self):
+    def untrust(self):
+        r = load_json("rules.json")
+        r["studies"]["mxwll"]["trusted"] = False
+        save_json("rules.json", r)
+
+    def test_trusted_auto_zones_pass_the_area_checks(self):
+        now = at(THURSDAY, 10, 20)
+        run_study.cmd_tick(now, broker_factory=lambda: FakeBroker(), bars={"SPY": self.bars()})
+        z = load_json("aoi_override.json")
+        self.assertEqual(z["source"], auto.SOURCE)
+        self.assertTrue(z["tradable"] and not z["approximate"])
+        evals = [e for e in journal.read_events() if e["event"] in ("eval", "skip")]
+        self.assertTrue(evals)
+        for e in evals:
+            for r in ("aoi_tradable", "aoi_not_approximate", "aoi_from_today_open"):
+                self.assertNotIn(r, e.get("reasons") or [])
+
+    def test_untrusted_auto_zones_never_reach_the_broker(self):
+        self.untrust()
         now = at(THURSDAY, 10, 20)
         broker = FakeBroker()
         run_study.cmd_tick(now, broker_factory=lambda: broker, bars={"SPY": self.bars()})
