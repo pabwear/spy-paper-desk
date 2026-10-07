@@ -31,14 +31,14 @@ STATE_FILES = ["journal.jsonl", "trades.csv", "account.json", "market_pulse.json
                "aoi_override.json", "charts.json", "settings.json", "projections.jsonl", "projection_model.json",
                "sentiment.jsonl", "plays.jsonl", "backtests/current.json", "backtests/rehearsal.json",
                "backtests/ideas.json"]
-STATE_GLOBS = ["aoi_override.*.json"]
+STATE_GLOBS = ["aoi_override.*.json", "backtests/ideas-*.json"]
 RANGE_RE = re.compile(r"^\s*(\d+(?:\.\d+)?)\s*[-–to ]+\s*(\d+(?:\.\d+)?)\s*$")
 
 
 def _names(folder: Path) -> list[str]:
     names = [n for n in STATE_FILES if (folder / n).exists()]
     for pattern in STATE_GLOBS:
-        names += sorted(Path(p).name for p in glob.glob(str(folder / pattern)))
+        names += sorted(Path(p).relative_to(folder).as_posix() for p in glob.glob(str(folder / pattern)))
     return names
 
 

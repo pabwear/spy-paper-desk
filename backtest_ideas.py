@@ -34,6 +34,7 @@ BOOK = bt.SHARES_BOOK
 SHARE_COST = bt.SHARE_COST
 TRAIL_PCT = 0.5
 SWING_DAYS = 10
+STOP_RANGE_FRACTION = 0.25  # other stocks: the stop is this share of the average daily range (SPY: ~0.25%)
 
 DESK_NOW = bt.CURRENT
 BOUNCE = {**bt.CURRENT, "rule": "confirm", "kinds": ["bounce"], "calls_only": True}
@@ -85,7 +86,7 @@ def buy_hold(days: list[tuple[date, list[dict]]]) -> list[dict]:
     return out
 
 
-def swing(days: list[tuple[date, list[dict]]], entries: dict[date, list[tuple[datetime, float]]],
+def swing(days: list[tuple[date, list[dict]]], entries: dict[date, list[tuple]],
           trail_pct: float = TRAIL_PCT, max_days: int = SWING_DAYS) -> list[dict]:
     """One position at a time: buy at the first entry signal while flat; a trailing stop trail_pct under the
     highest close since the buy (a gap below it fills at the open); sold at the close of the max_days-th
@@ -102,11 +103,13 @@ def swing(days: list[tuple[date, list[dict]]], entries: dict[date, list[tuple[da
     out: list[dict] = []
     busy_until = -1
     for n, (d, _) in enumerate(days):
-        for t, px in entries.get(d, []):
+        for entry in entries.get(d, []):
+            t, px = entry[0], entry[1]
+            trail = entry[2] if len(entry) > 2 and entry[2] else trail_pct  # a per-stock trail, when given
             k0 = index.get(t)
             if k0 is None or k0 <= busy_until:
                 continue
-            stop, best = px * (1 - trail_pct / 100), px
+            stop, best = px * (1 - trail / 100), px
             end = last_of_day.get(min(n + max_days, len(days) - 1), len(flat) - 1)
             # still open when the data runs out: valued at the last close ("end"), not a real sale
             exit_px, why, k_out = flat[end]["c"], "time" if n + max_days <= len(days) - 1 else "end", end
@@ -116,7 +119,7 @@ def swing(days: list[tuple[date, list[dict]]], entries: dict[date, list[tuple[da
                     exit_px, why, k_out = min(b["o"], stop), "stop", k
                     break
                 best = max(best, b["c"])
-                stop = max(stop, best * (1 - trail_pct / 100))
+                stop = max(stop, best * (1 - trail / 100))
             out.append(_trade(t, px, exit_px, why, days_held=day_of[k_out] - n))
             busy_until = k_out
             break  # at most one buy a day
@@ -136,14 +139,22 @@ def desk_entries(day: "bt.Day", start: str = "10:00", cutoff: str = "15:40") -> 
 
 
 def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7, progress=None,
-        vix: dict[date, float] | None = None) -> dict:
+        vix: dict[date, float] | None = None, symbol: str = "SPY") -> dict:
+    """symbol other than SPY: the share ideas only (the option ideas price with SPY's VIX), and each day's stop
+    is a quarter of the stock's average daily range over the 20 days before (signals.range_stop_pct);
+    the swing's trail is twice that, as SPY's 0.5% is twice its 0.25%."""
+    from signals import range_stop_pct
     from studies import mxwll
+
+    spy = symbol == "SPY"
+    dailies: list[dict] = []
+    stops: dict[date, float] = {}
 
     tf, rth_only = int(cfg["timeframe_minutes"]), bool(cfg.get("regular_hours_only"))
     history: list[dict] = []
     warm: list[dict] = []
     session: list[tuple[date, list[dict]]] = []
-    per_day: dict[str, dict[date, list[dict]]] = {"desk_now": {}, "bounce": {}, "shares": {}}
+    per_day: dict[str, dict[date, list[dict]]] = {"desk_now": {}, "bounce": {}, "shares": {}} if spy else {"shares": {}}
     swing_entries: dict[date, list[tuple[datetime, float]]] = {}
     ds = sorted(bars_by_day)
     for n, d in enumerate(ds):
@@ -151,10 +162,18 @@ def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7
         if len(mins) >= 60 and len(history) > int(cfg.get("aoi_lookback", 50)):
             session.append((d, rth(mins)))
             day = bt.Day(d, mins, warm, history, cfg, vol=bt._vol_for(vix, d))
-            if day.zones:
-                for name, v in (("desk_now", DESK_NOW), ("bounce", BOUNCE), ("shares", SHARES)):
+            stop = None if spy else range_stop_pct(dailies, STOP_RANGE_FRACTION, 20)
+            if day.zones and (spy or stop):
+                if stop:
+                    stops[d] = stop
+                plays = (("desk_now", DESK_NOW), ("bounce", BOUNCE), ("shares", SHARES)) if spy else (
+                    ("shares", {**SHARES, "stop": stop}),)
+                for name, v in plays:
                     per_day[name][d] = day.trades(v)
-                swing_entries[d] = desk_entries(day)
+                swing_entries[d] = [(t, px, 2 * stop if stop else None) for t, px in desk_entries(day)]
+            day_rth = rth(mins)
+            if day_rth:
+                dailies.append({"h": max(b["h"] for b in day_rth), "l": min(b["l"] for b in day_rth), "c": day_rth[-1]["c"]})
         history = (history + mxwll.resample(mins, tf, rth_only))[-bt.HISTORY_CANDLES:]
         warm = (warm + mins)[-bt.RSI_WARMUP:]
         if progress and n % 50 == 0:
@@ -178,13 +197,22 @@ def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7
         "test_range": [split_at.isoformat(), last.isoformat()] if split_at else None,
         "book": BOOK, "share_cost": SHARE_COST, "option_cost": bt.COST_PER_TRADE, "trail_pct": TRAIL_PCT,
         "swing_days": SWING_DAYS,
-        "ideas": [{"name": k, "label": label, "what": what,
+        "symbol": symbol,
+        "stop_pct": {"median": _median(list(stops.values())), "low": min(stops.values()), "high": max(stops.values())}
+        if stops else None,
+        "ideas": [{"name": k, "label": label.replace("SPY", symbol), "what": what.replace("SPY", symbol),
                    "train": bt.summarize(part(trades[k], "train")), "test": bt.summarize(part(trades[k], "test")),
-                   "all": bt.summarize(trades[k])} for k, label, what in IDEAS],
-        "monthly": {k: bt._monthly(trades[k]) for k, _, _ in IDEAS},
-        "by_year": {k: {y: bt.summarize([t for t in trades[k] if t["t"][:4] == y]) for y in years} for k, _, _ in IDEAS},
-        "exits": {k: _count([t["why"] for t in trades[k]]) for k, _, _ in IDEAS},
+                   "all": bt.summarize(trades[k])} for k, label, what in IDEAS if k in trades],
+        "monthly": {k: bt._monthly(trades[k]) for k, _, _ in IDEAS if k in trades},
+        "by_year": {k: {y: bt.summarize([t for t in trades[k] if t["t"][:4] == y]) for y in years}
+                    for k, _, _ in IDEAS if k in trades},
+        "exits": {k: _count([t["why"] for t in trades[k]]) for k, _, _ in IDEAS if k in trades},
     }
+
+
+def _median(xs: list[float]) -> float | None:
+    xs = sorted(xs)
+    return round(xs[len(xs) // 2], 4) if xs else None
 
 
 def _count(xs: list[str]) -> dict[str, int]:
@@ -195,9 +223,11 @@ def _count(xs: list[str]) -> dict[str, int]:
 
 
 def markdown(res: dict) -> str:
-    lines = ["# Four ideas vs the desk and buy-and-hold", "",
+    lines = [f"# Four ideas vs the desk and buy-and-hold ({res.get('symbol', 'SPY')})", "",
              f"{res['days']:,} trading days, {res['first']} to {res['last']}. Test days {res['test_range']}. "
-             f"Options $5 a trade; shares ${res['share_cost']:.2f} a share. Rules set before the run, not tuned.", "",
+             f"Options $5 a trade; shares ${res['share_cost']:.2f} a share. Rules set before the run, not tuned."
+             + (f" Stop: a quarter of the day range, median {res['stop_pct']['median']}% "
+                f"({res['stop_pct']['low']}–{res['stop_pct']['high']}%)." if res.get("stop_pct") else ""), "",
              "| Idea | Trades (test) | Won | Net (test) | Per trade | Worst drop (test) | Net (all) |",
              "|---|---|---|---|---|---|---|"]
     for i in res["ideas"]:
@@ -218,16 +248,18 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--source", choices=("alpaca", "yfinance"), default="yfinance")
     ap.add_argument("--since", default="2020-01-01")
+    ap.add_argument("--symbol", default="SPY", help="SPY: all ideas; another stock: the share ideas")
     ap.add_argument("--json")
     ap.add_argument("--md")
     a = ap.parse_args(argv)
     cfg = auto.desk_config()
-    bars = bt.alpaca_minutes(date.fromisoformat(a.since), datetime.now(ET).date()) if a.source == "alpaca" else bt.yfinance_minutes()
+    bars = (bt.alpaca_minutes(date.fromisoformat(a.since), datetime.now(ET).date(), a.symbol) if a.source == "alpaca"
+            else bt.yfinance_minutes(a.symbol))
     print(f"{len(bars):,} one-minute bars", flush=True)
     days = bt.group_days(bars, bool(cfg.get("regular_hours_only")))
     del bars
     vix = bt.vix_closes(min(days) - timedelta(days=10)) if days else {}
-    res = run(days, cfg, progress=lambda n, t: print(f"  day {n} of {t}", flush=True), vix=vix)
+    res = run(days, cfg, progress=lambda n, t: print(f"  day {n} of {t}", flush=True), vix=vix, symbol=a.symbol)
     md = markdown(res)
     print(md)
     if a.json:

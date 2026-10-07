@@ -14,6 +14,9 @@ on:
         type: choice
         options: ["current", "ideas", "all"]
         default: "current"
+      symbol:
+        description: "Stock for scope 'ideas' (SPY runs every idea; another stock runs the share ideas)"
+        default: "SPY"
 
 permissions:
   contents: write
@@ -40,11 +43,13 @@ jobs:
           ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
           SINCE: ${{ inputs.since }}
           SCOPE: ${{ inputs.scope }}
+          SYMBOL: ${{ inputs.symbol }}
         run: |
           mkdir -p out
           if [ "$SCOPE" = "ideas" ]; then
-            python backtest_ideas.py --source alpaca --since "$SINCE" --json out/ideas.json --md out/ideas.md
-            cat out/ideas.md >> "$GITHUB_STEP_SUMMARY"
+            case "$SYMBOL" in ''|SPY) NAME=ideas ;; *[!A-Za-z.]*) echo "Bad symbol"; exit 1 ;; *) NAME="ideas-$(echo "$SYMBOL" | tr 'A-Z' 'a-z')" ;; esac
+            python backtest_ideas.py --source alpaca --since "$SINCE" --symbol "${SYMBOL:-SPY}" --json "out/$NAME.json" --md "out/$NAME.md"
+            cat "out/$NAME.md" >> "$GITHUB_STEP_SUMMARY"
           elif [ "$SCOPE" = "current" ]; then
             python backtest_areas.py --source alpaca --since "$SINCE" --current --json out/current.json --md out/current.md
             cat out/current.md >> "$GITHUB_STEP_SUMMARY"

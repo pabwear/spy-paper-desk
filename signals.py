@@ -158,6 +158,16 @@ def whole_shares(price: float, risk: dict, factor: float = 1.0) -> int:
     return int(math.floor(book * pct * factor / price))
 
 
+def range_stop_pct(daily_bars: list[dict], fraction: float = 0.25, n: int = 20) -> float | None:
+    """A stop sized to the stock: `fraction` of its average daily range ((high − low) / close, in %) over the
+    last n days. SPY's ~1% day gives ~0.25%; a stock that swings 5% a day gets ~1.25%. None with under 10 days."""
+    days = [b for b in daily_bars if float(b.get("c") or 0) > 0][-n:]
+    if len(days) < min(n, 10):
+        return None
+    avg = sum((float(b["h"]) - float(b["l"])) / float(b["c"]) * 100.0 for b in days) / len(days)
+    return round(avg * fraction, 4)
+
+
 def pulse_contradicts(side: str, bias: str | None) -> bool:
     return (side == "buy" and bias == "bearish") or (side == "sell" and bias == "bullish")
 

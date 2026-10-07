@@ -103,7 +103,7 @@ class IdeasRunTests(unittest.TestCase):
     def test_run_reports_every_idea(self):
         random.seed(5)
         bars, p = [], 600.0
-        for n in range(14):
+        for n in range(22):
             d = THURSDAY - timedelta(days=20 - n)
             if d.weekday() >= 5:
                 continue
@@ -119,6 +119,9 @@ class IdeasRunTests(unittest.TestCase):
         self.assertEqual(bh["trades"], res["days"] - 1)
         self.assertIn("| Buy and hold SPY |", ideas.markdown(res))
         self.assertEqual(set(res["monthly"]), {i["name"] for i in res["ideas"]})
+        other = ideas.run(bt.group_days(bars, False), auto.config(load_json("rules.json")), symbol="SNDK")
+        self.assertEqual([i["name"] for i in other["ideas"]], ["shares", "swing", "overnight", "buy_hold"])
+        self.assertEqual(other["ideas"][-1]["label"], "Buy and hold SNDK")
 
 
 if __name__ == "__main__":
