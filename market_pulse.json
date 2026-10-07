@@ -1,11 +1,90 @@
 {
-  "date": null,
-  "bias": "none",
-  "sources": {
-    "market_pulse": null,
-    "macro_policy": null,
-    "sentiment_flow": null,
-    "rates_jobs": null
+  "date": "2026-10-07",
+  "bias": "bullish",
+  "written_at": "2026-10-07T02:12:44-04:00",
+  "as_of": "2026-10-07T06:15:00Z",
+  "readings": {
+    "as_of": "2026-10-07T06:15:00Z",
+    "spy_price": 779.35,
+    "spy_change_pct": 0.58,
+    "vix": 15.16,
+    "fear_greed": 48,
+    "stocktwits": {
+      "SPY": {
+        "score": 78,
+        "bullish_pct": 56.9
+      }
+    },
+    "news": {
+      "score": 0,
+      "headlines": [
+        "Stocktwits chatter: Iran possibly charging toll for Hormuz oil traffic, fragile lull in fighting",
+        "AI stocks about 45% of S&P 500 market cap; bubble worries re-shared",
+        "Trucking groups pan Trump diesel executive order"
+      ]
+    },
+    "rumors": [
+      {
+        "text": "Iran may be charging a secret toll for ships passing Hormuz; war could restart",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "direction": "down",
+        "credibility": 0.3
+      },
+      {
+        "text": "Hanging-man blow-off candle at SPY highs; close below 780 expected",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "direction": "down",
+        "credibility": 0.3
+      }
+    ],
+    "plays": [],
+    "whats_new": "No prior reading exists (placeholder file). SPY closed up 0.58% near highs with small caps lagging (IWM -1.06%); Stocktwits is extremely bullish (78) while a few posts flag a blow-off candle, so the crowd looks one-sided. Setup test outside market hours; Reddit and Stocklake calendar/news were unavailable.",
+    "sources": {
+      "market_pulse": "stocklake",
+      "sentiment_flow": "stocktwits",
+      "reddit": "unavailable",
+      "news": "stocktwits posts only"
+    }
   },
-  "note": "Weekday morning bias only. 'none' until the pulse agents write today's read."
+  "votes": [
+    {
+      "reading": "spy_change_pct",
+      "value": 0.58,
+      "vote": 1,
+      "why": "\u2265 0.3"
+    },
+    {
+      "reading": "vix_change_pct",
+      "value": null,
+      "vote": 0,
+      "why": "missing"
+    },
+    {
+      "reading": "fear_greed",
+      "value": 48.0,
+      "vote": 0,
+      "why": "in the neutral band"
+    },
+    {
+      "reading": "stocktwits_spy_score",
+      "value": 78.0,
+      "vote": 1,
+      "why": "\u2265 60.0"
+    }
+  ],
+  "net_votes": 2,
+  "min_net_votes": 2,
+  "sources": {
+    "market_pulse": "stocklake",
+    "sentiment_flow": "stocktwits",
+    "reddit": "unavailable",
+    "news": "stocktwits posts only"
+  },
+  "note": "Derived from live readings: net +2 votes (needs \u00b12) \u2192 bullish."
 }
