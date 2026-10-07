@@ -117,3 +117,16 @@ class InTheMoneyTests(unittest.TestCase):
         self.assertGreater(itm["net"], atm["net"])
         self.assertGreater(itm["cost"], atm["cost"])
         self.assertEqual(research.simulate({**base, "itm_pct": 5, "budget": 1000}, ctx), [])  # costs over the budget
+
+
+class StressTests(unittest.TestCase):
+    def test_worse_fills_and_costs_cost_money(self):
+        d2 = [503.0] * 390
+        ctx = ctx_of((D1, FLAT), (D2, d2))
+        ctx.flat[ctx.first[1]]["o"] = 503.0
+        base = {"entry": "close", "asset": "shares", "budget": 4000, "hold": {"until": "next_open"}}
+        plain = research.simulate(base, ctx)[0]["net"]
+        slipped = research.simulate({**base, "slip_pct": 0.05}, ctx)[0]["net"]
+        costly = research.simulate({**base, "share_cost": 0.10}, ctx)[0]["net"]
+        self.assertAlmostEqual(plain - slipped, 8 * (500 * 0.0005 + 503 * 0.0005), places=2)
+        self.assertAlmostEqual(plain - costly, 8 * 0.08, places=2)

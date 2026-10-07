@@ -115,6 +115,24 @@ ROUNDS["3"] = [
     {"name": "bounce_overnight_option30d", **BOUNCE_ON, **OPTION, "stop": {"pct": 0.5}},
 ]
 
+# 4. Round 3: the overnight bounce held up under every stop setting on both periods; the gain is overnight
+#    (sold the same day it barely made money); bounce entries as a 30-day option made money on both periods
+#    for the first time, with big swings. Now the "too good to be true" tests: a no-signal control with the
+#    same overnight hold, five times the costs, worse fills, one trade a day.
+ROUNDS["4"] = [
+    {"name": "bounce_overnight", **BOUNCE_ON},
+    {"name": "control_ten_overnight", **BOUNCE_ON, "entry": "ten"},
+    {"name": "control_touch_overnight", **BOUNCE_ON, "entry": "touch"},
+    {"name": "bounce_overnight_costs_x5", **BOUNCE_ON, "share_cost": 0.10},
+    {"name": "bounce_overnight_slip", **BOUNCE_ON, "slip_pct": 0.05},
+    {"name": "bounce_overnight_one_a_day", **BOUNCE_ON, "max_entries": 1},
+    {"name": "bounce_overnight_wide", **BOUNCE_ON, "stop": {"pct": 1.0}},
+    {"name": "bounce_any_overnight", **BOUNCE_ON, "entry": "bounce_any"},
+    {"name": "bounce_option30d_wide", **BOUNCE_ON, **OPTION, "stop": {"pct": 1.0}},
+    {"name": "bounce_option60d", **BOUNCE_ON, **OPTION, "expiry_days": 60, "stop": {"pct": 0.5}},
+    {"name": "bounce_option30d_slip", **BOUNCE_ON, **OPTION, "stop": {"pct": 0.5}, "slip_pct": 0.05},
+]
+
 FINAL_PICKS: list[str] = []  # chosen after the search rounds, then run once with --round final
 
 
@@ -332,14 +350,16 @@ def _walk(spec, ctx: Ctx, n: int, k0: int, px: float, stop_pct, hold, same_day, 
     # time, close and open exits fill at that minute's open; stops, targets and the last close at its end
     filled_at_open = why in ("time", "close", "open") and not (why == "time" and k_out == end and until is None)
     t_out = flat[k_out]["t"] + (timedelta(0) if filled_at_open else timedelta(minutes=1))
+    slip = float(spec.get("slip_pct") or 0) / 100  # worse fills: pay more going in, get less coming out
+    px_paid, exit_got = px * (1 + slip), exit_px * (1 - slip)
     if spec["asset"] == "shares":
         qty = int(float(spec["budget"]) // px)
         if qty < 1:
             return None
-        pnl = round((exit_px - px) * qty - SHARE_COST * qty, 2)
+        pnl = round((exit_got - px_paid) * qty - float(spec.get("share_cost", SHARE_COST)) * qty, 2)
         cost = round(qty * px, 2)
     else:
-        got = _option(spec, px, exit_px, t_in, t_out, vol)
+        got = _option(spec, px_paid, exit_got, t_in, t_out, vol)
         if got is None:
             return None
         pnl, cost, _ = got
