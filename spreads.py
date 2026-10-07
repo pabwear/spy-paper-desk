@@ -7,7 +7,8 @@ Rules (set before any test):
     strikes  the short strike sits `sd` "remaining-day moves" away (VIX × price × √(market time left)), rounded
              away from the price to a whole dollar; the long strike `width` dollars further (it caps the loss)
     puts     a put spread below the price; calls (optional) a call spread above it (together: an iron condor)
-    exit     held to the close (settles on the 16:00 price), or closed early at the 10-minute checks when its
+    exit     held to the close (settles on the 16:00 price) or, as the desk does, bought back at 15:40 (close_at, so
+             no shares can ever be assigned); or closed early at the 10-minute checks when its
              buy-back cost reaches `stop_x` × the credit, or falls to (1 − take) × the credit
     prices   Black-Scholes at the day's VIX on market time; `credit_factor` < 1 shrinks every price (a stress test)
     costs    $3 per spread to open (two legs, about a penny each plus fees), $3 more to close early; settling at
@@ -42,6 +43,12 @@ VARIANTS = [
     {"name": "put_1sd_take50_stop2x", **BASE, "stop_x": 2.0, "take": 0.5},
     {"name": "condor_1sd_hold", **BASE, "calls": True},
     {"name": "put_1sd_hold_stress70", **BASE, "credit_factor": 0.7},
+    # as the desk runs it: bought back at 15:40 every day
+    {"name": "desk_put_1sd", **BASE, "close_at": "15:40"},
+    {"name": "desk_put_half_sd", **BASE, "sd": 0.5, "close_at": "15:40"},
+    {"name": "desk_put_1sd_take50_stop2x", **BASE, "stop_x": 2.0, "take": 0.5, "close_at": "15:40"},
+    {"name": "desk_condor_1sd", **BASE, "calls": True, "close_at": "15:40"},
+    {"name": "desk_put_1sd_stress70", **BASE, "credit_factor": 0.7, "close_at": "15:40"},
 ]
 
 
@@ -97,8 +104,12 @@ def day_trade(spec: dict, d: date, bars: list[dict], vol: float) -> dict | None:
         return None  # not worth the costs
     exit_why, owe = "expiry", None
     k0 = bars.index(ten)
+    close_at = hhmm(spec["close_at"]) if spec.get("close_at") else None
     for b in bars[k0 + 1:]:
         t = b["t"].astimezone(ET)
+        if close_at is not None and t.time() >= close_at:  # the desk's flatten: buy it back at that minute's open
+            exit_why, owe = "close", spread_value(lg, b["o"], bt.trading_years(b["t"], d), vol) * f
+            break
         if (t.minute + 1) % 10 or t.time() >= hhmm("15:50"):
             continue  # the desk looks every 10 minutes; the last few minutes ride to the close
         v = spread_value(lg, b["c"], bt.trading_years(b["t"] + timedelta(minutes=1), d), vol) * f
@@ -140,7 +151,7 @@ def summary(trades: list[dict]) -> dict:
              worst_week=round(min(weeks.values()), 2), worst_month=round(min(months.values()), 2),
              avg_credit=round(sum(t["credit"] for t in trades) / len(trades), 2),
              worst_case=round(max(t["worst_case"] for t in trades), 2),
-             exits={w: sum(1 for t in trades if t["why"] == w) for w in ("expiry", "stop", "take")},
+             exits={w: sum(1 for t in trades if t["why"] == w) for w in ("expiry", "close", "stop", "take")},
              by_year={y: round(sum(t["net"] for t in trades if t["t"][:4] == y), 2)
                       for y in sorted({t["t"][:4] for t in trades})})
     return s

@@ -64,3 +64,11 @@ class SpreadTests(unittest.TestCase):
                    "credit": 23.0, "worst_case": 480.0}]
         s = spreads.summary(trades)
         self.assertEqual((s["days_won_pct"], s["weeks_won_pct"], s["months_won_pct"]), (50.0, 0.0, 0.0))
+
+
+class DeskCloseTests(unittest.TestCase):
+    def test_bought_back_at_1540_pays_to_close(self):
+        t = spreads.day_trade({**SPEC, "close_at": "15:40"}, FRI, day(FRI, [600.0] * 390), 0.16)
+        self.assertEqual(t["why"], "close")
+        self.assertLess(t["net"], t["credit"] - 6.0 + 0.01)  # open and close costs, plus what's left of its value
+        self.assertGreater(t["net"], 0)
