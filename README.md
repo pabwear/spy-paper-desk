@@ -435,6 +435,14 @@ mean much, and the console says so.
 | `rebuild_dashboard.py` | Builds the console state (`dashboard_state.json`) |
 | `console.py`, `lock.html`, `dashboard.html` | The PIN-locked local console |
 
+## Later
+
+- **Reddit API access (free for personal use).** Apply through Reddit's support form
+  (https://support.reddithelp.com/hc/en-us/requests/new) under its Responsible Builder Policy; reviews take
+  about a week and are not guaranteed. If approved: a "script" app at reddit.com/prefs/apps, its id and secret
+  as GitHub secrets, and the desk reads r/wallstreetbets, r/stocks, r/investing and r/options itself.
+- **More stocks to watch** (watch-only next to SPY): about three fit inside the free GitHub minutes.
+
 ## Tests
 
 ```bash
