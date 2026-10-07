@@ -255,6 +255,21 @@ class RunTests(DeskTestCase):
         self.assertEqual(broker.submitted, [])
         self.assertIn("no_contract", r["reasons"])
 
+    def test_contract_fits_the_money_in_the_account(self):
+        # after a loss the book has $700: 14 days ($830) no longer fits, so 9 days ($605) is the pick
+        publish(THURSDAY, [RED])
+        broker = FakeBroker(cash=700.0)
+        r = self.paper(broker)
+        self.assertEqual(r["decision"], "enter", r.get("reasons"))
+        self.assertEqual(instruments.parse_occ(broker.submitted[0]["symbol"])["expiry"], date(2026, 10, 10))
+
+    def test_too_little_money_for_any_contract_no_order(self):
+        publish(THURSDAY, [RED])
+        broker = FakeBroker(cash=400.0)  # 7 days out costs $515
+        r = self.paper(broker)
+        self.assertEqual(broker.submitted, [])
+        self.assertIn("no_contract", r["reasons"])
+
     def test_green_area_sends_nothing_now(self):
         publish(THURSDAY, [GREEN])
         broker = FakeBroker()
@@ -323,10 +338,10 @@ class RunTests(DeskTestCase):
         publish(THURSDAY, [RED])
         journal.log("order", now=at(THURSDAY, 10, 5), role="entry", order_id="x", symbol=CALL_590,
                     underlying_price=590.0)
-        broker = FakeBroker(positions=[{"symbol": CALL_590, "qty": 1.0, "avg_entry_price": 2.0}])
+        broker = FakeBroker(positions=[{"symbol": CALL_590, "qty": 1.0, "avg_entry_price": 2.0}], cash=20.0)
         r = self.paper(broker)
         self.assertEqual(broker.submitted, [])
-        self.assertIn("one_position", r["reasons"])
+        self.assertIn("one_position", r["reasons"])  # the real reason, not "no contract" for the cash it holds
 
     def test_rejected_order_is_logged_not_retried(self):
         publish(THURSDAY, [RED])

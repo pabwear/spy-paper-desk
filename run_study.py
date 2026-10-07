@@ -174,7 +174,8 @@ def cmd_auto_zones(now: datetime, source: Bars) -> list[str]:
 
 def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[dict] | None = None, fetch=None,
              account_number: str | None = None, market_open: bool | None = None, client_is_paper: bool = True,
-             base_url: str | None = None, open_orders: int | None = None, contract_picker=None, quote_picker=None) -> dict:
+             base_url: str | None = None, open_orders: int | None = None, contract_picker=None, quote_picker=None,
+             buying_power: float | None = None) -> dict:
     """Decide on an entry for one symbol. Pure decision logic over the desk files, the bars and what the caller passes in.
 
     Never orders. contract_picker(right, price, today, underlying) -> listed contracts; only `paper` passes one.
@@ -259,6 +260,10 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
         opt = rules.get("option", {})
         target_days, min_days = int(opt.get("expiry_target_days", 0) or 0), int(opt.get("expiry_min_days", 0) or 0)
         max_cost = float(opt.get("max_cost_usd") or rules.get("book_usd") or 1000)
+        if buying_power is not None and not positions:
+            # one contract must fit the money in the account, not just the rule (while one is open the
+            # cash is in it, and one_position is the reason to wait)
+            max_cost = min(max_cost, float(buying_power))
         asks = {}
         if target_days:
             # the nearest-dollar strike on each expiry in the window, priced before choosing
@@ -485,6 +490,14 @@ def cmd_eval(now: datetime, bars=None, fetch=None) -> dict:
     return pick(results)
 
 
+def _option_money(snap: dict) -> float | None:
+    """What one option buy may spend: Alpaca's options buying power, else cash (never margin)."""
+    for k in ("options_buying_power", "cash"):
+        if snap.get(k) is not None:
+            return float(snap[k])
+    return None
+
+
 def cmd_paper(now: datetime, broker_factory=None, bars=None, fetch=None) -> dict:
     """Manage exits, then evaluate the focus list. Submits at most ONE entry, only if every gate check passes."""
     risk = load_json("risk.json", {})
@@ -512,7 +525,8 @@ def cmd_paper(now: datetime, broker_factory=None, bars=None, fetch=None) -> dict
                                  account_number=snap.get("account_number"), market_open=broker.market_open(),
                                  client_is_paper=broker.is_paper, base_url=broker.base_url,
                                  open_orders=len(broker.open_orders()), contract_picker=broker.option_contracts,
-                                 quote_picker=getattr(broker, "option_asks", None))
+                                 quote_picker=getattr(broker, "option_asks", None),
+                                 buying_power=_option_money(snap))
     r = pick(results)
     for other in results:
         if other is not r:

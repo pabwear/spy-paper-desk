@@ -97,7 +97,7 @@ class FakeBroker:
     is_paper = True
 
     def __init__(self, account_number="PA36VOEO5PHB", positions=None, market_open=True, fills=None,
-                 open_orders=None, reject=False, expiries=(0, 1, 2, 7, 9, 14, 21, 28, 35, 42), ask_per_day=0.45):
+                 open_orders=None, reject=False, expiries=(0, 1, 2, 7, 9, 14, 21, 28, 35, 42), ask_per_day=0.45, cash=1000.0):
         self.account_number = account_number
         self._positions = positions or []
         self._market_open = market_open
@@ -106,6 +106,7 @@ class FakeBroker:
         self._reject = reject
         self._expiries = expiries
         self._ask_per_day = ask_per_day  # a contract's ask: $2 plus this much per day to expiry
+        self._cash = cash
         self.submitted: list[dict] = []
 
     def positions(self):
@@ -113,8 +114,8 @@ class FakeBroker:
 
     def account_snapshot(self):
         return {"source": "fake_paper", "account_name": "Paper 1000", "account_number": self.account_number,
-                "status": "ACTIVE", "snapshot_at": "2026-10-01T10:30:00-04:00", "equity": 1000.0, "cash": 1000.0,
-                "buying_power": 2000.0, "last_equity": 1000.0,
+                "status": "ACTIVE", "snapshot_at": "2026-10-01T10:30:00-04:00", "equity": self._cash, "cash": self._cash,
+                "buying_power": 2 * self._cash, "options_buying_power": self._cash, "last_equity": self._cash,
                 "position": self._positions[0] if self._positions else None, "positions": self.positions()}
 
     def market_open(self):

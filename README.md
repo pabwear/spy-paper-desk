@@ -12,6 +12,9 @@ that is off. No SNDK strategy exists in this codebase.
 **Current setup (since 2026-10-07).** The settings that came closest to break-even
 in the six-year backtest (`backtest_areas.py`; results in `backtests/areas.md` on
 desk-state). It still lost a little there, so this is paper practice, not a proven edge.
+`backtest_areas.py --current` replays exactly this setup (10-minute checks, the
+affordable ~30-day pick); `rehearsal.py` runs the real desk program heartbeat by
+heartbeat over recent days with a simulated broker, to catch bugs before they cost a day.
 
 | Setting (`rules.json`) | Now | Originally |
 |---|---|---|
