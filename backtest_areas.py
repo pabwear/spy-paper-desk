@@ -1,141 +1,216 @@
-"""Backtest: how the call and put areas would have traded under each entry rule.
+"""Backtest: how the call and put areas would have traded under each entry rule, and which settings hold up.
 
-Research only: nothing here places orders or changes the desk. Uses the desk's own 09:39 Mxwll read
-(Areas of Interest on its timeframe and session) and its trade rules: entries 10:00–15:40 ET, at most
-2 a day and one at a time, a stop 0.35 % away on SPY, flat from 15:40.
+Research only: nothing here places orders or changes the desk. It replays 1-minute SPY bars (the desk's
+own Alpaca IEX feed in the cloud) through the desk's pieces:
 
-Rules compared:
-    touch       today's rule: a call when price reaches the red area, a put at the green area
-    confirm     Roy's option 3: wait for a candle to close after touching an area. Closed through it →
-                trade the breakout; closed back on the side it came from → trade the bounce
-    confirm_t1  confirm, and take profit at Target 1 (1× the stop distance)
+- areas: the desk's 09:39 Mxwll read (Areas of Interest on its candles and session), red and green;
+- the desk's 2-signal check (signals.confluence_tags + studies.auto.zone_tags): RSI, VWAP, volume,
+  structure and support/resistance near the area, pointed the way of the trade;
+- the desk's trade rules: decisions at each 5-minute mark 10:00–15:40 ET, at most 2 entries a day and one
+  at a time, a stop on SPY, flat from 15:40. Exits are walked minute by minute.
 
-Option results use the desk's estimate: an at-the-money option moves about $50 per $1 of SPY per
-contract. Time decay, spreads and fills are left out, so real results would be lower.
+Entry rules:
+    touch    today's rule: a call when price is at the red area, a put at the green area
+    confirm  Roy's option 3: once a 5-minute candle closes after touching an area, closed through it →
+             trade the breakout; closed back on the side it came from → trade the bounce
 
-    python3 backtest_areas.py [--days 60]      # downloads 5-minute SPY bars (yfinance), prints the table
+Each variant = entry rule × areas (both / red only / green only) × 2-signal check (off / on) × stop
+(0.25 / 0.35 / 0.5 %) × take profit (none / 1× / 2× the stop). Days are split in time order: the
+first 70 % pick the settings ("train"), the last 30 % judge them on days they never saw ("test").
+
+Option dollars use the desk's estimate: an at-the-money option moves about $50 per $1 of SPY per contract;
+`net` also takes off $5 a trade for spreads and fees. Time decay is left out, so real results would be lower.
+
+    python3 backtest_areas.py --source yfinance            # ~7 days of 1-minute bars, for a quick check
+    python3 backtest_areas.py --source alpaca --since 2020-01-01 --json out.json --md out.md   # in the cloud
 """
 
 from __future__ import annotations
 
 import argparse
+import itertools
 import json
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 from common import ET, hhmm
 
-RULES = ("touch", "confirm", "confirm_t1")
-PER_DOLLAR = 50.0  # option dollars per $1 of SPY, delta 0.5 × 100 shares
+PER_DOLLAR = 50.0      # option dollars per $1 of SPY, delta 0.5 × 100 shares
+COST_PER_TRADE = 5.0   # spreads and fees, round trip, per contract (a rough allowance)
+HISTORY_CANDLES = 600  # 5-minute candles the study reads (about three extended-hours days)
+RSI_WARMUP = 300       # 1-minute closes for the desk's RSI
+
+RULES = ("touch", "confirm")
+AREAS = ("both", "red", "green")
+MIN_TAGS = (0, 2)
+STOPS = (0.25, 0.35, 0.5)
+TARGETS = (0, 1, 2)  # take profit at this many stop distances (0 = hold to the stop or 15:40)
+
+DESK_NOW = {"rule": "touch", "areas": "both", "min_tags": 2, "stop": 0.35, "target": 0}
+OPTION_3 = {"rule": "confirm", "areas": "both", "min_tags": 2, "stop": 0.35, "target": 0}
 
 
-def day_zones(candles: list[dict], cfg: dict) -> list[dict]:
-    """The visible red and green Areas of Interest from the candles before the snapshot."""
-    from studies import mxwll
+def variants() -> list[dict]:
+    return [{"rule": r, "areas": a, "min_tags": m, "stop": s, "target": t}
+            for r, a, m, s, t in itertools.product(RULES, AREAS, MIN_TAGS, STOPS, TARGETS)]
 
-    if len(candles) <= int(cfg.get("aoi_lookback", 50)):
-        return []
-    a = (mxwll.analyze(candles, cfg) or {}).get("aoi")
-    if not a:
-        return []
-    return [{"color": k, "low": a[k]["low"], "high": a[k]["high"]} for k in ("red", "green") if a[k]["visible"]]
+
+def vkey(v: dict) -> str:
+    tp = f"tp {v['target']}x" if v["target"] else "hold"
+    return f"{v['rule']} · {v['areas']} · {v['min_tags']} signals · stop {v['stop']}% · {tp}"
 
 
 def _pos(price: float, z: dict) -> str:
     return "below" if price < z["low"] else "above" if price > z["high"] else "inside"
 
 
-def _exit(candles: list[dict], i0: int, entry: float, long: bool, stop_pct: float, target: bool,
-          cutoff) -> tuple[float, str, datetime]:
-    """Walk forward from candle i0 (the first candle after entry) to the stop, the target or the cutoff."""
-    d = entry * stop_pct / 100
-    stop, tgt = (entry - d, entry + d) if long else (entry + d, entry - d)
-    last = None
-    for k in candles[i0:]:
-        t = k["t"].astimezone(ET)
-        if t.time() >= cutoff:
-            return k["o"], "close", t
-        hit_stop = k["l"] <= stop if long else k["h"] >= stop
-        hit_tgt = target and (k["h"] >= tgt if long else k["l"] <= tgt)
-        if hit_stop:  # a candle that touches both counts as stopped: the cautious reading
-            px = min(k["o"], stop) if long else max(k["o"], stop)
-            return px, "stop", t
-        if hit_tgt:
-            px = max(k["o"], tgt) if long else min(k["o"], tgt)
-            return px, "target", t
-        last = k
-    return (last["c"], "close", last["t"].astimezone(ET)) if last else (entry, "close", None)
+class Day:
+    """One trading day: its 1-minute bars, its 09:39 areas, its entry candidates and their signals."""
 
+    def __init__(self, d: date, minutes: list[dict], warm: list[dict], history: list[dict], cfg: dict,
+                 tol_pct: float = 0.15, snapshot: str = "09:39", step: int = 5):
+        from studies import mxwll
 
-def simulate_day(candles: list[dict], zones: list[dict], rule: str, stop_pct: float = 0.35,
-                 tol_pct: float = 0.15, start: str = "10:00", cutoff: str = "15:40", max_entries: int = 2,
-                 minutes: int = 5) -> list[dict]:
-    """One day's trades. `candles` are that day's candles (start times, ET), oldest first."""
-    s_t, c_t = hhmm(start), hhmm(cutoff)
-    trades: list[dict] = []
-    if not zones:
-        return trades
-    origin = {z["color"]: None for z in zones}
-    prev_pos = {z["color"]: None for z in zones}
-    i, n = 0, len(candles)
-    while i < n and len(trades) < max_entries:
-        k = candles[i]
-        t = k["t"].astimezone(ET)
-        close_t = (t + timedelta(minutes=minutes)).time()
-        signal = None
+        self.d, self.m, self.cfg, self.tol, self.step = d, minutes, cfg, tol_pct, step
+        self.warm = warm          # earlier 1-minute bars, for RSI
+        self.history = history    # earlier 5-minute candles, for the study
+        tf = int(cfg["timeframe_minutes"])
+        rth_only = bool(cfg.get("regular_hours_only"))
+        snap = hhmm(snapshot)
+        cut = datetime(d.year, d.month, d.day, snap.hour, snap.minute, 59, tzinfo=ET)
+        self.candles_today = mxwll.resample(minutes, tf, rth_only)
+        upto = [b for b in minutes if b["t"] <= cut]
+        base = (history + mxwll.resample(upto, tf, rth_only))[-HISTORY_CANDLES:]
+        self.zones: list[dict] = []
+        if len(base) > int(cfg.get("aoi_lookback", 50)):
+            a = (mxwll.analyze(base, cfg) or {}).get("aoi")
+            if a:
+                self.zones = [{"color": k, "low": a[k]["low"], "high": a[k]["high"]} for k in ("red", "green")
+                              if a[k]["visible"]]
+        self._tags: dict = {}
+        self._cands: dict = {}
+
+    # ------------------------------------------------------------ candidates (independent of positions)
+    def marks(self) -> list[int]:
+        """Indexes of the minutes that end on a 5-minute mark (the bar that closes at :00, :05, ...)."""
+        return [i for i, b in enumerate(self.m) if (b["t"].astimezone(ET).minute + 1) % self.step == 0]
+
+    def candidates(self, rule: str) -> list[dict]:
+        if rule in self._cands:
+            return self._cands[rule]
+        out: list[dict] = []
         if rule == "touch":
-            if s_t <= t.time() < c_t:
-                best = None
-                for z in zones:
+            for i in self.marks():
+                px = self.m[i]["c"]
+                near = []
+                for z in self.zones:
                     mid = (z["low"] + z["high"]) / 2
-                    lo, hi = min(z["low"], mid * (1 - tol_pct / 100)), max(z["high"], mid * (1 + tol_pct / 100))
-                    if k["l"] <= hi and k["h"] >= lo:
-                        entry = min(max(k["o"], lo), hi)
-                        dist = abs(entry - k["o"])
-                        if best is None or dist < best[0]:
-                            best = (dist, z, entry)
-                if best:
-                    _, z, entry = best
-                    signal = {"zone": z["color"], "long": z["color"] == "red", "entry": entry, "kind": "touch",
-                              "next": i + 1}
+                    if z["low"] <= px <= z["high"] or abs(px - mid) / mid <= self.tol / 100:
+                        near.append((abs(px - mid), z))
+                if near:
+                    z = min(near, key=lambda x: x[0])[1]
+                    out.append({"i": i, "zone": z, "long": z["color"] == "red", "kind": "touch", "entry": px})
         else:
-            for z in zones:
-                c = z["color"]
-                pos = _pos(k["c"], z)
-                touched = k["l"] <= z["high"] and k["h"] >= z["low"]
-                if (signal is None and pos != "inside" and origin[c] and (touched or prev_pos[c] == "inside")
-                        and s_t <= close_t <= c_t):
-                    kind = "break" if pos != origin[c] else "bounce"
-                    signal = {"zone": c, "long": pos == "above", "entry": k["c"], "kind": kind, "next": i + 1}
-                if pos != "inside":
-                    origin[c] = pos
-                prev_pos[c] = pos
-        if signal:
-            px, why, out_t = _exit(candles, signal["next"], signal["entry"], signal["long"], stop_pct,
-                                   rule == "confirm_t1", c_t)
-            move = (px - signal["entry"]) if signal["long"] else (signal["entry"] - px)
-            trades.append({"t": t.isoformat(timespec="minutes"), "zone": signal["zone"], "kind": signal["kind"],
-                           "contract": "call" if signal["long"] else "put", "entry": round(signal["entry"], 2),
-                           "exit": round(px, 2), "why": why, "move": round(move, 3),
-                           "usd": round(move * PER_DOLLAR, 2)})
-            if out_t is None:
+            origin = {z["color"]: None for z in self.zones}
+            prev = {z["color"]: None for z in self.zones}
+            lo_since = {z["color"]: float("inf") for z in self.zones}
+            hi_since = {z["color"]: float("-inf") for z in self.zones}
+            for i, b in enumerate(self.m):
+                for z in self.zones:
+                    c = z["color"]
+                    lo_since[c], hi_since[c] = min(lo_since[c], b["l"]), max(hi_since[c], b["h"])
+                if (b["t"].astimezone(ET).minute + 1) % self.step:
+                    continue
+                for z in self.zones:  # a 5-minute candle just closed
+                    c = z["color"]
+                    pos = _pos(b["c"], z)
+                    touched = lo_since[c] <= z["high"] and hi_since[c] >= z["low"]
+                    if pos != "inside" and origin[c] and (touched or prev[c] == "inside"):
+                        out.append({"i": i, "zone": z, "long": pos == "above",
+                                    "kind": "break" if pos != origin[c] else "bounce", "entry": b["c"]})
+                    if pos != "inside":
+                        origin[c] = pos
+                    prev[c] = pos
+                    lo_since[c], hi_since[c] = float("inf"), float("-inf")
+        self._cands[rule] = out
+        return out
+
+    # ------------------------------------------------------------ the desk's 2-signal check at minute i
+    def tags(self, i: int, zone: dict, long: bool) -> list[str]:
+        key = (i, zone["color"], long)
+        if key in self._tags:
+            return self._tags[key]
+        from signals import confluence_tags, rsi, session_vwap, volume_above_average
+        from studies import auto, mxwll
+
+        upto = self.m[: i + 1]
+        price = upto[-1]["c"]
+        closes = [b["c"] for b in (self.warm + upto)][-RSI_WARMUP:]
+        r = rsi(closes, 14)
+        vw = session_vwap(upto, "09:30")
+        vol_up = volume_above_average([b["v"] for b in upto], 20)
+        sk = ("study", i)
+        if sk not in self._tags:
+            tf = int(self.cfg["timeframe_minutes"])
+            cand = (self.history + mxwll.resample(upto, tf, bool(self.cfg.get("regular_hours_only"))))[-HISTORY_CANDLES:]
+            self._tags[sk] = mxwll.analyze(cand, self.cfg) if len(cand) > 30 else None
+        z = {**zone, "color": "red" if long else "green"}  # the desk's tags point the trade's way
+        st_tags = auto.zone_tags(self._tags[sk], [z], self.tol).get(z["color"])
+        out = confluence_tags(z, price, r, vw, vol_up, st_tags)
+        self._tags[key] = out
+        return out
+
+    # ------------------------------------------------------------ one variant's trades
+    def trades(self, v: dict, start: str = "10:00", cutoff: str = "15:40", max_entries: int = 2) -> list[dict]:
+        s_t, c_t = hhmm(start), hhmm(cutoff)
+        out: list[dict] = []
+        free_from = 0
+        for cand in self.candidates(v["rule"]):
+            if len(out) >= max_entries:
                 break
-            # flat again: carry on from the candle after the exit
-            while i < n and candles[i]["t"].astimezone(ET) <= out_t:
-                i += 1
-            if rule != "touch":  # a fresh look at each area after a trade
-                for z in zones:
-                    p = _pos(candles[i - 1]["c"], z) if i else None
-                    origin[z["color"]] = p if p != "inside" else origin[z["color"]]
-                    prev_pos[z["color"]] = p
-            continue
-        i += 1
-    return trades
+            i = cand["i"]
+            if i < free_from:
+                continue
+            close_t = (self.m[i]["t"].astimezone(ET) + timedelta(minutes=1)).time()
+            if not (s_t <= close_t < c_t):
+                continue
+            if v["areas"] != "both" and cand["zone"]["color"] != v["areas"]:
+                continue
+            tags = self.tags(i, cand["zone"], cand["long"]) if v["min_tags"] else []
+            if len(tags) < v["min_tags"]:
+                continue
+            px, why, j = exit_walk(self.m, i + 1, cand["entry"], cand["long"], v["stop"], v["target"], c_t)
+            move = (px - cand["entry"]) if cand["long"] else (cand["entry"] - px)
+            usd = move * PER_DOLLAR
+            out.append({"t": self.m[i]["t"].astimezone(ET).isoformat(timespec="minutes"), "zone": cand["zone"]["color"],
+                        "kind": cand["kind"], "contract": "call" if cand["long"] else "put",
+                        "entry": round(cand["entry"], 2), "exit": round(px, 2), "why": why, "tags": tags,
+                        "usd": round(usd, 2), "net": round(usd - COST_PER_TRADE, 2)})
+            free_from = j + 1
+        return out
 
 
-def summarize(trades: list[dict]) -> dict:
+def exit_walk(m: list[dict], i0: int, entry: float, long: bool, stop_pct: float, target_x: float,
+              cutoff) -> tuple[float, str, int]:
+    """Minute by minute from i0: the stop, the target (target_x × the stop distance) or the cutoff."""
+    d = entry * stop_pct / 100
+    stop = entry - d if long else entry + d
+    tgt = (entry + target_x * d if long else entry - target_x * d) if target_x else None
+    for j in range(i0, len(m)):
+        k = m[j]
+        if k["t"].astimezone(ET).time() >= cutoff:
+            return k["o"], "close", j
+        if (k["l"] <= stop) if long else (k["h"] >= stop):  # a minute that touches both counts as stopped
+            return (min(k["o"], stop) if long else max(k["o"], stop)), "stop", j
+        if tgt is not None and ((k["h"] >= tgt) if long else (k["l"] <= tgt)):
+            return (max(k["o"], tgt) if long else min(k["o"], tgt)), "target", j
+    last = m[-1] if m else None
+    return (last["c"] if last else entry), "close", len(m) - 1
+
+
+def summarize(trades: list[dict], field: str = "net") -> dict:
     if not trades:
-        return {"trades": 0}
-    usd = [t["usd"] for t in trades]
+        return {"trades": 0, "total": 0.0, "per_trade": 0.0}
+    usd = [t[field] for t in trades]
     wins = [u for u in usd if u > 0]
     losses = [u for u in usd if u <= 0]
     run = peak = dd = 0.0
@@ -145,70 +220,177 @@ def summarize(trades: list[dict]) -> dict:
         dd = min(dd, run - peak)
     by_day: dict[str, float] = {}
     for t in trades:
-        by_day[t["t"][:10]] = by_day.get(t["t"][:10], 0.0) + t["usd"]
-    return {"trades": len(trades), "win_pct": round(100 * len(wins) / len(usd), 1),
+        by_day[t["t"][:10]] = by_day.get(t["t"][:10], 0.0) + t[field]
+    return {"trades": len(trades), "days_traded": len(by_day), "win_pct": round(100 * len(wins) / len(usd), 1),
             "avg_win": round(sum(wins) / len(wins), 2) if wins else None,
             "avg_loss": round(sum(losses) / len(losses), 2) if losses else None,
             "total": round(sum(usd), 2), "per_trade": round(sum(usd) / len(usd), 2),
+            "gross": round(sum(t["usd"] for t in trades), 2),
             "worst_day": round(min(by_day.values()), 2), "best_day": round(max(by_day.values()), 2),
-            "max_drawdown": round(dd, 2), "stopped_pct": round(100 * sum(t["why"] == "stop" for t in trades) / len(trades), 1)}
+            "max_drawdown": round(dd, 2), "stopped_pct": round(100 * sum(t["why"] == "stop" for t in trades) / len(trades), 1),
+            "target_pct": round(100 * sum(t["why"] == "target" for t in trades) / len(trades), 1)}
 
 
-def run(candles: list[dict], cfg: dict, stop_pct: float = 0.35) -> dict:
-    """Every rule over every day in `candles` (5-minute, ET, extended hours as the desk reads them)."""
-    days = sorted({k["t"].astimezone(ET).date() for k in candles})
-    snap = hhmm(cfg.get("snapshot_time", "09:39"))
-    out = {r: [] for r in RULES}
-    zones_by_day = {}
-    for d in days:
-        if d.weekday() >= 5:
-            continue
-        # the read the desk has at 09:39: candles that closed by then (no peeking at the forming one)
-        cut = datetime(d.year, d.month, d.day, snap.hour, snap.minute, tzinfo=ET)
-        before = [k for k in candles if k["t"] + timedelta(minutes=int(cfg["timeframe_minutes"])) <= cut]
-        today = [k for k in candles if k["t"].astimezone(ET).date() == d]
-        if not today or len(before) <= int(cfg.get("aoi_lookback", 50)):
-            continue
-        zones = day_zones(before, cfg)
-        zones_by_day[d.isoformat()] = zones
-        for r in RULES:
-            out[r] += simulate_day(today, zones, r, stop_pct, minutes=int(cfg["timeframe_minutes"]))
-    return {"days": len(zones_by_day), "first": min(zones_by_day, default=None), "last": max(zones_by_day, default=None),
-            "zones": zones_by_day, "trades": out, "summary": {r: summarize(out[r]) for r in RULES}}
+def by_group(trades: list[dict]) -> dict:
+    g: dict[str, list] = {}
+    for t in trades:
+        g.setdefault(f"{t['zone']} {t['kind']} {t['contract']}", []).append(t)
+    return {k: summarize(v) for k, v in sorted(g.items())}
 
 
-def _download(days: int, minutes: int) -> list[dict]:
+# ---------------------------------------------------------------- driving it over many days
+
+def group_days(bars: list[dict], regular_hours_only: bool) -> dict[date, list[dict]]:
+    lo, hi = (hhmm("09:30"), hhmm("16:00")) if regular_hours_only else (hhmm("04:00"), hhmm("20:00"))
+    days: dict[date, list[dict]] = {}
+    for b in sorted(bars, key=lambda x: x["t"]):
+        t = b["t"].astimezone(ET)
+        if t.weekday() < 5 and lo <= t.time() < hi:
+            days.setdefault(t.date(), []).append(b)
+    return days
+
+
+def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7, progress=None) -> dict:
+    """Every variant over every day; settings picked on the train days, judged on the test days."""
+    from studies import mxwll
+
+    tf, rth_only = int(cfg["timeframe_minutes"]), bool(cfg.get("regular_hours_only"))
+    vs = variants()
+    per_day: list[tuple[date, dict]] = []
+    history: list[dict] = []
+    warm: list[dict] = []
+    zones_seen = 0
+    ds = sorted(bars_by_day)
+    for n, d in enumerate(ds):
+        mins = bars_by_day[d]
+        if len(mins) >= 60 and len(history) > int(cfg.get("aoi_lookback", 50)):
+            day = Day(d, mins, warm, history, cfg)
+            if day.zones:
+                zones_seen += 1
+                per_day.append((d, {vkey(v): day.trades(v) for v in vs}))
+        history = (history + mxwll.resample(mins, tf, rth_only))[-HISTORY_CANDLES:]
+        warm = (warm + mins)[-RSI_WARMUP:]
+        if progress and n % 50 == 0:
+            progress(n, len(ds))
+    split = int(len(per_day) * train_share)
+    train, test = per_day[:split], per_day[split:]
+
+    def collect(part, key):
+        return [t for _, res in part for t in res[key]]
+
+    table = []
+    for v in vs:
+        k = vkey(v)
+        table.append({"variant": v, "key": k, "train": summarize(collect(train, k)), "test": summarize(collect(test, k)),
+                      "all": summarize(collect(per_day, k))})
+    ranked = sorted((r for r in table if r["train"]["trades"] >= 30), key=lambda r: r["train"]["total"], reverse=True)
+    pick = ranked[0] if ranked else None
+    named = {"desk_now": vkey(DESK_NOW), "option_3": vkey(OPTION_3)}
+    out = {
+        "days": len(per_day), "first": per_day[0][0].isoformat() if per_day else None,
+        "last": per_day[-1][0].isoformat() if per_day else None,
+        "train_days": len(train), "test_days": len(test),
+        "train_range": [train[0][0].isoformat(), train[-1][0].isoformat()] if train else None,
+        "test_range": [test[0][0].isoformat(), test[-1][0].isoformat()] if test else None,
+        "cost_per_trade": COST_PER_TRADE, "per_dollar": PER_DOLLAR,
+        "picked": pick["key"] if pick else None,
+        "named": {name: next(r for r in table if r["key"] == k) for name, k in named.items()},
+        "top_train": ranked[:10],
+        "picked_groups": by_group(collect(test, pick["key"])) if pick else {},
+        "desk_now_groups": by_group(collect(per_day, named["desk_now"])),
+        "option_3_groups": by_group(collect(per_day, named["option_3"])),
+        "table": table,
+    }
+    if pick:
+        out["named"]["picked"] = pick
+    return out
+
+
+def markdown(res: dict) -> str:
+    def row(name, r):
+        a, b = r["train"], r["test"]
+        return (f"| {name} | {r['key']} | {a['trades']} | {a.get('win_pct', '—')}% | ${a['total']:,.0f} | "
+                f"{b['trades']} | {b.get('win_pct', '—')}% | ${b['total']:,.0f} | ${b['per_trade']:,.2f} | ${b.get('max_drawdown', 0):,.0f} |")
+
+    lines = ["# Call/put area backtest", "",
+             f"{res['days']} trading days with areas, {res['first']} to {res['last']}. "
+             f"Train {res['train_range']}, test {res['test_range']}. Net of ${res['cost_per_trade']:.0f} a trade; "
+             "time decay left out.", "",
+             "| | Settings | Train trades | Train won | Train net | Test trades | Test won | Test net | Test per trade | Test worst drop |",
+             "|---|---|---|---|---|---|---|---|---|---|"]
+    for name, label in (("desk_now", "Desk today"), ("option_3", "Option 3"), ("picked", "Picked on train")):
+        if name in res["named"]:
+            lines.append(row(label, res["named"][name]))
+    lines += ["", "Top 10 on the train days, and how they did on the test days:", "",
+              "| Settings | Train net | Test trades | Test won | Test net |", "|---|---|---|---|---|"]
+    for r in res["top_train"]:
+        lines.append(f"| {r['key']} | ${r['train']['total']:,.0f} | {r['test']['trades']} | {r['test'].get('win_pct', '—')}% | ${r['test']['total']:,.0f} |")
+    return "\n".join(lines) + "\n"
+
+
+# ---------------------------------------------------------------- data
+
+def alpaca_minutes(since: date, until: date, symbol: str = "SPY") -> list[dict]:
+    """1-minute IEX bars from Alpaca (the desk's own feed), a month at a time. Keys from the environment."""
+    from alpaca.data.enums import DataFeed
+    from alpaca.data.historical import StockHistoricalDataClient
+    from alpaca.data.requests import StockBarsRequest
+    from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
+
+    from alpaca_client import _keys
+
+    key, secret = _keys()
+    client = StockHistoricalDataClient(key, secret)
+    out: list[dict] = []
+    a = since
+    while a < until:
+        b = min(until, a + timedelta(days=31))
+        req = StockBarsRequest(symbol_or_symbols=symbol, timeframe=TimeFrame(1, TimeFrameUnit.Minute),
+                               start=datetime(a.year, a.month, a.day, tzinfo=ET), end=datetime(b.year, b.month, b.day, tzinfo=ET),
+                               feed=DataFeed.IEX)
+        for x in client.get_stock_bars(req).data.get(symbol, []):
+            out.append({"t": x.timestamp.astimezone(ET), "o": float(x.open), "h": float(x.high), "l": float(x.low),
+                        "c": float(x.close), "v": float(x.volume)})
+        print(f"  {a} → {b}: {len(out):,} bars so far", flush=True)
+        a = b
+    return out
+
+
+def yfinance_minutes(symbol: str = "SPY") -> list[dict]:
     import yfinance as yf
 
-    df = yf.download("SPY", period=f"{min(days, 59)}d", interval=f"{minutes}m", prepost=True, progress=False,
-                     auto_adjust=False, multi_level_index=False)
-    out = []
-    for ts, r in df.iterrows():
-        t = ts.to_pydatetime().astimezone(ET)
-        if not (4 <= t.hour < 20):
-            continue
-        out.append({"t": t, "o": float(r["Open"]), "h": float(r["High"]), "l": float(r["Low"]),
-                    "c": float(r["Close"]), "v": float(r["Volume"])})
-    return out
+    df = yf.download(symbol, period="7d", interval="1m", prepost=True, progress=False, auto_adjust=False,
+                     multi_level_index=False)
+    return [{"t": ts.to_pydatetime().astimezone(ET), "o": float(r["Open"]), "h": float(r["High"]), "l": float(r["Low"]),
+             "c": float(r["Close"]), "v": float(r["Volume"])} for ts, r in df.iterrows()]
 
 
 def main(argv: list[str] | None = None) -> int:
     from studies import auto
-    from common import load_json
 
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--days", type=int, default=60)
-    ap.add_argument("--json", help="also write the full result here")
+    ap.add_argument("--source", choices=("alpaca", "yfinance"), default="yfinance")
+    ap.add_argument("--since", default="2020-01-01", help="first day (Alpaca)")
+    ap.add_argument("--json", help="write the full result here")
+    ap.add_argument("--md", help="write the summary table here (Markdown)")
     a = ap.parse_args(argv)
     cfg = auto.desk_config()
-    candles = _download(a.days, int(cfg["timeframe_minutes"]))
-    res = run(candles, cfg, float((load_json("rules.json", {}) or {}).get("stop_underlying_pct", 0.35)))
-    print(f"{res['days']} trading days, {res['first']} to {res['last']}")
-    for r in RULES:
-        print(r, json.dumps(res["summary"][r]))
+    if a.source == "alpaca":
+        bars = alpaca_minutes(date.fromisoformat(a.since), datetime.now(ET).date())
+    else:
+        bars = yfinance_minutes()
+    print(f"{len(bars):,} one-minute bars", flush=True)
+    days = group_days(bars, bool(cfg.get("regular_hours_only")))
+    del bars
+    res = run(days, cfg, progress=lambda n, t: print(f"  day {n} of {t}", flush=True))
+    md = markdown(res)
+    print(md)
     if a.json:
         with open(a.json, "w") as f:
             json.dump(res, f, default=str)
+    if a.md:
+        with open(a.md, "w") as f:
+            f.write(md)
     return 0
 
 

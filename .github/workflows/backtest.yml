@@ -1,0 +1,67 @@
+name: Backtest the call/put areas
+
+# Research only: replays years of 1-minute SPY bars (Alpaca IEX, free with the desk's paper keys) through
+# the desk's areas and rules, compares entry rules and settings, and saves the results to desk-state
+# (backtests/). It reads market data only: no account calls, no orders.
+on:
+  workflow_dispatch:
+    inputs:
+      since:
+        description: "First day to test (YYYY-MM-DD). Alpaca's free 1-minute history starts around 2016."
+        default: "2016-01-01"
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: desk-state
+          path: .state
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install --quiet -r requirements.txt
+      - run: python cloud_state.py restore .state
+      - name: Backtest
+        env:
+          ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+          SINCE: ${{ inputs.since }}
+        run: |
+          mkdir -p out
+          python backtest_areas.py --source alpaca --since "$SINCE" --json out/areas.json --md out/areas.md
+          cat out/areas.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: backtest
+          path: out/
+
+  save:
+    needs: run
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: desk-state
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: desk-state
+      - uses: actions/download-artifact@v4
+        with:
+          name: backtest
+          path: backtests/
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backtests/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "backtest: call/put areas $(date -u +%F)"
+          git push -q origin HEAD:desk-state
