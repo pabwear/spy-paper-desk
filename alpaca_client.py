@@ -244,7 +244,16 @@ def main() -> int:
     parser.add_argument("--save", action="store_true", help="write account.json and log the snapshot")
     args = parser.parse_args()
     broker = PaperBroker()
-    snap = broker.account_snapshot()
+    try:
+        snap = broker.account_snapshot()
+    except Exception as e:  # noqa: BLE001 - explain the usual setup mistakes instead of a traceback
+        text = str(e).lower()
+        if "unauthorized" in text or "forbidden" in text:
+            print("Alpaca refused these keys (unauthorized). Check that ALPACA_API_KEY holds the Key (a paper key")
+            print("starts with PK, not the Endpoint URL), ALPACA_SECRET_KEY holds the Secret, both come from the")
+            print("Paper 1000 PAPER account, and neither has spaces. Regenerating keys makes the old ones stop working.")
+            return 1
+        raise
     expected = broker.config.get("account_number")
     print(f"Account   {snap['account_name']} ({snap['account_number']}) — PAPER")
     if expected and snap["account_number"] != expected:
