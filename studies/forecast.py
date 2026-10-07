@@ -327,6 +327,47 @@ def _after_entry(paths: np.ndarray, last: float, entry: float) -> list[np.ndarra
     return out
 
 
+def area_outcomes(paths: np.ndarray, last: float, zone_low: float, zone_high: float, above: bool,
+                  bounce_pct: float) -> dict:
+    """What price did once it reached the area, along the look-alike paths.
+
+    The area sits above the price (`above`, a red box) or below it (a green box). After the first touch
+    of its near edge, a path *breaks* through when it reaches the far edge, *bounces* when it moves
+    `bounce_pct` % back away from the near edge first, and *stalls* when it does neither by the end.
+    Price already inside the area counts as touching it now.
+    """
+    lo, hi = np.log(zone_low / last), np.log(zone_high / last)
+    near, far = (lo, hi) if above else (hi, lo)
+    back = near + (np.log(1 - bounce_pct / 100) if above else np.log(1 + bounce_pct / 100))
+    inside = lo <= 0 <= hi
+    touched = brk = bnc = 0
+    for p in paths:
+        if inside:
+            j = -1
+        else:
+            hit = np.nonzero(p >= near)[0] if above else np.nonzero(p <= near)[0]
+            if not len(hit):
+                continue
+            j = int(hit[0])
+        touched += 1
+        after = p[j + 1:]
+        through = np.nonzero(after >= far if above else after <= far)[0]
+        away = np.nonzero(after <= back if above else after >= back)[0]
+        t_through = through[0] if len(through) else None
+        t_away = away[0] if len(away) else None
+        if t_through is not None and (t_away is None or t_through <= t_away):
+            brk += 1
+        elif t_away is not None:
+            bnc += 1
+    n = len(paths)
+
+    def share(k: int) -> float | None:
+        return round(100 * k / touched, 1) if touched else None
+
+    return {"paths": n, "touched_pct": round(100 * touched / n, 1) if n else 0.0, "break_pct": share(brk),
+            "bounce_pct": share(bnc), "stall_pct": share(touched - brk - bnc), "bounce_move_pct": bounce_pct}
+
+
 def suggest(paths: np.ndarray, last: float, zone_low: float, zone_high: float, side: str, stop_pct: float,
             risk_usd: float, contracts: int = 1) -> dict:
     """Suggested entry, profit targets and size for one zone trade, from the look-alike paths.

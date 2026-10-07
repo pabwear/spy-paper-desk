@@ -192,8 +192,15 @@ def trade_plans(bars: list[dict] | None, now: datetime, cfg: dict, zones: list[d
         side = "buy" if z.get("color") == "red" else "sell"
         odds = forecast.plan_trade(paths, last, float(z["low"]), float(z["high"]), side, stop_pct)
         sug = forecast.suggest(paths, last, float(z["low"]), float(z["high"]), side, stop_pct, risk_usd, contracts)
+        # the other way to play the same area: it holds and price bounces (a put at the red box, a call at the green)
+        other = "sell" if side == "buy" else "buy"
+        bounce = forecast.plan_trade(paths, last, float(z["low"]), float(z["high"]), other, stop_pct)
+        outcomes = forecast.area_outcomes(paths, last, float(z["low"]), float(z["high"]), z.get("color") == "red", stop_pct)
         plans.append({"color": z.get("color"), "low": float(z["low"]), "high": float(z["high"]), "side": side,
-                      "contract": "call" if side == "buy" else "put", **odds, "suggest": sug})
+                      "contract": "call" if side == "buy" else "put", **odds, "suggest": sug, "outcomes": outcomes,
+                      "bounce_trade": {"contract": "call" if other == "buy" else "put",
+                                       **{k: bounce.get(k) for k in ("entry", "stop", "reach_pct", "win_if_entered_pct",
+                                                                     "stopped_if_entered_pct", "profit_pct")}}})
     ends = forecast.future_times(_row(candles[-1], False)[0], horizon, minutes, True)[-1]
     return {"tf": f"{minutes}m", "horizon": horizon, "until": ends, "by_close": open_now, "last": round(last, 2),
             "stop_pct": stop_pct, "zones_from": zones_from, "plans": plans,

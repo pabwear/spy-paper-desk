@@ -161,3 +161,53 @@ class SuggestTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AreaOutcomeTests(unittest.TestCase):
+    """Once price reaches an area: does it break through, bounce back, or stall?"""
+
+    def path(self, *pcts):
+        return np.log(1 + np.array(pcts) / 100)
+
+    def test_break_bounce_and_stall_above(self):
+        # area 100.5–101 above a price of 100; bounce = 0.35% back below 100.5
+        paths = np.array([self.path(0.3, 0.6, 0.9, 1.2, 1.5),      # through the top: break
+                          self.path(0.3, 0.6, 0.4, 0.0, -0.2),     # touched, then back under 100.15: bounce
+                          self.path(0.3, 0.6, 0.7, 0.6, 0.5),      # touched, went nowhere: stall
+                          self.path(0.1, 0.2, 0.1, 0.2, 0.1)])     # never got there
+        o = forecast.area_outcomes(paths, 100.0, 100.5, 101.0, above=True, bounce_pct=0.35)
+        self.assertEqual(o["touched_pct"], 75.0)
+        self.assertEqual((o["break_pct"], o["bounce_pct"], o["stall_pct"]), (33.3, 33.3, 33.3))
+
+    def test_area_below_mirrors(self):
+        paths = np.array([self.path(-0.3, -0.6, -1.2), self.path(-0.6, -0.1, 0.2)])
+        o = forecast.area_outcomes(paths, 100.0, 99.0, 99.5, above=False, bounce_pct=0.35)
+        self.assertEqual((o["break_pct"], o["bounce_pct"]), (50.0, 50.0))
+
+    def test_never_touched(self):
+        o = forecast.area_outcomes(np.array([self.path(0.1, 0.1)]), 100.0, 105.0, 106.0, above=True, bounce_pct=0.35)
+        self.assertEqual(o["touched_pct"], 0.0)
+        self.assertIsNone(o["break_pct"])
+
+    def test_plans_carry_the_bounce_trade(self):
+        import charts
+        from datetime import datetime, timedelta
+        from common import ET
+
+        start = datetime(2026, 9, 21, 9, 30, tzinfo=ET)
+        bars, p = [], 600.0
+        for d in range(8):
+            day = start + timedelta(days=d)
+            if day.weekday() >= 5:
+                continue
+            for m in range(390):
+                p += 0.05 if (m // 30) % 2 == 0 else -0.05
+                bars.append({"t": day + timedelta(minutes=m), "o": p, "h": p + 0.1, "l": p - 0.1, "c": p, "v": 1000.0})
+        now = bars[-1]["t"]
+        last = bars[-1]["c"]
+        zones = [{"color": "red", "low": last + 0.2, "high": last + 0.5}, {"color": "green", "low": last - 0.5, "high": last - 0.2}]
+        out = charts.trade_plans(bars, now, {"timeframe_minutes": 5}, zones, "today's zones", 0.35)
+        red = out["plans"][0]
+        self.assertEqual(red["contract"], "call")
+        self.assertEqual(red["bounce_trade"]["contract"], "put")  # the opposite bet at the same area
+        self.assertIn("break_pct", red["outcomes"])
