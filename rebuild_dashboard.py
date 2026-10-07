@@ -127,7 +127,8 @@ def _sentiment_state(now: datetime) -> dict:
     try:
         import sentiment
 
-        return {"series": sentiment.series(45, now), "latest": sentiment.latest_full(), "plays": sentiment.plays_summary()}
+        return {"series": sentiment.series(45, now), "latest": sentiment.latest_full(), "plays": sentiment.plays_summary(),
+                "rumor_mill": sentiment.rumor_mill(3, now)}
     except Exception as e:  # noqa: BLE001
         return {"error": f"{type(e).__name__}: {e}"[:200]}
 

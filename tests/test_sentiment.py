@@ -86,3 +86,27 @@ class ScoreTests(DeskTestCase):
         sentiment.record(at(THURSDAY, 10, 5), READINGS)
         sentiment.score(at(THURSDAY + timedelta(days=5), 12, 0), [])
         self.assertEqual(sentiment._read(sentiment.PLAYS)[0]["status"], "unscored")
+
+
+class RumorMillTests(DeskTestCase):
+    def test_lean_per_stock_weighted_by_believability(self):
+        sentiment.record(at(THURSDAY, 10, 5), {"rumors": [
+            {"text": "NVDA wins a huge cloud deal", "source": "reddit", "tickers": ["$nvda"], "names": {"NVDA": "NVIDIA"},
+             "direction": "bullish", "credibility": 0.5, "why": "more data-center sales"},
+            {"text": "NVDA export ban widening", "source": "news", "tickers": ["NVDA"], "direction": "down", "credibility": 0.2},
+            {"text": "Fed cut talk", "source": "news", "tickers": ["SPY", "QQQ"], "direction": "up", "credibility": 0.3}]})
+        sentiment.record(at(THURSDAY, 11, 5), {"rumors": [
+            {"text": "NVDA wins a huge cloud deal", "source": "stocktwits", "tickers": ["NVDA"], "direction": "up", "credibility": 0.5}]})
+        mill = sentiment.rumor_mill(3, at(THURSDAY, 12, 0))
+        nv = next(s for s in mill["stocks"] if s["ticker"] == "NVDA")
+        self.assertEqual((nv["name"], nv["rumors"], nv["bull"], nv["bear"], nv["lean"]), ("NVIDIA", 2, 0.5, 0.2, "bullish"))
+        self.assertEqual(mill["stocks"][0]["ticker"], "NVDA")  # the most believable talk first
+        deal = next(r for r in mill["rumors"] if r["text"].startswith("NVDA wins"))
+        self.assertEqual((deal["seen"], deal["ts"][11:16], deal["first_ts"][11:16]), (2, "11:05", "10:05"))  # kept once
+        self.assertEqual(sentiment.lean(0.3, 0.3), "mixed")
+        self.assertEqual(sentiment.lean(0.1, 0.5), "bearish")
+        self.assertEqual(sentiment.lean(0, 0), "mixed")
+
+    def test_old_rumors_age_out(self):
+        sentiment.record(at(THURSDAY, 10, 5), {"rumors": [{"text": "old", "tickers": ["SPY"], "direction": "up"}]})
+        self.assertEqual(sentiment.rumor_mill(3, at(THURSDAY, 10, 5) + timedelta(days=4))["rumors"], [])

@@ -9,7 +9,8 @@ news and Reddit, then hands the desk one readings object through the Market Puls
       "stocktwits": {"SPY": {"score": 64, "bullish_pct": 58}},
       "reddit": {"score": 0.3, "posts": 40, "top": ["..."]},          # tone -1 (bearish) .. +1 (bullish)
       "news": {"score": -0.1, "headlines": ["..."]},
-      "rumors": [{"text": "...", "source": "reddit", "tickers": ["SPY"], "direction": "up", "credibility": 0.4}],
+      "rumors": [{"text": "...", "source": "reddit", "tickers": ["NVDA"], "names": {"NVDA": "NVIDIA"},
+                  "direction": "up", "credibility": 0.4, "why": "what it would mean if true"}],
       "plays": [{"ticker": "SPY", "direction": "up", "horizon": "close", "confidence": 0.55,
                  "reason": "...", "catalyst": "..."}],
       "whats_new": "..."
@@ -82,10 +83,18 @@ def record(now: datetime, readings: dict) -> dict:
     now = now.astimezone(ET)
     st = ((readings.get("stocktwits") or {}).get("SPY") or {})
     rd, nw = readings.get("reddit") or {}, readings.get("news") or {}
-    rumors = [{"text": _text(r.get("text")), "source": _text(r.get("source"))[:30],
-               "tickers": [str(t).upper()[:8] for t in (r.get("tickers") or [])][:5],
-               "direction": _dir(r.get("direction")), "credibility": _num(r.get("credibility"), 0, 1)}
-              for r in (readings.get("rumors") or [])[:20] if isinstance(r, dict) and r.get("text")]
+    names = {str(k).upper()[:8]: _text(v)[:60] for k, v in (readings.get("names") or {}).items()} \
+        if isinstance(readings.get("names"), dict) else {}
+    rumors = []
+    for r in (readings.get("rumors") or [])[:20]:
+        if not isinstance(r, dict) or not r.get("text"):
+            continue
+        tickers = [str(t).upper().lstrip("$")[:8] for t in (r.get("tickers") or [])][:5]
+        rn = r.get("names") if isinstance(r.get("names"), dict) else {}
+        names.update({str(k).upper()[:8]: _text(v)[:60] for k, v in rn.items()})
+        rumors.append({"text": _text(r.get("text")), "source": _text(r.get("source"))[:30], "tickers": tickers,
+                       "direction": _dir(r.get("direction")), "credibility": _num(r.get("credibility"), 0, 1),
+                       "why": _text(r.get("why")) or None})
     line = {
         "ts": now.isoformat(timespec="seconds"), "as_of": readings.get("as_of"),
         "source": str(readings.get("source") or "reader")[:20],
@@ -96,7 +105,7 @@ def record(now: datetime, readings: dict) -> dict:
         "news": _num(nw.get("score"), -1, 1),
         "headlines": [_text(h) for h in (nw.get("headlines") or [])[:8]],
         "reddit_top": [_text(h) for h in (rd.get("top") or [])[:8]],
-        "rumors": rumors, "whats_new": _text(readings.get("whats_new"))[:600] if readings.get("whats_new") else None,
+        "rumors": rumors, "names": names, "whats_new": _text(readings.get("whats_new"))[:600] if readings.get("whats_new") else None,
     }
     rows = _read(LOG) + [line]
     cutoff = (now - timedelta(days=KEEP_DAYS)).isoformat()
@@ -231,6 +240,54 @@ def plays_summary(limit: int = 40) -> dict:
             "by_horizon": {h: rate([p for p in scored if p["horizon"] == h]) for h in HORIZONS},
             "by_confidence": by_conf,
             "open": sum(1 for p in plays if p.get("status") == "open")}
+
+
+# ---------------------------------------------------------------- the rumor mill
+
+def lean(bull: float, bear: float) -> str:
+    """Bullish or bearish when one side carries at least 60 % of the believability-weighted rumors."""
+    total = bull + bear
+    if total <= 0:
+        return "mixed"
+    share = bull / total
+    return "bullish" if share >= 0.6 else "bearish" if share <= 0.4 else "mixed"
+
+
+def rumor_mill(days: int = 3, now: datetime | None = None, limit: int = 60) -> dict:
+    """Every rumor of the last `days`, newest first (repeats of the same text kept once, at their latest
+    sighting), and a lean per stock: each rumor counts by its believability, up for bullish, down for bearish."""
+    rows = _read(LOG)
+    if now is not None:
+        cutoff = (now.astimezone(ET) - timedelta(days=days)).isoformat()
+        rows = [r for r in rows if r["ts"] >= cutoff]
+    names: dict[str, str] = {}
+    seen: dict[str, dict] = {}
+    for r in rows:
+        names.update(r.get("names") or {})
+        for x in r.get("rumors") or []:
+            key = x["text"].lower()
+            prev = seen.get(key)
+            seen[key] = {**x, "ts": r["ts"], "seen": (prev or {}).get("seen", 0) + 1,
+                         "first_ts": (prev or {}).get("first_ts", r["ts"])}
+    rumors = sorted(seen.values(), key=lambda x: x["ts"], reverse=True)
+    stocks: dict[str, dict] = {}
+    for x in rumors:
+        w = x.get("credibility") if x.get("credibility") is not None else 0.3
+        for t in x.get("tickers") or []:
+            s = stocks.setdefault(t, {"ticker": t, "name": names.get(t), "rumors": 0, "bull": 0.0, "bear": 0.0,
+                                      "latest": x["ts"]})
+            s["rumors"] += 1
+            if x.get("direction") == "up":
+                s["bull"] += w
+            elif x.get("direction") == "down":
+                s["bear"] += w
+            s["latest"] = max(s["latest"], x["ts"])
+    for s in stocks.values():
+        s["bull"], s["bear"] = round(s["bull"], 3), round(s["bear"], 3)
+        s["lean"] = lean(s["bull"], s["bear"])
+        s["avg_believable"] = round((s["bull"] + s["bear"]) / s["rumors"], 3) if s["rumors"] else None
+    ranked = sorted(stocks.values(), key=lambda s: (s["bull"] + s["bear"], s["rumors"]), reverse=True)
+    return {"days": days, "stocks": ranked, "rumors": rumors[:limit], "names": names}
 
 
 def latest_full() -> dict | None:
