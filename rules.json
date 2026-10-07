@@ -33,7 +33,7 @@
       "enabled": true,
       "budget_usd": 600,
       "spread": {
-        "sd": 1.0,
+        "sd": 0.5,
         "width": 5
       },
       "entry_window": [
@@ -43,7 +43,7 @@
       "max_entries_per_day": 1,
       "max_hold_minutes": 0,
       "stop": {},
-      "purpose": "Roy, 2026-10-07: \"make profits daily ... trade regardless of anything\". Sells a $5-wide SPY put spread expiring the same day, one remaining-day move below the price (VIX-sized), every day SPY has a same-day expiry; bought back at 15:40. The worst case is capped at the width minus the credit (about $470). Backtest (backtests/spreads.md, credits priced at the VIX, likely generous): won about 95% of days; this book prices with Alpaca's real quotes."
+      "purpose": "Roy, 2026-10-07: \"make profits daily ... trade regardless of anything\". Sells a $5-wide SPY put spread expiring the same day, one remaining-day move below the price (VIX-sized), every day SPY has a same-day expiry; bought back at 15:40. The worst case is capped at the width minus the credit (about $470). Backtest (backtests/spreads.md, credits priced at the VIX, likely generous): won about 95% of days; this book prices with Alpaca's real quotes. 2026-10-07 10:25: real quotes paid only $3-7 one move below the price (the backtest assumed ~$34), so the short strike moved to half a move below for a meaningful credit."
     },
     "spy_shares": {
       "label": "SPY shares",
