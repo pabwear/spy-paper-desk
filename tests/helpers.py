@@ -137,6 +137,7 @@ class FakeBroker:
         self._reject_spread_close = reject_spread_close
         self.spreads: list[dict] = []        # two-leg orders sent to open
         self.spread_closes: list[dict] = []  # two-leg orders sent to close
+        self.cancelled_ids: list[str] = []
 
     def positions(self):
         return list(self._positions)
@@ -213,6 +214,10 @@ class FakeBroker:
                                "intent": None, "stop_price": stop_price})
         n = len(self.submitted)
         return {"order_id": f"fake-{n}", "status": "accepted", "submitted_at": "now", "stop_order_id": f"fake-{n}-stop"}
+
+    def cancel_order(self, order_id):
+        self.cancelled_ids.append(order_id)
+        self._open = [o for o in self._open if not (isinstance(o, dict) and o.get("id") == order_id)]
 
     def cancel_orders(self, symbol):
         self.cancelled.append(symbol)

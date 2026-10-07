@@ -168,3 +168,25 @@ class SpreadGateTests(DeskTestCase):
                                                                         "legs": [{"symbol": "a"}, {"symbol": "b"}]})))
         self.assertIn("time_window", failures(self.base(now=at(THURSDAY, 11, 5))))
         self.assertIn("market_clock", failures(self.base(market_open=False)))
+
+
+class RepriceTests(SpreadBookTests):
+    def test_an_unfilled_spread_is_cancelled_and_resent_at_fresh_quotes(self):
+        broker = FakeBroker(cash=1000.0, quote_fn=quotes)
+        self.paper(broker)
+        first = [e for e in journal.read_events() if e["event"] == "order"][-1]
+        broker._open = [{"id": first["order_id"], "symbol": None, "side": None, "order_class": "mleg",
+                         "legs": [{"symbol": x["symbol"]} for x in broker.spreads[0]["legs"]]}]
+        self.paper(broker, now=at(THURSDAY, 10, 16))
+        self.assertEqual(broker.cancelled_ids, [first["order_id"]])
+        self.assertEqual(len(broker.spreads), 2)
+        cancels = [e for e in journal.read_events() if e["event"] == "order_canceled"]
+        self.assertEqual((cancels[0]["book"], cancels[0]["order_id"]), ("spy_spreads", first["order_id"]))
+
+    def test_a_young_unfilled_order_is_left_alone(self):
+        broker = FakeBroker(cash=1000.0, quote_fn=quotes)
+        self.paper(broker)
+        first = [e for e in journal.read_events() if e["event"] == "order"][-1]
+        broker._open = [{"id": first["order_id"], "symbol": None, "side": None, "order_class": "mleg", "legs": []}]
+        self.paper(broker, now=at(THURSDAY, 10, 13))
+        self.assertEqual((broker.cancelled_ids, len(broker.spreads)), ([], 1))

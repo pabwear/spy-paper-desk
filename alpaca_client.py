@@ -280,6 +280,12 @@ class PaperBroker:
         return {"order_id": str(o.id), "status": str(o.status.value), "submitted_at": str(o.submitted_at),
                 "stop_order_id": str(stop.id) if stop is not None else None}
 
+    def cancel_order(self, order_id: str) -> None:
+        """Cancel one open order (an unfilled spread, to re-price it)."""
+        if not self.is_paper or host_of(self.base_url) != PAPER_HOST:
+            raise LiveTradingRefused("Refusing to cancel: client is not paper.")
+        self._client.cancel_order_by_id(order_id)
+
     def cancel_orders(self, symbol: str, wait_s: float = 6.0) -> int:
         """Cancel this stock's open orders (the stop Alpaca holds for its shares) and wait until they are gone,
         so the shares are free to sell. Returns how many were cancelled."""

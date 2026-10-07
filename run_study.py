@@ -185,10 +185,13 @@ def position_owner(symbol: str, events: list[dict], all_books: list[dict]) -> di
 
 
 def book_entries_on(events: list[dict], day, book: dict, all_books: list[dict]) -> int:
-    """Entries this book made on this day (entries logged before books carry no book: matched by their symbol)."""
+    """Entries this book made on this day (entries logged before books carry no book: matched by their symbol).
+    An order the desk cancelled unfilled (to re-price it) doesn't count."""
     n = 0
-    for e in journal.events_on(events, day):
-        if e.get("event") != "order" or e.get("role") != "entry":
+    todays = journal.events_on(events, day)
+    canceled = {e.get("order_id") for e in todays if e.get("event") == "order_canceled"}
+    for e in todays:
+        if e.get("event") != "order" or e.get("role") != "entry" or e.get("order_id") in canceled:
             continue
         owner = e.get("book") or (instruments.book_of(e.get("symbol") or "", all_books) or {}).get("id")
         n += owner == book["id"]
@@ -803,6 +806,8 @@ def cmd_paper(now: datetime, broker_factory=None, bars=None, fetch=None) -> dict
                         and o.get("side") == "buy"]
                 pool = "option" if book is not None and book["asset"] in ("option", "spread") else "shares"
                 if book is not None and book["asset"] == "spread":
+                    if _reprice_spread(now, broker, book, events_now, orders):
+                        events_now = journal.read_events()
                     r = evaluate_spread(now, source, book, positions=mine, open_orders=len(buys), money=money[pool],
                                         quote_picker=getattr(broker, "option_quotes", None),
                                         **{k: v for k, v in shared.items() if k != "quote_picker"})
@@ -833,6 +838,38 @@ def _f(v) -> float | None:
         return float(v) if v is not None else None
     except (TypeError, ValueError):
         return None
+
+
+REPRICE_AFTER_MIN = 5
+
+
+def _reprice_spread(now: datetime, broker, book: dict, events: list[dict], orders: list[dict]) -> bool:
+    """Today's spread order still unfilled after REPRICE_AFTER_MIN minutes, inside its entry window: cancel it so
+    this run can send it again at fresh quotes. Returns True if one was cancelled."""
+    t = now.astimezone(ET)
+    start, end = (book.get("entry_window") or ["10:00", "11:00"])[:2]
+    if not hhmm(start) <= t.time() < hhmm(end) or not hasattr(broker, "cancel_order"):
+        return False
+    open_ids = {o.get("id") for o in orders}
+    done = False
+    for e in journal.events_on(events, t.date()):
+        if e.get("event") == "order" and e.get("role") == "entry" and e.get("book") == book["id"] \
+                and e.get("order_id") in open_ids:
+            placed = to_et(e.get("ts"))
+            if placed is None or (t - placed).total_seconds() < REPRICE_AFTER_MIN * 60:
+                continue
+            try:
+                broker.cancel_order(e["order_id"])
+            except Exception as err:  # noqa: BLE001 - it may have just filled; the next sync will show it
+                journal.log("cancel_failed", now=now, book=book["id"], order_id=e["order_id"],
+                            error=f"{type(err).__name__}: {err}"[:300])
+                continue
+            journal.log("order_canceled", now=now, book=book["id"], order_id=e["order_id"], reason="unfilled",
+                        note=f"Unfilled after {REPRICE_AFTER_MIN}+ minutes at ${float(e.get('credit') or 0) * 100:,.2f}; "
+                             "sending again at fresh quotes.")
+            print(f"Roy: the {book['id']} spread hadn't filled; cancelled it to send again at fresh quotes.")
+            done = True
+    return done
 
 
 def _submit_spread(now: datetime, broker, r: dict) -> float | None:
