@@ -524,8 +524,8 @@ class PaperOnlyTests(DeskTestCase):
         rules = json.loads((DESK / "rules.json").read_text())
         books = rules["books"]
         self.assertEqual([(k, b["symbol"], b["asset"], b["enabled"], b["budget_usd"]) for k, b in books.items()],
-                         [("spy_shares", "SPY", "shares", True, 4000), ("sndk_shares", "SNDK", "shares", True, 3000),
-                          ("spy_options", "SPY", "option", True, 3000), ("spy_spreads", "SPY", "spread", False, 600)])
+                         [("spy_spreads", "SPY", "spread", True, 600), ("spy_shares", "SPY", "shares", True, 4000),
+                          ("sndk_shares", "SNDK", "shares", True, 3000), ("spy_options", "SPY", "option", True, 3000)])
         self.assertEqual((books["spy_spreads"]["spread"], books["spy_spreads"]["max_entries_per_day"],
                           books["spy_spreads"]["entry_window"]), ({"sd": 1.0, "width": 5}, 1, ["10:00", "11:00"]))
         self.assertEqual((books["spy_shares"]["stop"], books["sndk_shares"]["stop"], books["spy_options"]["stop"]),

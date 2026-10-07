@@ -206,7 +206,7 @@ class ChartFileTests(DeskTestCase):
         self.assertEqual(load_json("chart_TSLA.json")["frames"], {"1m": [1, 2, 3]})
         self.assertNotIn("\n  ", path("dashboard_state.json").read_text())  # compact
         self.assertIn("chart_SNDK.json", cloud_state._names(desk_dir()))
-        self.assertEqual([b["id"] for b in st["books"]], ["spy_shares", "sndk_shares", "spy_options", "spy_spreads"])
+        self.assertEqual([b["id"] for b in st["books"]], ["spy_spreads", "spy_shares", "sndk_shares", "spy_options"])
 
 
 class PulseBookTests(MultiBookTests):

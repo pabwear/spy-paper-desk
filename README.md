@@ -5,7 +5,7 @@ SPY options). It fades the Mxwll Price Action Suite areas of interest:
 buy only in red, sell only in green, and only after the 09:30–09:59 ET open has
 produced real zones from Roy's TradingView chart.
 
-**Three trading books (since 2026-10-07, Roy's request).** Each trades on its own: one
+**Four trading books (since 2026-10-07, Roy's requests).** Each trades on its own: one
 position at a time, its own daily entry limit and budget, all capped by the cash in the
 account (`rules.json` `books`). Shares are bought in whole shares with the stop held at
 Alpaca (one order triggers the other), so it fills the minute it's hit; the options book
@@ -13,6 +13,7 @@ keeps the desk's own stop check every 10 minutes (Alpaca holds no stops for opti
 
 | Book | Trades | Budget | Stop | Why |
 |---|---|---|---|---|
+| `spy_spreads` | a $5-wide SPY put spread expiring the same day, sold at 10:00 every day SPY has one, bought back at 15:40 | $600 (its worst case, about $470) | none: the spread caps the loss | Roy: a profit every day; won ~95% of days in its backtest (`backtests/spreads.md`, credits priced at the VIX, likely generous) and all 5 days of its rehearsal; live it prices with Alpaca's real quotes |
 | `spy_shares` | SPY shares | $4,000 | 0.25%, held at Alpaca | the idea that turned the desk's signals profitable in the 6-year backtest (`backtests/ideas.md`) |
 | `sndk_shares` | SNDK shares | $3,000 | a quarter of SNDK's average daily range (≈1–3%), held at Alpaca | Roy's pick; roughly break-even in its 1.6-year backtest (`backtests/ideas-sndk.md`) |
 | `spy_options` | 1 SPY call, ~30 days out | $3,000 | 0.25% of SPY, checked every 10 minutes | kept so the learner keeps learning options; lost money in the backtest |

@@ -26,6 +26,25 @@
   },
   "live_trading": false,
   "books": {
+    "spy_spreads": {
+      "label": "SPY daily put spread",
+      "symbol": "SPY",
+      "asset": "spread",
+      "enabled": true,
+      "budget_usd": 600,
+      "spread": {
+        "sd": 1.0,
+        "width": 5
+      },
+      "entry_window": [
+        "10:00",
+        "11:00"
+      ],
+      "max_entries_per_day": 1,
+      "max_hold_minutes": 0,
+      "stop": {},
+      "purpose": "Roy, 2026-10-07: \"make profits daily ... trade regardless of anything\". Sells a $5-wide SPY put spread expiring the same day, one remaining-day move below the price (VIX-sized), every day SPY has a same-day expiry; bought back at 15:40. The worst case is capped at the width minus the credit (about $470). Backtest (backtests/spreads.md, credits priced at the VIX, likely generous): won about 95% of days; this book prices with Alpaca's real quotes."
+    },
     "spy_shares": {
       "label": "SPY shares",
       "symbol": "SPY",
@@ -67,28 +86,9 @@
       "max_hold_minutes": 30,
       "max_entries_per_day": 2,
       "purpose": "Kept so the learner keeps learning options. Lost money in the backtest (backtests/current.md); paper only."
-    },
-    "spy_spreads": {
-      "label": "SPY daily put spread",
-      "symbol": "SPY",
-      "asset": "spread",
-      "enabled": false,
-      "budget_usd": 600,
-      "spread": {
-        "sd": 1.0,
-        "width": 5
-      },
-      "entry_window": [
-        "10:00",
-        "11:00"
-      ],
-      "max_entries_per_day": 1,
-      "max_hold_minutes": 0,
-      "stop": {},
-      "purpose": "Roy, 2026-10-07: \"make profits daily ... trade regardless of anything\". Sells a $5-wide SPY put spread expiring the same day, one remaining-day move below the price (VIX-sized), every day SPY has a same-day expiry; bought back at 15:40. The worst case is capped at the width minus the credit (about $470). Backtest (backtests/spreads.md, credits priced at the VIX, likely generous): won about 95% of days; this book prices with Alpaca's real quotes."
     }
   },
-  "books_note": "Each book trades on its own: one position at a time, its own daily entry limit and budget, capped by the cash in the account. Shares are whole so Alpaca can hold the stop; options keep the desk's own stop check every 10 minutes. Changed 2026-10-07 at Roy's request (\"switch the paper desk to shares for SNDK and a separate section for SPY, but another SPY to focus on options so it can learn\"). The spread book trades every day SPY has a same-day expiry, whatever the chart says.",
+  "books_note": "Each book trades on its own: one position at a time, its own daily entry limit and budget, capped by the cash in the account. Shares are whole so Alpaca can hold the stop; options keep the desk's own stop check every 10 minutes. Changed 2026-10-07 at Roy's request (\"switch the paper desk to shares for SNDK and a separate section for SPY, but another SPY to focus on options so it can learn\"). The spread book trades every day SPY has a same-day expiry, whatever the chart says. Books are tried in this order each run; the spread book is first so it gets first call on the cash (Roy's goal: a profit every day).",
   "symbol_underlying": "SPY",
   "option": {
     "right_on_buy": "call",
