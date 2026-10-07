@@ -122,6 +122,16 @@ def _focus_state(rules: dict, risk: dict, events: list[dict], now: datetime) -> 
     return out
 
 
+def _sentiment_state(now: datetime) -> dict:
+    """The hourly reader's history: numbers over time, the newest reading in full, and the plays' record."""
+    try:
+        import sentiment
+
+        return {"series": sentiment.series(45, now), "latest": sentiment.latest_full(), "plays": sentiment.plays_summary()}
+    except Exception as e:  # noqa: BLE001
+        return {"error": f"{type(e).__name__}: {e}"[:200]}
+
+
 def build_state(now: datetime | None = None) -> dict:
     now = (now or now_et()).astimezone(ET)
     config = load_json("alpaca_config.json", {})
@@ -257,6 +267,10 @@ def build_state(now: datetime | None = None) -> dict:
         "stats": stats,
         "daily_pnl": daily,
         "equity_curve": curve,
+        "round_trips": [{k: t.get(k) for k in ("symbol", "opened_at", "closed_at", "pnl", "result", "exit_reason",
+                                               "entry_price", "exit_price", "underlying_entry", "zone", "context")}
+                        for t in journal.round_trips(trades, events)][-300:],
+        "sentiment": _sentiment_state(now),
         "risk": {
             "book": book,
             "sizing_equity": sizing,

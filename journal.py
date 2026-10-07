@@ -169,6 +169,7 @@ def round_trips(trades: list[dict], events: list[dict]) -> list[dict]:
                 "features": ctx.get("features") or {}, "tags": ctx.get("tags") or [], "zone": ctx.get("zone"),
                 "pulse_bias": ctx.get("pulse_bias"), "underlying_entry": ctx.get("underlying_price"),
                 "entry_number": ctx.get("entry_number"), "p_loss": ctx.get("p_loss"),
+                "context": ctx.get("context"), "underlying": instruments.underlying_of(sym),
             }
         if t.get("realized_pnl") not in ("", None):
             trip["pnl"] = round(trip["pnl"] + float(t["realized_pnl"]), 4)

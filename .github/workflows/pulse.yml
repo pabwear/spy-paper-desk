@@ -1,6 +1,7 @@
 name: Market Pulse
 
-# Live readings (Stocklake market pulse, Stocktwits sentiment) as one JSON object; see pulse.py.
+# Live readings as one JSON object (see pulse.py and sentiment.py): Stocklake market pulse, Stocktwits,
+# Reddit and news tone, rumors and candidate plays. The hourly reader (a scheduled Claude routine) runs this.
 on:
   workflow_dispatch:
     inputs:

@@ -552,7 +552,7 @@ def cmd_paper(now: datetime, broker_factory=None, bars=None, fetch=None) -> dict
                 expiry=plan.get("expiry"), signal=r["signal"], underlying_price=r["market"]["price"],
                 notional=plan.get("notional"), zone=cand["zone"], tags=cand["tags"], score=cand["score"],
                 pulse_bias=r.get("pulse_bias"), features=r.get("features"), p_loss=r.get("p_loss"),
-                entry_number=r.get("entries_today", 0) + 1, note=r.get("note"))
+                entry_number=r.get("entries_today", 0) + 1, note=r.get("note"), context=_mood())
     stop = instruments.stop_level(instruments.direction(plan["symbol"], plan["qty"] if plan["order_side"] == "buy"
                                                         else -plan["qty"]), r["market"]["price"],
                                   float(load_json("rules.json", {}).get("stop_underlying_pct", 0.35)))
@@ -693,6 +693,12 @@ def _charts(now: datetime, source) -> None:
         projection_log.learn(now)
     except Exception as e:  # noqa: BLE001
         journal.log("projection_failed", now=now, error=f"{type(e).__name__}: {e}"[:300])
+    try:  # the reader's candidate plays: mark the ones whose time is up against SPY's real move
+        import sentiment
+
+        sentiment.score(now, source.get("SPY")[0])
+    except Exception as e:  # noqa: BLE001
+        journal.log("plays_failed", now=now, error=f"{type(e).__name__}: {e}"[:300])
     try:
         drawn = charts.write(now, source)
         projection_log.record(now, drawn, not auto_study.desk_config()["regular_hours_only"])
@@ -853,10 +859,26 @@ def set_trading(symbol: str, instrument: str | None, on: bool) -> dict:
     return w
 
 
+def _mood() -> dict | None:
+    """The newest sentiment reading, saved with each entry so the learner can test whether it helps."""
+    try:
+        import sentiment
+
+        return sentiment.latest_brief()
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def cmd_pulse_ingest(now: datetime, readings: dict) -> dict:
     """Pulse agents: hand over live readings (Stocklake, Stocktwits); the bias comes from rules.json pulse_rules."""
     rules = load_json("rules.json", {}) or {}
     derived = pulse.derive_bias(readings, rules.get("pulse_rules") or pulse.DEFAULT_RULES)
+    try:  # sentiment, rumors and candidate plays become history (sentiment.jsonl, plays.jsonl)
+        import sentiment
+
+        sentiment.record(now, readings)
+    except Exception as e:  # noqa: BLE001 - a bad readings object never stops the pulse
+        journal.log("sentiment_failed", now=now, error=f"{type(e).__name__}: {e}"[:300])
     data = {
         "date": now.astimezone(ET).date().isoformat(),
         "bias": derived["bias"],
