@@ -1,7 +1,7 @@
-"""SPY paper desk runner. Active instrument: SPY options (1 contract). SPY shares and SNDK are off.
+"""Paper desk runner. Trading books (rules.json books) run side by side: SPY shares, SNDK shares, SPY options.
 
     python3 run_study.py eval                 # evaluate and log. NEVER sends an order.
-    python3 run_study.py paper                # manage exits, then at most ONE gated paper entry
+    python3 run_study.py paper                # manage exits, then at most one gated paper entry per book
     python3 run_study.py manage               # exits only: 0.35% stop, flatten from risk.json flatten_start
     python3 run_study.py sync                 # pull paper fills into trades.csv, refresh account.json
     python3 run_study.py review               # 4:15 PM ET end-of-day review + learning
@@ -82,6 +82,7 @@ class Bars:
         elif bars is not None:
             self.cache["SPY"] = bars
         self.offline = bars is not None and fetch is None
+        self.memo: dict = {}  # per-heartbeat results reused by every book on the same stock (the study read)
 
     def get(self, symbol: str) -> tuple[list | None, str | None]:
         if symbol not in self.cache:
@@ -138,10 +139,47 @@ def market_read(now: datetime, source: Bars, symbol: str, weights: dict, risk: d
 
 def study_read(now: datetime, source: Bars, symbol: str, rules: dict) -> dict | None:
     """The ported Mxwll study on this symbol's chart right now. A study problem never stops the desk."""
+    memo = getattr(source, "memo", None)
+    key = ("study", symbol)
+    if memo is not None and key in memo:
+        return memo[key]
     try:
-        return auto_study.read(source.get(symbol)[0], now, auto_study.desk_config())
+        out = auto_study.read(source.get(symbol)[0], now, auto_study.desk_config())
     except Exception as e:  # noqa: BLE001
-        return {"error": f"{type(e).__name__}: {e}"[:200]}
+        out = {"error": f"{type(e).__name__}: {e}"[:200]}
+    if memo is not None:
+        memo[key] = out
+    return out
+
+
+def book_stop_pct(book: dict, source: Bars, symbol: str, now: datetime) -> tuple[float | None, str]:
+    """This book's stop, in % of the stock against the entry: a fixed % or a share of the stock's average daily
+    range over the finished days before today (signals.range_stop_pct)."""
+    from signals import range_stop_pct
+
+    stop = book.get("stop") or {}
+    if stop.get("pct") is not None:
+        return float(stop["pct"]), f"{float(stop['pct']):g}% (fixed)"
+    if stop.get("range_fraction") is not None:
+        today = now.astimezone(ET).date()
+        days = [b for b in (source.history(symbol, "1Day") or []) if b["t"].astimezone(ET).date() < today]
+        n = int(stop.get("days", 20))
+        pct = range_stop_pct(days, float(stop["range_fraction"]), n)
+        if pct is None:
+            return None, f"Not enough daily history to size {symbol}'s stop ({len(days)} days; it needs {min(n, 10)})."
+        return pct, f"{pct:g}% = {float(stop['range_fraction']):g} × {symbol}'s average daily range over {n} days"
+    return None, f"{book['id']} has no stop rule"
+
+
+def book_entries_on(events: list[dict], day, book: dict, all_books: list[dict]) -> int:
+    """Entries this book made on this day (entries logged before books carry no book: matched by their symbol)."""
+    n = 0
+    for e in journal.events_on(events, day):
+        if e.get("event") != "order" or e.get("role") != "entry":
+            continue
+        owner = e.get("book") or (instruments.book_of(e.get("symbol") or "", all_books) or {}).get("id")
+        n += owner == book["id"]
+    return n
 
 
 def cmd_auto_zones(now: datetime, source: Bars) -> list[str]:
@@ -175,17 +213,24 @@ def cmd_auto_zones(now: datetime, source: Bars) -> list[str]:
 def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[dict] | None = None, fetch=None,
              account_number: str | None = None, market_open: bool | None = None, client_is_paper: bool = True,
              base_url: str | None = None, open_orders: int | None = None, contract_picker=None, quote_picker=None,
-             buying_power: float | None = None) -> dict:
-    """Decide on an entry for one symbol. Pure decision logic over the desk files, the bars and what the caller passes in.
+             buying_power: float | None = None, book: dict | None = None, money: float | None = None) -> dict:
+    """Decide on an entry for one book (one stock, shares or options). Pure decision logic over the desk files,
+    the bars and what the caller passes in. book None: the stock's first book (none → watch only).
 
-    Never orders. contract_picker(right, price, today, underlying) -> listed contracts; only `paper` passes one.
+    positions / open_orders: this book's own. money: what the account can spend on it (cash for shares, options
+    buying power for options; buying_power is the older name for it). Never orders. contract_picker(right, price,
+    today, underlying) -> listed contracts; only `paper` passes one.
     """
     f = load_all(symbol)
     risk, rules, override, weights, watch = f["risk"], f["rules"], f["override"], f["weights"], f["watch"]
     state = session_state(now, risk)
-    inst = instruments.for_symbol(symbol, rules, watch)
+    all_books = instruments.books(rules, watch)
+    if book is None:
+        book = next((b for b in all_books if b["symbol"] == symbol), None)
+    if money is None:
+        money = buying_power
     result: dict = {"symbol": symbol, "session": state, "decision": "skip", "reasons": [],
-                    "instrument": inst.get("name")}
+                    "instrument": book["id"] if book else None, "book": book["id"] if book else None}
 
     if state in CLOSED_STATES:
         result["reasons"] = [CLOSED_STATES[state]]
@@ -224,16 +269,19 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
 
     signal, zone, tags = best["side"], best["zone"], best["tags"]
     result.update(candidate=best, signal=signal)
-    if not inst["enabled"]:
-        result.update(reasons=["instrument_off"], note=inst["why"])
+    if book is None or not book["enabled"]:
+        result.update(reasons=["instrument_off"], note=book["why"] if book else f"{symbol} is watch only")
         return result
 
     events = journal.read_events()
-    entries_today = journal.entries_on(events, now.astimezone(ET).date())
+    entries_today = book_entries_on(events, now.astimezone(ET).date(), book, all_books)
     bias = pulse_today(f["pulse"], now)
     result["pulse_bias"] = bias
-    plan = instruments.plan_entry(inst, signal, price, risk, rules)
+    plan = instruments.plan_book_entry(book, signal, price, money, rules)
     notes = []
+    if plan["asset"] == "shares" and signal != "buy":
+        result.update(reasons=["no_short"], plan=plan, note=f"The {book['label']} book only buys; no short selling.")
+        return result
     if bias and pulse_contradicts(signal, bias):
         pc = risk.get("pulse_contradiction", {"action": "reduce", "size_factor": 0.5})
         if plan["asset"] == "option" or pc.get("action") == "skip":
@@ -242,13 +290,24 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
                           note=f"Market Pulse is {bias}; {signal} in {zone['color']} skipped.")
             return result
         factor = float(pc.get("size_factor", 0.5))
-        plan["qty"] = round(plan["qty"] * factor, 4) if signal == "buy" else float(int(plan["qty"] * factor))
+        plan["qty"] = int(plan["qty"] * factor)
         plan["notional"] = round(plan["qty"] * price, 2)
+        if plan["qty"] < 1:  # halving one whole share leaves nothing to buy
+            result.update(reasons=["pulse_contradicts"], plan=plan,
+                          note=f"Market Pulse is {bias}; size × {factor} leaves under one {symbol} share.")
+            return result
         notes.append(f"Market Pulse is {bias} against a {signal}; size × {factor}.")
-    if plan["asset"] == "shares" and signal == "sell" and plan["qty"] < 1:
-        result.update(reasons=["short_needs_whole_share"], plan=plan,
-                      note=f"Fractional shares cannot be sold short and the cap is under one {symbol} share.")
+    if plan["asset"] == "shares" and plan["qty"] < 1:
+        room = min(float(book.get("budget_usd") or 0), money if money is not None else float("inf"))
+        result.update(reasons=["budget_too_small"], plan=plan,
+                      note=f"One {symbol} share costs ${price:,.2f}; the {book['label']} book can spend ${room:,.2f}.")
         return result
+    stop_pct, stop_why = book_stop_pct(book, source, symbol, now)
+    if stop_pct is None:
+        result.update(reasons=["no_stop"], plan=plan, note=stop_why)
+        return result
+    exposure = "long" if signal == "buy" else "short"  # a buy is shares or a call; a sell is a put (bets on a fall)
+    plan.update(stop_pct=stop_pct, stop_level=instruments.stop_level(exposure, price, stop_pct), stop_rule=stop_why)
 
     if plan["asset"] == "option" and contract_picker is not None:
         today = now.astimezone(ET).date()
@@ -259,11 +318,12 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
             return result
         opt = rules.get("option", {})
         target_days, min_days = int(opt.get("expiry_target_days", 0) or 0), int(opt.get("expiry_min_days", 0) or 0)
-        max_cost = float(opt.get("max_cost_usd") or rules.get("book_usd") or 1000)
-        if buying_power is not None and not positions:
+        max_cost = min(float(opt.get("max_cost_usd") or book.get("budget_usd") or 1000),
+                       float(book.get("budget_usd") or opt.get("max_cost_usd") or 1000))
+        if money is not None and not positions:
             # one contract must fit the money in the account, not just the rule (while one is open the
             # cash is in it, and one_position is the reason to wait)
-            max_cost = min(max_cost, float(buying_power))
+            max_cost = min(max_cost, float(money))
         asks = {}
         if target_days:
             # the nearest-dollar strike on each expiry in the window, priced before choosing
@@ -301,7 +361,7 @@ def evaluate(now: datetime, bars=None, *, symbol: str = "SPY", positions: list[d
         now=now, base_url=base_url or f["config"].get("base_url", ""), client_is_paper=client_is_paper,
         config=f["config"], rules=rules, risk=risk, override=override, plan=plan, price=price, zone=zone,
         tags=tags, account_number=account_number or f["account"].get("account_number"), market_open=market_open,
-        entries_today=entries_today, open_positions=positions, open_orders=open_orders, watch=watch,
+        entries_today=entries_today, open_positions=positions, open_orders=open_orders, watch=watch, book=book,
     )
     result.update(gate=[c.to_dict() for c in checks], note=" ".join(notes))
     failed = failures(checks)
@@ -325,9 +385,11 @@ def _fetch(now: datetime, minutes: int, symbol: str = "SPY") -> list[dict]:
 
 
 def evaluate_focus(now: datetime, bars=None, fetch=None, **kw) -> list[dict]:
-    """Evaluate every focus symbol, in focus order."""
+    """Evaluate every book of every focus symbol, in focus order (a watch-only stock once, with no book)."""
     source = _bars(now, bars, fetch)
-    return [evaluate(now, source, symbol=sym, **kw) for sym in focus_symbols()]
+    rules, watch = load_json("rules.json", {}), watchlist()
+    return [evaluate(now, source, symbol=sym, book=b, **kw)
+            for sym in focus_symbols() for b in (instruments.books_for(sym, rules, watch) or [None])]
 
 
 def pick(results: list[dict]) -> dict:
@@ -344,11 +406,12 @@ def _log_eval(now: datetime, mode: str, r: dict) -> dict:
     cand = r.get("candidate") or {}
     plan = r.get("plan") or {}
     return journal.log(
-        event, now=now, mode=mode, symbol=r.get("symbol"), session=r["session"], decision=r["decision"],
-        reasons=r["reasons"],
+        event, now=now, mode=mode, symbol=r.get("symbol"), book=r.get("book"), session=r["session"],
+        decision=r["decision"], reasons=r["reasons"],
         instrument=r.get("instrument"), signal=r.get("signal"), market=r.get("market"), aoi=r.get("aoi"),
         plan={k: plan.get(k) for k in ("asset", "symbol", "right", "contracts", "target_strike", "strike", "expiry",
-                                         "order_side", "qty", "notional")} if plan else None,
+                                         "order_side", "qty", "notional", "cost", "stop_pct", "stop_level")}
+        if plan else None,
         zone=cand.get("zone"), tags=cand.get("tags"), score=cand.get("score"), pulse_bias=r.get("pulse_bias"),
         p_loss=r.get("p_loss"), ml=r.get("ml"), entries_today=r.get("entries_today"),
         gate=r.get("gate"), note=r.get("note"), error=r.get("error"),
@@ -361,7 +424,7 @@ def _log_eval(now: datetime, mode: str, r: dict) -> dict:
 
 
 def describe(r: dict) -> str:
-    sym = r.get("symbol") or "—"
+    sym = (r.get("symbol") or "—") + (f" [{r['book']}]" if r.get("book") else "")
     if r["decision"] == "skip":
         return f"{sym}: PASS — {', '.join(r['reasons'])}" + (f". {r['note']}" if r.get("note") else "")
     if r["decision"] == "watch":
@@ -410,8 +473,7 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
     flatten = t.time() >= hhmm(risk.get("flatten_start", risk["rth_close"]))
     source = _bars(now, bars, fetch)
     weights = load_json("learning_weights.json", {})
-    pct = float(rules.get("stop_underlying_pct", 0.35))
-    hold_min = int(rules.get("max_hold_minutes") or 0)
+    all_books = instruments.books(rules, watchlist())
     snap = broker.account_snapshot()
     market_open = broker.market_open()
     sent = []
@@ -426,8 +488,13 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
                 print(f"Exit check: no {underlying} data to test the stop on {p['symbol']}.")
         exposure = instruments.direction(p["symbol"], qty)
         entry = latest_entry(p["symbol"], events)
+        book = instruments.book_of(p["symbol"], all_books) or {}
+        # the stop the entry was sized with; else the book's fixed % (or the old rule)
+        pct = float(entry.get("stop_pct") or (book.get("stop") or {}).get("pct") or rules.get("stop_underlying_pct", 0.35))
+        hold_min = int(book.get("max_hold_minutes", rules.get("max_hold_minutes")) or 0)
         ref = entry.get("underlying_price") or (p["avg_entry_price"] if p["symbol"] == underlying else None)
-        level = instruments.stop_level(exposure, float(ref), pct) if ref else None
+        level = (float(entry["stop_level"]) if entry.get("stop_level") is not None
+                 else instruments.stop_level(exposure, float(ref), pct) if ref else None)
         opened = to_et(entry.get("ts"))
         reason = None
         if flatten:
@@ -453,9 +520,11 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
             continue
         side = "sell" if qty > 0 else "buy"
         intent = ("sell_to_close" if qty > 0 else "buy_to_close") if instruments.parse_occ(p["symbol"]) else None
-        coid = f"desk-{t:%Y%m%d-%H%M%S}-{underlying.lower()}-exit-{reason}"
+        coid = f"desk-{t:%Y%m%d-%H%M%S}-{book.get('id') or underlying.lower()}-exit-{reason}"
         px = market["price"] if market else None
         try:
+            if not instruments.parse_occ(p["symbol"]) and hasattr(broker, "cancel_orders"):
+                broker.cancel_orders(p["symbol"])  # the stop Alpaca holds for these shares, else it blocks the sale
             order = broker.submit_market(side, abs(qty), coid, symbol=p["symbol"], intent=intent)
         except Exception as e:  # noqa: BLE001 - a failed exit must be loud
             journal.log("exit_failed", now=now, symbol=p["symbol"], reason=reason, reasons=["order_error"],
@@ -464,12 +533,12 @@ def cmd_manage(now: datetime, broker, bars=None, fetch=None) -> list[dict]:
             continue
         journal.log("order", now=now, role="exit", reason=reason, order_id=order["order_id"], client_order_id=coid,
                     status=order.get("status"), symbol=p["symbol"], underlying=underlying, side=side, qty=abs(qty),
-                    underlying_price=px, stop_level=level)
-        msg = {"stop": "stop hit", "flatten": "16:00 flatten", "overnight": "held overnight — closing",
+                    underlying_price=px, stop_level=level, book=book.get("id"))
+        msg = {"stop": "stop hit", "flatten": "15:40 flatten", "overnight": "held overnight — closing",
                "time": f"{hold_min}-minute time limit"}[reason]
         print(f"Roy: closing {p['symbol']} ({msg}) — {side} {abs(qty):g}"
               + (f"; {underlying} {px:.2f} vs stop {level:.2f}" if reason == "stop" else "") + ".")
-        sent.append(order)
+        sent.append({**order, "book": book.get("id"), "symbol": p["symbol"]})
     return sent
 
 
@@ -499,7 +568,8 @@ def _option_money(snap: dict) -> float | None:
 
 
 def cmd_paper(now: datetime, broker_factory=None, bars=None, fetch=None) -> dict:
-    """Manage exits, then evaluate the focus list. Submits at most ONE entry, only if every gate check passes."""
+    """Manage exits, then evaluate every book. Each book may send ONE entry, only if every one of its gate checks
+    passes; books share the account's cash (what one spends, the next can't). Returns the main result."""
     risk = load_json("risk.json", {})
     state = session_state(now, risk)
     source = _bars(now, bars, fetch)
@@ -515,69 +585,99 @@ def cmd_paper(now: datetime, broker_factory=None, bars=None, fetch=None) -> dict
         from alpaca_client import PaperBroker as broker_factory  # noqa: N813
     broker = broker_factory()
     exits = cmd_manage(now, broker, bars=source)
+    exited = {e.get("book") for e in exits}
 
-    if exits:
-        results = [{"symbol": s, "session": state, "decision": "skip", "reasons": ["exit_in_progress"]}
-                   for s in focus_symbols()]
-    else:
-        snap = broker.account_snapshot()
-        results = evaluate_focus(now, source, positions=snap.get("positions"),
-                                 account_number=snap.get("account_number"), market_open=broker.market_open(),
-                                 client_is_paper=broker.is_paper, base_url=broker.base_url,
-                                 open_orders=len(broker.open_orders()), contract_picker=broker.option_contracts,
-                                 quote_picker=getattr(broker, "option_asks", None),
-                                 buying_power=_option_money(snap))
-    r = pick(results)
-    for other in results:
-        if other is not r:
-            if other["decision"] in ("enter", "would_enter"):
-                other.update(decision="skip", reasons=["another_symbol_chosen"],
-                             note=f"{r.get('symbol')} had the stronger setup; one position at a time.")
-            _log_eval(now, "paper", other)
-            print(describe(other))
-    if r["decision"] != "enter":
-        if r["decision"] == "would_enter":
-            r.update(decision="skip", reasons=[c["name"] for c in r.get("gate", []) if not c["ok"]])
-        if r.get("symbol"):
-            _log_eval(now, "paper", r)
-        if exits:
-            cmd_sync(now, broker=broker)
-        rebuild_dashboard.write_state(now)
-        print(describe(r))
-        return r
+    rules, watch = load_json("rules.json", {}), watchlist()
+    all_books = instruments.books(rules, watch)
+    snap = broker.account_snapshot()
+    positions = [p for p in (snap.get("positions") or []) if float(p.get("qty") or 0) != 0]
+    orders = [o for o in broker.open_orders() if isinstance(o, dict)]
+    owner = lambda sym: (instruments.book_of(sym or "", all_books) or {}).get("id")  # noqa: E731
+    money = {"shares": _f(snap.get("cash")), "option": _option_money(snap)}
+    shared = dict(account_number=snap.get("account_number"), market_open=broker.market_open(),
+                  client_is_paper=broker.is_paper, base_url=broker.base_url, contract_picker=broker.option_contracts,
+                  quote_picker=getattr(broker, "option_asks", None))
+    results, entered = [], []
+    for sym in focus_symbols():
+        for book in instruments.books_for(sym, rules, watch) or [None]:
+            if book is not None and book["id"] in exited:
+                r = {"symbol": sym, "book": book["id"], "instrument": book["id"], "session": state,
+                     "decision": "skip", "reasons": ["exit_in_progress"]}
+            else:
+                mine = [p for p in positions if book is not None and owner(p["symbol"]) == book["id"]]
+                buys = [o for o in orders if book is not None and owner(o.get("symbol")) == book["id"]
+                        and o.get("side") == "buy"]
+                pool = "option" if book is not None and book["asset"] == "option" else "shares"
+                r = evaluate(now, source, symbol=sym, book=book, positions=mine, open_orders=len(buys),
+                             money=money[pool], **shared)
+            if r["decision"] == "would_enter":
+                r.update(decision="skip", reasons=[c["name"] for c in r.get("gate", []) if not c["ok"]])
+            if r["decision"] == "enter":
+                spent = _submit_entry(now, broker, r)
+                if spent is not None:
+                    entered.append(r)
+                    for k in money:  # cash and options buying power both shrink by what was spent
+                        if money[k] is not None:
+                            money[k] = max(0.0, money[k] - spent)
+            else:
+                _log_eval(now, "paper", r)
+            print(describe(r))
+            results.append(r)
+    if entered or exits:
+        cmd_sync(now, broker=broker)
+    rebuild_dashboard.write_state(now)
+    return entered[0] if entered else pick(results)
 
-    cand, plan, sym = r["candidate"], r["plan"], r["symbol"]
-    t = now.astimezone(ET)
-    coid = f"desk-{t:%Y%m%d-%H%M%S}-{sym.lower()}-{plan['asset']}-{r['signal']}"
-    _log_eval(now, "paper", r)
+
+def _f(v) -> float | None:
     try:
-        order = broker.submit_market(plan["order_side"], plan["qty"], coid, symbol=plan["symbol"],
-                                     intent=plan.get("intent") if plan["asset"] == "option" else None)
+        return float(v) if v is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
+def _submit_entry(now: datetime, broker, r: dict) -> float | None:
+    """Send one book's entry. Shares go as whole shares with the stop held at Alpaca (one order that triggers
+    the other); options as one contract (the desk checks their stop). Returns the dollars spent, None if refused."""
+    cand, plan, sym = r["candidate"], r["plan"], r["symbol"]
+    book = r.get("book") or plan.get("book")
+    t = now.astimezone(ET)
+    coid = f"desk-{t:%Y%m%d-%H%M%S}-{book or sym.lower()}-{r['signal']}"
+    _log_eval(now, "paper", r)
+    rules = load_json("rules.json", {})
+    held = (plan["asset"] == "shares"
+            and next((b for b in instruments.books(rules, watchlist()) if b["id"] == book), {}).get("stop_at_broker"))
+    try:
+        if held:
+            order = broker.submit_market_with_stop(int(plan["qty"]), round(float(plan["stop_level"]), 2), coid,
+                                                   symbol=plan["symbol"])
+        else:
+            order = broker.submit_market(plan["order_side"], plan["qty"], coid, symbol=plan["symbol"],
+                                         intent=plan.get("intent") if plan["asset"] == "option" else None)
     except Exception as e:  # noqa: BLE001 - a rejection is logged and learned from, never retried blindly
-        journal.log("order_rejected", now=now, symbol=plan.get("symbol"), underlying=sym, plan=plan,
+        journal.log("order_rejected", now=now, symbol=plan.get("symbol"), underlying=sym, book=book, plan=plan,
                     error=f"{type(e).__name__}: {e}"[:300])
-        rebuild_dashboard.write_state(now)
-        print(f"Roy: paper order for {plan.get('symbol')} was rejected ({type(e).__name__}). Nothing is open.")
+        print(f"Roy: paper order for {plan.get('symbol')} ({book}) was rejected ({type(e).__name__}). Nothing is open.")
         r.update(decision="skip", reasons=["order_rejected"])
-        return r
+        return None
+    spent = float(plan.get("cost") or 0) if plan["asset"] == "option" else float(plan.get("notional") or 0)
     journal.log("order", now=now, role="entry", order_id=order["order_id"], client_order_id=coid,
-                status=order.get("status"), symbol=plan["symbol"], underlying=sym, asset=plan["asset"],
+                status=order.get("status"), symbol=plan["symbol"], underlying=sym, asset=plan["asset"], book=book,
                 side=plan["order_side"], qty=plan["qty"], right=plan.get("right"), strike=plan.get("strike"),
                 expiry=plan.get("expiry"), signal=r["signal"], underlying_price=r["market"]["price"],
-                notional=plan.get("notional"), zone=cand["zone"], tags=cand["tags"], score=cand["score"],
-                pulse_bias=r.get("pulse_bias"), features=r.get("features"), p_loss=r.get("p_loss"),
-                entry_number=r.get("entries_today", 0) + 1, note=r.get("note"), context=_mood())
-    stop = instruments.stop_level(instruments.direction(plan["symbol"], plan["qty"] if plan["order_side"] == "buy"
-                                                        else -plan["qty"]), r["market"]["price"],
-                                  float(load_json("rules.json", {}).get("stop_underlying_pct", 0.35)))
+                notional=plan.get("notional"), cost=plan.get("cost"), zone=cand["zone"], tags=cand["tags"],
+                score=cand["score"], pulse_bias=r.get("pulse_bias"), features=r.get("features"), p_loss=r.get("p_loss"),
+                entry_number=r.get("entries_today", 0) + 1, note=r.get("note"), context=_mood(),
+                stop_pct=plan.get("stop_pct"), stop_level=plan.get("stop_level"),
+                stop_order_id=order.get("stop_order_id"), stop_at_broker=bool(held))
     what = (f"1 {sym} {plan['right']} {plan['symbol']}" if plan["asset"] == "option"
-            else f"{plan['order_side']} {plan['qty']} {sym} (~${plan['notional']:,.2f})")
-    print(f"Roy: paper entry sent — {what} on a {r['signal']} in the {cand['zone']['color']} zone "
-          f"{cand['zone']['low']}–{cand['zone']['high']}. Confluence: {', '.join(cand['tags'])}. "
-          f"Stop: {sym} {stop:.2f} (0.35%); flat by 16:00. Order {order['order_id']} ({order.get('status')}).")
-    cmd_sync(now, broker=broker)
+            else f"buy {plan['qty']} {sym} (~${plan['notional']:,.2f})")
+    print(f"Roy: paper entry sent ({book}) — {what} on a {r['signal']} in the {cand['zone']['color']} zone "
+          f"{cand['zone']['low']}–{cand['zone']['high']}. Stop: {sym} {plan['stop_level']:.2f} ({plan['stop_pct']:g}%"
+          f"{', held at Alpaca' if held else ', checked every 10 minutes'}); flat by 15:40. "
+          f"Order {order['order_id']} ({order.get('status')}).")
     r["order"] = order
-    return r
+    return spent
 
 
 def cmd_sync(now: datetime, broker=None, broker_factory=None) -> list[dict]:
@@ -591,6 +691,13 @@ def cmd_sync(now: datetime, broker=None, broker_factory=None) -> list[dict]:
     for fill in broker.filled_orders_since(now - timedelta(days=7)):
         symbol = fill.get("symbol", "SPY")
         ctx = journal.order_context(fill["order_id"], events)
+        if ctx.get("synthetic") and not any(r["order_id"] == fill["order_id"] for r in journal.read_trades()):
+            # Alpaca's held stop sold the shares: record it as the desk's stop exit for that book
+            ctx = journal.log("order", now=now, role="exit", reason="stop", via="alpaca_stop", order_id=fill["order_id"],
+                              status="filled", symbol=symbol, underlying=ctx.get("underlying") or symbol,
+                              book=ctx.get("book"), side=fill["side"], qty=fill["qty"], underlying_price=fill["price"],
+                              stop_level=ctx.get("stop_level"))
+            events.append(ctx)
         row = journal.record_fill(filled_at=fill["filled_at"], order_id=fill["order_id"], side=fill["side"],
                                   qty=fill["qty"], price=fill["price"], context=ctx, symbol=symbol)
         if not row:

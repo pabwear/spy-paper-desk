@@ -53,9 +53,16 @@ def events_on(events: list[dict], day) -> list[dict]:
 
 
 def order_context(order_id: str, events: list[dict]) -> dict:
+    """The desk's order event for this order id. A fill of the stop Alpaca held for an entry (its stop_order_id)
+    has no event of its own yet: that returns a stand-in exit context marked synthetic, for the caller to log."""
     for e in reversed(events):
         if e.get("event") == "order" and e.get("order_id") == order_id:
             return e
+    for e in reversed(events):
+        if e.get("event") == "order" and e.get("stop_order_id") == order_id:
+            return {"event": "order", "role": "exit", "reason": "stop", "via": "alpaca_stop", "synthetic": True,
+                    "book": e.get("book"), "symbol": e.get("symbol"), "underlying": e.get("underlying"),
+                    "stop_level": e.get("stop_level")}
     return {}
 
 
@@ -169,7 +176,7 @@ def round_trips(trades: list[dict], events: list[dict]) -> list[dict]:
                 "features": ctx.get("features") or {}, "tags": ctx.get("tags") or [], "zone": ctx.get("zone"),
                 "pulse_bias": ctx.get("pulse_bias"), "underlying_entry": ctx.get("underlying_price"),
                 "entry_number": ctx.get("entry_number"), "p_loss": ctx.get("p_loss"),
-                "context": ctx.get("context"), "underlying": instruments.underlying_of(sym),
+                "context": ctx.get("context"), "underlying": instruments.underlying_of(sym), "book": ctx.get("book"),
             }
         if t.get("realized_pnl") not in ("", None):
             trip["pnl"] = round(trip["pnl"] + float(t["realized_pnl"]), 4)

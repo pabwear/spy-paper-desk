@@ -312,18 +312,30 @@ class RunTests(DeskTestCase):
         r = self.paper(broker, bars=bars)
         self.assertEqual(r["decision"], "enter", r.get("reasons"))
         o = broker.submitted[0]
-        self.assertEqual((o["symbol"], o["side"], o["qty"]), ("SPY", "buy", round(800 / bars[-1]["c"], 4)))
+        px = bars[-1]["c"]
+        # whole shares that fit the $1,000 book, with the stop 0.25% under the entry held at Alpaca
+        self.assertEqual((o["symbol"], o["side"], o["qty"], o["stop_price"]),
+                         ("SPY", "buy", int(1000 // px), round(px * (1 - 0.0025), 2)))
 
-    def test_sndk_off_sends_nothing(self):
-        publish(THURSDAY, [RED])
+    def test_sndk_book_off_sends_nothing(self):
+        from common import aoi_file
+
         rules = load_json("rules.json")
-        for enabled in (False, True):
-            rules.update(active="sndk_shares", sndk_enabled=enabled)
-            save_json("rules.json", rules)
-            broker = FakeBroker()
-            r = self.paper(broker)
-            self.assertEqual(broker.submitted, [])
-            self.assertEqual(r["reasons"], ["instrument_off"])
+        rules["books"] = {"sndk_shares": {"symbol": "SNDK", "asset": "shares", "enabled": False, "budget_usd": 3000,
+                                          "stop": {"pct": 1.0}, "stop_at_broker": True}}
+        save_json("rules.json", rules)
+        w = load_json("watchlist.json")
+        w["focus"] = ["SNDK"]
+        save_json("watchlist.json", w)
+        save_json(aoi_file("SNDK"), {"symbol": "SNDK", "tradable": True, "written_at": at(THURSDAY, 9, 45).isoformat(),
+                                     "source": "Ops live read", "approximate": False,
+                                     "zones": [{"color": "red", "low": 94.5, "high": 95.5, "confluence": []}]})
+        broker = FakeBroker(cash=10_000.0)
+        now = at(THURSDAY, 10, 30)
+        r = run_study.cmd_paper(now, broker_factory=lambda: broker,
+                                bars={"SNDK": falling_bars(THURSDAY, now, start=100.0, end=95.0)})
+        self.assertEqual(broker.submitted, [])
+        self.assertEqual(r["reasons"], ["instrument_off"])
 
     def test_third_entry_of_the_day_refused(self):
         publish(THURSDAY, [RED])
@@ -510,12 +522,18 @@ class PaperOnlyTests(DeskTestCase):
         from helpers import DESK
 
         rules = json.loads((DESK / "rules.json").read_text())
-        self.assertEqual((rules["active"], rules["shares_enabled"], rules["sndk_enabled"],
-                          rules["spy_options_enabled"], rules["min_confluence"], rules["max_entries_per_day"],
-                          rules["stop_underlying_pct"], rules["live_trading"]),
-                         ("spy_options", False, False, True, 0, 2, 0.25, False))
+        books = rules["books"]
+        self.assertEqual([(k, b["symbol"], b["asset"], b["enabled"], b["budget_usd"]) for k, b in books.items()],
+                         [("spy_shares", "SPY", "shares", True, 4000), ("sndk_shares", "SNDK", "shares", True, 3000),
+                          ("spy_options", "SPY", "option", True, 3000)])
+        self.assertEqual((books["spy_shares"]["stop"], books["sndk_shares"]["stop"], books["spy_options"]["stop"]),
+                         ({"pct": 0.25}, {"range_fraction": 0.25, "days": 20}, {"pct": 0.25}))
+        self.assertTrue(books["spy_shares"]["stop_at_broker"] and books["sndk_shares"]["stop_at_broker"])
+        self.assertEqual((rules["min_confluence"], rules["max_entries_per_day"], rules["stop_underlying_pct"],
+                          rules["live_trading"]), (0, 2, 0.25, False))
         self.assertEqual((rules["trade_colors"], rules["max_hold_minutes"], rules["option"]["expiry_target_days"],
-                          rules["option"]["expiry_min_days"], rules["option"]["max_cost_usd"]), (["red"], 30, 30, 7, 1000))
+                          rules["option"]["expiry_min_days"], rules["option"]["max_cost_usd"]), (["red"], 30, 30, 7, 3000))
+        self.assertEqual(json.loads((DESK / "watchlist.json").read_text())["focus"], ["SPY", "SNDK", "TSLA"])
         self.assertFalse(json.loads((DESK / "alpaca_config.json").read_text())["live_unlocked"])
 
     def test_env_alpaca_is_gitignored(self):

@@ -1,14 +1,21 @@
 {
-  "focus": ["SPY"],
+  "focus": [
+    "SPY",
+    "SNDK",
+    "TSLA"
+  ],
   "symbols": {
     "SPY": {
       "chart": "https://www.tradingview.com/chart/pY9HoHBw/?symbol=AMEX:SPY",
-      "note": "Instrument and switches come from rules.json (active, spy_options_enabled, shares_enabled)."
+      "note": "Trades in two books: spy_shares and spy_options (rules.json books)."
     },
     "SNDK": {
-      "instrument": "shares",
       "chart": null,
-      "note": "Switched by rules.json sndk_enabled (false)."
+      "note": "Trades in the sndk_shares book (rules.json books)."
+    },
+    "TSLA": {
+      "chart": null,
+      "note": "Watch only: charts, areas and studies like SPY; no trading."
     }
   },
   "note": "focus = symbols evaluated each run, in priority order. Adding a symbol here only WATCHES it. A symbol other than SPY or SNDK trades only with \"trading_enabled\": true and \"instrument\": \"options\" or \"shares\" on its entry. The console can change focus and add symbols; it cannot switch trading on."

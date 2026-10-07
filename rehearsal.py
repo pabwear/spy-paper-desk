@@ -10,7 +10,7 @@ Option prices come from Black-Scholes on SPY's price at that minute, with the da
 (backtest_areas.bs_price), plus a 2-cent half-spread each way. Sentiment readings aren't replayed (no
 history exists), so Market Pulse stays neutral.
 
-    python3 rehearsal.py --days 5            # the last 5 trading days of free 1-minute data (yfinance)
+    python3 rehearsal.py --days 5            # the last 5 trading days of free 1-minute data (yfinance), $10,000
 """
 
 from __future__ import annotations
@@ -38,24 +38,48 @@ class SimBroker:
     is_paper = True
     account_number = "PA36VOEO5PHB"
 
-    def __init__(self, minute_bars: list[dict], vix: dict[date, float], cash: float = 1000.0):
-        self.bars = sorted(minute_bars, key=lambda b: b["t"])
+    def __init__(self, minute_bars, vix: dict[date, float], cash: float = 1000.0):
+        by = minute_bars if isinstance(minute_bars, dict) else {"SPY": minute_bars}
+        self.bars = {k: sorted(v, key=lambda b: b["t"]) for k, v in by.items()}
         self.vix = vix
         self.cash = cash
         self.now: datetime | None = None
         self.pos: dict[str, dict] = {}
         self.fills: list[dict] = []
+        self.stops: dict[str, dict] = {}  # stops Alpaca would hold: order id → {symbol, qty, price}
         self.n = 0
 
     # -- the simulated market
-    def spy(self) -> float:
+    def price(self, symbol: str = "SPY") -> float:
         last = None
-        for b in self.bars:
+        for b in self.bars.get(symbol, []):
             if b["t"] <= self.now:
                 last = b
             else:
                 break
         return float(last["c"]) if last else 0.0
+
+    def spy(self) -> float:
+        return self.price("SPY")
+
+    def advance(self, until: datetime) -> None:
+        """Let the held stops work minute by minute up to `until` (Alpaca does this between the desk's checks)."""
+        start = self.now
+        for oid, st in list(self.stops.items()):
+            if st["symbol"] not in self.pos:
+                del self.stops[oid]
+                continue
+            for b in self.bars.get(st["symbol"], []):
+                if start is not None and b["t"] <= start:
+                    continue
+                if b["t"] > until:
+                    break
+                if b["l"] <= st["price"]:
+                    self.now = b["t"]
+                    self._fill(oid, st["symbol"], "sell", st["qty"], round(min(b["o"], st["price"]), 2))
+                    del self.stops[oid]
+                    break
+        self.now = until
 
     def _vol(self) -> float:
         d = self.now.astimezone(ET).date()
@@ -67,16 +91,23 @@ class SimBroker:
         from instruments import parse_occ
 
         o = parse_occ(symbol)
-        return bs_price(self.spy(), o["strike"], trading_years(self.now, o["expiry"]), self._vol(), o["right"] == "call")
+        if not o:
+            return self.price(symbol)
+        return bs_price(self.price(o["underlying"]), o["strike"], trading_years(self.now, o["expiry"]), self._vol(),
+                        o["right"] == "call")
 
     # -- what the desk calls
     def positions(self):
+        from instruments import parse_occ
+
         out = []
         for sym, p in self.pos.items():
             px = self.mid(sym)
+            m = 100 if parse_occ(sym) else 1
             out.append({"symbol": sym, "qty": p["qty"], "avg_entry_price": p["avg"], "current_price": round(px, 2),
-                        "market_value": round(px * 100 * p["qty"], 2),
-                        "unrealized_pl": round((px - p["avg"]) * 100 * p["qty"], 2), "asset_class": "us_option"})
+                        "market_value": round(px * m * p["qty"], 2),
+                        "unrealized_pl": round((px - p["avg"]) * m * p["qty"], 2),
+                        "asset_class": "us_option" if m == 100 else "us_equity"})
         return out
 
     def equity(self) -> float:
@@ -96,7 +127,19 @@ class SimBroker:
         return t.weekday() < 5 and 570 <= t.hour * 60 + t.minute < 960
 
     def open_orders(self):
-        return []
+        return [{"id": oid, "symbol": st["symbol"], "side": "sell", "qty": st["qty"]} for oid, st in self.stops.items()]
+
+    def cancel_orders(self, symbol):
+        gone = [oid for oid, st in self.stops.items() if st["symbol"] == symbol]
+        for oid in gone:
+            del self.stops[oid]
+        return len(gone)
+
+    def submit_market_with_stop(self, qty, stop_price, client_order_id, symbol="SPY"):
+        order = self.submit_market("buy", qty, client_order_id, symbol=symbol)
+        sid = f"{order['order_id']}-stop"
+        self.stops[sid] = {"symbol": symbol, "qty": float(qty), "price": float(stop_price)}
+        return {**order, "stop_order_id": sid}
 
     def filled_orders_since(self, since):
         return [f for f in self.fills if f["filled_at_dt"] >= since]
@@ -120,16 +163,21 @@ class SimBroker:
         return {s: round(self.mid(s) + HALF_SPREAD, 2) for s in symbols}
 
     def submit_market(self, side, qty, client_order_id, symbol="SPY", intent=None):
-        px = round(self.mid(symbol) + (HALF_SPREAD if side == "buy" else -HALF_SPREAD), 2)
-        px = max(px, 0.01)
+        from instruments import parse_occ
+
+        spread = HALF_SPREAD if parse_occ(symbol) else 0.01  # shares: about a penny each way
+        px = max(round(self.mid(symbol) + (spread if side == "buy" else -spread), 2), 0.01)
         self.n += 1
-        oid = f"sim-{self.n}"
-        qty = float(qty)
-        cost = px * 100 * qty
+        return self._fill(f"sim-{self.n}", symbol, side, float(qty), px)
+
+    def _fill(self, oid, symbol, side, qty, px):
+        from instruments import parse_occ
+
+        cost = px * (100 if parse_occ(symbol) else 1) * qty
         p = self.pos.get(symbol)
         if side == "buy":
             if cost > self.cash + 1e-9:
-                raise RuntimeError("insufficient options buying power")
+                raise RuntimeError("insufficient buying power")
             self.cash -= cost
             if p:
                 p["avg"] = (p["avg"] * p["qty"] + px * qty) / (p["qty"] + qty)
@@ -171,9 +219,12 @@ def heartbeats(day: date, every: int = 10):
         t += timedelta(minutes=every)
 
 
-def run(minute_bars: list[dict], half_hours: list[dict], dailies: list[dict], vix: dict[date, float],
-        days: list[date], keep: str | None = None) -> dict:
-    """Replay the desk over `days` in a temporary desk folder. Returns what happened."""
+def run(minute_bars, half_hours, dailies, vix: dict[date, float], days: list[date], keep: str | None = None,
+        cash: float = 1000.0) -> dict:
+    """Replay the desk over `days` in a temporary desk folder. Returns what happened.
+    The bars are {symbol: bars} (a plain list means SPY's)."""
+    as_dict = lambda x: x if isinstance(x, dict) else {"SPY": x}  # noqa: E731
+    minute_bars, half_hours, dailies = as_dict(minute_bars), as_dict(half_hours), as_dict(dailies)
     tmp = Path(keep) if keep else Path(tempfile.mkdtemp(prefix="rehearsal-"))
     tmp.mkdir(parents=True, exist_ok=True)
     for name in DESK_FILES:
@@ -188,19 +239,19 @@ def run(minute_bars: list[dict], half_hours: list[dict], dailies: list[dict], vi
     import journal
     import run_study
 
-    broker = SimBroker(minute_bars, vix)
+    broker = SimBroker(minute_bars, vix, cash=cash)
+    start_cash = cash
     log: list[dict] = []
     errors: list[str] = []
     try:
         for d in days:
-            start_eq = None
             for now in heartbeats(d):
-                broker.now = now
-                if start_eq is None:
-                    start_eq = broker.equity()
-                bars = [b for b in minute_bars if b["t"] <= now and b["t"] > now - timedelta(days=4)]
-                src = {"SPY": bars, "SPY|30Min": [b for b in half_hours if b["t"] <= now],
-                       "SPY|1Day": [b for b in dailies if b["t"].astimezone(ET).date() < d]}
+                broker.advance(now)  # the stops Alpaca holds work between the desk's checks
+                src = {}
+                for sym, bars in minute_bars.items():
+                    src[sym] = [b for b in bars if now - timedelta(days=4) < b["t"] <= now]
+                    src[f"{sym}|30Min"] = [b for b in half_hours.get(sym, []) if b["t"] <= now]
+                    src[f"{sym}|1Day"] = [b for b in dailies.get(sym, []) if b["t"].astimezone(ET).date() < d]
                 try:
                     state = run_study.cmd_tick(now, broker_factory=lambda: broker, bars=src)
                 except Exception as e:  # noqa: BLE001 - a crash is exactly what a rehearsal is for
@@ -209,6 +260,7 @@ def run(minute_bars: list[dict], half_hours: list[dict], dailies: list[dict], vi
                 log.append({"t": now.isoformat(timespec="minutes"), "state": state, "equity": broker.equity(),
                             "open": [p["symbol"] for p in broker.positions()]})
         events = journal.read_events()
+        trips = journal.round_trips(journal.read_trades(), events)
     finally:
         if old is None:
             os.environ.pop("DESK_DIR", None)
@@ -228,19 +280,29 @@ def run(minute_bars: list[dict], half_hours: list[dict], dailies: list[dict], vi
         ds = d.isoformat()
         by_day[ds] = {"entries": sum(1 for e in entries if e["ts"].startswith(ds)),
                       "exits": [e.get("reason") for e in exits if e["ts"].startswith(ds)],
-                      "zones": next((e.get("zones") for e in events if e.get("event") == "aoi" and e["ts"].startswith(ds)), None),
                       "equity_end": next((x["equity"] for x in reversed(log) if x["t"].startswith(ds)), None)}
+    books: dict[str, dict] = {}
+    for t in trips:
+        k = t.get("book") or "?"
+        bk = books.setdefault(k, {"trades": 0, "wins": 0, "pnl": 0.0})
+        bk["trades"] += 1
+        bk["wins"] += float(t["pnl"]) > 0
+        bk["pnl"] = round(bk["pnl"] + float(t["pnl"]), 2)
     return {"ran_at": datetime.now(ET).isoformat(timespec="seconds"), "folder": str(tmp),
-            "days": [d.isoformat() for d in days], "heartbeats": len(log),
-            "equity": [[x["t"], x["equity"]] for x in log], "trades": round_trips(broker.fills, exits),
-            "crashes": errors, "failures": [{k: e.get(k) for k in ("ts", "event", "reasons", "error", "reason", "symbol")}
+            "days": [d.isoformat() for d in days], "heartbeats": len(log), "symbols": sorted(minute_bars),
+            "equity": [[x["t"], x["equity"]] for x in log],
+            "trades": [{k: t.get(k) for k in ("symbol", "book", "opened_at", "closed_at", "entry_price", "exit_price",
+                                               "qty", "pnl", "exit_reason")} for t in trips if t.get("closed_at")],
+            "books": books,
+            "crashes": errors, "failures": [{k: e.get(k) for k in ("ts", "event", "reasons", "error", "reason", "symbol", "book")}
                                             for e in failures],
-            "entries": [{k: e.get(k) for k in ("ts", "symbol", "strike", "expiry", "underlying_price", "zone", "tags")}
-                        for e in entries],
-            "exits": [{k: e.get(k) for k in ("ts", "symbol", "reason", "underlying_price", "stop_level")} for e in exits],
+            "entries": [{k: e.get(k) for k in ("ts", "book", "symbol", "qty", "underlying_price", "stop_level",
+                                               "stop_pct", "stop_at_broker")} for e in entries],
+            "exits": [{k: e.get(k) for k in ("ts", "book", "symbol", "reason", "via", "underlying_price", "stop_level")}
+                      for e in exits],
             "fills": [{k: f[k] for k in ("filled_at", "symbol", "side", "qty", "price")} for f in broker.fills],
             "skip_reasons": dict(sorted(skips.items(), key=lambda kv: -kv[1])), "by_day": by_day,
-            "start_equity": 1000.0, "end_equity": broker.equity(), "still_open": broker.positions(),
+            "start_equity": start_cash, "end_equity": broker.equity(), "still_open": broker.positions(),
             "dashboard_ok": (tmp / "dashboard_state.json").exists()}
 
 
@@ -261,21 +323,24 @@ def _yf(symbol: str, period: str, interval: str) -> list[dict]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--days", type=int, default=5)
+    ap.add_argument("--cash", type=float, default=10_000.0, help="the paper account's starting cash")
     ap.add_argument("--keep", help="keep the rehearsal desk folder here")
     ap.add_argument("--json", help="write the result here")
     a = ap.parse_args(argv)
-    minute = _yf("SPY", "7d", "1m")
-    half = _yf("SPY", "60d", "30m")
-    daily = _yf("SPY", "2y", "1d")
+    focus = json.loads((DESK / "watchlist.json").read_text()).get("focus") or ["SPY"]
+    minute = {s: _yf(s, "7d", "1m") for s in focus}
+    half = {s: _yf(s, "60d", "30m") for s in focus}
+    daily = {s: _yf(s, "2y", "1d") for s in focus}
     vix = {b["t"].date(): b["c"] for b in _yf("^VIX", "3mo", "1d")}
-    days = sorted({b["t"].astimezone(ET).date() for b in minute if b["t"].astimezone(ET).weekday() < 5})
+    days = sorted({b["t"].astimezone(ET).date() for b in minute["SPY"] if b["t"].astimezone(ET).weekday() < 5})
     # the first day only warms up the study (the boxes need earlier candles)
     days = days[1:][-a.days:]
-    res = run(minute, half, daily, vix, days, a.keep)
+    res = run(minute, half, daily, vix, days, a.keep, cash=a.cash)
     if a.json:
         Path(a.json).write_text(json.dumps(res, indent=1, default=str))
-    print(json.dumps({k: res[k] for k in ("days", "heartbeats", "crashes", "entries", "exits", "fills", "skip_reasons",
-                                          "by_day", "end_equity", "still_open", "dashboard_ok")}, indent=1, default=str))
+    print(json.dumps({k: res[k] for k in ("days", "symbols", "heartbeats", "crashes", "failures", "entries", "exits",
+                                          "trades", "books", "skip_reasons", "by_day", "end_equity", "still_open",
+                                          "dashboard_ok")}, indent=1, default=str))
     return 0
 
 

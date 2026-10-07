@@ -1,4 +1,4 @@
-"""Alpaca PAPER access for SPY shares and SPY options. Never a live client.
+"""Alpaca PAPER access for the desk's books (shares with a stop Alpaca holds, and options). Never a live client.
 
     python3 alpaca_client.py          # print equity, cash, buying power (no keys)
     python3 alpaca_client.py --save   # also write account.json and log the snapshot
@@ -200,6 +200,60 @@ class PaperBroker:
         )
         o = self._client.submit_order(order_data=req)
         return {"order_id": str(o.id), "status": str(o.status.value), "submitted_at": str(o.submitted_at)}
+
+
+    def submit_market_with_stop(self, qty: int, stop_price: float, client_order_id: str, symbol: str = "SPY") -> dict:
+        """Buy whole shares at market and have Alpaca hold a stop to sell them (one order triggers the other).
+        The stop fills the minute the price reaches it, whether or not the desk is running. Whole shares only:
+        Alpaca holds no stop for fractional shares."""
+        from alpaca.trading.enums import OrderClass, OrderSide, TimeInForce
+        from alpaca.trading.requests import MarketOrderRequest, StopLossRequest
+
+        if not self.is_paper or host_of(self.base_url) != PAPER_HOST:
+            raise LiveTradingRefused("Refusing to submit: client is not paper.")
+        if not is_desk_symbol(symbol, _watched()):
+            raise LiveTradingRefused(f"Refusing to submit {symbol}: not a watchlist symbol.")
+        if int(qty) != qty or qty < 1:
+            raise ValueError(f"whole shares only ({qty})")
+        req = MarketOrderRequest(symbol=symbol, qty=int(qty), side=OrderSide.BUY, time_in_force=TimeInForce.DAY,
+                                 order_class=OrderClass.OTO, stop_loss=StopLossRequest(stop_price=round(float(stop_price), 2)),
+                                 client_order_id=client_order_id)
+        o = self._client.submit_order(order_data=req)
+        legs = list(getattr(o, "legs", None) or [])
+        stop = next((x for x in legs if "stop" in str(getattr(x.type, "value", x.type))), legs[0] if legs else None)
+        return {"order_id": str(o.id), "status": str(o.status.value), "submitted_at": str(o.submitted_at),
+                "stop_order_id": str(stop.id) if stop is not None else None}
+
+    def cancel_orders(self, symbol: str, wait_s: float = 6.0) -> int:
+        """Cancel this stock's open orders (the stop Alpaca holds for its shares) and wait until they are gone,
+        so the shares are free to sell. Returns how many were cancelled."""
+        import time
+
+        from alpaca.trading.enums import QueryOrderStatus
+        from alpaca.trading.requests import GetOrdersRequest
+
+        if not self.is_paper or host_of(self.base_url) != PAPER_HOST:
+            raise LiveTradingRefused("Refusing to cancel: client is not paper.")
+
+        def open_ids() -> list[str]:
+            req = GetOrdersRequest(status=QueryOrderStatus.OPEN, symbols=[symbol], nested=True)
+            ids = []
+            for o in self._client.get_orders(filter=req):
+                ids.append(str(o.id))
+                ids += [str(x.id) for x in (getattr(o, "legs", None) or [])
+                        if str(getattr(x.status, "value", x.status)) not in ("filled", "canceled", "expired", "rejected")]
+            return ids
+
+        ids = open_ids()
+        for oid in ids:
+            try:
+                self._client.cancel_order_by_id(oid)
+            except Exception:  # noqa: BLE001 - already gone, or filling; the check below decides
+                pass
+        deadline = time.monotonic() + wait_s
+        while open_ids() and time.monotonic() < deadline:
+            time.sleep(0.5)
+        return len(ids)
 
 
 def _watched() -> set[str]:

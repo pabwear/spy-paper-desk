@@ -1,13 +1,25 @@
 # SPY paper desk
 
-A weekday SPY desk on the **Alpaca paper** account *Paper 1000* (`PA36VOEO5PHB`),
-a $1,000 book. It fades the Mxwll Price Action Suite areas of interest:
+A weekday desk on the **Alpaca paper** account `PA36VOEO5PHB` (SPY shares, SNDK shares,
+SPY options). It fades the Mxwll Price Action Suite areas of interest:
 buy only in red, sell only in green, and only after the 09:30–09:59 ET open has
 produced real zones from Roy's TradingView chart.
 
-**Active instrument: SPY options.** One long contract per signal, strike nearest
-the dollar to SPY. SPY shares stay in the code, switched off. SNDK has a switch
-that is off. No SNDK strategy exists in this codebase.
+**Three trading books (since 2026-10-07, Roy's request).** Each trades on its own: one
+position at a time, its own daily entry limit and budget, all capped by the cash in the
+account (`rules.json` `books`). Shares are bought in whole shares with the stop held at
+Alpaca (one order triggers the other), so it fills the minute it's hit; the options book
+keeps the desk's own stop check every 10 minutes (Alpaca holds no stops for options).
+
+| Book | Trades | Budget | Stop | Why |
+|---|---|---|---|---|
+| `spy_shares` | SPY shares | $4,000 | 0.25%, held at Alpaca | the idea that turned the desk's signals profitable in the 6-year backtest (`backtests/ideas.md`) |
+| `sndk_shares` | SNDK shares | $3,000 | a quarter of SNDK's average daily range (≈1–3%), held at Alpaca | Roy's pick; roughly break-even in its 1.6-year backtest (`backtests/ideas-sndk.md`) |
+| `spy_options` | 1 SPY call, ~30 days out | $3,000 | 0.25% of SPY, checked every 10 minutes | kept so the learner keeps learning options; lost money in the backtest |
+
+TSLA is on the focus list to watch: charts, areas and studies like SPY, no trading.
+The budgets add up to $10,000; until the paper account holds that, each book buys only
+what the cash allows (a $1,000 account buys 1 SPY share and no SNDK share).
 
 **Current setup (since 2026-10-07).** The settings that came closest to break-even
 in the six-year backtest (`backtest_areas.py`; results in `backtests/areas.md` on

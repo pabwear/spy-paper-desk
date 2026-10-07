@@ -36,12 +36,16 @@ def load_json(name: str, default: Any = None) -> Any:
         return json.load(f)
 
 
-def save_json(name: str, data: Any) -> None:
+def save_json(name: str, data: Any, compact: bool = False) -> None:
+    """compact: no indentation or spaces (for big machine-read files like the dashboard's)."""
     p = path(name)
     p.parent.mkdir(parents=True, exist_ok=True)
     tmp = p.with_suffix(p.suffix + ".tmp")
     with tmp.open("w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+        if compact:
+            json.dump(data, f, separators=(",", ":"))
+        else:
+            json.dump(data, f, indent=2)
         f.write("\n")
     tmp.replace(p)
 

@@ -69,17 +69,16 @@ class FocusTests(DeskTestCase):
         entry = [e for e in journal.read_events() if e["event"] == "order"][-1]
         self.assertEqual(entry["underlying"], "NVDA")
 
-    def test_only_one_entry_when_two_stocks_qualify(self):
+    def test_each_stocks_book_enters_on_its_own(self):
+        # books run side by side: SPY's options book and NVDA's each buy one call (the cash covers both)
         run_study.set_focus("NVDA", True)
         run_study.set_trading("NVDA", "options", True)
         publish("SPY", [RED_SPY])
-        publish("NVDA", [RED_NVDA])  # the CHoCH tag gives NVDA the higher score
-        broker = FakeBroker()
-        r = self.paper(broker)
-        self.assertEqual(len(broker.submitted), 1)
-        self.assertEqual(r["symbol"], "NVDA")
-        spy = [e for e in journal.read_events() if e.get("symbol") == "SPY" and e["event"] == "skip"][-1]
-        self.assertEqual(spy["reasons"], ["another_symbol_chosen"])
+        publish("NVDA", [RED_NVDA])
+        broker = FakeBroker(cash=10_000.0)
+        self.paper(broker)
+        self.assertEqual(sorted(instruments.parse_occ(o["symbol"])["underlying"] for o in broker.submitted),
+                         ["NVDA", "SPY"])
 
     def test_off_focus_stock_never_trades(self):
         run_study.set_trading("NVDA", "options", True)  # switched on but not on the focus list
@@ -101,11 +100,11 @@ class FocusTests(DeskTestCase):
 
     def test_aoi_set_needs_a_watchlist_stock(self):
         with self.assertRaises(SystemExit):
-            run_study.cmd_aoi_set(at(THURSDAY, 9, 41), ["red:1:2"], [], "Ops", symbol="TSLA")
-        run_study.set_focus("TSLA", True)
-        data = run_study.cmd_aoi_set(at(THURSDAY, 9, 41), ["red:300:301"], [], "Ops", symbol="TSLA")
-        self.assertEqual(data["symbol"], "TSLA")
-        self.assertEqual(load_json("aoi_override.TSLA.json")["zones"][0]["low"], 300.0)
+            run_study.cmd_aoi_set(at(THURSDAY, 9, 41), ["red:1:2"], [], "Ops", symbol="AMD")
+        run_study.set_focus("AMD", True)
+        data = run_study.cmd_aoi_set(at(THURSDAY, 9, 41), ["red:300:301"], [], "Ops", symbol="AMD")
+        self.assertEqual(data["symbol"], "AMD")
+        self.assertEqual(load_json("aoi_override.AMD.json")["zones"][0]["low"], 300.0)
 
     def test_sell_signal_on_nvda_buys_a_put(self):
         set_rules(trade_colors=BOTH_AREAS)

@@ -29,6 +29,7 @@ def _desk_positions(account: dict, events: list[dict], rules: dict, risk: dict, 
         raw = [account["position"]] if account.get("position") else []
     out = []
     pct = float(rules.get("stop_underlying_pct", 0.35))
+    all_books = instruments.books(rules, watchlist())
     for p in raw:
         if not p or not instruments.is_desk_symbol(p.get("symbol", ""), managed) or not float(p.get("qty") or 0):
             continue
@@ -38,6 +39,9 @@ def _desk_positions(account: dict, events: list[dict], rules: dict, risk: dict, 
         underlying = instruments.underlying_of(p["symbol"])
         ref = entry.get("underlying_price") or (p.get("avg_entry_price") if p["symbol"] == underlying else None)
         occ = instruments.parse_occ(p["symbol"])
+        book = instruments.book_of(p["symbol"], all_books) or {}
+        level = (float(entry["stop_level"]) if entry.get("stop_level") is not None
+                 else instruments.stop_level(exposure, float(ref), pct) if ref else None)
         opened = to_et(entry.get("ts"))
         out.append({
             **p,
@@ -49,7 +53,10 @@ def _desk_positions(account: dict, events: list[dict], rules: dict, risk: dict, 
             "multiplier": 100 if occ else 1,
             "exposure": exposure,
             "underlying_entry": ref,
-            "stop_level": instruments.stop_level(exposure, float(ref), pct) if ref else None,
+            "stop_level": level,
+            "stop_at_broker": bool(entry.get("stop_at_broker")),
+            "book": book.get("id"),
+            "book_label": book.get("label"),
             "flatten_at": risk.get("flatten_start"),
             "overnight": bool(opened and opened.date() < now.date()),
             "entry_tags": entry.get("tags"),
@@ -99,11 +106,54 @@ def _aoi_state(symbol: str, now: datetime, risk: dict) -> dict:
     }
 
 
+def _stop_text(stop: dict) -> str:
+    if (stop or {}).get("pct") is not None:
+        return f"{float(stop['pct']):g}% against the entry"
+    if (stop or {}).get("range_fraction") is not None:
+        return f"{float(stop['range_fraction']):g} × the stock's average daily range ({int(stop.get('days', 20))} days)"
+    return "—"
+
+
+def _books_state(rules: dict, events: list[dict], trips: list[dict], positions: list[dict], now: datetime) -> list[dict]:
+    """Each trading book on its own: its rules, today's entries, what it holds, and its closed trades."""
+    from run_study import book_entries_on
+
+    w = watchlist()
+    all_books = instruments.books(rules, w)
+    out = []
+    for b in all_books:
+        mine = [t for t in trips if (t.get("book") or (instruments.book_of(t.get("symbol") or "", all_books) or {}).get("id"))
+                == b["id"] and t.get("closed_at")]
+        pnl = [float(t.get("pnl") or 0) for t in mine]
+        cum, series = 0.0, []
+        for t, v in zip(mine, pnl):
+            cum += v
+            series.append({"t": t["closed_at"], "v": round(cum, 2)})
+        out.append({
+            "id": b["id"], "label": b["label"], "symbol": b["symbol"], "asset": b["asset"], "enabled": b["enabled"],
+            "budget_usd": b.get("budget_usd"), "stop": _stop_text(b.get("stop")), "stop_at_broker": bool(b.get("stop_at_broker")),
+            "max_hold_minutes": b.get("max_hold_minutes"), "max_entries_per_day": b.get("max_entries_per_day"),
+            "purpose": b.get("purpose"), "entries_today": book_entries_on(events, now.date(), b, all_books),
+            "positions": [p for p in positions if p.get("book") == b["id"]],
+            "closed_trades": len(mine), "wins": sum(1 for v in pnl if v > 0), "realized": round(sum(pnl), 2),
+            "win_rate_pct": round(100 * sum(1 for v in pnl if v > 0) / len(pnl), 1) if pnl else None,
+            "cum_pnl": series[-300:],
+            "trades": [{k: t.get(k) for k in ("symbol", "opened_at", "closed_at", "pnl", "result", "exit_reason",
+                                               "entry_price", "exit_price", "underlying_entry", "qty")} for t in mine][-50:],
+        })
+    return out
+
+
 def _focus_state(rules: dict, risk: dict, events: list[dict], now: datetime) -> list[dict]:
     w = watchlist()
     out = []
     for sym, entry in w["symbols"].items():
         inst = instruments.for_symbol(sym, rules, w)
+        mine = instruments.books_for(sym, rules, w)
+        if mine:
+            inst = {"name": ", ".join(b["id"] for b in mine), "asset": "/".join(sorted({b["asset"] for b in mine})),
+                    "enabled": any(b["enabled"] for b in mine),
+                    "why": "; ".join(f"{b['label']} {'on' if b['enabled'] else 'off'}" for b in mine)}
         last = next((e for e in reversed(events) if e.get("event") in ("eval", "skip")
                      and (e.get("symbol") or "SPY") == sym), None)
         out.append({
@@ -236,8 +286,13 @@ def build_state(now: datetime | None = None) -> dict:
     notional_cap = sizing * float(risk.get("max_notional_pct_of_sizing_equity", 25)) / 100.0
 
     positions = _desk_positions(account, events, rules, risk, now)
+    trips = journal.round_trips(trades, events)
     unrealized = round(sum(_f(p.get("unrealized_pl")) or 0.0 for p in positions), 2) if positions else None
     inst = instruments.active(rules)
+    enabled_books = [b for b in instruments.books(rules, watchlist()) if b["enabled"]]
+    if enabled_books:  # books decide now; "active" names the first for older readers
+        inst = {"name": enabled_books[0]["id"], "enabled": True,
+                "why": ", ".join(f"{b['label']} on" for b in enabled_books)}
     learn_report = load_json("learning_report.json", None)
     model = load_json("ml_model.json", None)
     entries_today = journal.entries_on(events, today)
@@ -314,8 +369,9 @@ def build_state(now: datetime | None = None) -> dict:
         "daily_pnl": daily,
         "equity_curve": curve,
         "round_trips": [{k: t.get(k) for k in ("symbol", "opened_at", "closed_at", "pnl", "result", "exit_reason",
-                                               "entry_price", "exit_price", "underlying_entry", "zone", "context")}
-                        for t in journal.round_trips(trades, events)][-300:],
+                                               "entry_price", "exit_price", "underlying_entry", "zone", "context", "book")}
+                        for t in trips][-300:],
+        "books": _books_state(rules, events, trips, positions, now),
         "sentiment": _sentiment_state(now),
         "tests": _tests_state(),
         "risk": {
@@ -353,7 +409,8 @@ def build_state(now: datetime | None = None) -> dict:
         "trades": list(reversed(trades)),
         "orders": [e for e in reversed(events) if e.get("event") in ("order", "order_rejected", "exit_failed")][:50],
         "reviews": [e for e in reversed(events) if e.get("event") == "review"][:30],
-        "activity": list(reversed(events))[:150],
+        "activity": [{k: v for k, v in e.items() if k not in ("zones", "study", "features", "gate", "aoi")}
+                     for e in list(reversed(events))[:40]],
         "weights": weights,
         "rules": {
             "buy": (rules.get("aoi") or {}).get("buy"),
@@ -368,9 +425,24 @@ def build_state(now: datetime | None = None) -> dict:
     }
 
 
+CHART_FILE = "chart_{}.json"  # the charts of every focus stock after the first, one file each
+
+
 def write_state(now: datetime | None = None) -> dict:
+    """dashboard_state.json (compact, kept well under GitHub's 1 MB inline limit for the dashboard to read) holds the
+    first focus stock's chart in full; every other stock's chart goes to chart_<SYMBOL>.json, which the dashboard
+    loads when that stock is picked, and the state keeps a short stub pointing at it."""
     state = build_state(now)
-    save_json("dashboard_state.json", state)
+    focus = watchlist().get("focus") or ["SPY"]
+    charts = state.get("charts") or {}
+    for sym in list(charts):
+        if sym == focus[0]:
+            continue
+        full = charts[sym]
+        save_json(CHART_FILE.format(sym), full, compact=True)
+        charts[sym] = {"symbol": sym, "stub": True, "file": CHART_FILE.format(sym), "updated_at": full.get("updated_at"),
+                       "last": full.get("last"), "date": full.get("date")}
+    save_json("dashboard_state.json", state, compact=True)
     return state
 
 

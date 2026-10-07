@@ -93,7 +93,11 @@ def check_order(
     open_positions: list[dict] | None,
     open_orders: int | None,
     watch: dict | None = None,
+    book: dict | None = None,
 ) -> list[Check]:
+    """book: the trading book this entry is for (instruments.books). open_positions and open_orders are that
+    book's own (its stock's shares, or options on it); entries_today counts its entries. Without a book, the old
+    one-instrument-per-stock switches decide."""
     checks: list[Check] = []
     watch = watch or {"focus": ["SPY"], "symbols": {"SPY": {}}}
     add = lambda name, ok, detail: checks.append(Check(name, bool(ok), detail))  # noqa: E731
@@ -102,14 +106,23 @@ def check_order(
                   account_number=account_number)
 
     underlying = plan.get("underlying")
-    inst = instruments.for_symbol(underlying, rules, watch)
-    add("instrument_enabled", inst["enabled"] and plan.get("instrument") == inst["name"],
-        inst["why"] if plan.get("instrument") == inst.get("name") else
-        f"plan is {plan.get('instrument')}, {underlying} uses {inst.get('name')}")
+    stop_required = book is not None  # callers that pass the book also size its stop
+    if book is None:  # find the plan's book (older callers pass only the plan)
+        want = plan.get("book") or plan.get("instrument")
+        book = next((b for b in instruments.books(rules, watch) if b["id"] == want and b["symbol"] == underlying), None)
+    if book is not None:
+        mine = (plan.get("book") or plan.get("instrument")) == book["id"]
+        add("instrument_enabled", book["enabled"] and mine and book["symbol"] == underlying,
+            book.get("why") if mine else f"plan is for {plan.get('book') or plan.get('instrument')}, not {book['id']}")
+    else:
+        inst = instruments.for_symbol(underlying, rules, watch)
+        add("instrument_enabled", inst["enabled"] and plan.get("instrument") == inst["name"],
+            inst["why"] if plan.get("instrument") == inst.get("name") else
+            f"plan is {plan.get('instrument')}, {underlying} uses {inst.get('name')}")
 
     add("symbol_in_focus", underlying in (watch.get("focus") or []) and underlying in (watch.get("symbols") or {}),
         f"{underlying} {'is' if underlying in (watch.get('focus') or []) else 'is not'} on the focus list")
-    if underlying == "SNDK":
+    if underlying == "SNDK" and book is None:
         add("sndk_off", rules.get("sndk_enabled") is True, "sndk_enabled is false")
 
     t = now.astimezone(ET)
@@ -151,8 +164,9 @@ def check_order(
     need = int(rules.get("min_confluence", 2))
     add("confluence", len(tags) >= need, f"{len(tags)} of {need} needed: {', '.join(tags) or 'none'}")
 
-    cap = int(rules.get("max_entries_per_day", 2))
-    add("entries_today", entries_today < cap, f"{entries_today} of {cap} entries used today")
+    cap = int(book["max_entries_per_day"]) if book else int(rules.get("max_entries_per_day", 2))
+    add("entries_today", entries_today < cap,
+        f"{entries_today} of {cap} entries used today" + (f" ({book['label']})" if book else ""))
 
     if open_positions is None or open_orders is None:
         add("one_position", False, "paper positions/orders not read")
@@ -173,6 +187,12 @@ def check_order(
                            and plan.get("expiry_ok", plan.get("expiry_is_nearest")) and plan.get("strike_is_nearest"))
         add("option_contract", contract_ok,
             f"{plan.get('symbol')} (strike {occ['strike']:g}, exp {occ['expiry']})" if occ else "no contract chosen")
+    elif book is not None:
+        budget = float(book.get("budget_usd") or 0)
+        qty = float(plan.get("qty") or 0)
+        notional = qty * price
+        add("size_within_cap", qty >= 1 and qty == int(qty) and notional <= budget + 0.005,
+            f"{qty:g} whole share(s) ≈ ${notional:,.2f} vs the book's ${budget:,.0f}")
     else:
         sizing = float(risk["size_as_if_equity_usd"]) * float(risk["max_notional_pct_of_sizing_equity"]) / 100.0
         qty = float(plan.get("qty") or 0)
@@ -181,6 +201,10 @@ def check_order(
         add("size_within_cap", qty > 0 and notional <= sizing + price * 0.00005,
             f"qty {qty} ≈ ${notional:,.2f} vs cap ${sizing:,.2f}")
 
+    if stop_required:
+        lvl = plan.get("stop_level")
+        add("stop_set", lvl is not None and (lvl < price if signal == "buy" else lvl > price),
+            f"stop {lvl} ({plan.get('stop_pct')}%) vs {underlying} {price:.2f}" if lvl is not None else "no stop level")
     return checks
 
 

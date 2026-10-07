@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import shutil
 import sys
@@ -27,8 +28,18 @@ def at(day: datetime, hh: int, mm: int, ss: int = 0) -> datetime:
     return day.replace(hour=hh, minute=mm, second=ss)
 
 
+# One book, SPY options on the $1,000 rules: what most tests check (the desk before books ran side by side).
+OPTIONS_ONLY = {"spy_options": {"label": "SPY options", "symbol": "SPY", "asset": "option", "enabled": True,
+                                "budget_usd": 1000}}
+
+
 class DeskTestCase(unittest.TestCase):
-    """Copies the desk's starting files into a temp folder and points DESK_DIR at it."""
+    """Copies the desk's starting files into a temp folder and points DESK_DIR at it.
+
+    real_books False (most tests): one SPY options book and SPY alone on the focus list.
+    real_books True: the desk's own books and focus list, as in rules.json and watchlist.json."""
+
+    real_books = False
 
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp(prefix="desk-"))
@@ -36,6 +47,16 @@ class DeskTestCase(unittest.TestCase):
             shutil.copy(DESK / name, self.tmp / name)
         self._old = os.environ.get("DESK_DIR")
         os.environ["DESK_DIR"] = str(self.tmp)
+        if not self.real_books:
+            from common import load_json, save_json
+
+            r = load_json("rules.json")
+            r["books"] = json.loads(json.dumps(OPTIONS_ONLY))
+            r.setdefault("option", {})["max_cost_usd"] = 1000
+            save_json("rules.json", r)
+            w = load_json("watchlist.json")
+            w["focus"] = ["SPY"]
+            save_json("watchlist.json", w)
 
     def tearDown(self):
         if self._old is None:
@@ -82,11 +103,13 @@ BOTH_AREAS = ["red", "green"]
 ORIGINAL_EXITS = {"stop_underlying_pct": 0.35, "max_hold_minutes": 0}
 
 
-def use_shares(enabled: bool = True) -> None:
+def use_shares(enabled: bool = True, budget: float = 1000.0) -> None:
+    """One SPY shares book instead of the options book (whole shares, the stop held at Alpaca)."""
     from common import load_json, save_json
 
     r = load_json("rules.json")
-    r.update(active="spy_shares", shares_enabled=enabled, spy_options_enabled=False)
+    r["books"] = {"spy_shares": {"label": "SPY shares", "symbol": "SPY", "asset": "shares", "enabled": enabled,
+                                 "budget_usd": budget, "stop": {"pct": 0.25}, "stop_at_broker": True}}
     save_json("rules.json", r)
 
 
@@ -108,6 +131,7 @@ class FakeBroker:
         self._ask_per_day = ask_per_day  # a contract's ask: $2 plus this much per day to expiry
         self._cash = cash
         self.submitted: list[dict] = []
+        self.cancelled: list[str] = []  # symbols whose open orders were cancelled, in order
 
     def positions(self):
         return list(self._positions)
@@ -147,6 +171,20 @@ class FakeBroker:
             if o:
                 out[sym] = round(2.0 + self._ask_per_day * (o["expiry"] - THURSDAY.date()).days, 2)
         return out
+
+    def submit_market_with_stop(self, qty, stop_price, client_order_id, symbol="SPY"):
+        if self._reject:
+            raise RuntimeError("insufficient buying power")
+        self.submitted.append({"side": "buy", "qty": qty, "client_order_id": client_order_id, "symbol": symbol,
+                               "intent": None, "stop_price": stop_price})
+        n = len(self.submitted)
+        return {"order_id": f"fake-{n}", "status": "accepted", "submitted_at": "now", "stop_order_id": f"fake-{n}-stop"}
+
+    def cancel_orders(self, symbol):
+        self.cancelled.append(symbol)
+        before = len(self._open)
+        self._open = [o for o in self._open if not (isinstance(o, dict) and o.get("symbol") == symbol)]
+        return before - len(self._open)
 
     def submit_market(self, side, qty, client_order_id, symbol="SPY", intent=None):
         if self._reject:

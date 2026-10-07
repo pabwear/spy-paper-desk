@@ -25,20 +25,61 @@
     ]
   },
   "live_trading": false,
-  "active": "spy_options",
-  "shares_enabled": false,
-  "sndk_enabled": false,
-  "spy_options_enabled": true,
+  "books": {
+    "spy_shares": {
+      "label": "SPY shares",
+      "symbol": "SPY",
+      "asset": "shares",
+      "enabled": true,
+      "budget_usd": 4000,
+      "stop": {
+        "pct": 0.25
+      },
+      "stop_at_broker": true,
+      "max_hold_minutes": 30,
+      "max_entries_per_day": 2,
+      "purpose": "The idea that turned the desk's own signals profitable in the 6-year backtest (backtests/ideas.md): whole shares, the stop held at Alpaca."
+    },
+    "sndk_shares": {
+      "label": "SNDK shares",
+      "symbol": "SNDK",
+      "asset": "shares",
+      "enabled": true,
+      "budget_usd": 3000,
+      "stop": {
+        "range_fraction": 0.25,
+        "days": 20
+      },
+      "stop_at_broker": true,
+      "max_hold_minutes": 30,
+      "max_entries_per_day": 2,
+      "purpose": "Roy's pick (2026-10-07). Same rules as SPY shares; the stop is a quarter of SNDK's average daily range (SPY's 0.25% in SNDK's terms). See backtests/ideas-sndk.md."
+    },
+    "spy_options": {
+      "label": "SPY options (learning)",
+      "symbol": "SPY",
+      "asset": "option",
+      "enabled": true,
+      "budget_usd": 3000,
+      "stop": {
+        "pct": 0.25
+      },
+      "max_hold_minutes": 30,
+      "max_entries_per_day": 2,
+      "purpose": "Kept so the learner keeps learning options. Lost money in the backtest (backtests/current.md); paper only."
+    }
+  },
+  "books_note": "Each book trades on its own: one position at a time, its own daily entry limit and budget, capped by the cash in the account. Shares are whole so Alpaca can hold the stop; options keep the desk's own stop check every 10 minutes. Changed 2026-10-07 at Roy's request (\"switch the paper desk to shares for SNDK and a separate section for SPY, but another SPY to focus on options so it can learn\").",
   "symbol_underlying": "SPY",
   "option": {
     "right_on_buy": "call",
     "right_on_sell": "put",
     "contracts": 1,
     "strike": "atm_nearest_dollar",
-    "expiry": "about 30 days out, at least 7, that one contract can afford",
+    "expiry": "about 30 days out, at least 7, that one contract can afford within the options book's budget",
     "expiry_target_days": 30,
     "expiry_min_days": 7,
-    "max_cost_usd": 1000
+    "max_cost_usd": 3000
   },
   "stop_underlying_pct": 0.25,
   "exit_on_zone_leave": false,

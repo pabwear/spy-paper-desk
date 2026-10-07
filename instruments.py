@@ -67,6 +67,83 @@ def for_symbol(symbol: str, rules: dict, watch: dict) -> dict:
             "why": f"{name} on (watchlist trading_enabled true)" if on else f"{symbol} is watch only (trading_enabled not true)"}
 
 
+# ---------------------------------------------------------------- books
+
+def books(rules: dict, watch: dict) -> list[dict]:
+    """The desk's trading books, in order. Each trades one stock one way (shares or options) with its own budget,
+    stop, time limit, daily entry limit and one position at a time; books run side by side.
+
+    rules.json "books" {id: {label, symbol, asset, enabled, budget_usd, stop, max_hold_minutes,
+    max_entries_per_day, stop_at_broker}}; anything left out comes from the top-level rules. A stock switched on
+    from the watchlist (focus trade) that no book covers gets one. Without "books", the old switches decide
+    (one book per stock: SPY's "active", SNDK's sndk_enabled, the watchlist's trading_enabled).
+    stop: {"pct": 0.25} (that % of the stock against the entry) or {"range_fraction": 0.25, "days": 20}
+    (signals.range_stop_pct: a share of the stock's average daily range)."""
+    defaults = {"max_hold_minutes": int(rules.get("max_hold_minutes") or 0),
+                "max_entries_per_day": int(rules.get("max_entries_per_day", 2)),
+                "stop": {"pct": float(rules.get("stop_underlying_pct", 0.35))}, "stop_at_broker": False,
+                "budget_usd": float(rules.get("book_usd") or 1000)}
+    cfg = rules.get("books")
+    out: list[dict] = []
+    if isinstance(cfg, dict):
+        for bid, b in cfg.items():
+            on = b.get("enabled") is True
+            out.append({**defaults, **b, "id": bid, "symbol": str(b.get("symbol") or "SPY").upper(),
+                        "asset": "option" if b.get("asset") in ("option", "options") else "shares", "enabled": on,
+                        "label": b.get("label") or bid, "why": f"{bid} {'on' if on else 'off'} (rules.json books)"})
+        covered = {(b["symbol"], b["asset"]) for b in out}
+        for sym, entry in (watch.get("symbols") or {}).items():
+            kind = entry.get("instrument")
+            asset = "option" if kind == "options" else "shares"
+            if sym in ("SPY", "SNDK") or kind not in ("options", "shares") or (sym, asset) in covered:
+                continue
+            on = entry.get("trading_enabled") is True
+            out.append({**defaults, "id": f"{sym.lower()}_{kind}", "symbol": sym, "asset": asset, "enabled": on,
+                        "label": f"{sym} {kind}",
+                        "why": f"{sym} {kind} on (watchlist trading_enabled true)" if on else f"{sym} is watch only"})
+        return out
+    for sym in (watch.get("symbols") or {}):
+        inst = for_symbol(sym, rules, watch)
+        if inst.get("asset") in ("option", "shares") and inst.get("name"):
+            out.append({**defaults, "id": inst["name"], "symbol": sym, "asset": inst["asset"], "enabled": inst["enabled"],
+                        "label": inst["name"].replace("_", " "), "why": inst["why"]})
+    return out
+
+
+def books_for(symbol: str, rules: dict, watch: dict) -> list[dict]:
+    return [b for b in books(rules, watch) if b["symbol"] == symbol]
+
+
+def book_of(position_symbol: str, all_books: list[dict]) -> dict | None:
+    """The book a position or order belongs to: shares of a book's stock, or an option on it."""
+    occ = parse_occ(position_symbol)
+    for b in all_books:
+        if occ and b["asset"] == "option" and b["symbol"] == occ["underlying"]:
+            return b
+        if not occ and b["asset"] == "shares" and b["symbol"] == position_symbol:
+            return b
+    return None
+
+
+def plan_book_entry(book: dict, signal: str, price: float, money: float | None, rules: dict) -> dict:
+    """What an entry for this book would be. Options: exactly 1 contract. Shares: whole shares (so Alpaca can hold
+    the stop) that fit both the book's budget and the money in the account; buys only (no short selling)."""
+    base = {"book": book["id"], "instrument": book["id"], "asset": book["asset"], "underlying": book["symbol"],
+            "signal": signal}
+    if book["asset"] == "option":
+        opt = rules.get("option", {})
+        right = opt.get("right_on_buy", "call") if signal == "buy" else opt.get("right_on_sell", "put")
+        n = int(opt.get("contracts", 1))
+        return {**base, "order_side": "buy", "intent": "buy_to_open", "right": right, "contracts": n, "qty": n,
+                "target_strike": float(round(price)), "expiry": "nearest", "symbol": None}
+    cap = float(book.get("budget_usd") or 0)
+    if money is not None:
+        cap = min(cap, float(money))
+    qty = int(cap // price) if signal == "buy" and price > 0 and cap > 0 else 0
+    return {**base, "order_side": "buy" if signal == "buy" else signal, "intent": "open", "qty": qty,
+            "symbol": book["symbol"], "notional": round(qty * price, 2), "budget_usd": float(book.get("budget_usd") or 0)}
+
+
 def flags(rules: dict) -> dict:
     return {name: rules.get(spec["flag"]) is True for name, spec in INSTRUMENTS.items()}
 
@@ -100,8 +177,9 @@ def is_desk_symbol(symbol: str, underlyings=("SPY",)) -> bool:
 
 
 def desk_underlyings(rules: dict, watch: dict, entry_symbols=()) -> set[str]:
-    """Underlyings whose positions the desk manages: SPY, anything switched on, anything it entered."""
+    """Underlyings whose positions the desk manages: SPY, every book's stock, anything it entered."""
     out = {"SPY"}
+    out |= {b["symbol"] for b in books(rules, watch) if b["enabled"]}
     out |= {s for s in (watch.get("symbols") or {}) if for_symbol(s, rules, watch)["enabled"]}
     out |= {underlying_of(x) for x in entry_symbols if x}
     return out
