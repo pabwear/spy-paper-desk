@@ -88,6 +88,7 @@ def record(now: datetime, readings: dict) -> dict:
               for r in (readings.get("rumors") or [])[:20] if isinstance(r, dict) and r.get("text")]
     line = {
         "ts": now.isoformat(timespec="seconds"), "as_of": readings.get("as_of"),
+        "source": str(readings.get("source") or "reader")[:20],
         "spy_price": _num(readings.get("spy_price")), "spy_change_pct": _num(readings.get("spy_change_pct")),
         "vix": _num(readings.get("vix")), "fear_greed": _num(readings.get("fear_greed"), 0, 100),
         "stocktwits": _num(st.get("score"), 0, 100), "stocktwits_bullish_pct": _num(st.get("bullish_pct"), 0, 100),

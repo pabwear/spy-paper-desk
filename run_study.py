@@ -727,6 +727,8 @@ def cmd_tick(now: datetime, broker_factory=None, bars=None, fetch=None) -> str:
         _charts(now, source)
         print("Alpaca keys aren't set yet: watched the market and drew charts; no orders.")
         return "no_keys"
+    if state in ("watch_only", "trade_window", "flatten_window"):
+        _own_feed(now, source, live=bars is None and fetch is None)
     if state == "watch_only":
         cmd_auto_zones(now, source)
         cmd_eval(now, source)
@@ -857,6 +859,23 @@ def set_trading(symbol: str, instrument: str | None, on: bool) -> dict:
     save_json("watchlist.json", w)
     journal.log("focus", symbol=sym, trading_enabled=bool(on), instrument=entry.get("instrument"))
     return w
+
+
+def _own_feed(now: datetime, source, live: bool) -> None:
+    """The desk's own sentiment read (Stocktwits, Yahoo headlines, VIX) every 30 minutes in market hours,
+    unless the hourly AI reader sent a fresh reading. Live runs only; a feed problem never stops the desk."""
+    if not live:
+        return
+    try:
+        import feeds
+        import sentiment
+
+        if feeds.due(now, sentiment.latest_full()):
+            readings = feeds.collect(now, source.get("SPY")[0])
+            if len(readings) > 3:  # more than the timestamp, source and source list
+                cmd_pulse_ingest(now, readings)
+    except Exception as e:  # noqa: BLE001
+        journal.log("feeds_failed", now=now, error=f"{type(e).__name__}: {e}"[:300])
 
 
 def _mood() -> dict | None:
