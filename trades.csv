@@ -1,3 +1,4 @@
 filled_at,order_id,symbol,asset,multiplier,role,side,qty,price,notional,position_qty_after,avg_cost_after,realized_pnl,exit_reason,underlying_price,zone_color,zone_low,zone_high,confluence,score,pulse_bias,notes
 2026-10-07T10:23:52-04:00,e000bf8e-2cc2-4146-9ff9-7492230c0783,SPY261007P00771000,option,100,entry,sell,1.0,0.23,23.0,-1.0,0.23,,,774.745,,,,,,,
 2026-10-07T10:23:52-04:00,29470edc-a68a-4e95-8b19-5388a99eeb9f,SPY261007P00766000,option,100,entry,buy,1.0,0.04,4.0,1.0,0.04,,,774.745,,,,,,,
+2026-10-07T15:40:22-04:00,3a22950b-1be1-4176-bf6d-d5debf393f63,SPY261007P00771000,option,100,exit,buy,1.0,0.02,2.0,0.0,0.0,21.0,flatten,,,,,,,,
