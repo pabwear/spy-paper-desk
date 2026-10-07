@@ -279,6 +279,7 @@ def build_state(now: datetime | None = None) -> dict:
         },
         "last_eval": last_eval,
         "focus": _focus_state(rules, risk, events, now),
+        "charts": load_json("charts.json", {}) or {},
         "evals_today": tally(today_events),
         "evals_all": tally(events),
         "trades": list(reversed(trades)),

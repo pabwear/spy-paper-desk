@@ -99,3 +99,47 @@ class FormTests(DeskTestCase):
         (desk_dir() / "journal.jsonl").unlink()
         cloud_state.copy_state(out, desk_dir())
         self.assertEqual(len(journal.read_events()), 1)
+
+
+class ChartTests(DeskTestCase):
+    def test_resample_and_vwap(self):
+        import charts
+
+        now = at(THURSDAY, 10, 2)
+        bars = falling_bars(THURSDAY, now)  # 09:30 → 10:02, 1-minute
+        candles = charts.resample(bars)
+        self.assertEqual(candles[0]["t"], "2026-10-01T09:30-04:00")
+        self.assertEqual(len(candles), 7)  # 09:30, 09:35, ... 10:00
+        first = bars[:5]
+        self.assertEqual(candles[0]["h"], round(max(b["h"] for b in first), 4))
+        self.assertEqual(candles[0]["v"], 5000)
+        v = charts.vwap_series(candles)
+        self.assertEqual(len(v), len(candles))
+        self.assertTrue(all(x is not None for x in v))
+
+    def test_heartbeat_writes_chart_with_zones_and_trades(self):
+        save_json("aoi_override.json", {"symbol": "SPY", "tradable": True, "written_at": at(THURSDAY, 9, 45).isoformat(),
+                                        "approximate": False,
+                                        "zones": [{"color": "red", "low": 589.5, "high": 590.5, "confluence": []}]})
+        broker = FakeBroker()
+        now = at(THURSDAY, 10, 30)
+        run_study.cmd_tick(now, broker_factory=lambda: broker, bars=falling_bars(THURSDAY, now))
+        chart = load_json("charts.json")["SPY"]
+        self.assertEqual(chart["zones"][0]["color"], "red")
+        self.assertGreater(len(chart["candles"]), 10)
+        self.assertEqual([m["role"] for m in chart["trades"]], ["entry"])
+        state = load_json("dashboard_state.json")
+        self.assertIn("SPY", state["charts"])
+
+
+class NoKeysTests(DeskTestCase):
+    def test_missing_keys_watch_and_chart_without_failing(self):
+        import alpaca_client
+        from unittest import mock
+
+        now = at(THURSDAY, 10, 30)
+        with mock.patch.dict(os.environ, {"ALPACA_API_KEY": "", "ALPACA_SECRET_KEY": ""}), \
+                mock.patch.object(alpaca_client, "PaperBroker", side_effect=AssertionError("no broker without keys")):
+            self.assertEqual(run_study.cmd_tick(now, bars=falling_bars(THURSDAY, now)), "no_keys")
+        self.assertIn("SPY", load_json("charts.json"))
+        self.assertTrue(any(e["event"] == "setup_needed" for e in journal.read_events()))

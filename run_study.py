@@ -586,6 +586,26 @@ def review_done(day) -> bool:
     return any(e.get("event") == "review" for e in journal.events_on(journal.read_events(), day))
 
 
+def _keys_present() -> bool:
+    import os
+
+    from alpaca_client import load_env_file
+
+    load_env_file()
+    return bool(os.environ.get("ALPACA_API_KEY") and os.environ.get("ALPACA_SECRET_KEY"))
+
+
+def _charts(now: datetime, source) -> None:
+    """Refresh the dashboard's charts; a chart problem never stops the desk."""
+    import charts
+
+    try:
+        charts.write(now, source)
+    except Exception as e:  # noqa: BLE001
+        journal.log("chart_failed", now=now, error=f"{type(e).__name__}: {e}"[:300])
+    rebuild_dashboard.write_state(now)
+
+
 def cmd_tick(now: datetime, broker_factory=None, bars=None, fetch=None) -> str:
     """One scheduled heartbeat (the cloud runs this every 10 minutes). Does what the clock calls for.
 
@@ -595,23 +615,36 @@ def cmd_tick(now: datetime, broker_factory=None, bars=None, fetch=None) -> str:
     risk = load_json("risk.json", {})
     state = session_state(now, risk)
     t = now.astimezone(ET)
+    source = _bars(now, bars, fetch)  # read each stock's prices once per heartbeat
+    if broker_factory is None and state in ("trade_window", "flatten_window", "after_close") and not _keys_present():
+        # Setup isn't finished: watch and chart, never fail. Trading starts once the keys are added.
+        journal.log("setup_needed", now=now, reasons=["no_alpaca_keys"],
+                    note="Add ALPACA_API_KEY and ALPACA_SECRET_KEY as repository secrets.")
+        if state != "after_close":
+            cmd_eval(now, source)
+        _charts(now, source)
+        print("Alpaca keys aren't set yet: watched the market and drew charts; no orders.")
+        return "no_keys"
     if state == "watch_only":
-        cmd_eval(now, bars, fetch)
+        cmd_eval(now, source)
+        _charts(now, source)
         return "watch"
     if state in ("trade_window", "flatten_window"):
         if broker_factory is None:
             from alpaca_client import PaperBroker as broker_factory  # noqa: N813
         broker = broker_factory()
-        cmd_paper(now, broker_factory=lambda: broker, bars=bars, fetch=fetch)
+        cmd_paper(now, broker_factory=lambda: broker, bars=source)
         cmd_sync(now, broker=broker)
+        _charts(now, source)
         return state
     if state == "after_close" and t.time() >= hhmm("16:10") and not review_done(t.date()):
         if broker_factory is None:
             from alpaca_client import PaperBroker as broker_factory  # noqa: N813
         broker = broker_factory()
-        cmd_manage(now, broker, bars=bars, fetch=fetch)  # logs exit_failed if anything is still open
+        cmd_manage(now, broker, bars=source)  # logs exit_failed if anything is still open
         cmd_sync(now, broker=broker)
         cmd_review(now)
+        _charts(now, source)
         return "review"
     print(f"Nothing to do at {t:%a %H:%M} ET ({state}).")
     return "idle"
