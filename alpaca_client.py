@@ -115,8 +115,14 @@ class PaperBroker:
         from alpaca.trading.enums import QueryOrderStatus
         from alpaca.trading.requests import GetOrdersRequest
 
-        orders = self._client.get_orders(filter=GetOrdersRequest(status=QueryOrderStatus.OPEN))
-        return [{"id": str(o.id), "symbol": o.symbol, "side": str(o.side.value), "qty": o.qty} for o in orders]
+        orders = self._client.get_orders(filter=GetOrdersRequest(status=QueryOrderStatus.OPEN, nested=True))
+        out = []
+        for o in orders:  # a two-leg order has no symbol or side of its own: its legs carry them
+            legs = list(getattr(o, "legs", None) or [])
+            out.append({"id": str(o.id), "symbol": o.symbol, "side": _val(getattr(o, "side", None)), "qty": o.qty,
+                        "order_class": _val(getattr(o, "order_class", None)),
+                        "legs": [{"id": str(x.id), "symbol": x.symbol, "side": _val(getattr(x, "side", None))} for x in legs]})
+        return out
 
     def filled_orders_since(self, since: datetime) -> list[dict]:
         """Fills on watchlist symbols (shares and options) only."""
@@ -138,11 +144,11 @@ class PaperBroker:
                 "order_id": str(o.id),
                 "client_order_id": o.client_order_id,
                 "symbol": o.symbol,
-                "side": str(o.side.value),
+                "side": _val(o.side),
                 "qty": float(o.filled_qty),
                 "price": float(o.filled_avg_price),
                 "filled_at": o.filled_at.astimezone(ET).isoformat(timespec="seconds"),
-                "status": str(o.status.value),
+                "status": _val(o.status),
             })
         out.sort(key=lambda r: r["filled_at"])
         return out
@@ -308,6 +314,11 @@ class PaperBroker:
 
 def _watched() -> set[str]:
     return set(watchlist()["symbols"])
+
+
+def _val(v):
+    """An enum's value (or the plain value); None stays None."""
+    return None if v is None else str(getattr(v, "value", v))
 
 
 def _f(v):
