@@ -535,7 +535,7 @@ def _log_eval(now: datetime, mode: str, r: dict) -> dict:
         instrument=r.get("instrument"), signal=r.get("signal"), market=r.get("market"), aoi=r.get("aoi"),
         plan={k: plan.get(k) for k in ("asset", "symbol", "right", "contracts", "target_strike", "strike", "expiry",
                                          "order_side", "qty", "notional", "cost", "stop_pct", "stop_level",
-                                         "strikes", "credit", "worst_case", "vix")}
+                                         "strikes", "credit", "worst_case", "vix", "quotes", "mid_credit")}
         if plan else None,
         zone=cand.get("zone"), tags=cand.get("tags"), score=cand.get("score"), pulse_bias=r.get("pulse_bias"),
         p_loss=r.get("p_loss"), ml=r.get("ml"), entries_today=r.get("entries_today"),
