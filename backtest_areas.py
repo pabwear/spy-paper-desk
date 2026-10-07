@@ -48,9 +48,11 @@ AREAS = ("both", "red", "green")
 MIN_TAGS = (0, 2)
 STOPS = (0.25, 0.35, 0.5)
 TARGETS = (0, 1, 2)  # take profit at this many stop distances (0 = hold to the stop or 15:40)
+EXPIRIES = ("0d", "7d", "30d")  # the nearest listed expiry, or the first one at least 7 / 30 days out
+HOLDS = (30, 90, 0)  # sell after this many minutes at most (0 = no time limit)
 
-DESK_NOW = {"rule": "touch", "areas": "both", "min_tags": 2, "stop": 0.35, "target": 0}
-OPTION_3 = {"rule": "confirm", "areas": "both", "min_tags": 2, "stop": 0.35, "target": 0}
+DESK_NOW = {"rule": "touch", "areas": "both", "min_tags": 2, "stop": 0.35, "target": 0, "expiry": "0d", "hold": 0}
+OPTION_3 = {"rule": "confirm", "areas": "both", "min_tags": 2, "stop": 0.35, "target": 0, "expiry": "0d", "hold": 0}
 
 
 def _ncdf(x: float) -> float:
@@ -71,19 +73,21 @@ def bs_price(spot: float, strike: float, years: float, vol: float, call: bool) -
     return c if call else c - spot + strike
 
 
-def expiry_for(d: date) -> date:
-    """SPY's nearest listed expiry on day d: daily since Nov 14 2022, Mon/Wed/Fri before."""
+def expiry_for(d: date, out: str = "0d") -> date:
+    """SPY's nearest listed expiry on day d (daily since Nov 14 2022, Mon/Wed/Fri before), or the first one
+    at least 7 or 30 days out."""
     days = (0, 1, 2, 3, 4) if d >= date(2022, 11, 14) else (0, 2, 4)
-    e = d
+    e = d + timedelta(days={"0d": 0, "7d": 7, "30d": 30}[out])
     while e.weekday() not in days:
         e += timedelta(days=1)
     return e
 
 
-def option_pnl(entry_px: float, exit_px: float, t_in: datetime, t_out: datetime, vol: float, call: bool) -> float:
+def option_pnl(entry_px: float, exit_px: float, t_in: datetime, t_out: datetime, vol: float, call: bool,
+               out: str = "0d") -> float:
     """One contract's dollars from the option's own price change (strike: nearest dollar at entry)."""
     k = round(entry_px)
-    e = expiry_for(t_in.astimezone(ET).date())
+    e = expiry_for(t_in.astimezone(ET).date(), out)
     return 100 * (bs_price(exit_px, k, trading_years(t_out, e), vol, call)
                   - bs_price(entry_px, k, trading_years(t_in, e), vol, call))
 
@@ -101,18 +105,19 @@ def trading_years(t: datetime, expiry: date) -> float:
     return max(1.0, today_left + 390.0 * full_days) / (252 * 390)
 
 
-BENCHMARKS = [{"rule": "always_call", "areas": "both", "min_tags": 0, "stop": 0.35, "target": 0},
-              {"rule": "always_put", "areas": "both", "min_tags": 0, "stop": 0.35, "target": 0}]
+BENCHMARKS = [{"rule": r, "areas": "both", "min_tags": 0, "stop": 0.35, "target": 0, "expiry": e, "hold": 0}
+              for r in ("always_call", "always_put") for e in EXPIRIES]
 
 
 def variants() -> list[dict]:
-    return [{"rule": r, "areas": a, "min_tags": m, "stop": s, "target": t}
-            for r, a, m, s, t in itertools.product(RULES, AREAS, MIN_TAGS, STOPS, TARGETS)] + BENCHMARKS
+    return [{"rule": r, "areas": a, "min_tags": m, "stop": s, "target": t, "expiry": e, "hold": h}
+            for r, a, m, s, t, e, h in itertools.product(RULES, AREAS, MIN_TAGS, STOPS, TARGETS, EXPIRIES, HOLDS)] + BENCHMARKS
 
 
 def vkey(v: dict) -> str:
-    tp = f"tp {v['target']}x" if v["target"] else "hold"
-    return f"{v['rule']} · {v['areas']} · {v['min_tags']} signals · stop {v['stop']}% · {tp}"
+    tp = f"tp {v['target']}x" if v["target"] else "no target"
+    held = f"max {v['hold']}m" if v.get("hold") else "to 15:40"
+    return f"{v['rule']} · {v['areas']} · {v['min_tags']} signals · stop {v['stop']}% · {tp} · {held} · {v.get('expiry', '0d')} option"
 
 
 def _pos(price: float, z: dict) -> str:
@@ -144,6 +149,7 @@ class Day:
                               if a[k]["visible"]]
         self._tags: dict = {}
         self._cands: dict = {}
+        self._exits: dict = {}
 
     # ------------------------------------------------------------ candidates (independent of positions)
     def marks(self) -> list[int]:
@@ -240,11 +246,15 @@ class Day:
             tags = self.tags(i, cand["zone"], cand["long"]) if v["min_tags"] else []
             if len(tags) < v["min_tags"]:
                 continue
-            px, why, j = exit_walk(self.m, i + 1, cand["entry"], cand["long"], v["stop"], v["target"], c_t)
+            ek = (i, cand["long"], cand["entry"], v["stop"], v["target"], v.get("hold", 0))
+            if ek not in self._exits:
+                self._exits[ek] = exit_walk(self.m, i + 1, cand["entry"], cand["long"], v["stop"], v["target"], c_t,
+                                            v.get("hold", 0))
+            px, why, j = self._exits[ek]
             move = (px - cand["entry"]) if cand["long"] else (cand["entry"] - px)
             usd = move * PER_DOLLAR
             opt = option_pnl(cand["entry"], px, self.m[i]["t"] + timedelta(minutes=1), self.m[min(j, len(self.m) - 1)]["t"],
-                             self.vol, cand["long"])
+                             self.vol, cand["long"], v.get("expiry", "0d"))
             out.append({"t": self.m[i]["t"].astimezone(ET).isoformat(timespec="minutes"), "zone": cand["zone"]["color"],
                         "kind": cand["kind"], "contract": "call" if cand["long"] else "put",
                         "entry": round(cand["entry"], 2), "exit": round(px, 2), "why": why, "tags": tags,
@@ -254,15 +264,18 @@ class Day:
 
 
 def exit_walk(m: list[dict], i0: int, entry: float, long: bool, stop_pct: float, target_x: float,
-              cutoff) -> tuple[float, str, int]:
-    """Minute by minute from i0: the stop, the target (target_x × the stop distance) or the cutoff."""
+              cutoff, hold_min: int = 0) -> tuple[float, str, int]:
+    """Minute by minute from i0: the stop, the target (target_x × the stop distance), the time limit or the cutoff."""
     d = entry * stop_pct / 100
+    until = m[i0 - 1]["t"] + timedelta(minutes=1 + hold_min) if hold_min and i0 >= 1 else None
     stop = entry - d if long else entry + d
     tgt = (entry + target_x * d if long else entry - target_x * d) if target_x else None
     for j in range(i0, len(m)):
         k = m[j]
         if k["t"].astimezone(ET).time() >= cutoff:
             return k["o"], "close", j
+        if until is not None and k["t"] >= until:
+            return k["o"], "time", j
         if (k["l"] <= stop) if long else (k["h"] >= stop):  # a minute that touches both counts as stopped
             return (min(k["o"], stop) if long else max(k["o"], stop)), "stop", j
         if tgt is not None and ((k["h"] >= tgt) if long else (k["l"] <= tgt)):
@@ -354,7 +367,7 @@ def run(bars_by_day: dict[date, list[dict]], cfg: dict, train_share: float = 0.7
                     key=lambda r: r["train"]["total"], reverse=True)
     pick = ranked[0] if ranked else None
     named = {"desk_now": vkey(DESK_NOW), "option_3": vkey(OPTION_3), "always_call": vkey(BENCHMARKS[0]),
-             "always_put": vkey(BENCHMARKS[1])}
+             "always_put": vkey(BENCHMARKS[3]), "always_call_30d": vkey(BENCHMARKS[2])}
     out = {
         "days": len(per_day), "first": per_day[0][0].isoformat() if per_day else None,
         "last": per_day[-1][0].isoformat() if per_day else None,
@@ -399,7 +412,8 @@ def markdown(res: dict) -> str:
              "| | Settings | Train trades | Train won | Train net | Test trades | Test won | Test net | Test per trade | Test worst drop |",
              "|---|---|---|---|---|---|---|---|---|---|"]
     for name, label in (("desk_now", "Desk today"), ("option_3", "Option 3"), ("picked", "Picked on train"),
-                        ("always_call", "Benchmark: call at 10:00 daily"), ("always_put", "Benchmark: put at 10:00 daily")):
+                        ("always_call", "Benchmark: call at 10:00 daily"), ("always_put", "Benchmark: put at 10:00 daily"),
+                        ("always_call_30d", "Benchmark: 30-day call at 10:00 daily")):
         if name in res["named"]:
             lines.append(row(label, res["named"][name]))
     lines += ["", "Top 10 on the train days, and how they did on the test days:", "",
@@ -411,7 +425,7 @@ def markdown(res: dict) -> str:
         lines += ["", "Net by year (option priced, after costs):", "", "| | " + " | ".join(str(y) for y in yrs) + " |",
                   "|---|" + "---|" * len(yrs)]
         for name, label in (("desk_now", "Desk today"), ("option_3", "Option 3"), ("picked", "Picked"),
-                            ("always_call", "Call at 10:00"), ("always_put", "Put at 10:00")):
+                            ("always_call", "Call at 10:00"), ("always_put", "Put at 10:00"), ("always_call_30d", "30-day call at 10:00")):
             if name in res["by_year"]:
                 lines.append(f"| {label} | " + " | ".join(f"${res['by_year'][name][y]['total']:,.0f} ({res['by_year'][name][y]['trades']})" for y in yrs) + " |")
     return "\n".join(lines) + "\n"

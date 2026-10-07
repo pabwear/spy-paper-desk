@@ -142,3 +142,22 @@ class OptionPriceTests(unittest.TestCase):
         p = [100.5] * 40
         tr = day_with(p, [RED]).trades({"rule": "always_call", "areas": "both", "min_tags": 0, "stop": 0.35, "target": 0})
         self.assertEqual((tr[0]["kind"], tr[0]["t"][11:16], tr[0]["contract"]), ("benchmark", "09:59", "call"))
+
+
+class HoldAndExpiryTests(unittest.TestCase):
+    def test_time_limit(self):
+        from common import hhmm
+
+        flat = minutes([100.0] * 60)
+        px, why, j = bt.exit_walk(flat, 1, 100.0, True, 0.35, 0, hhmm("15:40"), 30)
+        self.assertEqual((why, j), ("time", 31))  # in at the close of minute 0, out 30 minutes later
+
+    def test_a_month_out_decays_slower(self):
+        from datetime import date
+
+        t_in, t_out = at(THURSDAY, 10, 0), at(THURSDAY, 15, 40)
+        same_day = bt.option_pnl(600.0, 600.0, t_in, t_out, 0.16, True, "0d")
+        month = bt.option_pnl(600.0, 600.0, t_in, t_out, 0.16, True, "30d")
+        self.assertLess(same_day, month)
+        self.assertLess(month, 0)
+        self.assertGreaterEqual(bt.expiry_for(date(2026, 10, 6), "7d"), date(2026, 10, 13))
