@@ -90,5 +90,6 @@
     "red"
   ],
   "max_hold_minutes": 30,
-  "setup_note": "Since 2026-10-07: the setup that came closest to break-even in the backtest (backtests/areas.md on desk-state; touch, red area only, no 2-signal minimum, 0.25% stop, sell after 30 minutes, a ~30-day option). It still lost a little in the backtest; this is paper practice, not a proven edge."
+  "setup_note": "Since 2026-10-07: the setup that came closest to break-even in the backtest (backtests/areas.md on desk-state; touch, red area only, no 2-signal minimum, 0.25% stop, sell after 30 minutes, a ~30-day option). It still lost a little in the backtest; this is paper practice, not a proven edge.",
+  "cost_policy": "Free sources only: free or free-tier data and services; nothing billed per use or per month without Roy's say-so (README)."
 }

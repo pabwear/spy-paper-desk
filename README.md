@@ -27,6 +27,12 @@ expiry, it describes the original rules; the table wins.
 
 This is a simulated study, not financial advice. It never places a live order.
 
+**Free sources only (Roy's rule, 2026-10-07).** Every data source and service stays free or on a free
+tier: Alpaca paper + IEX data, GitHub Actions free minutes, cron-job.org, Stocktwits' public stream and
+connector, Stocklake's free tier, Yahoo Finance RSS, yfinance, and the AI reader running on Roy's Claude
+plan. Nothing that bills per use or per month (X's API, Alpaca's real-time data plan, a Claude API key,
+paid scrapers) gets added without Roy saying so in chat.
+
 ## Instruments and switches (`rules.json`)
 
 | Key | Now | Meaning |
