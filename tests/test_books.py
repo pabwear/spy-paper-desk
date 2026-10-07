@@ -200,7 +200,8 @@ class ChartFileTests(DeskTestCase):
                                   for s in ("SPY", "SNDK", "TSLA")})
         rebuild_dashboard.write_state(at(THURSDAY, 10, 30))
         st = load_json("dashboard_state.json")
-        self.assertEqual(st["charts"]["SPY"]["frames"], {"1m": [1, 2, 3]})
+        self.assertEqual(st["charts"]["SPY"]["file"], "chart_SPY.json")
+        self.assertEqual(load_json("chart_SPY.json")["frames"], {"1m": [1, 2, 3]})
         self.assertEqual(st["charts"]["SNDK"], {"symbol": "SNDK", "stub": True, "file": "chart_SNDK.json",
                                                 "updated_at": "t", "last": 1.0, "date": None})
         self.assertEqual(load_json("chart_TSLA.json")["frames"], {"1m": [1, 2, 3]})

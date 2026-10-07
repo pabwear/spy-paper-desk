@@ -323,7 +323,7 @@ class TimeframeTests(DeskTestCase):
         st = chart["frames"]["30m"]["study"]
         for key in ("order_blocks", "internal_events", "external_events", "swing_points"):
             self.assertIn(key, st)
-        self.assertIn("frames", load_json("dashboard_state.json")["charts"]["SPY"])
+        self.assertIn("frames", load_json("chart_SPY.json"))  # the chart rides in its own file
         offline = run_study.Bars(self.now, {"SPY": self.minutes})
         self.assertIsNone(offline.history("SPY", "30Min"))
 

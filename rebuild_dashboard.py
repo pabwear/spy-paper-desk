@@ -439,23 +439,25 @@ def build_state(now: datetime | None = None) -> dict:
     }
 
 
-CHART_FILE = "chart_{}.json"  # the charts of every focus stock after the first, one file each
+CHART_FILE = "chart_{}.json"  # every focus stock's chart, one file each
+TESTS_FILE = "tests_state.json"
 
 
 def write_state(now: datetime | None = None) -> dict:
-    """dashboard_state.json (compact, kept well under GitHub's 1 MB inline limit for the dashboard to read) holds the
-    first focus stock's chart in full; every other stock's chart goes to chart_<SYMBOL>.json, which the dashboard
-    loads when that stock is picked, and the state keeps a short stub pointing at it."""
+    """dashboard_state.json stays small (compact, under ~100 KB: the dashboard's live GitHub read failed at 361 KB),
+    so every stock's chart goes to chart_<SYMBOL>.json (loaded when that chart shows) and the backtests to
+    tests_state.json (loaded when the Record view opens); the state keeps short stubs pointing at them."""
     state = build_state(now)
-    focus = watchlist().get("focus") or ["SPY"]
     charts = state.get("charts") or {}
     for sym in list(charts):
-        if sym == focus[0]:
-            continue
         full = charts[sym]
         save_json(CHART_FILE.format(sym), full, compact=True)
         charts[sym] = {"symbol": sym, "stub": True, "file": CHART_FILE.format(sym), "updated_at": full.get("updated_at"),
                        "last": full.get("last"), "date": full.get("date")}
+    tests = state.get("tests") or {}
+    if tests:  # the backtests are big and change rarely: their own file, loaded when the Record view opens
+        save_json(TESTS_FILE, tests, compact=True)
+        state["tests"] = {"stub": True, "file": TESTS_FILE, "generated_at": state.get("generated_at")}
     save_json("dashboard_state.json", state, compact=True)
     return state
 
