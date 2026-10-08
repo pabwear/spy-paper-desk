@@ -1,18 +1,18 @@
 {
   "date": "2026-10-08",
   "bias": "neutral",
-  "written_at": "2026-10-08T11:07:30-04:00",
-  "as_of": "2026-10-08T15:08:00Z",
+  "written_at": "2026-10-08T12:07:38-04:00",
+  "as_of": "2026-10-08T16:10:00Z",
   "readings": {
-    "as_of": "2026-10-08T15:08:00Z",
-    "spy_price": 775.91,
-    "spy_change_pct": -0.17,
-    "vix": 15.73,
-    "fear_greed": 45,
+    "as_of": "2026-10-08T16:10:00Z",
+    "spy_price": 774.49,
+    "spy_change_pct": -0.35,
+    "vix": 15.38,
+    "fear_greed": 42,
     "stocktwits": {
       "SPY": {
         "score": 79,
-        "bullish_pct": 56.4
+        "bullish_pct": 56.5
       }
     },
     "reddit": {
@@ -23,29 +23,30 @@
     "news": {
       "score": -0.2,
       "headlines": [
-        "Treasuries sold off Oct 5-6: 10y near 5.34%, 30y 5.70%, highest since 2002 (older report)",
-        "Markets price roughly 25% odds of an October Fed hike (older report, unconfirmed)",
-        "Oct 2 close: S&P 500 +0.73%, WTI crude near $91"
+        "Treasury yields stayed near multi-year highs in early October (10y about 5.3%), with weak auctions a recurring worry (older reports)",
+        "S&P 500 closed above 7,800 for the first time on Oct 6 per one report (unconfirmed, older)"
       ]
     },
     "rumors": [
       {
-        "text": "Pentagon reportedly told CENTCOM to finalize preparations for possible major strikes on Iran, ahead of the midterms",
+        "text": "30-year Treasury auction due in the next hour could move stocks the way yesterday's 10-year auction did",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "USO"
+          "QQQ",
+          "TLT"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "USO": "United States Oil Fund"
+          "QQQ": "Invesco QQQ Trust",
+          "TLT": "iShares 20+ Year Treasury Bond ETF"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "If true, oil would jump and risk assets would sell off; posters also note USO at new highs"
+        "credibility": 0.3,
+        "why": "A weak auction would push long yields higher and pressure equities, especially tech"
       },
       {
-        "text": "Posters say tech alone is holding the index up and that a tech break would drop the market 20-30%",
+        "text": "CBO reportedly warns the US needs 5-6% real GDP growth to stabilize its debt",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -56,36 +57,35 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.1,
-        "why": "Narrow leadership would make the index fragile, but the size of the drop is crowd exaggeration"
+        "credibility": 0.3,
+        "why": "Adds to deficit and long-yield worries, though it is a slow-moving theme"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
-      "PLTR": "Palantir",
       "CMG": "Chipotle Mexican Grill",
-      "SBUX": "Starbucks",
-      "IREN": "IREN Limited",
       "CIFR": "Cipher Digital",
-      "APLD": "Applied Digital"
+      "IREN": "IREN Limited",
+      "APLD": "Applied Digital",
+      "ASTS": "AST SpaceMobile"
     },
     "plays": [],
-    "whats_new": "SPY is 775.9 (-0.17%), a little firmer than the last reading (774.8, -0.55%), with QQQ -0.3% and IWM -0.66%. VIX is unchanged near 15.7 and fear and greed about 45. Stocktwits stays bullish (score 79) but live posts lean bearish on yields and oil, with an unconfirmed Iran strike-prep claim circulating; CMG is up about 6%, SBUX down about 3%, and bitcoin-miner/AI-hosting names (IREN, CIFR, APLD, CLSK) are down 3-8%.",
+    "whats_new": "SPY slipped to 774.5 (-0.35%) from 775.9, QQQ -0.58% and IWM -1.06%, so small caps are weakest. VIX eased to 15.4 and fear and greed to about 42. Stocktwits stays bullish (score 79) while posts show a split over a floor forming and yields; the Iran strike-prep rumor from last hour did not reappear. Trending: ASTS -7%, bitcoin-miner/AI-hosting names (CIFR, IREN) -6 to -8%, CMG +6%.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "web search (stale, Oct 2-6); economic calendar and news feed need Pro"
+      "news": "web search (stale, Oct 1-6); economic calendar and news feed need Pro"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.17,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": -0.35,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -95,7 +95,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 45.0,
+      "value": 42.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -106,13 +106,13 @@
       "why": "\u2265 60.0"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "web search (stale, Oct 2-6); economic calendar and news feed need Pro"
+    "news": "web search (stale, Oct 1-6); economic calendar and news feed need Pro"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
