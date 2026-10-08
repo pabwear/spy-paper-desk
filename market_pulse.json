@@ -1,18 +1,18 @@
 {
   "date": "2026-10-08",
   "bias": "neutral",
-  "written_at": "2026-10-08T14:06:52-04:00",
-  "as_of": "2026-10-08T18:08:00Z",
+  "written_at": "2026-10-08T15:06:55-04:00",
+  "as_of": "2026-10-08T19:08:00Z",
   "readings": {
-    "as_of": "2026-10-08T18:08:00Z",
-    "spy_price": 771.96,
-    "spy_change_pct": -0.68,
+    "as_of": "2026-10-08T19:08:00Z",
+    "spy_price": 772.7,
+    "spy_change_pct": -0.58,
     "vix": 15.54,
     "fear_greed": 38,
     "stocktwits": {
       "SPY": {
         "score": 79,
-        "bullish_pct": 56
+        "bullish_pct": 55
       }
     },
     "reddit": {
@@ -23,48 +23,37 @@
     "news": {
       "score": -0.3,
       "headlines": [
-        "Chatter ties the selloff to OpenAI annualised revenue near $50B versus the $70B earlier reported (unconfirmed by OpenAI per a Stocktwits-linked post)",
-        "Semis and AI-cloud names sliding: SOXL -11%, INTC -6%, CIFR -11%, IREN -8%, QQQ -1.6% while IWM is only -0.2%",
-        "TLT +0.9% and GLD +0.7%: bonds and gold bid"
+        "Chip and AI-cloud names lead the slide: SOXL -11.9%, AVGO -4.9%, NVDA -3.0%, CIFR -8.1%, IREN -7.5%, QQQ -1.5% while IWM is only -0.2%",
+        "TLT +0.9% and GLD +0.5%: bonds and gold bid",
+        "Stocktwits chatter still blames OpenAI revenue disclosures (unconfirmed); one poster calls the gap a gross-vs-net revenue presentation difference"
       ]
     },
     "rumors": [
       {
-        "text": "OpenAI told investors annualised revenue is near $50B, about $20B below the $70B reported earlier; a bull counter says the $70B was never confirmed and $50B is still strong growth",
+        "text": "OpenAI reportedly told investors annualised revenue is near $50B versus about $70B reported earlier; a counter-view says the gap is gross vs net revenue accounting and total demand is unchanged",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
-          "INTC",
+          "AVGO",
+          "ORCL",
           "SOXL",
           "QQQ",
           "SPY"
         ],
         "names": {
           "NVDA": "NVIDIA",
-          "INTC": "Intel",
+          "AVGO": "Broadcom",
+          "ORCL": "Oracle",
           "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
           "QQQ": "Invesco QQQ Trust",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.4,
-        "why": "An AI-demand disappointment would keep pressure on chip and AI-capex names and the Nasdaq-heavy index"
+        "credibility": 0.35,
+        "why": "An AI-demand disappointment would keep pressure on chip and AI-capex names and the Nasdaq-heavy index; an accounting-only explanation would fade the selloff"
       },
       {
-        "text": "Posters expect a squeeze or bounce around 3 pm once 0DTE options are spent, with support near 770-772",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.25,
-        "why": "Dip-buying and short covering could lift the index into the close if the 770 area holds"
-      },
-      {
-        "text": "Posters say the market already got what it needed on Iran and the dip should be bought",
+        "text": "Posters expect SPY to pump into the close and call the dip a buy",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -74,30 +63,30 @@
         },
         "direction": "up",
         "credibility": 0.2,
-        "why": "Easing geopolitical risk would remove a headwind and support a rebound"
+        "why": "Dip-buying and short covering could lift the index into the close"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
-      "INTC": "Intel",
       "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
+      "NVDA": "NVIDIA",
+      "AVGO": "Broadcom",
       "CIFR": "Cipher Digital",
-      "IREN": "IREN Limited",
-      "APLD": "Applied Digital"
+      "IREN": "IREN Limited"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Tech-led weakness (QQQ -1.6%, semis -6 to -11%) with bonds and gold bid; but SPY is near its day low and the crowd is leaning to dip-buying, so edge is thin",
-        "catalyst": "OpenAI revenue chatter and AI-semis selloff"
+        "confidence": 0.5,
+        "reason": "Tech-led weakness with bonds and gold bid, but SPY is only -0.6% and the crowd is already leaning to dip-buying, so edge is thin",
+        "catalyst": "AI-semis selloff"
       }
     ],
-    "whats_new": "SPY is flat versus an hour ago at about 772 (-0.68%) while QQQ slid to -1.6% and semis accelerated lower (SOXL -11%, INTC -6%). Fear and greed eased to 38 (fear) from 42 and VIX is steady near 15.5. The OpenAI revenue story is still the main explanation and is being re-shared, and the crowd stays bullish with dip-buy and 3 pm squeeze calls.",
+    "whats_new": "SPY is little changed from an hour ago at about 772.7 (-0.58%) while QQQ is -1.5% and semis fell harder (SOXL -11.9%, AVGO -4.9%, NVDA -3.0%). Fear and greed is 38 (fear), VIX steady near 15.5. The OpenAI revenue story is being re-shared with a new gross-vs-net accounting counterargument; the crowd stays bullish and calls for a late pump.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -108,7 +97,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.68,
+      "value": -0.58,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
