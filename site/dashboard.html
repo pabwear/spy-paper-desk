@@ -1907,6 +1907,12 @@ td.r, th.r { text-align: right; }
     $("chartTitle").textContent = chartSym; $("chartTick").textContent = String(chartSym).slice(0, 4);
     const symBooks = ((state || {}).books || []).filter((b) => b.symbol === chartSym && b.enabled);
     $("chartSub").textContent = symBooks.length ? `Trades in: ${symBooks.map((b) => b.label).join(" · ")}` : "Watch only: charts and studies, no trading";
+    // never show an old chart as if it were today's: say which day it is from
+    const todayEt = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
+    const chartDay = c.date || String(c.updated_at || "").slice(0, 10);
+    if (chartDay && chartDay < todayEt && !["pre_open", "weekend"].includes(clockPhase())) {
+      $("chartSub").textContent = `⚠ Chart from ${new Date(chartDay + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}: today's didn't load. Tap Refresh.`;
+    }
     const eth = viewEth(c), ds = dayStats(c, eth);
     if (!ds) { $("chartPx").textContent = "—"; $("chartChg").textContent = ""; $("statStrip").innerHTML = ""; return; }
     const base = isNum(ds.pdc) ? ds.pdc : ds.open, chg = ds.last - base;
