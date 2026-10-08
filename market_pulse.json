@@ -1,12 +1,12 @@
 {
   "date": "2026-10-08",
   "bias": "neutral",
-  "written_at": "2026-10-08T10:07:37-04:00",
-  "as_of": "2026-10-08T14:08:00Z",
+  "written_at": "2026-10-08T11:07:30-04:00",
+  "as_of": "2026-10-08T15:08:00Z",
   "readings": {
-    "as_of": "2026-10-08T14:08:00Z",
-    "spy_price": 774.78,
-    "spy_change_pct": -0.55,
+    "as_of": "2026-10-08T15:08:00Z",
+    "spy_price": 775.91,
+    "spy_change_pct": -0.17,
     "vix": 15.73,
     "fear_greed": 45,
     "stocktwits": {
@@ -23,24 +23,41 @@
     "news": {
       "score": -0.2,
       "headlines": [
-        "Treasuries sold off Oct 6: 10y near 5.34%, 30y 5.70%, highest since 2002 (preview report)",
-        "Markets price roughly 25% odds of an October Fed hike (preview report, unconfirmed)",
-        "Storage stocks WDC and STX fell about 10% on Oct 2 while indexes rallied"
+        "Treasuries sold off Oct 5-6: 10y near 5.34%, 30y 5.70%, highest since 2002 (older report)",
+        "Markets price roughly 25% odds of an October Fed hike (older report, unconfirmed)",
+        "Oct 2 close: S&P 500 +0.73%, WTI crude near $91"
       ]
     },
     "rumors": [
       {
-        "text": "Posters claim the index is propped up by rotating pumps between MAG7 and the other 490 stocks so it cannot fall",
+        "text": "Pentagon reportedly told CENTCOM to finalize preparations for possible major strikes on Iran, ahead of the midterms",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "SPY",
+          "USO"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "SPY": "SPDR S&P 500 ETF",
+          "USO": "United States Oil Fund"
         },
-        "direction": "up",
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "If true, oil would jump and risk assets would sell off; posters also note USO at new highs"
+      },
+      {
+        "text": "Posters say tech alone is holding the index up and that a tech break would drop the market 20-30%",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "down",
         "credibility": 0.1,
-        "why": "If true, dips would be bought quickly, but it is unverifiable crowd talk"
+        "why": "Narrow leadership would make the index fragile, but the size of the drop is crowd exaggeration"
       }
     ],
     "names": {
@@ -48,23 +65,27 @@
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
       "PLTR": "Palantir",
-      "WOLF": "Wolfspeed"
+      "CMG": "Chipotle Mexican Grill",
+      "SBUX": "Starbucks",
+      "IREN": "IREN Limited",
+      "CIFR": "Cipher Digital",
+      "APLD": "Applied Digital"
     },
     "plays": [],
-    "whats_new": "SPY is 774.8 (-0.55%), about flat versus the last reading (774.1), with IWM down 1.8% and QQQ down 0.8%. VIX is a bit higher at 15.7 and fear and greed is about 45. Stocktwits stays bullish (score 79) while posters note SPY cannot hold above 775.6; PLTR is up about 3% and bitcoin-miner/AI-hosting names (IREN, CIFR) are down 5%.",
+    "whats_new": "SPY is 775.9 (-0.17%), a little firmer than the last reading (774.8, -0.55%), with QQQ -0.3% and IWM -0.66%. VIX is unchanged near 15.7 and fear and greed about 45. Stocktwits stays bullish (score 79) but live posts lean bearish on yields and oil, with an unconfirmed Iran strike-prep claim circulating; CMG is up about 6%, SBUX down about 3%, and bitcoin-miner/AI-hosting names (IREN, CIFR, APLD, CLSK) are down 3-8%.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "web search (stale, Oct 2-6)"
+      "news": "web search (stale, Oct 2-6); economic calendar and news feed need Pro"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.55,
-      "vote": -1,
-      "why": "\u2264 -0.3"
+      "value": -0.17,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
@@ -85,13 +106,13 @@
       "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "web search (stale, Oct 2-6)"
+    "news": "web search (stale, Oct 2-6); economic calendar and news feed need Pro"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
