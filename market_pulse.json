@@ -1,18 +1,18 @@
 {
   "date": "2026-10-08",
   "bias": "neutral",
-  "written_at": "2026-10-08T13:07:09-04:00",
-  "as_of": "2026-10-08T17:08:00Z",
+  "written_at": "2026-10-08T14:06:52-04:00",
+  "as_of": "2026-10-08T18:08:00Z",
   "readings": {
-    "as_of": "2026-10-08T17:08:00Z",
-    "spy_price": 772.15,
-    "spy_change_pct": -0.65,
-    "vix": 15.38,
-    "fear_greed": 42,
+    "as_of": "2026-10-08T18:08:00Z",
+    "spy_price": 771.96,
+    "spy_change_pct": -0.68,
+    "vix": 15.54,
+    "fear_greed": 38,
     "stocktwits": {
       "SPY": {
-        "score": 78,
-        "bullish_pct": 56.1
+        "score": 79,
+        "bullish_pct": 56
       }
     },
     "reddit": {
@@ -23,109 +23,92 @@
     "news": {
       "score": -0.3,
       "headlines": [
-        "US 30-year Treasury auction cleared at 5.618%, in line with secondary market (per Stocktwits post)",
-        "Stocktwits chatter blames today's selloff on a report that OpenAI's annualised revenue is about $50B, not the $70B earlier reported (unconfirmed here)"
+        "Chatter ties the selloff to OpenAI annualised revenue near $50B versus the $70B earlier reported (unconfirmed by OpenAI per a Stocktwits-linked post)",
+        "Semis and AI-cloud names sliding: SOXL -11%, INTC -6%, CIFR -11%, IREN -8%, QQQ -1.6% while IWM is only -0.2%",
+        "TLT +0.9% and GLD +0.7%: bonds and gold bid"
       ]
     },
     "rumors": [
       {
-        "text": "OpenAI told investors annualised revenue was near $50B at end of September, about $20B below the $70B reported by FT and others",
+        "text": "OpenAI told investors annualised revenue is near $50B, about $20B below the $70B reported earlier; a bull counter says the $70B was never confirmed and $50B is still strong growth",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
-          "CRWV",
-          "NBIS",
+          "INTC",
+          "SOXL",
+          "QQQ",
           "SPY"
         ],
         "names": {
           "NVDA": "NVIDIA",
-          "CRWV": "CoreWeave",
-          "NBIS": "Nebius Group",
+          "INTC": "Intel",
+          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
+          "QQQ": "Invesco QQQ Trust",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
         "credibility": 0.4,
-        "why": "A revenue shortfall at OpenAI would hit AI-capex and AI-cloud names and could weigh on the index"
+        "why": "An AI-demand disappointment would keep pressure on chip and AI-capex names and the Nasdaq-heavy index"
       },
       {
-        "text": "CoreWeave's $2.6B AI loan reportedly has terms where uptime failures could force early debt paydowns",
+        "text": "Posters expect a squeeze or bounce around 3 pm once 0DTE options are spent, with support near 770-772",
         "source": "stocktwits",
         "tickers": [
-          "CRWV"
-        ],
-        "names": {
-          "CRWV": "CoreWeave"
-        },
-        "direction": "down",
-        "credibility": 0.4,
-        "why": "Tighter lender terms add financing risk for AI-cloud and data-center names"
-      },
-      {
-        "text": "30-year auction at 5.618% matched the secondary market, but stocks did not rally after it the way they did after yesterday's 10-year",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "TLT"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
-        },
-        "direction": "down",
-        "credibility": 0.5,
-        "why": "Long yields near multi-year highs keep pressure on equity valuations"
-      },
-      {
-        "text": "Bitcoin heading to $60K",
-        "source": "stocktwits",
-        "tickers": [
-          "BTC.X",
           "SPY"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "down",
+        "direction": "up",
+        "credibility": 0.25,
+        "why": "Dip-buying and short covering could lift the index into the close if the 770 area holds"
+      },
+      {
+        "text": "Posters say the market already got what it needed on Iran and the dip should be bought",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
         "credibility": 0.2,
-        "why": "A crypto drop would add to risk-off tone, and miners are already down 6-11%"
+        "why": "Easing geopolitical risk would remove a headwind and support a rebound"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "GME": "GameStop",
-      "APLD": "Applied Digital",
-      "IREN": "IREN Limited",
+      "IWM": "iShares Russell 2000 ETF",
+      "INTC": "Intel",
+      "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
       "CIFR": "Cipher Digital",
-      "CRWV": "CoreWeave",
-      "WULF": "TeraWulf",
-      "ASTS": "AST SpaceMobile",
-      "SBUX": "Starbucks"
+      "IREN": "IREN Limited",
+      "APLD": "Applied Digital"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.55,
-        "reason": "Selling accelerated into late morning on AI-revenue worries and no relief after the 30-year auction; QQQ weaker than SPY",
-        "catalyst": "OpenAI revenue shortfall chatter, long yields near highs"
+        "confidence": 0.52,
+        "reason": "Tech-led weakness (QQQ -1.6%, semis -6 to -11%) with bonds and gold bid; but SPY is near its day low and the crowd is leaning to dip-buying, so edge is thin",
+        "catalyst": "OpenAI revenue chatter and AI-semis selloff"
       }
     ],
-    "whats_new": "The selloff deepened: SPY is about 772 (-0.65%) versus 774.5 an hour ago and QQQ is down about 1.5%. The 30-year auction passed without a relief rally, and chatter now blames a report that OpenAI revenue is about $20B lower than earlier reported. AI-cloud and miner names (CRWV, CIFR, IREN, WULF, APLD) fell 4-11% while GME rose 4%; the Stocktwits crowd remains tagged bullish even as posts turn to panic.",
+    "whats_new": "SPY is flat versus an hour ago at about 772 (-0.68%) while QQQ slid to -1.6% and semis accelerated lower (SOXL -11%, INTC -6%). Fear and greed eased to 38 (fear) from 42 and VIX is steady near 15.5. The OpenAI revenue story is still the main explanation and is being re-shared, and the crowd stays bullish with dip-buy and 3 pm squeeze calls.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts; web search returned nothing current"
+      "news": "stocktwits posts and trending; web search returned nothing current"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.65,
+      "value": -0.68,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -137,13 +120,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 42.0,
+      "value": 38.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 78.0,
+      "value": 79.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
@@ -154,7 +137,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts; web search returned nothing current"
+    "news": "stocktwits posts and trending; web search returned nothing current"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
