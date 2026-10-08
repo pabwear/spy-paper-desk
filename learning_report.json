@@ -1,7 +1,7 @@
 {
-  "trained_at": "2026-10-07T16:10:21-04:00",
+  "trained_at": "2026-10-08T16:10:28-04:00",
   "mode": "shadow",
-  "closed_trades": 1,
+  "closed_trades": 3,
   "learnable_trades": 0,
   "min_trades_to_act": 30,
   "model": null,
@@ -61,22 +61,22 @@
       "active": false
     }
   ],
-  "trades": 1,
-  "losses": 0,
-  "loss_rate": 0.0,
+  "trades": 3,
+  "losses": 1,
+  "loss_rate": 0.333,
   "mistakes": [
-    {
-      "tag": "stopped_out",
-      "label": "Hit the 0.35% stop",
-      "trades": 0,
-      "losses": 0,
-      "loss_rate": null,
-      "avg_pnl": null,
-      "total_pnl": 0
-    },
     {
       "tag": "flattened_red_at_close",
       "label": "Flattened at 16:00 for a loss",
+      "trades": 1,
+      "losses": 1,
+      "loss_rate": 1.0,
+      "avg_pnl": -3.0,
+      "total_pnl": -3.0
+    },
+    {
+      "tag": "stopped_out",
+      "label": "Hit the 0.35% stop",
       "trades": 0,
       "losses": 0,
       "loss_rate": null,
@@ -162,7 +162,7 @@
     {
       "tag": "no_market_data",
       "label": "No market data",
-      "count": 1
+      "count": 2
     },
     {
       "tag": "no_contract",
@@ -171,6 +171,30 @@
     }
   ],
   "recent": [
+    {
+      "symbol": "SPY261008P00766000",
+      "opened_at": "2026-10-08T10:00:35-04:00",
+      "closed_at": "2026-10-08T15:40:26-04:00",
+      "pnl": -3.0,
+      "result": "loss",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "flattened_red_at_close"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
+    {
+      "symbol": "SPY261008P00771000",
+      "opened_at": "2026-10-08T10:00:35-04:00",
+      "closed_at": "2026-10-08T15:40:26-04:00",
+      "pnl": 12.0,
+      "result": "win",
+      "exit_reason": "flatten",
+      "mistakes": [],
+      "p_loss": null,
+      "tags": []
+    },
     {
       "symbol": "SPY261007P00771000",
       "opened_at": "2026-10-07T10:23:52-04:00",
