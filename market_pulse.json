@@ -1,13 +1,13 @@
 {
   "date": "2026-10-08",
   "bias": "neutral",
-  "written_at": "2026-10-08T09:10:00-04:00",
-  "as_of": "2026-10-08T13:10:00Z",
+  "written_at": "2026-10-08T10:07:37-04:00",
+  "as_of": "2026-10-08T14:08:00Z",
   "readings": {
-    "as_of": "2026-10-08T13:10:00Z",
-    "spy_price": 774.13,
-    "spy_change_pct": -0.64,
-    "vix": 15.11,
+    "as_of": "2026-10-08T14:08:00Z",
+    "spy_price": 774.78,
+    "spy_change_pct": -0.55,
+    "vix": 15.73,
     "fear_greed": 45,
     "stocktwits": {
       "SPY": {
@@ -21,50 +21,48 @@
       "top": []
     },
     "news": {
-      "score": 0,
+      "score": -0.2,
       "headlines": [
-        "Alaska Air to triple international routes via JAL partnership (CEO to Nikkei)",
-        "Musk: SpaceX AI unit will use some rival models to power Grok (The Information)",
-        "Stocklake index data is from the Oct 7 late session; no fresh premarket index quote"
+        "Treasuries sold off Oct 6: 10y near 5.34%, 30y 5.70%, highest since 2002 (preview report)",
+        "Markets price roughly 25% odds of an October Fed hike (preview report, unconfirmed)",
+        "Storage stocks WDC and STX fell about 10% on Oct 2 while indexes rallied"
       ]
     },
     "rumors": [
       {
-        "text": "Posters argue AI is commoditizing (SpaceX using rival models for Grok, AI on laptops) so heavy GPU/memory demand fades",
+        "text": "Posters claim the index is propped up by rotating pumps between MAG7 and the other 490 stocks so it cannot fall",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "QQQ"
+          "SPY"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
+          "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "If AI capex demand cooled, megacap tech and the index would lose support"
+        "direction": "up",
+        "credibility": 0.1,
+        "why": "If true, dips would be bought quickly, but it is unverifiable crowd talk"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
+      "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
       "PLTR": "Palantir",
-      "WOLF": "Wolfspeed",
-      "APLD": "Applied Digital"
+      "WOLF": "Wolfspeed"
     },
     "plays": [],
-    "whats_new": "Last Stocklake snapshot (Oct 7 late session) has SPY at 774.1 (-0.64%), lower than the prior 777.7, with IWM -2.1% and QQQ -0.9%; VIX near 15.1 and fear and greed about 45. Stocktwits stays very bullish (score 79) even as posters call the market disconnected and expect turbulence. Premarket trending: PLTR +2.6%, WOLF +13.8%, APLD +1.2%; Reddit and fresh news were unavailable.",
+    "whats_new": "SPY is 774.8 (-0.55%), about flat versus the last reading (774.1), with IWM down 1.8% and QQQ down 0.8%. VIX is a bit higher at 15.7 and fear and greed is about 45. Stocktwits stays bullish (score 79) while posters note SPY cannot hold above 775.6; PLTR is up about 3% and bitcoin-miner/AI-hosting names (IREN, CIFR) are down 5%.",
     "sources": {
-      "market_pulse": "stocklake (stale, Oct 7 19:09Z)",
+      "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable",
-      "news": "stocktwits"
+      "reddit": "unavailable (blocked)",
+      "news": "web search (stale, Oct 2-6)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.64,
+      "value": -0.55,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -90,10 +88,10 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (stale, Oct 7 19:09Z)",
+    "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable",
-    "news": "stocktwits"
+    "reddit": "unavailable (blocked)",
+    "news": "web search (stale, Oct 2-6)"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
