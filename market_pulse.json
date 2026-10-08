@@ -1,18 +1,18 @@
 {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "bias": "neutral",
-  "written_at": "2026-10-07T15:06:48-04:00",
-  "as_of": "2026-10-07T19:08:00Z",
+  "written_at": "2026-10-08T09:10:00-04:00",
+  "as_of": "2026-10-08T13:10:00Z",
   "readings": {
-    "as_of": "2026-10-07T19:08:00Z",
-    "spy_price": 777.68,
-    "spy_change_pct": -0.18,
-    "vix": 15.38,
-    "fear_greed": 44,
+    "as_of": "2026-10-08T13:10:00Z",
+    "spy_price": 774.13,
+    "spy_change_pct": -0.64,
+    "vix": 15.11,
+    "fear_greed": 45,
     "stocktwits": {
       "SPY": {
-        "score": 78,
-        "bullish_pct": 55.8
+        "score": 79,
+        "bullish_pct": 56.4
       }
     },
     "reddit": {
@@ -21,17 +21,17 @@
       "top": []
     },
     "news": {
-      "score": 0.05,
+      "score": 0,
       "headlines": [
-        "Fed September minutes due today; one calendar expects a dovish tone (forecast, unconfirmed)",
-        "IWM -1.1%, GLD -1.5%, QQQ -0.3% while SPY is roughly flat",
-        "AI data-center/miner names APLD -5.3% and IREN -6.2%; SMCI +4%, VST +4.2%"
+        "Alaska Air to triple international routes via JAL partnership (CEO to Nikkei)",
+        "Musk: SpaceX AI unit will use some rival models to power Grok (The Information)",
+        "Stocklake index data is from the Oct 7 late session; no fresh premarket index quote"
       ]
     },
     "rumors": [
       {
-        "text": "Dovish Fed minutes will keep indexes supported into the close",
-        "source": "news",
+        "text": "Posters argue AI is commoditizing (SpaceX using rival models for Grok, AI on laptops) so heavy GPU/memory demand fades",
+        "source": "stocktwits",
         "tickers": [
           "SPY",
           "QQQ"
@@ -40,49 +40,33 @@
           "SPY": "SPDR S&P 500 ETF",
           "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "A dovish read would ease rate worries and support large caps"
-      },
-      {
-        "text": "QQQ is going to break down further this afternoon",
-        "source": "stocktwits",
-        "tickers": [
-          "QQQ",
-          "SPY"
-        ],
-        "names": {
-          "QQQ": "Invesco QQQ Trust",
-          "SPY": "SPDR S&P 500 ETF"
-        },
         "direction": "down",
         "credibility": 0.2,
-        "why": "Tech weakness could drag the index below 777 support"
+        "why": "If AI capex demand cooled, megacap tech and the index would lose support"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "IWM": "iShares Russell 2000 ETF",
-      "APLD": "Applied Digital",
-      "IREN": "IREN Limited",
-      "SMCI": "Super Micro Computer",
-      "VST": "Vistra Corp"
+      "PLTR": "Palantir",
+      "WOLF": "Wolfspeed",
+      "APLD": "Applied Digital"
     },
     "plays": [],
-    "whats_new": "SPY is about flat at 777.7 (-0.18%) and VIX is steady near 15.4. Stocktwits stays very bullish (score 78) while small caps and gold lag, and posters say 777 needs to hold. AI data-center names are still weak while SMCI and VST bounce. The Fed minutes reaction is still unconfirmed.",
+    "whats_new": "Last Stocklake snapshot (Oct 7 late session) has SPY at 774.1 (-0.64%), lower than the prior 777.7, with IWM -2.1% and QQQ -0.9%; VIX near 15.1 and fear and greed about 45. Stocktwits stays very bullish (score 79) even as posters call the market disconnected and expect turbulence. Premarket trending: PLTR +2.6%, WOLF +13.8%, APLD +1.2%; Reddit and fresh news were unavailable.",
     "sources": {
-      "market_pulse": "stocklake",
+      "market_pulse": "stocklake (stale, Oct 7 19:09Z)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable",
-      "news": "stocktwits+websearch"
+      "news": "stocktwits"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.18,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": -0.64,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -92,24 +76,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 44.0,
+      "value": 45.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 78.0,
+      "value": 79.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
+    "market_pulse": "stocklake (stale, Oct 7 19:09Z)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable",
-    "news": "stocktwits+websearch"
+    "news": "stocktwits"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
