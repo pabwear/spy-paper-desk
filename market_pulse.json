@@ -1,18 +1,18 @@
 {
   "date": "2026-10-09",
   "bias": "neutral",
-  "written_at": "2026-10-09T12:07:50-04:00",
-  "as_of": "2026-10-09T16:10:00Z",
+  "written_at": "2026-10-09T13:07:01-04:00",
+  "as_of": "2026-10-09T17:08:00Z",
   "readings": {
-    "as_of": "2026-10-09T16:10:00Z",
-    "spy_price": 777.12,
-    "spy_change_pct": 0.41,
+    "as_of": "2026-10-09T17:08:00Z",
+    "spy_price": 777.96,
+    "spy_change_pct": 0.52,
     "vix": 15.06,
     "fear_greed": 44,
     "stocktwits": {
       "SPY": {
         "score": 75,
-        "bullish_pct": 55.6
+        "bullish_pct": 55.96
       }
     },
     "reddit": {
@@ -21,23 +21,22 @@
       "top": []
     },
     "news": {
-      "score": -0.1,
+      "score": -0.05,
       "headlines": [
-        "Telecoms plunge: T -10%, VZ -9.6%, TMUS -12% on heavy volume; web reports tie recent carrier weakness to SpaceX spectrum/mobile-service push",
-        "ASTS -14.5%, GRRR -11.5%, JOBY -8% lead Stocktwits trending; GME +4%, PLTR +3.4%, SNAP +6%",
-        "Gold +1.45%, TLT -0.2%; QQQ +0.34%, IWM +0.39%",
-        "No major US data today; Canada unemployment 6.5% vs 6.4%"
+        "Telecoms still sharply lower: T -9.9%, VZ -9.6%, TMUS -12.8% on heavy volume",
+        "ASTS -15%, MRNA +11%, NVAX +13%, PLTR +3.3%, GME +4.5% lead Stocktwits trending",
+        "Gold +1.46%, TLT flat; QQQ +0.37%, IWM +0.46%",
+        "No major US data today; Monday is a bank holiday"
       ]
     },
     "rumors": [
       {
-        "text": "Telecom selloff (T, VZ, TMUS) is driven by SpaceX spectrum/direct-to-cell ambitions to compete as a carrier; posters call it an overreaction",
+        "text": "Telecom selloff (T, VZ, TMUS) tied to SpaceX direct-to-cell/spectrum ambitions; unconfirmed, same story as last hour",
         "source": "stocktwits",
         "tickers": [
           "T",
           "VZ",
-          "TMUS",
-          "SPCX"
+          "TMUS"
         ],
         "names": {
           "T": "AT&T",
@@ -45,11 +44,41 @@
           "TMUS": "T-Mobile US"
         },
         "direction": "down",
-        "credibility": 0.4,
-        "why": "If SpaceX builds a consumer network, carriers lose pricing power and subscribers"
+        "credibility": 0.35,
+        "why": "If SpaceX competes as a carrier, incumbents lose pricing power and subscribers"
       },
       {
-        "text": "Posters expect SPY to reach 780 within hours; others call a bear flag and breakdown",
+        "text": "Trump said to have important news on the diesel crisis and that Iran will be over soon",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "USO"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "USO": "United States Oil Fund"
+        },
+        "direction": "up",
+        "credibility": 0.3,
+        "why": "De-escalation would lower oil and diesel prices and ease inflation worries"
+      },
+      {
+        "text": "Northland named CoreWeave a Top Pick, Outperform, target raised to $200 (about 145% upside)",
+        "source": "stocktwits",
+        "tickers": [
+          "CRWV",
+          "NBIS"
+        ],
+        "names": {
+          "CRWV": "CoreWeave",
+          "NBIS": "Nebius Group"
+        },
+        "direction": "up",
+        "credibility": 0.6,
+        "why": "Analyst upgrade could lift AI neocloud names"
+      },
+      {
+        "text": "Big holders expected to dump into the close ahead of the weekend after a Friday pump",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -57,22 +86,9 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
+        "direction": "down",
         "credibility": 0.2,
-        "why": "Crowd split; 780 is a round-number magnet only 0.4% away"
-      },
-      {
-        "text": "Oil turning lower could let the market pop",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "Falling oil eases inflation worries and helps risk appetite"
+        "why": "Weekend risk de-grossing could fade the late-day move"
       }
     ],
     "names": {
@@ -86,22 +102,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.54,
-        "reason": "Steady grind higher, QQQ and IWM green, VIX 15, fear/greed 44 with no scheduled catalysts; long-weekend fade risk caps the edge",
-        "catalyst": "Quiet Friday drift toward 780"
+        "reason": "Broad gains (QQQ, IWM green), VIX 15, fear/greed 44 not greedy; crowd bullish but split, weekend fade risk caps edge",
+        "catalyst": "Quiet Friday drift, possible Iran/oil headline"
       }
     ],
-    "whats_new": "SPY rose to about 777 (+0.41%) from 776 last hour, VIX eased to 15.06 and fear and greed improved to 44 from 38. Telecom losses deepened (TMUS -12%, T -10%, VZ -9.6%) and web reports now link the pressure to SpaceX spectrum and mobile-service ambitions, though today's cause is still unconfirmed. Gold is up 1.45% and Stocktwits chatter stays split between 780 targets and bear-flag calls.",
+    "whats_new": "SPY edged up to 777.96 (+0.52%) from 777.12 and VIX held near 15.06 while fear and greed stayed at 44. Telecom losses persist (TMUS -12.8%, T -9.9%, VZ -9.6%) with the SpaceX link still unconfirmed, and Moderna and Novavax jumped. New chatter: a Trump oil/Iran comment and a CoreWeave analyst top-pick call.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending, web search"
+      "news": "stocktwits trending and messages; web search found nothing for today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.41,
+      "value": 0.52,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -130,7 +146,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending, web search"
+    "news": "stocktwits trending and messages; web search found nothing for today"
   },
   "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
