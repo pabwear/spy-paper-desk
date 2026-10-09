@@ -3,8 +3,8 @@
   "account_name": "Paper 1000",
   "account_number": "PA36VOEO5PHB",
   "status": "ACTIVE",
-  "snapshot_at": "2026-10-09T10:40:36-04:00",
-  "equity": 1031.57,
+  "snapshot_at": "2026-10-09T10:50:34-04:00",
+  "equity": 1033.57,
   "cash": 1040.57,
   "buying_power": 540.57,
   "options_buying_power": 540.57,
@@ -35,10 +35,10 @@
       "asset_class": "us_option",
       "qty": -1.0,
       "avg_entry_price": 0.2,
-      "current_price": 0.11,
-      "market_value": -11.0,
-      "unrealized_pl": 9.0,
-      "unrealized_plpc": 0.45
+      "current_price": 0.09,
+      "market_value": -9.0,
+      "unrealized_pl": 11.0,
+      "unrealized_plpc": 0.55
     }
   ]
 }
