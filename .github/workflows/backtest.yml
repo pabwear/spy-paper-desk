@@ -12,7 +12,7 @@ on:
       scope:
         description: "current = only the live desk's setup (quick); ideas = four ideas vs buy-and-hold; all = every setting (about 1,000)"
         type: choice
-        options: ["current", "ideas", "research", "spreads", "all"]
+        options: ["current", "ideas", "research", "spreads", "intraday", "all"]
         default: "current"
       round:
         description: "For scope 'research': the round (1, 2, ...) or final (the locked year, run once at the end)"
@@ -50,7 +50,10 @@ jobs:
           ROUND: ${{ inputs.round }}
         run: |
           mkdir -p out
-          if [ "$SCOPE" = "spreads" ]; then
+          if [ "$SCOPE" = "intraday" ]; then
+            python intraday.py --source alpaca --since "$SINCE" --json out/intraday.json --md out/intraday.md
+            cat out/intraday.md >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$SCOPE" = "spreads" ]; then
             python spreads.py --source alpaca --since "$SINCE" --json out/spreads.json --md out/spreads.md
             cat out/spreads.md >> "$GITHUB_STEP_SUMMARY"
           elif [ "$SCOPE" = "research" ]; then
