@@ -1,9 +1,9 @@
 {
-  "dashboard_state.json": "a1f215099963e44ff190575c027e9b3df2127da286d5076ebe4013fe61c3e636",
+  "dashboard_state.json": "ca1a77c16285dca2f4584e6defa6512d4b6e5e3b1dd6e87c2db88d195689c595",
   "sentiment_state.json": "adb05946f9975edf0b0b3c0972dec64f099b95184145b2414d2f1a5b280d3b04",
   "tests_state.json": "f9a338fdcd2f9270286871035a6e6edcc2f70c062591578c8c8a72f5e8109666",
-  "account.json": "f2cffc4c2ef5584c8dfb4ddd5d7ab251e2156618416aef63d09b676435a06702",
-  "chart_SNDK.json": "49ebb82a3b35df59c3123a1fb9908db2c45654e9254ebf58b8bbbd11ae98465f",
-  "chart_SPY.json": "f23ec3af84d0f5474ad7146537142a7acb5d6b2c3fda7728f66cb4af9de3d524",
-  "chart_TSLA.json": "c9f323440dea6fb8550efd25f0bd92d7b18818f835bbf775b781af9bfe456ab5"
+  "account.json": "9e73ea5aa790ebaefd1d9834479e06f1c698944f3a56606b6c4c8d269e8dcb27",
+  "chart_SNDK.json": "3c66cd0b7f2113d37a77e53296a297396705fadc982d808c3b553f36f6768c72",
+  "chart_SPY.json": "6ca90d631f62071622ca5544e4893025b65c01bc2969d0cce129111eb0d887fb",
+  "chart_TSLA.json": "978260e126ef9e47e1d59928b375a570f36f28200e8cb91082db58555aea224b"
 }
