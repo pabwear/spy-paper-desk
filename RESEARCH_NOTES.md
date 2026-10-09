@@ -3,6 +3,30 @@
 What the desk has learned, newest first. Paper only. Roy's decision (Oct 9 2026): keep trading as now and
 keep learning from it; these notes are the record.
 
+## Daily log
+
+### Fri Oct 9 2026 — +$30.80 (equity $1,056.42; +$56.42 since the $1,000 start)
+- SPY put spread 772/767: sold 10:00 for $15 (mid $0.18, natural $0.15), bought back 15:40 for $1 → about +$14.
+  All legs closed in one order. Real price 0.46 × VIX (assumed 0.5): in line.
+- SPY options (learning), first trades, both closed on the time limit: Oct 19 777 call $525 → $500 (−$25);
+  Oct 16 777 call $463 → $505 (+$42). Net +$17.
+- Shares books: no trades.
+- Price forecasts: 1m direction 53.7% of 322, 3m 57.4% of 298, 5m 49.8% of 297; "flat" still leads most
+  timeframes (little short-term predictability).
+- Loss model: shadow; 2 closed option trades of the 30 it needs before it may act.
+
+### Week of Oct 5–9 (first live week of the spread book)
+| Book | Trades | Won | Net | Backtest expectation (real prices) |
+|---|---|---|---|---|
+| SPY put spread | 3 | 3 | ≈ +$40 | wins 83% of days, ~$17 avg win, but loses ~$18/day on average (rare ~$490 days) |
+| SPY options (learning) | 2 | 1 | +$17 | ~49% won, about −$3.50 a trade |
+| SPY / SNDK shares | 0 | — | $0 | near break-even |
+
+Three wins in a row is what the spread does 57% of the time (0.83³); it says nothing yet about the losing
+days that decide its result. No new rule tested this week: 5 live trades is far too few to learn from
+without fooling ourselves. Next check: the spread's first losing day (size vs the ~$490 worst case) and the
+options book once it has 10+ trades.
+
 ## Oct 9 2026: no daily strategy has passed
 
 **The put spread at real prices.** The live spreads on Oct 7–8 were priced at about 0.5 × the VIX
