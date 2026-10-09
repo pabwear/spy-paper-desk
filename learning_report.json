@@ -1,26 +1,26 @@
 {
-  "trained_at": "2026-10-08T16:10:28-04:00",
+  "trained_at": "2026-10-09T16:10:24-04:00",
   "mode": "shadow",
-  "closed_trades": 3,
-  "learnable_trades": 0,
+  "closed_trades": 7,
+  "learnable_trades": 2,
   "min_trades_to_act": 30,
   "model": null,
   "tags": [
     {
       "tag": "structure",
-      "trades": 0,
-      "wins": 0,
-      "win_rate": null,
-      "pnl": 0,
+      "trades": 2,
+      "wins": 1,
+      "win_rate": 0.5,
+      "pnl": 17.0,
       "multiplier": 1.0,
       "active": false
     },
     {
       "tag": "order_blocks",
-      "trades": 0,
-      "wins": 0,
-      "win_rate": null,
-      "pnl": 0,
+      "trades": 2,
+      "wins": 1,
+      "win_rate": 0.5,
+      "pnl": 17.0,
       "multiplier": 1.0,
       "active": false
     },
@@ -44,10 +44,10 @@
     },
     {
       "tag": "volume",
-      "trades": 0,
+      "trades": 1,
       "wins": 0,
-      "win_rate": null,
-      "pnl": 0,
+      "win_rate": 0.0,
+      "pnl": -25.0,
       "multiplier": 1.0,
       "active": false
     },
@@ -61,18 +61,18 @@
       "active": false
     }
   ],
-  "trades": 3,
-  "losses": 1,
-  "loss_rate": 0.333,
+  "trades": 7,
+  "losses": 3,
+  "loss_rate": 0.429,
   "mistakes": [
     {
       "tag": "flattened_red_at_close",
       "label": "Flattened at 16:00 for a loss",
-      "trades": 1,
-      "losses": 1,
+      "trades": 2,
+      "losses": 2,
       "loss_rate": 1.0,
-      "avg_pnl": -3.0,
-      "total_pnl": -3.0
+      "avg_pnl": -3.5,
+      "total_pnl": -7.0
     },
     {
       "tag": "stopped_out",
@@ -111,15 +111,6 @@
       "total_pnl": 0
     },
     {
-      "tag": "outside_box_entry",
-      "label": "Entered near, not inside, the box",
-      "trades": 0,
-      "losses": 0,
-      "loss_rate": null,
-      "avg_pnl": null,
-      "total_pnl": 0
-    },
-    {
       "tag": "late_entry_after_15",
       "label": "Entered after 15:00",
       "trades": 0,
@@ -129,22 +120,31 @@
       "total_pnl": 0
     },
     {
+      "tag": "outside_box_entry",
+      "label": "Entered near, not inside, the box",
+      "trades": 2,
+      "losses": 1,
+      "loss_rate": 0.5,
+      "avg_pnl": 8.5,
+      "total_pnl": 17.0
+    },
+    {
       "tag": "rsi_near_50",
       "label": "RSI within 5 of 50",
-      "trades": 0,
+      "trades": 1,
       "losses": 0,
-      "loss_rate": null,
-      "avg_pnl": null,
-      "total_pnl": 0
+      "loss_rate": 0.0,
+      "avg_pnl": 42.0,
+      "total_pnl": 42.0
     },
     {
       "tag": "re_entry_after_loss",
       "label": "Second entry right after a loss",
-      "trades": 0,
+      "trades": 1,
       "losses": 0,
-      "loss_rate": null,
-      "avg_pnl": null,
-      "total_pnl": 0
+      "loss_rate": 0.0,
+      "avg_pnl": 42.0,
+      "total_pnl": 42.0
     }
   ],
   "lessons": [],
@@ -152,7 +152,7 @@
     {
       "tag": "order_rejected",
       "label": "Entry order rejected",
-      "count": 0
+      "count": 21
     },
     {
       "tag": "exit_failed",
@@ -171,6 +171,65 @@
     }
   ],
   "recent": [
+    {
+      "symbol": "SPY261009P00767000",
+      "opened_at": "2026-10-09T10:00:39-04:00",
+      "closed_at": "2026-10-09T15:40:30-04:00",
+      "pnl": -4.0,
+      "result": "loss",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "flattened_red_at_close"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
+    {
+      "symbol": "SPY261009P00772000",
+      "opened_at": "2026-10-09T10:00:39-04:00",
+      "closed_at": "2026-10-09T15:40:30-04:00",
+      "pnl": 18.0,
+      "result": "win",
+      "exit_reason": "flatten",
+      "mistakes": [],
+      "p_loss": null,
+      "tags": []
+    },
+    {
+      "symbol": "SPY261016C00777000",
+      "opened_at": "2026-10-09T11:50:22-04:00",
+      "closed_at": "2026-10-09T12:20:28-04:00",
+      "pnl": 42.0,
+      "result": "win",
+      "exit_reason": "time",
+      "mistakes": [
+        "outside_box_entry",
+        "rsi_near_50",
+        "re_entry_after_loss"
+      ],
+      "p_loss": null,
+      "tags": [
+        "structure",
+        "order_blocks"
+      ]
+    },
+    {
+      "symbol": "SPY261019C00777000",
+      "opened_at": "2026-10-09T11:00:36-04:00",
+      "closed_at": "2026-10-09T11:40:28-04:00",
+      "pnl": -25.0,
+      "result": "loss",
+      "exit_reason": "time",
+      "mistakes": [
+        "outside_box_entry"
+      ],
+      "p_loss": null,
+      "tags": [
+        "structure",
+        "order_blocks",
+        "volume"
+      ]
+    },
     {
       "symbol": "SPY261008P00766000",
       "opened_at": "2026-10-08T10:00:35-04:00",
