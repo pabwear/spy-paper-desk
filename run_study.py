@@ -1054,8 +1054,9 @@ def cmd_review(now: datetime) -> dict:
         "position": pos.get("symbol"),
         "position_qty": pos.get("qty", 0),
     }
+    summary["spread_pricing"] = _spread_pricing(events)
     lessons = learning.learn(now)
-    summary["lessons"] = lessons["lessons"]
+    summary["lessons"] = lessons["lessons"] + _pricing_lessons(summary["spread_pricing"])
     journal.log("review", now=now, **summary)
     rebuild_dashboard.write_state(now)
     print(f"End-of-day review {summary['date']}")
@@ -1074,6 +1075,38 @@ def cmd_review(now: datetime) -> dict:
     learning.print_report(lessons)
     _mirror_to_sheet()
     return summary
+
+
+def _spread_pricing(events: list[dict]) -> list[dict]:
+    """For each put spread the desk priced today: the real mid price against the VIX model, as the share of the
+    VIX the options were really priced at (the backtests assume 0.5; Oct 7-8 2026 measured 0.47-0.63)."""
+    import spreads
+
+    out = []
+    for e in events:
+        plan = e.get("plan") or {}
+        q, k = plan.get("quotes") or {}, plan.get("strikes") or []
+        if e.get("event") != "eval" or plan.get("asset") != "spread" or len(k) != 2 or not q.get("short") or not q.get("long"):
+            continue
+        try:
+            mid = (q["short"]["bid"] + q["short"]["ask"]) / 2 - (q["long"]["bid"] + q["long"]["ask"]) / 2
+            price, vix = float((e.get("market") or {})["price"]), float(plan["vix"])
+            mult = spreads.implied_vol_mult(price, float(k[0]), float(k[1]), to_et(e["ts"]), vix, mid)
+        except (KeyError, TypeError, ValueError):
+            continue
+        out.append({"ts": e["ts"], "strikes": k, "price": price, "vix": round(vix, 2), "mid": round(mid, 3),
+                    "natural": plan.get("credit"), "vol_mult": mult})
+    return out
+
+
+def _pricing_lessons(pricing: list[dict]) -> list[str]:
+    seen = [p["vol_mult"] for p in pricing if p.get("vol_mult")]
+    if not seen:
+        return []
+    avg = sum(seen) / len(seen)
+    note = "in line with" if 0.4 <= avg <= 0.65 else "OUTSIDE"
+    return [f"Put spreads were priced at {avg:.2f} x the VIX today ({len(seen)} quote{'s' * (len(seen) > 1)}), "
+            f"{note} the 0.5 x the backtests assume."]
 
 
 def review_done(day) -> bool:

@@ -78,6 +78,21 @@ def legs(spec: dict, price: float, sigma: float) -> list[tuple[str, float, float
     return out
 
 
+def implied_vol_mult(price: float, short: float, long_: float, t: datetime, vix: float, mid: float) -> float | None:
+    """The share of the VIX at which a same-day put spread's real mid price matches Black-Scholes
+    (what the backtests' vol_mult should be). None when the price can't be matched."""
+    years = bt.trading_years(t, t.astimezone(ET).date())
+    lg = [("put", short, long_)]
+    f = lambda k: spread_value(lg, price, years, k * vix / 100)  # noqa: E731
+    lo, hi = 0.02, 3.0
+    if mid <= 0 or not f(lo) <= mid <= f(hi):
+        return None
+    for _ in range(60):
+        m = (lo + hi) / 2
+        lo, hi = (m, hi) if f(m) < mid else (lo, m)
+    return round((lo + hi) / 2, 3)
+
+
 def spread_value(lg: list[tuple], price: float, years: float, vol: float) -> float:
     """What buying the spreads back costs, per share."""
     v = 0.0

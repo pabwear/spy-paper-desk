@@ -84,3 +84,15 @@ class DeskCloseTests(unittest.TestCase):
         self.assertEqual(t["why"], "close")
         self.assertLess(t["net"], t["credit"] - 6.0 + 0.01)  # open and close costs, plus what's left of its value
         self.assertGreater(t["net"], 0)
+
+
+class ImpliedVolTests(unittest.TestCase):
+    def test_recovers_the_multiplier_that_priced_the_spread(self):
+        import backtest_areas as bt
+
+        t = datetime(2026, 10, 8, 10, 0, tzinfo=ET)
+        y = bt.trading_years(t, t.date())
+        mid = spreads.spread_value([("put", 771, 766)], 775.34, y, 0.5 * 0.1508)
+        self.assertAlmostEqual(spreads.implied_vol_mult(775.34, 771, 766, t, 15.08, mid), 0.5, places=2)
+        self.assertIsNone(spreads.implied_vol_mult(775.34, 771, 766, t, 15.08, 0.0))
+
