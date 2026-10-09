@@ -1080,7 +1080,7 @@ td.r, th.r { text-align: right; }
     try {
       const r = await mcp.callTool(GH, "get_file_contents", { ...REPO, path: stub.file, ref: "refs/heads/desk-state" }, { cache: { staleTime: 60000 } });
       const v = extractJson(r, "symbol");
-      if (v) { EXTRA[sym] = v; if (state && state.charts) state.charts[sym] = v; }
+      if (v) { EXTRA[sym] = v; if (state && state.charts) state.charts[sym] = v; setTimeout(() => pollLive(true), 0); }
       else EXTRA[sym + ":err"] = true;
     } catch { EXTRA[sym + ":err"] = true; }
     EXTRA_BUSY[sym] = false;
@@ -1178,6 +1178,61 @@ td.r, th.r { text-align: right; }
     const rows = (c.candles || []).map((k) => [String(k.t).slice(0, 16), k.o, k.h, k.l, k.c, k.v]);
     return rows.length ? { "5m": { c: rows, vwap: c.vwap || null, study: c.study ? { ...c.study, from: null } : null, projection: null } } : {};
   }
+  // ---------- live prices on the site: Yahoo's 1-minute bars (all exchanges) merged into the desk's saved
+  // candles every 30 seconds, so the chart runs a minute behind instead of up to ten. The desk's studies,
+  // zones and projections still come from its own 10-minute runs.
+  const minOfDay = (k) => +k.slice(11, 13) * 60 + +k.slice(14, 16);
+  const hm = (m) => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+  function mergeLive(c, bars) {
+    if (!c || !bars || !bars.length) return false;
+    const today = bars[bars.length - 1][0].slice(0, 10);
+    const day = bars.filter((r) => r[0].startsWith(today));
+    const merge = (F, rth) => Object.entries(F || {}).forEach(([tf, f]) => {
+      const n = TF_MIN[tf];
+      if (!f || !f.c || !n) return;
+      const rows = rth ? day.filter((r) => { const m = minOfDay(r[0]); return m >= 570 && m < 960; }) : day;
+      if (!rows.length) return;
+      if (n === 1440) {  // today's daily candle from the regular session
+        const d = [today, rows[0][1], Math.max(...rows.map((r) => r[2])), Math.min(...rows.map((r) => r[3])), rows[rows.length - 1][4], rows.reduce((a, r) => a + r[5], 0)];
+        const last = f.c[f.c.length - 1];
+        if (last && last[0] === today) f.c[f.c.length - 1] = d; else if (!last || last[0] < today) f.c.push(d);
+        return;
+      }
+      const agg = new Map();
+      rows.forEach((r) => {
+        const m = minOfDay(r[0]), b = rth ? 570 + Math.floor((m - 570) / n) * n : m - (m % n), k = `${today}T${hm(b)}`, a = agg.get(k);
+        if (!a) agg.set(k, [k, r[1], r[2], r[3], r[4], r[5]]); else { a[2] = Math.max(a[2], r[2]); a[3] = Math.min(a[3], r[3]); a[4] = r[4]; a[5] += r[5]; }
+      });
+      const fresh = [...agg.values()], first = fresh[0][0];
+      const keep = f.c.filter((r) => r[0] < first);
+      if (Array.isArray(f.vwap)) {  // today's session VWAP from the live candles
+        let pv = 0, v = 0;
+        f.vwap = f.vwap.slice(0, keep.length).concat(fresh.map((r) => { pv += (r[2] + r[3] + r[4]) / 3 * r[5]; v += r[5]; return v ? +(pv / v).toFixed(4) : null; }));
+      }
+      f.c = keep.concat(fresh);
+    });
+    merge(c.frames, true);
+    merge(c.frames_eth, false);
+    c.last = bars[bars.length - 1][4];
+    c.date = today;
+    c.live_at = Date.now();
+    return true;
+  }
+  const LIVE = { busy: false, err: null };
+  async function pollLive(force) {
+    if (!SITE_MODE || LIVE.busy || document.visibilityState === "hidden" || view !== "dashboard" || chartMode !== "market") return;
+    const c = ((state || {}).charts || {})[chartSym];
+    if (!c || c.stub || (!force && ["weekend"].includes(clockPhase()))) return;
+    LIVE.busy = true;
+    try {
+      const r = await fetch(`/live/${encodeURIComponent(chartSym)}`, { cache: "no-store", credentials: "same-origin" });
+      if (r.status === 401) { location.href = "/login"; return; }
+      const v = r.ok ? await r.json() : null;
+      if (v && v.bars && mergeLive(c, v.bars)) { LIVE.err = null; renderChart(state || {}); }
+      else LIVE.err = (v && v.error) || `http_${r.status}`;
+    } catch (e) { LIVE.err = "offline"; } finally { LIVE.busy = false; }
+  }
+  if (SITE_MODE) { setInterval(() => pollLive(false), 30000); document.addEventListener("visibilitychange", () => pollLive(false)); }
   function heikin(rows) {
     const out = []; let po = 0, pc = 0;
     rows.forEach((r, i) => { const cl = (r[1] + r[2] + r[3] + r[4]) / 4, op = i ? (po + pc) / 2 : (r[1] + r[4]) / 2; out.push([r[0], op, Math.max(r[2], op, cl), Math.min(r[3], op, cl), cl, r[5]]); po = op; pc = cl; });
@@ -1201,7 +1256,7 @@ td.r, th.r { text-align: right; }
       pdc: prev ? prev[4] : null, pdh: prev ? prev[2] : null, pdl: prev ? prev[3] : null, vwap: v5.length ? v5[v5.length - 1] : null };
   }
   const fmtVol = (v) => v >= 1e9 ? (v / 1e9).toFixed(2) + "B" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(Math.round(v));
-  function pickSym(s) { chartSym = s; chartMode = "market"; store.set("deskChartSym", s); store.set("kuraChartMode", "market"); renderChart(state || {}, true); }
+  function pickSym(s) { chartSym = s; chartMode = "market"; store.set("deskChartSym", s); store.set("kuraChartMode", "market"); renderChart(state || {}, true); pollLive(true); }
   const saveLayers = () => { preset = "custom"; store.set("kuraPreset3", preset); store.set("kuraLayers3", JSON.stringify(layers)); };
 
   // ---------- toolbar
@@ -1869,7 +1924,7 @@ td.r, th.r { text-align: right; }
     $("measureBtn").setAttribute("aria-pressed", String(measuring));
 
     const rebuildKeys = LAYERS.map(([k]) => k).filter((k) => !OVERLAY_ONLY.includes(k)).map((k) => layers[k] ? 1 : 0).join("");
-    const key = [chartSym, shown.join(","), css("--mode"), c.updated_at, s.generated_at, eth, cstyle, rebuildKeys, paneHeight(1)].join("|");
+    const key = [chartSym, shown.join(","), css("--mode"), c.updated_at, c.live_at, s.generated_at, eth, cstyle, rebuildKeys, paneHeight(1)].join("|");
     if (force || key !== P.key || !P.list.length) {
       const old = P.list[0], saved = old && old.sym === chartSym && old.eth === eth && old.tf === base && old.chart ? old.chart.timeScale().getVisibleLogicalRange() : null;
       destroyPanes();
@@ -1907,6 +1962,8 @@ td.r, th.r { text-align: right; }
     $("chartTitle").textContent = chartSym; $("chartTick").textContent = String(chartSym).slice(0, 4);
     const symBooks = ((state || {}).books || []).filter((b) => b.symbol === chartSym && b.enabled);
     $("chartSub").textContent = symBooks.length ? `Trades in: ${symBooks.map((b) => b.label).join(" · ")}` : "Watch only: charts and studies, no trading";
+    if (c.live_at) $("chartSub").textContent += ` · prices live (Yahoo) ${new Date(c.live_at).toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit", second: "2-digit" })} ET`;
+    else if (SITE_MODE && LIVE.err) $("chartSub").textContent += ` · live prices unavailable (${LIVE.err}); desk chart`;
     // never show an old chart as if it were today's: say which day it is from
     const todayEt = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
     const chartDay = c.date || String(c.updated_at || "").slice(0, 10);
@@ -1924,7 +1981,7 @@ td.r, th.r { text-align: right; }
     $("statStrip").innerHTML = cell("Open", ds.open.toFixed(2)) + cell("High", ds.high.toFixed(2)) + cell("Low", ds.low.toFixed(2))
       + cell("Yesterday", isNum(ds.pdc) ? (+ds.pdc).toFixed(2) : "—")
       + `<div class="range"><div class="k">Day range</div><div class="rbar"><b style="left:${pos}%"></b></div><div class="rl"><span>${ds.low.toFixed(2)}</span><span>${ds.high.toFixed(2)}</span></div></div>`
-      + cell("VWAP", isNum(ds.vwap) ? (+ds.vwap).toFixed(2) : "—") + cell("Volume (IEX)", fmtVol(ds.vol))
+      + cell("VWAP", isNum(ds.vwap) ? (+ds.vwap).toFixed(2) : "—") + cell(c.live_at ? "Volume" : "Volume (IEX)", fmtVol(ds.vol))
       + cell(`ATR ${panes.find((t) => F[t]) || ""}`, a ? a.toFixed(2) : "—");
   }
 

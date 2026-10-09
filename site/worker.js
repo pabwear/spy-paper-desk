@@ -8,6 +8,8 @@ import PAGE from "./dist/index.html";
 const COOKIE = "desk_session";
 const DAYS = 30;
 const FILE_RE = /^[A-Za-z0-9_.-]{1,80}\.json$/;
+const SYM_RE = /^[A-Z]{1,5}(\.[A-Z])?$/;
+const LIVE_SECONDS = 20; // Yahoo is asked at most this often per stock; every viewer shares the answer
 const HEADERS = {
   "X-Frame-Options": "DENY",
   "Referrer-Policy": "no-referrer",
@@ -61,8 +63,43 @@ button{margin-top:14px;width:100%;padding:12px;border:0;border-radius:10px;backg
 <button type="submit">Sign in</button>${wrong ? '<p class="bad">That password didn\'t match.</p>' : ""}</form></body></html>`, wrong ? 401 : 200);
 }
 
+// Today's 1-minute bars from Yahoo Finance's free chart feed (all exchanges, a few seconds behind; no key).
+// Unofficial: if Yahoo changes or refuses it, the page keeps showing the desk's own charts.
+const ET_FMT = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit",
+  day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+function etMinute(sec) {
+  const p = Object.fromEntries(ET_FMT.formatToParts(new Date(sec * 1000)).map((x) => [x.type, x.value]));
+  return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`;
+}
+export function liveBars(yahoo) {
+  const r = yahoo && yahoo.chart && yahoo.chart.result && yahoo.chart.result[0];
+  if (!r || !r.timestamp || !r.indicators || !r.indicators.quote) return null;
+  const q = r.indicators.quote[0], out = [];
+  r.timestamp.forEach((t, i) => {
+    const o = q.open[i], h = q.high[i], l = q.low[i], c = q.close[i];
+    if ([o, h, l, c].some((v) => v == null || !isFinite(v))) return;
+    const k = [etMinute(t), +o.toFixed(4), +h.toFixed(4), +l.toFixed(4), +c.toFixed(4), Math.round(q.volume[i] || 0)];
+    if (out.length && out[out.length - 1][0] === k[0]) out[out.length - 1] = k; else out.push(k);
+  });
+  const m = r.meta || {};
+  return { symbol: m.symbol, price: m.regularMarketPrice, time: m.regularMarketTime, source: "Yahoo Finance", bars: out };
+}
+async function live(sym, ctx) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d&includePrePost=true`;
+  const cache = caches.default, key = new Request(`https://live.cache/${sym}`);
+  const hit = await cache.match(key);
+  if (hit) return hit;
+  const r = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (compatible; KuraTrades/1.0)", Accept: "application/json" } });
+  if (!r.ok) return new Response(JSON.stringify({ error: `yahoo_${r.status}` }), { status: 502, headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...HEADERS } });
+  const body = liveBars(await r.json().catch(() => null));
+  if (!body) return new Response(JSON.stringify({ error: "yahoo_format" }), { status: 502, headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...HEADERS } });
+  const res = new Response(JSON.stringify(body), { headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": `public, max-age=${LIVE_SECONDS}` } });
+  ctx.waitUntil(cache.put(key, res.clone()));
+  return res;
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const password = env.SITE_PASSWORD;
     if (!password) return html("<p>This site isn't set up yet (no password).</p>", 503);
@@ -86,10 +123,16 @@ export default {
     }
 
     if (!(await signedIn(request, password))) {
-      if (url.pathname.startsWith("/data/")) return new Response("sign in", { status: 401, headers: { "Cache-Control": "no-store", ...HEADERS } });
+      if (url.pathname.startsWith("/data/") || url.pathname.startsWith("/live/")) return new Response("sign in", { status: 401, headers: { "Cache-Control": "no-store", ...HEADERS } });
       return new Response(null, { status: 303, headers: { Location: "/login", ...HEADERS } });
     }
 
+    if (url.pathname.startsWith("/live/")) {
+      const sym = decodeURIComponent(url.pathname.slice(6)).toUpperCase();
+      if (!SYM_RE.test(sym)) return new Response("not found", { status: 404, headers: HEADERS });
+      const r = await live(sym, ctx);
+      return new Response(r.body, { status: r.status, headers: { ...Object.fromEntries(r.headers), "Cache-Control": "no-store", ...HEADERS } });
+    }
     if (url.pathname.startsWith("/data/")) {
       const name = decodeURIComponent(url.pathname.slice(6));
       if (!FILE_RE.test(name)) return new Response("not found", { status: 404, headers: HEADERS });
