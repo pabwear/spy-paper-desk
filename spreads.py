@@ -19,6 +19,16 @@ Rules (set before any test):
 
 Worst case per spread: width × 100 − the credit. The book sizes 1 spread per side.
 
+Day filters (set Oct 9 2026, before running them, after real prices showed the live rule loses; the
+"filt_" variants). Each uses only what is known at 10:00: the VIX's last two closes, SPY's last close and
+its 20-day average, SPY at 10:00. A filter counts only if it makes money in ALL of train, check and exam:
+    vix_high      the VIX closed at 20 or more            (richer premium)
+    vix_low       the VIX closed under 15                 (quiet markets)
+    no_down_open  SPY at 10:00 not more than 0.5% under yesterday's close
+    uptrend       yesterday's close above its 20-day average
+    vix_calm      the VIX did not rise more than 10% on its last close
+    uptrend_no_down_open   uptrend and no_down_open together
+
     python3 spreads.py --source alpaca --since 2020-07-01 --json spreads.json --md spreads.md
 """
 
@@ -39,6 +49,15 @@ SPLITS = {"train": (None, date(2024, 3, 13)), "check": (date(2024, 3, 13), date(
 
 BASE = {"sd": 1.0, "width": 5, "puts": True, "calls": False, "stop_x": 0, "take": 0, "credit_factor": 1.0}
 REAL = {**BASE, "vol_mult": 0.5, "close_at": "15:40"}
+FILTERS = {
+    "vix_high": lambda f: f["vix"] >= 20,
+    "vix_low": lambda f: f["vix"] < 15,
+    "no_down_open": lambda f: f["price"] >= f["prev_close"] * 0.995,
+    "uptrend": lambda f: f["ma20"] is not None and f["prev_close"] > f["ma20"],
+    "vix_calm": lambda f: f["vix_prev"] is None or f["vix"] <= f["vix_prev"] * 1.10,
+    "uptrend_no_down_open": lambda f: f["ma20"] is not None and f["prev_close"] > f["ma20"]
+    and f["price"] >= f["prev_close"] * 0.995,
+}
 VARIANTS = [
     {"name": "put_1sd_hold", **BASE},
     {"name": "put_half_sd_hold", **BASE, "sd": 0.5},
@@ -62,6 +81,7 @@ VARIANTS = [
     {"name": "real_desk_quarter_sd", **REAL, "sd": 0.25},
     {"name": "real_desk_1sd", **REAL, "sd": 1.0},
     {"name": "real_half_sd_hold_to_expiry", **BASE, "sd": 0.5, "vol_mult": 0.5},
+    *({"name": f"filt_{k}", **REAL, "sd": 0.5, "filter": k} for k in FILTERS),
 ]
 
 
@@ -186,12 +206,30 @@ def summary(trades: list[dict]) -> dict:
     return s
 
 
+def day_features(session: list[tuple[date, list[dict]]], vix: dict[date, float]) -> dict[date, dict]:
+    """What is known before each day's 10:00 sale: the VIX's last two closes (in points), SPY's last close and
+    the average of its last 20 closes (None until there are 20). Days without a prior session are left out."""
+    out, closes = {}, []
+    vdays = sorted(vix)
+    for d, bars in session:
+        prior = [k for k in vdays if k < d]
+        if closes and prior:
+            out[d] = {"vix": vix[prior[-1]], "vix_prev": vix[prior[-2]] if len(prior) > 1 else None,
+                      "prev_close": closes[-1], "ma20": sum(closes[-20:]) / 20 if len(closes) >= 20 else None}
+        if bars:
+            closes.append(bars[-1]["c"])
+    return out
+
+
 def run(session: list[tuple[date, list[dict]]], vix: dict[date, float]) -> dict:
     """session: [(day, regular-hours minutes)] in order."""
     out = {"variants": [], "splits": {k: [a.isoformat() if a else None, b.isoformat() if b else None]
                                       for k, (a, b) in SPLITS.items()}}
+    feats = day_features(session, vix)
     for spec in VARIANTS:
-        trades = [t for d, bars in session if (t := day_trade(spec, d, bars, bt._vol_for(vix, d)))]
+        keep = FILTERS[spec["filter"]] if spec.get("filter") else None
+        trades = [t for d, bars in session if (t := day_trade(spec, d, bars, bt._vol_for(vix, d)))
+                  and (keep is None or (d in feats and keep({**feats[d], "price": t["price"]})))]
         row = {"name": spec["name"], "spec": {k: v for k, v in spec.items() if k != "name"}, "all": summary(trades)}
         for part, (a, b) in SPLITS.items():
             row[part] = summary([t for t in trades if (a is None or t["t"][:10] >= a.isoformat())

@@ -96,3 +96,25 @@ class ImpliedVolTests(unittest.TestCase):
         self.assertAlmostEqual(spreads.implied_vol_mult(775.34, 771, 766, t, 15.08, mid), 0.5, places=2)
         self.assertIsNone(spreads.implied_vol_mult(775.34, 771, 766, t, 15.08, 0.0))
 
+
+class FilterTests(unittest.TestCase):
+    def test_features_use_only_what_is_known_before_the_day(self):
+        days = [date(2026, 9, 1) + timedelta(days=i) for i in range(25)]
+        session = [(d, day(d, [600.0 + i] * 5)) for i, d in enumerate(days)]
+        vix = {d: 15.0 + i for i, d in enumerate(days)}
+        f = spreads.day_features(session, vix)
+        self.assertNotIn(days[0], f)
+        last = f[days[-1]]
+        self.assertEqual((last["prev_close"], last["vix"], last["vix_prev"]), (623.0, 38.0, 37.0))
+        self.assertAlmostEqual(last["ma20"], sum(600.0 + i for i in range(4, 24)) / 20)
+        self.assertIsNone(f[days[5]]["ma20"])
+
+    def test_filters(self):
+        base = {"vix": 16.0, "vix_prev": 15.0, "prev_close": 600.0, "ma20": 590.0, "price": 599.0}
+        F = spreads.FILTERS
+        self.assertTrue(F["uptrend_no_down_open"](base))
+        self.assertFalse(F["no_down_open"]({**base, "price": 596.0}))  # 0.67% under yesterday's close
+        self.assertFalse(F["vix_calm"]({**base, "vix": 17.0}))           # +13%
+        self.assertFalse(F["uptrend"]({**base, "ma20": 610.0}))
+        self.assertTrue(F["vix_high"]({**base, "vix": 20.0}) and F["vix_low"]({**base, "vix": 14.9}))
+
