@@ -10,7 +10,10 @@ Rules (set before any test):
     exit     held to the close (settles on the 16:00 price) or, as the desk does, bought back at 15:40 (close_at, so
              no shares can ever be assigned); or closed early at the 10-minute checks when its
              buy-back cost reaches `stop_x` × the credit, or falls to (1 − take) × the credit
-    prices   Black-Scholes at the day's VIX on market time; `credit_factor` < 1 shrinks every price (a stress test)
+    prices   Black-Scholes at the day's VIX on market time; `credit_factor` < 1 shrinks every price (a stress test);
+             `vol_mult` prices at that share of the VIX (strikes still placed by the VIX). Real same-day SPY quotes
+             on Oct 7-8 2026 matched 0.47-0.63 x VIX (mid prices about a fifth of the VIX model's), so the
+             "real_" variants price at 0.5 x VIX
     costs    $3 per spread to open (two legs, about a penny each plus fees), $3 more to close early; settling at
              expiry costs nothing
 
@@ -35,6 +38,7 @@ SPLITS = {"train": (None, date(2024, 3, 13)), "check": (date(2024, 3, 13), date(
           "exam": (date(2025, 10, 7), None)}
 
 BASE = {"sd": 1.0, "width": 5, "puts": True, "calls": False, "stop_x": 0, "take": 0, "credit_factor": 1.0}
+REAL = {**BASE, "vol_mult": 0.5, "close_at": "15:40"}
 VARIANTS = [
     {"name": "put_1sd_hold", **BASE},
     {"name": "put_half_sd_hold", **BASE, "sd": 0.5},
@@ -49,6 +53,15 @@ VARIANTS = [
     {"name": "desk_put_1sd_take50_stop2x", **BASE, "stop_x": 2.0, "take": 0.5, "close_at": "15:40"},
     {"name": "desk_condor_1sd", **BASE, "calls": True, "close_at": "15:40"},
     {"name": "desk_put_1sd_stress70", **BASE, "credit_factor": 0.7, "close_at": "15:40"},
+    # priced like the real quotes (0.5 x VIX); the desk's live rule is real_desk_half_sd
+    {"name": "real_desk_half_sd", **REAL, "sd": 0.5},
+    {"name": "real_desk_half_sd_vol60", **REAL, "sd": 0.5, "vol_mult": 0.6},
+    {"name": "real_desk_half_sd_stop2x", **REAL, "sd": 0.5, "stop_x": 2.0},
+    {"name": "real_desk_half_sd_stop3x", **REAL, "sd": 0.5, "stop_x": 3.0},
+    {"name": "real_desk_half_sd_take50_stop3x", **REAL, "sd": 0.5, "take": 0.5, "stop_x": 3.0},
+    {"name": "real_desk_quarter_sd", **REAL, "sd": 0.25},
+    {"name": "real_desk_1sd", **REAL, "sd": 1.0},
+    {"name": "real_half_sd_hold_to_expiry", **BASE, "sd": 0.5, "vol_mult": 0.5},
 ]
 
 
@@ -97,6 +110,7 @@ def day_trade(spec: dict, d: date, bars: list[dict], vol: float) -> dict | None:
     years = bt.trading_years(t_in, d)
     sigma = price * vol * math.sqrt(years)
     lg = legs(spec, price, sigma)
+    vol = vol * float(spec.get("vol_mult", 1.0))  # what the options actually price at (strikes stay VIX-placed)
     f = float(spec.get("credit_factor", 1.0))
     credit = spread_value(lg, price, years, vol) * f
     n = len(lg)

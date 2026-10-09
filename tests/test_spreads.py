@@ -67,6 +67,18 @@ class SpreadTests(unittest.TestCase):
 
 
 class DeskCloseTests(unittest.TestCase):
+    def test_vol_mult_prices_lower_but_keeps_the_strikes(self):
+        bars = day(FRI, [600.0] * 390)
+        full = spreads.day_trade({**SPEC, "sd": 0.5}, FRI, bars, 0.16)
+        real = spreads.day_trade({**SPEC, "sd": 0.5, "vol_mult": 0.5}, FRI, bars, 0.16)
+        self.assertEqual(full["legs"], real["legs"])
+        self.assertLess(real["credit"], full["credit"])
+
+    def test_a_crash_still_costs_the_full_width_at_real_prices(self):
+        drop = [600.0] * 30 + [600.0 - i * 0.2 for i in range(1, 361)]  # 72 points down by the close
+        t = spreads.day_trade({**SPEC, "sd": 0.5, "vol_mult": 0.5, "close_at": "15:40"}, FRI, day(FRI, drop), 0.16)
+        self.assertLess(t["net"], -400)
+
     def test_bought_back_at_1540_pays_to_close(self):
         t = spreads.day_trade({**SPEC, "close_at": "15:40"}, FRI, day(FRI, [600.0] * 390), 0.16)
         self.assertEqual(t["why"], "close")
