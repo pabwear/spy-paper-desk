@@ -1,18 +1,18 @@
 {
   "date": "2026-10-09",
   "bias": "neutral",
-  "written_at": "2026-10-09T14:06:42-04:00",
-  "as_of": "2026-10-09T18:08:00Z",
+  "written_at": "2026-10-09T15:06:39-04:00",
+  "as_of": "2026-10-09T19:08:00Z",
   "readings": {
-    "as_of": "2026-10-09T18:08:00Z",
-    "spy_price": 778.15,
-    "spy_change_pct": 0.55,
+    "as_of": "2026-10-09T19:08:00Z",
+    "spy_price": 778.47,
+    "spy_change_pct": 0.59,
     "vix": 14.92,
     "fear_greed": 45,
     "stocktwits": {
       "SPY": {
         "score": 75,
-        "bullish_pct": 56.04
+        "bullish_pct": 56.05
       }
     },
     "reddit": {
@@ -23,15 +23,15 @@
     "news": {
       "score": 0,
       "headlines": [
-        "Telecoms still sharply lower: T -10%, VZ -9.5%, TMUS -12.9% on heavy volume",
-        "ASTS -13%, MRNA +12%, PLTR +3.5%, HIMS +7.7% lead Stocktwits trending",
-        "Gold +1.5%, TLT flat; QQQ +0.39%, IWM +0.56%",
-        "No major US data today"
+        "Telecoms still sharply lower: T -10%, VZ -9%, TMUS -12.6% on heavy volume",
+        "ASTS -12.6%, MRNA +12%, HIMS +9.9%, PLTR +4.2% (intraday record high chatter) lead Stocktwits trending",
+        "Gold +1.6%, TLT flat; QQQ +0.46%, IWM +0.63%",
+        "No major US data today; Canada unemployment 6.5% vs 6.4%"
       ]
     },
     "rumors": [
       {
-        "text": "Telecom selloff (T, VZ, TMUS) tied to SpaceX direct-to-cell ambitions; unconfirmed, same story as earlier",
+        "text": "Telecom selloff (T, VZ, TMUS) tied to SpaceX (SPCX) direct-to-cell ambitions; unconfirmed, same story as earlier",
         "source": "stocktwits",
         "tickers": [
           "T",
@@ -48,7 +48,7 @@
         "why": "If SpaceX competes as a carrier, incumbents lose pricing power and subscribers"
       },
       {
-        "text": "Friday options expiration being pinned by market makers, with a run after expiry",
+        "text": "Chatter about US business with Russia over diesel (Russian diesel imports) amid a diesel supply squeeze",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -57,11 +57,11 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.15,
-        "why": "Pin-then-run would lift SPY late in the session"
+        "credibility": 0.2,
+        "why": "Easing fuel supply stress would relieve an inflation and energy risk for the broad market"
       },
       {
-        "text": "Stocks climbing on thin volume while a diesel fuel crisis requires Defense Production Act use",
+        "text": "Expected late-day drop or bleed into the close around 3:50pm after expiration pin",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -70,8 +70,8 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.25,
-        "why": "Energy stress with weak volume could mean a fragile rally"
+        "credibility": 0.15,
+        "why": "A weekend-risk de-risking would pull SPY off its highs into the bell"
       }
     ],
     "names": {
@@ -82,23 +82,23 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Steady drift higher, VIX under 15, breadth broad; crowd bullish but split and thin volume",
+        "confidence": 0.52,
+        "reason": "Steady drift higher, VIX under 15, broad gains in QQQ and IWM; crowd bullish but split with bears calling a late drop",
         "catalyst": "Friday expiration drift into close"
       }
     ],
-    "whats_new": "SPY edged up to 778.15 (+0.55%) and VIX eased to 14.92; fear and greed is about 45. Telecom losses persist with the SpaceX link unconfirmed. The earlier Trump oil/Iran and CoreWeave chatter did not reappear; new chatter is about thin volume, diesel stress and expiration pinning.",
+    "whats_new": "SPY ticked up to 778.47 (+0.59%) with VIX flat near 14.9 and fear and greed about 45. Telecom losses persist (SpaceX link still unconfirmed) and PLTR is pushing record highs. New chatter is about Russian diesel and a late-day drop call; earlier pin and thin-volume talk faded.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending and messages; web search found nothing for today"
+      "news": "stocktwits trending and messages; web search found nothing current"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.55,
+      "value": 0.59,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -127,7 +127,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending and messages; web search found nothing for today"
+    "news": "stocktwits trending and messages; web search found nothing current"
   },
   "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
