@@ -1,18 +1,18 @@
 {
   "date": "2026-10-09",
   "bias": "neutral",
-  "written_at": "2026-10-09T10:09:46-04:00",
-  "as_of": "2026-10-09T14:12:00Z",
+  "written_at": "2026-10-09T11:07:52-04:00",
+  "as_of": "2026-10-09T15:10:00Z",
   "readings": {
-    "as_of": "2026-10-09T14:12:00Z",
-    "spy_price": 776.07,
+    "as_of": "2026-10-09T15:10:00Z",
+    "spy_price": 776.12,
     "spy_change_pct": 0.28,
     "vix": 15.15,
     "fear_greed": 38,
     "stocktwits": {
       "SPY": {
         "score": 75,
-        "bullish_pct": 55.8
+        "bullish_pct": 55.7
       }
     },
     "reddit": {
@@ -23,102 +23,67 @@
     "news": {
       "score": 0,
       "headlines": [
-        "Telecoms sharply lower: T -7.4%, VZ -6.3% on heavy volume, cause not found; ASTS -8% and SPCX flat/red mentioned by posters linking a satellite-to-phone threat",
-        "Gold +1.5%, TLT -0.3%; QQQ +0.24%, IWM +0.18%",
-        "No major US economic releases today; Canada unemployment 6.5% vs 6.4%",
-        "Posters flag DAL and PEP guidance weakness and say ~40% of S&P stocks are in bear markets"
+        "Telecoms still sharply lower (T -7.5%, VZ -7.0%) on heavy volume, cause not confirmed",
+        "ASTS -10%, JOBY -8.5%, GRRR -11.6% lead Stocktwits trending; MRNA +6%, SNAP +6.6%",
+        "Gold +1.3%, TLT -0.5%; QQQ +0.25%, IWM +0.2%",
+        "No major US data today; Canada unemployment 6.5% vs 6.4%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters link the T/VZ/TMUS selloff to satellite direct-to-phone competition (SPCX/ASTS); others call it overdone and note fiber is unaffected",
+        "text": "Posters link the T/VZ selloff to satellite direct-to-phone competition (ASTS); no confirmed cause found",
         "source": "stocktwits",
         "tickers": [
           "T",
           "VZ",
-          "TMUS",
           "ASTS"
         ],
         "names": {
           "T": "AT&T",
           "VZ": "Verizon",
-          "TMUS": "T-Mobile US",
           "ASTS": "AST SpaceMobile"
         },
         "direction": "down",
-        "credibility": 0.25,
-        "why": "If satellite carriers threaten wireless spectrum value, legacy telecoms keep falling"
-      },
-      {
-        "text": "Posters say about 40% of S&P stocks are in bear markets and companies like DAL and PEP are pulling guidance, risking an earnings-growth reset into year end",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "DAL",
-          "PEP"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "DAL": "Delta Air Lines",
-          "PEP": "PepsiCo"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Weak guidance would hit index earnings expectations and narrow breadth"
-      },
-      {
-        "text": "Fed officials Waller and Musalem reportedly signaled more rate hikes (carried from last hour, not re-confirmed)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "TLT"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
-        },
-        "direction": "down",
-        "credibility": 0.4,
-        "why": "More hikes would pressure valuations and long bonds"
-      },
-      {
-        "text": "Posters see SPY pinned near 775 with a quiet no-news Friday and chop around VWAP",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
         "credibility": 0.2,
-        "why": "Range-bound action limits downside absent headlines"
+        "why": "If satellite service threatens carriers, legacy telecoms keep falling"
+      },
+      {
+        "text": "Posters call a top in SPY/QQQ and urge puts into the long weekend, while others say crash cancelled and eye 780",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Crowded two-sided positioning around a pre-weekend fade"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF",
-      "T": "AT&T",
-      "VZ": "Verizon",
-      "TMUS": "T-Mobile US"
+      "IWM": "iShares Russell 2000 ETF"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.54,
-        "reason": "SPY has turned green (+0.28%) with QQQ and IWM up; no scheduled catalysts and a quiet Friday tape, while Fed-hike talk and weak breadth cap the edge",
-        "catalyst": "Quiet Friday drift, chip rebound holding"
+        "confidence": 0.53,
+        "reason": "Steady grind higher with QQQ and IWM green, VIX 15 and fear/greed at 38; no scheduled catalysts, but pre-weekend fade risk caps the edge",
+        "catalyst": "Quiet Friday drift"
       }
     ],
-    "whats_new": "SPY flipped from -0.17% to +0.28% (776.07) and QQQ from -0.76% to +0.24% as the chip rebound held. Telecoms are now the standout loser (T -7.4%, VZ -6.3%) on heavy volume with a possible satellite-competition angle but no confirmed cause. Fear and greed is steady near 38 and VIX is flat at 15.15; no US data is due today.",
+    "whats_new": "SPY is flat versus last hour at about 776 (+0.28%), VIX unchanged at 15.15 and fear and greed still 38. Telecom weakness persists (T -7.5%, VZ -7%) with still no confirmed cause, and satellite and eVTOL small caps (ASTS, JOBY) lead the trending losers. Stocktwits chatter is split between top calls and 780 targets ahead of the long weekend.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts and trending; web search returned nothing current"
+      "news": "stocktwits trending; web search returned nothing current"
     }
   },
   "votes": [
@@ -153,7 +118,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts and trending; web search returned nothing current"
+    "news": "stocktwits trending; web search returned nothing current"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
