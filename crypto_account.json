@@ -1,22 +1,22 @@
 {
   "account_number": "PA34EVDSIJ4G",
-  "equity": 1002.3,
+  "equity": 1003.32,
   "cash": 58.59,
   "last_equity": 1000.0,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.705726906,
-      "market_value": 471.382871,
-      "unrealized_pl": 1.86915,
-      "current_price": 82978.737
+      "market_value": 471.559196,
+      "unrealized_pl": 2.045475,
+      "current_price": 83009.776
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 472.323561,
-      "unrealized_pl": 2.781842,
-      "current_price": 2507.77
+      "market_value": 473.171674,
+      "unrealized_pl": 3.629955,
+      "current_price": 2512.273
     }
   },
   "history": [
