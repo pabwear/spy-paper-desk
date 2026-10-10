@@ -27,6 +27,40 @@ days that decide its result. No new rule tested this week: 5 live trades is far 
 without fooling ourselves. Next check: the spread's first losing day (size vs the ~$490 worst case) and the
 options book once it has 10+ trades.
 
+## Oct 10 2026: active crypto rules (Roy wants crypto to trade regularly)
+
+Five more active rules on hourly, 4-hour and daily bars, set before the run (`crypto_active.py`), 0.30% a trade:
+$1,000 compounding, 0.30% a trade. Rules set before the run. Passes = makes money in train, check AND exam, and trades 30+ times a year.
+
+## BTC/USD (2021-01-01 to 2026-10-10)
+
+| Rule | Train | Check | Exam | All | Worst drop | Trades a year |
+|---|---|---|---|---|---|---|
+| **hold** | +34.2% | +146.5% | -25.6% | +149.1% | -76.6% | 0.2 |
+| **trend200** | +17.7% | +50.9% | +7.3% | +92.9% | -36.8% | 8.5 |
+| **trend4h** | -74.2% | -22.3% | -58.3% | -91.6% | -93.4% | 162.5 |
+| **cross1h** | -81.0% | -43.7% | -54.9% | -95.1% | -97.1% | 166.7 |
+| **donchian4h** | -60.5% | -1.5% | -35.4% | -74.8% | -83.0% | 99.1 |
+| **dip_uptrend** | -48.5% | -29.3% | -27.1% | -73.5% | -74.8% | 56.5 |
+| **mom7d** | -47.0% | -8.5% | -30.1% | -65.9% | -79.0% | 68.3 |
+
+## ETH/USD (2021-01-01 to 2026-10-10)
+
+| Rule | Train | Check | Exam | All | Worst drop | Trades a year |
+|---|---|---|---|---|---|---|
+| **hold** | +192.6% | +8.4% | -1.2% | +217.3% | -79.2% | 0.2 |
+| **trend200** | +100.6% | +21.9% | +22.6% | +201.7% | -40.1% | 5.0 |
+| **trend4h** | -62.8% | -44.8% | -58.3% | -91.4% | -95.6% | 179.5 |
+| **cross1h** | -20.2% | -57.7% | -60.7% | -86.7% | -95.8% | 164.3 |
+| **donchian4h** | -65.7% | -44.9% | -12.8% | -83.4% | -90.6% | 102.9 |
+| **dip_uptrend** | +2.1% | -46.0% | -18.9% | -55.3% | -70.7% | 50.9 |
+| **mom7d** | +73.1% | -9.7% | -3.0% | +52.6% | -58.0% | 66.6 |
+
+None passed; none even made money overall on both coins. At 0.25% fees each way, a rule that trades 100–180
+times a year pays 50–100% a year in costs, more than any of these rules earned. (mom7d first showed 0 trades
+because of a bug in the test code, not the rule; fixed and re-run with the rule unchanged.) The daily 200-day
+trend rule stays the crypto desk's main rule.
+
 ## Oct 10 2026: crypto rules (before any crypto trading)
 
 Roy asked to add crypto. Five daily long-or-cash rules on BTC and ETH, set before the run (`crypto_research.py`),
