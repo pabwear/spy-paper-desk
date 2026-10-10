@@ -6,5 +6,6 @@
   "chart_SNDK.json": "8530b379dcce4ec818636f0761bf6b603c0bf44772f3126d1f2c4a1b33d38987",
   "chart_SPY.json": "25941f0e4d447cf440a44b2a246fb3ef9310777efc9bbdd8a1727a9e3cb0e889",
   "chart_TSLA.json": "c5e6376e0238ccf01ae3043e4fabc2980f857afb868e580c26e45aa724e9d93a",
-  "crypto_state.json": "1abc6b10386137deb6c9272c154bab416f249f93ea25ee531bd0ca6a451b43dd"
+  "crypto_state.json": "1c0bd376b819a967ce5f32b3458311f52e3baec01268971dc6b9686a35e78fce",
+  "crypto_charts.json": "273fe0de3ed963e74e8ec6051707316ff9945ca099539bd613c08c1c93bc6f12"
 }
