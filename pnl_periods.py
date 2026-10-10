@@ -13,10 +13,10 @@ from common import ET
 
 
 def history_from_alpaca(h) -> list[dict]:
-    """alpaca-py PortfolioHistory -> [{"date": "YYYY-MM-DD", "equity": float}] (New York dates, no gaps of None)."""
+    """alpaca-py PortfolioHistory -> [{"date": "YYYY-MM-DD", "equity": float}] (New York dates; days with no money yet are left out)."""
     out = []
     for ts, eq in zip(getattr(h, "timestamp", None) or [], getattr(h, "equity", None) or []):
-        if eq is None:
+        if eq is None or float(eq) <= 0:  # Alpaca reports 0 for the days before the account had money
             continue
         d = datetime.fromtimestamp(int(ts), tz=ET).date().isoformat()
         if out and out[-1]["date"] == d:
@@ -27,7 +27,7 @@ def history_from_alpaca(h) -> list[dict]:
 
 
 def _close_before(history: list[dict], d: date) -> float | None:
-    prior = [h for h in history if h.get("equity") is not None and h["date"] < d.isoformat()]
+    prior = [h for h in history if (h.get("equity") or 0) > 0 and h["date"] < d.isoformat()]
     return float(prior[-1]["equity"]) if prior else None
 
 

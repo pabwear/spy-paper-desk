@@ -25,6 +25,18 @@ class PeriodTests(unittest.TestCase):
         self.assertEqual((p["today"], p["week"], p["month"], p["all"]), (-2.66, -2.66, -2.66, -2.66))
         self.assertEqual(pp.periods([], None, None, 1000.0, date(2026, 10, 10)), {})
 
+    def test_days_before_the_account_had_money_are_skipped(self):
+        # Alpaca's 3-month history reports $0 for days before a new account was funded.
+        zeros = [{"date": "2026-08-14", "equity": 0.0}, {"date": "2026-09-30", "equity": 0.0},
+                 {"date": "2026-10-09", "equity": 1000.0}]
+        p = pp.periods(zeros, 996.57, 1000.0, 1000.0, date(2026, 10, 10))
+        self.assertEqual((p["today"], p["week"], p["month"], p["all"]), (-3.43, -3.43, -3.43, -3.43))
+
+        class Hist:
+            timestamp = [1791345600, 1791432000]  # Oct 7, 8 2026 00:00 ET
+            equity = [0.0, 1000.0]
+        self.assertEqual(pp.history_from_alpaca(Hist()), [{"date": "2026-10-08", "equity": 1000.0}])
+
     def test_reads_alpaca_history(self):
         class Hist:
             timestamp = [1791345600, 1791432000, 1791518400]  # Oct 7, 8, 9 2026 00:00 ET

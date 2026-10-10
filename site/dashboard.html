@@ -2425,7 +2425,7 @@ td.r, th.r { text-align: right; }
   }
   function pnlFor(a, period) {
     if (!isNum(a.equity)) return null;
-    const today = etDay(), H = (a.hist || []).filter((h) => isNum(h.equity) && h.date < today);
+    const today = etDay(), H = (a.hist || []).filter((h) => isNum(h.equity) && h.equity > 0 && h.date < today);  // 0 = before the account had money
     const closeBefore = (iso) => { const p = H.filter((h) => h.date < iso); return p.length ? +p[p.length - 1].equity : null; };
     if (period === "today") return isNum(a.last) ? a.equity - a.last : null;
     if (period === "yesterday") { if (!H.length) return null; const c1 = +H[H.length - 1].equity, c0 = H.length > 1 ? +H[H.length - 2].equity : a.start; return c1 - c0; }
