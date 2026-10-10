@@ -663,6 +663,11 @@ td.r, th.r { text-align: right; }
             <div class="books" id="books"></div>
           </div>
 
+          <div class="card" id="cryptoCard" hidden>
+            <div class="head"><h2>Crypto desk</h2><span class="chip info" id="cryptoChip">separate paper account</span></div>
+            <div id="crypto"></div>
+          </div>
+
           <div class="card" id="rumorCard">
             <div class="head"><h2>Rumor mill</h2><span class="chip info" id="rumorChip">—</span></div>
             <div class="rmstocks" id="rumorStocks" role="group" aria-label="Stocks the rumors are about; pick one to filter"></div>
@@ -2291,6 +2296,38 @@ td.r, th.r { text-align: right; }
       { kind: "line", name: "Buy & hold", color: col.ink3, data: bh, refs: [{ v: 0 }] },
       { kind: "line", name: "Idea", color: col.tf[1], data: series(cumOf(r.name)) }], { readout: `rvI_${r.name}`, fmt: usd0, timeFmt: monthName, empty: wait }));
   }
+  // ---------- the crypto desk: its own Alpaca paper account (crypto_state.json, written by crypto.yml daily)
+  const CRYPTO = { data: null, at: 0, busy: false };
+  async function loadCrypto() {
+    if (!mcp || CRYPTO.busy || Date.now() - CRYPTO.at < 120000) return;
+    CRYPTO.busy = true; CRYPTO.at = Date.now();
+    try {
+      const r = await mcp.callTool(GH, "get_file_contents", { ...REPO, path: "crypto_state.json", ref: "refs/heads/desk-state" }, { cache: { refresh: true } });
+      const v = extractJson(r, "account_number");
+      if (v) { CRYPTO.data = v; renderCrypto(); }
+    } catch { /* not there yet */ }
+    CRYPTO.busy = false;
+  }
+  function renderCrypto() {
+    const c = CRYPTO.data;
+    $("cryptoCard").hidden = !c;
+    if (!c) return;
+    const start = c.start_usd || 1000, chg = isNum(c.equity) ? c.equity - start : null, day = isNum(c.equity) && isNum(c.last_equity) ? c.equity - c.last_equity : null;
+    $("cryptoChip").textContent = `separate paper account · ${c.account_number}`;
+    const coins = Object.entries(c.signals || {}).map(([sym, g]) => {
+      const p = (c.positions || {})[sym.replace("/", "")];
+      return `<div class="book"><div class="bh"><h3>${esc(sym.replace("/USD", ""))}</h3>${g.hold ? `<span class="chip good">Hold · above 200-day</span>` : `<span class="chip">Cash · below 200-day</span>`}</div>
+        ${p ? `<div class="pnl ${cls(p.unrealized_pl)}">${smoney(p.unrealized_pl)}</div><div class="hold"><b>Holding</b> ${(+p.qty).toFixed(6)} · worth ${money(p.market_value)} · bought at ${money(p.avg_entry_price)}</div>` : `<div class="hold muted">Not held. Cash until it closes above its 200-day average.</div>`}
+        ${kv([["Last daily close", money(g.close)], ["200-day average", isNum(g.average) ? money(g.average) : "—"], ["Gap", isNum(g.average) ? `${((g.close / g.average - 1) * 100).toFixed(1)}%` : "—"]])}
+      </div>`;
+    }).join("");
+    $("crypto").innerHTML = `<div class="stats"><div class="stat"><div class="label">Crypto account</div><div class="v big">${money(c.equity)}</div>
+        <div class="d"><span class="${cls(chg)}">${arrow(chg)}${smoney(chg)}</span> <span class="muted">since the ${money(start)} start</span>${isNum(day) ? ` · <span class="${cls(day)}">${smoney(day)}</span> <span class="muted">today</span>` : ""}</div></div>
+        <div class="stat"><div class="label">Cash</div><div class="v">${money(c.cash)}</div></div></div>
+      <div class="books">${coins}</div>
+      <p class="muted" style="font-size:12px;margin:10px 0 0">Rule: hold each coin while its daily close is above its 200-day average, cash below. Checked once a day just after 8 PM New York time. Last check ${esc(when(c.updated_at))}. Paper money, its own account, separate from the SPY desk.</p>`;
+  }
+  if (typeof setInterval === "function") setInterval(loadCrypto, 120000);
   function renderBooks(s) {
     const bs = s.books || [];
     $("booksCard").hidden = !bs.length;
@@ -2469,6 +2506,7 @@ td.r, th.r { text-align: right; }
 
     $("posCard").hidden = !ps.length;
     renderBooks(s);
+    renderCrypto(); loadCrypto();
     renderChart(s);
     renderPlans(s);
     if (orb) orb.recolor();
