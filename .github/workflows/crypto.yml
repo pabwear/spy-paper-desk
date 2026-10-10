@@ -1,0 +1,63 @@
+name: Crypto desk (daily)
+
+# The crypto desk on its own Alpaca PAPER account (crypto_config.json). Once a day, just after the UTC daily
+# close (about 8 PM New York time), it checks the 200-day trend rule for BTC and ETH and buys, sells or does
+# nothing. Keys: ALPACA_CRYPTO_API_KEY / ALPACA_CRYPTO_SECRET_KEY, never the SPY desk's.
+on:
+  schedule:
+    - cron: "7 0 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "run = check and trade; status = check only"
+        default: run
+        type: choice
+        options: ["run", "status"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: desk-state
+  cancel-in-progress: false
+
+jobs:
+  crypto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: desk-state
+          path: .state
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install --quiet -r requirements.txt
+      - id: restore
+        run: python cloud_state.py restore .state
+      - name: Crypto desk
+        env:
+          ALPACA_CRYPTO_API_KEY: ${{ secrets.ALPACA_CRYPTO_API_KEY }}
+          ALPACA_CRYPTO_SECRET_KEY: ${{ secrets.ALPACA_CRYPTO_SECRET_KEY }}
+        run: python crypto_desk.py "${{ inputs.mode || 'run' }}"
+      - name: Copy the numbers to trade.riosventures.org
+        if: always() && steps.restore.outcome == 'success'
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: python site_publish.py
+      - name: Save state to the desk-state branch
+        if: always() && steps.restore.outcome == 'success'
+        run: |
+          python cloud_state.py save .state
+          cd .state
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "No state change."; exit 0; fi
+          git commit -q -m "crypto: $(date -u '+%F %H:%M') UTC"
+          git push -q origin HEAD:desk-state

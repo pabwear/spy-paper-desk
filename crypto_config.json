@@ -1,0 +1,11 @@
+{
+  "account_name": "CLI - Crypto (paper)",
+  "account_number": "PA34EVDSIJ4G",
+  "live_unlocked": false,
+  "enabled": true,
+  "rule": "trend200",
+  "symbols": ["BTC/USD", "ETH/USD"],
+  "per_symbol_usd": 480,
+  "start_usd": 1000,
+  "note": "Separate Alpaca paper account for crypto. trend200: hold while above the 200-day average, cash below (crypto_research.py). $480 per coin leaves room for fees."
+}
