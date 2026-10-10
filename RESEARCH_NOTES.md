@@ -46,6 +46,12 @@ touches BTC or ETH, so the two books can't sell each other's coins.
   It can be switched off with "learning": {"enabled": false} in crypto_config.json.
 - One expectation check on past SOL prices (2021 to now), run once after this was written, so
   the result can be compared with what it does live. It does not change the rule.
+- Expectation check (`python3 crypto_learning.py`, run once, Oct 10): SOL/USD 2021-01-01 to 2026-10-10,
+  $45 a trade, 0.30% each side: 180 trades (31 a year), 53 won (29%), 58 stops, total +$441.76.
+  By year: 2021 +$171, 2022 −$39, 2023 +$19, 2024 +$304, 2025 −$19, 2026 +$5. Almost all of it is two big
+  SOL rallies (best trade +$290); most trades lose a little. Worst trade −$11.18: a price jump past the stop
+  between hourly bars, so the stop is not a hard floor. Read: small, frequent losses, rare big wins. Not a pass
+  (one coin, no train/check/exam split); it stays a learning book.
 
 ## Oct 10 2026: active crypto rules (Roy wants crypto to trade regularly)
 

@@ -4,8 +4,19 @@
   "live_unlocked": false,
   "enabled": true,
   "rule": "trend200",
-  "symbols": ["BTC/USD", "ETH/USD"],
+  "symbols": [
+    "BTC/USD",
+    "ETH/USD"
+  ],
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "note": "Separate Alpaca paper account for crypto. trend200: hold while above the 200-day average, cash below (crypto_research.py). $480 per coin leaves room for fees."
+  "note": "Separate Alpaca paper account for crypto. trend200: hold while above the 200-day average, cash below (crypto_research.py). $480 per coin leaves room for fees.",
+  "learning": {
+    "enabled": true,
+    "symbol": "SOL/USD",
+    "rule": "mom7d",
+    "usd": 45,
+    "stop_pct": 6,
+    "note": "Learning book (Roy said yes Oct 10 2026): SOL only, hold while the daily close is above the close 7 days earlier, $45 a buy, sell at -6% from the buy price. Expected to lose a little; here to learn. Rules in RESEARCH_NOTES.md."
+  }
 }

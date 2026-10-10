@@ -4,6 +4,9 @@ Rule (crypto_research.py, the only one that passed train, check and exam on both
 UTC daily close, hold each coin while its close is above its 200-day average and hold cash when it is below.
 Long or cash only (Alpaca does not short crypto), no leverage, fixed dollars per coin.
 
+A small LEARNING book (crypto_learning.py) trades SOL/USD in the same account, $45 at a time with a 6% stop.
+It never touches BTC or ETH, so the two books can't sell each other's coins. It is expected to lose a little.
+
 Safety: paper URL only, the account number must match crypto_config.json, live_unlocked must be false, only the
 configured coins, never more than per_symbol_usd per buy or more than the cash there is. Keys come from
 ALPACA_CRYPTO_API_KEY / ALPACA_CRYPTO_SECRET_KEY (GitHub secrets); they are never the SPY desk's keys.
@@ -19,6 +22,7 @@ import os
 import sys
 from datetime import datetime, timedelta, timezone
 
+import crypto_learning as learning
 import crypto_research as research
 import pnl_periods
 from common import ET, PAPER_HOST, load_json, path, save_json
@@ -127,11 +131,18 @@ class CryptoBroker:
         from alpaca.trading.enums import OrderSide, TimeInForce
         from alpaca.trading.requests import MarketOrderRequest
 
-        if order["symbol"] not in self.cfg["symbols"]:
-            raise Refused(f"{order['symbol']} is not a configured coin.")
+        ls = learning.settings(self.cfg)
+        if order.get("book") == "learning":
+            if order["symbol"] != ls["symbol"] or order["symbol"] in self.cfg["symbols"]:
+                raise Refused(f"{order['symbol']} is not the learning book's coin.")
+            cap = float(ls["usd"])
+        else:
+            if order["symbol"] not in self.cfg["symbols"]:
+                raise Refused(f"{order['symbol']} is not a configured coin.")
+            cap = float(self.cfg["per_symbol_usd"])
         if order["side"] == "buy":
-            if order["notional"] > float(self.cfg["per_symbol_usd"]):
-                raise Refused("Buy larger than per_symbol_usd.")
+            if order["notional"] > cap:
+                raise Refused("Buy larger than this book's limit.")
             req = MarketOrderRequest(symbol=order["symbol"], notional=order["notional"], side=OrderSide.BUY,
                                      time_in_force=TimeInForce.GTC, client_order_id=coid)
         else:
@@ -157,7 +168,7 @@ def daily_closes(symbols: list[str], now: datetime) -> dict[str, list[float]]:
     return out
 
 
-def write_state(now: datetime, cfg: dict, snap: dict, sigs: dict, orders: list[dict]) -> dict:
+def write_state(now: datetime, cfg: dict, snap: dict, sigs: dict, orders: list[dict], learn: dict | None = None) -> dict:
     prev = load_json(STATE, {}) or {}
     hist = [h for h in prev.get("history", []) if h.get("date") != now.date().isoformat()]
     hist.append({"date": now.date().isoformat(), "equity": snap.get("equity")})
@@ -168,7 +179,8 @@ def write_state(now: datetime, cfg: dict, snap: dict, sigs: dict, orders: list[d
              "positions": snap.get("positions"), "signals": sigs, "last_orders": orders,
              "orders": list(reversed(trades)), "history": hist[-400:], "equity_history": snap.get("history") or [],
              "pnl_periods": pnl_periods.periods(snap.get("history") or [], snap.get("equity"), snap.get("last_equity"),
-                                                float(cfg.get("start_usd", 1000)), now.astimezone(ET).date())}
+                                                float(cfg.get("start_usd", 1000)), now.astimezone(ET).date()),
+             "learning": learn}
     save_json(STATE, state)
     save_json(ACCOUNT, snap)
     return state
@@ -180,27 +192,45 @@ def run(now: datetime | None = None, broker=None, closes=None, trade: bool = Tru
     if not cfg.get("enabled", True):
         trade = False
     broker = broker or CryptoBroker(cfg)
-    closes = closes or daily_closes(cfg["symbols"], now)
-    sigs = {s: signal(c, cfg["rule"]) for s, c in closes.items()}
+    ls = learning.settings(cfg)
+    lsym = ls["symbol"] if ls["enabled"] and ls["symbol"] not in cfg["symbols"] else None
+    closes = closes or daily_closes(cfg["symbols"] + ([lsym] if lsym else []), now)
+    sigs = {s: signal(c, cfg["rule"]) for s, c in closes.items() if s in cfg["symbols"]}
     snap = broker.snapshot()
     orders = decide(sigs, snap["positions"], snap["cash"], cfg) if trade else []
     log("check", now, signals=sigs, equity=snap["equity"], cash=snap["cash"], positions=list(snap["positions"]))
     sent = []
     for o in orders:
         coid = f"crypto-{now:%Y%m%d}-{pos_key(o['symbol']).lower()}-{o['side']}"
-        try:
-            r = broker.submit(o, coid)
-            sent.append({**o, **r})
-            log("order", now, **o, **r, client_order_id=coid)
-            print(f"Roy: crypto {o['side']} {o['symbol']} ({o['why']}) — {r['status']}.")
-        except Exception as e:  # noqa: BLE001 - a failed order must be loud, and the others still go
-            log("order_failed", now, **o, error=f"{type(e).__name__}: {e}"[:300])
-            print(f"Roy: crypto {o['side']} {o['symbol']} FAILED ({type(e).__name__}).")
+        _send(broker, o, coid, now, sent)
     if sent:
         snap = broker.snapshot()
+    learn = None
+    if lsym:
+        lc, lpos = closes.get(lsym) or [], snap["positions"].get(pos_key(lsym))
+        stopped = learning.stopped_today(read_journal(), lsym, now.astimezone(timezone.utc).date())
+        lorders = learning.decide(lc, lpos, snap["cash"], ls, stopped) if trade and lc else []
+        for o in lorders:
+            _send(broker, o, f"crypto-learn-{now:%Y%m%d}-{o['side']}", now, sent)
+        if lorders:
+            snap = broker.snapshot()
+        learn = learning.summary(read_journal(), snap["positions"].get(pos_key(lsym)), lc, ls)
     for sym, s in sigs.items():
         print(f"{sym}: close {s['close']:,.2f} vs 200-day {s['average'] or 0:,.2f} → {'HOLD' if s['hold'] else 'CASH'}")
-    return write_state(now, cfg, snap, sigs, sent)
+    if learn:
+        print(f"Learning {lsym}: {'HOLD' if learn['hold'] else 'CASH'} (mom7d), about ${learn['total_pnl']:+,.2f} so far")
+    return write_state(now, cfg, snap, sigs, sent, learn)
+
+
+def _send(broker, o: dict, coid: str, now: datetime, sent: list) -> None:
+    try:
+        r = broker.submit(o, coid)
+        sent.append({**o, **r})
+        log("order", now, **o, **r, client_order_id=coid)
+        print(f"Roy: crypto {o['side']} {o['symbol']} ({o['why']}) — {r['status']}.")
+    except Exception as e:  # noqa: BLE001 - a failed order must be loud, and the others still go
+        log("order_failed", now, **o, error=f"{type(e).__name__}: {e}"[:300])
+        print(f"Roy: crypto {o['side']} {o['symbol']} FAILED ({type(e).__name__}).")
 
 
 if __name__ == "__main__":
