@@ -45,6 +45,10 @@ jobs:
           ALPACA_CRYPTO_API_KEY: ${{ secrets.ALPACA_CRYPTO_API_KEY }}
           ALPACA_CRYPTO_SECRET_KEY: ${{ secrets.ALPACA_CRYPTO_SECRET_KEY }}
         run: python crypto_desk.py "${{ inputs.mode || 'run' }}"
+      - name: Chart studies (watch only, free Alpaca crypto bars)
+        if: always() && steps.restore.outcome == 'success'
+        continue-on-error: true
+        run: python crypto_charts.py
       - name: Copy the numbers to trade.riosventures.org
         if: always() && steps.restore.outcome == 'success'
         continue-on-error: true

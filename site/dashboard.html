@@ -542,6 +542,10 @@ td.r, th.r { text-align: right; }
 .askout td.r, .askout th.r { text-align: right; }
 .cchart { height: 340px; position: relative; }
 .cseg { display: flex; flex-wrap: wrap; gap: 6px; }
+#clayers .chip { cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--ink-3); }
+#clayers .chip[aria-pressed="true"] { color: var(--ink); border-color: var(--line-2); background: var(--panel-2); }
+#clayers .chip i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
+.cchart canvas.cov { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 3; }
 @media (max-width: 560px) {
   .pnlstrip { gap: 8px; }
   .acct { padding: 10px; gap: 8px; }
@@ -757,13 +761,18 @@ td.r, th.r { text-align: right; }
         <div class="head"><h2>Crypto desk</h2><span class="chip info" id="cryptoChip">separate paper account</span></div>
         <div id="crypto"></div>
       </div>
+      <div class="card" id="learnCard" hidden>
+        <div class="head"><h2>Learning book · SOL</h2><span class="chip warn">learning · expected to lose a little</span></div>
+        <div id="learnBook"></div>
+      </div>
       <div class="card" id="cchartCard">
         <div class="head"><h2 id="cchartTitle">Bitcoin</h2><span class="label" id="cchartSub">live prices, Yahoo Finance</span></div>
         <div class="cseg" style="margin-bottom:10px">
-          <span class="cseg" id="ccoin"><button type="button" class="chip info" data-coin="BTC-USD">BTC</button><button type="button" class="chip" data-coin="ETH-USD">ETH</button></span>
+          <span class="cseg" id="ccoin"><button type="button" class="chip info" data-coin="BTC-USD">BTC</button><button type="button" class="chip" data-coin="ETH-USD">ETH</button><button type="button" class="chip" data-coin="SOL-USD">SOL</button></span>
           <span class="grow"></span>
           <span class="cseg" id="cspan"><button type="button" class="chip" data-span="1d">1D</button><button type="button" class="chip" data-span="5d">1W</button><button type="button" class="chip" data-span="1mo">1M</button><button type="button" class="chip info" data-span="1y">1Y</button></span>
         </div>
+        <div class="cseg" id="clayers" role="group" aria-label="Studies on the chart" style="margin-bottom:10px"></div>
         <div class="cchart" id="cchart"></div>
         <p class="muted" id="cchartNote" style="font-size:12px;margin:8px 0 0"></p>
       </div>
@@ -2390,6 +2399,7 @@ td.r, th.r { text-align: right; }
     $("cryptoCard").hidden = !c;
     if (!c) return;
     renderCryptoTrades();
+    renderLearning(c.learning);
     const start = c.start_usd || 1000, chg = isNum(c.equity) ? c.equity - start : null, day = isNum(c.equity) && isNum(c.last_equity) ? c.equity - c.last_equity : null;
     $("cryptoChip").textContent = `separate paper account · ${c.account_number}`;
     const coins = Object.entries(c.signals || {}).map(([sym, g]) => {
@@ -2403,7 +2413,7 @@ td.r, th.r { text-align: right; }
         <div class="d"><span class="${cls(chg)}">${arrow(chg)}${smoney(chg)}</span> <span class="muted">since the ${money(start)} start</span>${isNum(day) ? ` · <span class="${cls(day)}">${smoney(day)}</span> <span class="muted">today</span>` : ""}</div></div>
         <div class="stat"><div class="label">Cash</div><div class="v">${money(c.cash)}</div></div></div>
       <div class="books">${coins}</div>
-      <p class="muted" style="font-size:12px;margin:10px 0 0">Rule: hold each coin while its daily close is above its 200-day average, cash below. Checked once a day just after 8 PM New York time. Last check ${esc(when(c.updated_at))}. Paper money, its own account, separate from the SPY desk.</p>`;
+      <p class="muted" style="font-size:12px;margin:10px 0 0">Rule: hold each coin while its daily close is above its 200-day average, cash below. Checked every hour; the call can change only once a day, just after 8 PM New York time. Last check ${esc(when(c.updated_at))}. Paper money, its own account, separate from the SPY desk.</p>`;
   }
   if (typeof setInterval === "function") setInterval(loadCrypto, 120000);
   // ---------- profit by account: today / yesterday / this week / this month / since the start
@@ -2499,7 +2509,7 @@ td.r, th.r { text-align: right; }
       });
       return Object.values(g).sort((a, b) => String(b.when).localeCompare(String(a.when)));
     }
-    return ((CRYPTO.data || {}).orders || []).filter((o) => inside(o.ts)).map((o) => ({ when: o.ts, what: `${o.side === "buy" ? "Bought" : "Sold"} ${String(o.symbol).replace("/USD", "")}`, book: "crypto", pnl: null, amount: o.notional }));
+    return ((CRYPTO.data || {}).orders || []).filter((o) => inside(o.ts)).map((o) => ({ when: o.ts, what: ctrade(o), book: "crypto", pnl: isNum(o.est_pnl) ? o.est_pnl : null, amount: o.notional }));
   }
   function answerAsk(period, accounts) {
     const rows = accounts.map((id) => { const a = acctData(id); return { a, v: pnlFor(a, period) }; });
@@ -2517,11 +2527,78 @@ td.r, th.r { text-align: right; }
   $("askForm").addEventListener("submit", (e) => { e.preventDefault(); loadCrypto(); const q = parseAsk($("askQ").value); answerAsk(q.period, q.accounts); });
 
   // ---------- the crypto dashboard's chart: Yahoo's BTC-USD / ETH-USD bars through the site, 200-day average on 1Y
-  const CC = { coin: store.get("kuraCoin") || "BTC-USD", span: store.get("kuraCoinSpan") || "1y", chart: null, key: "", busy: false };
+  const CC = { coin: store.get("kuraCoin") || "BTC-USD", span: store.get("kuraCoinSpan") || "1y", chart: null, key: "", busy: false, st: null, stAt: 0 };
+  // the crypto chart's studies: the same Mxwll read as the SPY chart (crypto_charts.py, every hour) plus volume, SMAs and VWAP
+  const CLAYERS = [["vol", "Volume", "--ink-3"], ["sma", "SMA 9 / 20", "--sma-9"], ["vwap", "VWAP", "--ink-2"], ["aoi", "Areas of Interest", "--zone-red"],
+    ["ob", "Order blocks", "--ob-low"], ["fvg", "Gaps (FVG)", "--fvg"], ["struct", "BoS / CHoCH", "--mx-bull"], ["swings", "Swing labels", "--mx-bear"], ["fibs", "Fibs", "--fib-3"]];
+  const CL = (() => { let v = null; try { v = JSON.parse(store.get("kuraCoinLayers") || "null"); } catch (e) { v = null; } return v || { vol: true, sma: true, vwap: true, aoi: true, ob: true, fvg: true, struct: true, swings: true, fibs: false }; })();
+  const CSTUDY_TF = { "1d": "1h", "5d": "1h", "1mo": "4h", "1y": "1D" };
+  const CSTUDY_NAME = { "1h": "1-hour", "4h": "4-hour", "1D": "daily" };
+  function renderCLayers() {
+    $("clayers").innerHTML = CLAYERS.map(([k, n, c]) => `<button type="button" class="chip" data-cl="${k}" aria-pressed="${!!CL[k]}"><i style="background:${css(c)}"></i>${n}</button>`).join("");
+  }
+  async function cryptoStudies() {
+    if (CC.st && Date.now() - CC.stAt < 300000) return CC.st;
+    try { const r = await fetch("/data/crypto_charts.json", { cache: "no-store", credentials: "same-origin" }); if (r.ok) { CC.st = await r.json(); CC.stAt = Date.now(); } } catch (e) { /* the candles still draw */ }
+    return CC.st;
+  }
+  // draw the Mxwll read over the candles: boxes and lines from the moment they start to the right edge
+  function drawCStudies() {
+    const D = CC.draw; if (!D || !CC.chart) return;
+    const { cv, raw, cs, st } = D, ts = CC.chart.timeScale(), box = $("cchart");
+    const pw = ts.width(), ph = Math.max(0, box.clientHeight - ts.height()), dpr = window.devicePixelRatio || 1;
+    cv.width = Math.round(pw * dpr); cv.height = Math.round(ph * dpr); cv.style.width = pw + "px"; cv.style.height = ph + "px";
+    const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, pw, ph);
+    if (!st) return;
+    const col = chartColors(), font = (w, z) => `${w} ${z}px ${col.font}`;
+    const say = (t, x, yy, color, f, align, base) => { g.font = f; g.textAlign = align; g.textBaseline = base; g.lineJoin = "round"; g.lineWidth = 3; g.strokeStyle = col.panel; g.strokeText(t, x, yy); g.fillStyle = color; g.fillText(t, x, yy); };
+    const sec = (iso) => Date.parse(iso) / 1000, t0 = raw[0], tN = raw[raw.length - 1];
+    const placed = [];
+    const idx = (t) => { let lo = 0, hi = raw.length; while (lo < hi) { const m = (lo + hi) >> 1; if (raw[m] <= t) lo = m + 1; else hi = m; } return lo - 1; };
+    const xAt = (iso) => { const t = sec(iso); if (!(t >= t0)) return 0; const x = ts.logicalToCoordinate(idx(t)); return x == null ? null : x; };
+    const inData = (iso) => sec(iso) >= t0 && sec(iso) <= tN + 86400;
+    const y = (p) => cs.priceToCoordinate(+p);
+    const band = (lo, hi, x0, color, a, label, stroke) => {
+      const y1 = y(hi), y2 = y(lo); if (y1 == null || y2 == null || y2 < 0 || y1 > ph || x0 == null || x0 >= pw) return;
+      g.fillStyle = rgba(color, a); g.fillRect(x0, y1, pw - x0, Math.max(2, y2 - y1));
+      if (stroke) { g.strokeStyle = rgba(color, stroke); g.lineWidth = 1; g.strokeRect(x0 + 0.5, y1 + 0.5, pw - x0 - 1, Math.max(1, y2 - y1 - 1)); }
+      if (!label || pw - x0 <= 120) return;
+      const lx = Math.max(x0, 0) + (pw - Math.max(x0, 0)) / 2, ly = y2 - y1 >= 13 ? (y1 + y2) / 2 : y1 - 8;
+      if (placed.some(([px, py]) => Math.abs(px - lx) < 70 && Math.abs(py - ly) < 12)) return;  // no stacked labels
+      placed.push([lx, ly]); say(label, lx, ly, rgba(color, 0.9), font(600, 10.5), "center", "middle");
+    };
+    if (CL.fvg && st.fvgs) (st.fvgs.up || []).concat(st.fvgs.down || []).forEach((gp) => band(gp.low, gp.high, xAt(gp.t), col.fvg, 0.18, "FVG"));
+    if (CL.ob && st.order_blocks) {
+      (st.order_blocks.high || []).forEach((b) => band(b.low, b.high, xAt(b.since), css("--ob-high"), 0.08, "Resistance", 0.45));
+      (st.order_blocks.low || []).forEach((b) => band(b.low, b.high, xAt(b.since), css("--ob-low"), 0.08, "Support", 0.45));
+    }
+    if (CL.aoi && st.aoi) [["red", col.zr], ["green", col.zg]].forEach(([k, c]) => { const a = st.aoi[k]; if (a && a.visible) band(a.low, a.high, st.from ? xAt(st.from) : 0, c, 0.13, "Area of Interest"); });
+    if (CL.fibs && st.fibs && st.fibs.levels) {
+      const fb = st.fibs, xa = xAt(fb.from.t), xb = xAt(fb.to.t), ya = y(fb.from.price), yb = y(fb.to.price);
+      if (xb != null && yb != null && inData(fb.to.t)) {
+        if (xa != null && ya != null && inData(fb.from.t)) { g.strokeStyle = rgba(fb.dir === "down" ? col.bear : col.bull, 0.9); g.lineWidth = 2; g.setLineDash([7, 5]); g.beginPath(); g.moveTo(xa, ya); g.lineTo(xb, yb); g.stroke(); g.setLineDash([]); }
+        fb.levels.forEach((lv, i) => { const yy = y(lv.price); if (yy == null || yy < 0 || yy > ph) return; g.strokeStyle = rgba(col.fib[i], 0.55); g.lineWidth = 1; g.beginPath(); g.moveTo(Math.max(0, xb), yy); g.lineTo(pw, yy); g.stroke(); say(String(lv.ratio), pw - 4, yy - 2, col.fib[i], font(600, 10), "right", "bottom"); });
+      }
+    }
+    if (CL.struct) [["external_events", 1.3, [6, 4], ""], ["internal_events", 1, [3, 3], "I-"]].forEach(([k, lw, dash, pre]) => (st[k] || []).forEach((ev) => {
+      if (!inData(ev.t)) return;
+      const xa = ev.from_t ? xAt(ev.from_t) : 0, xb = xAt(ev.t), yy = y(ev.level); if (xa == null || xb == null || yy == null || yy < 0 || yy > ph || xb < 0) return;
+      const color = ev.dir === "bull" ? col.bull : col.bear;
+      g.strokeStyle = rgba(color, pre ? 0.7 : 0.9); g.lineWidth = lw; g.setLineDash(dash); g.beginPath(); g.moveTo(xa, yy); g.lineTo(xb, yy); g.stroke(); g.setLineDash([]);
+      say(pre + ev.kind, (xa + xb) / 2, ev.dir === "bull" ? yy - 3 : yy + 3, color, font(pre ? 600 : 700, pre ? 9.5 : 10.5), "center", ev.dir === "bull" ? "bottom" : "top");
+    }));
+    if (CL.swings) (st.swing_points || []).forEach((sp) => {
+      if (!inData(sp.t)) return;
+      const hi = sp.label === "HH" || sp.label === "LH", x = xAt(sp.t), yy = y(sp.price); if (x == null || yy == null || x < -20 || x > pw + 20) return;
+      say(sp.label, x, hi ? yy - 5 : yy + 5, hi ? col.bear : col.bull, font(700, 11), "center", hi ? "bottom" : "top");
+    });
+  }
+  function kickCStudies() { if (CC.raf) return; CC.raf = requestAnimationFrame(() => { CC.raf = 0; drawCStudies(); }); }
   const etOffset = (sec) => { const d = new Date(sec * 1000), u = new Date(d.toLocaleString("en-US", { timeZone: "UTC" })), n = new Date(d.toLocaleString("en-US", { timeZone: "America/New_York" })); return (n - u) / 1000; };
   async function cryptoChart(force) {
     const box = $("cchart"); if (!box || view !== "crypto") return;
-    $("cchartTitle").textContent = CC.coin === "BTC-USD" ? "Bitcoin" : "Ethereum";
+    $("cchartTitle").textContent = { "BTC-USD": "Bitcoin", "ETH-USD": "Ethereum", "SOL-USD": "Solana" }[CC.coin] || CC.coin;
+    if (!$("clayers").children.length) renderCLayers();
     document.querySelectorAll("#ccoin [data-coin]").forEach((b) => b.classList.toggle("info", b.dataset.coin === CC.coin));
     document.querySelectorAll("#cspan [data-span]").forEach((b) => b.classList.toggle("info", b.dataset.span === CC.span));
     if (!SITE_MODE) { box.innerHTML = `<div class="empty">Live crypto charts are on trade.riosventures.org.</div>`; return; }
@@ -2529,12 +2606,14 @@ td.r, th.r { text-align: right; }
     const key = CC.coin + CC.span; if (!force && CC.key === key && Date.now() - (CC.at || 0) < 60000) return;
     CC.busy = true;
     try {
-      const r = await fetch(`/live/${CC.coin}?r=${CC.span}`, { cache: "no-store", credentials: "same-origin" });
+      const [r, SD] = await Promise.all([fetch(`/live/${CC.coin}?r=${CC.span}`, { cache: "no-store", credentials: "same-origin" }), cryptoStudies()]);
       if (r.status === 401) { location.href = "/login"; return; }
       const v = r.ok ? await r.json() : null;
       if (!v || !v.bars || !v.bars.length) throw new Error((v && v.error) || "no data");
       const daily = CC.span === "1y";
-      const bars = v.bars.filter((b) => isNum(b[6])).map((b) => ({ time: daily ? b[0].slice(0, 10) : b[6] + etOffset(b[6]), open: b[1], high: b[2], low: b[3], close: b[4] }));
+      const vb = v.bars.filter((b) => isNum(b[6]));
+      const bars = vb.map((b) => ({ time: daily ? b[0].slice(0, 10) : b[6] + etOffset(b[6]), open: b[1], high: b[2], low: b[3], close: b[4] }));
+      const raw = vb.map((b) => b[6]), col = chartColors();
       if (CC.chart) { CC.chart.remove(); CC.chart = null; }
       box.innerHTML = "";
       const dark = isDark();
@@ -2542,6 +2621,27 @@ td.r, th.r { text-align: right; }
         grid: { vertLines: { color: css("--line") }, horzLines: { color: css("--line") } }, rightPriceScale: { borderVisible: false }, timeScale: { borderVisible: false, timeVisible: !daily } });
       const cs = CC.chart.addCandlestickSeries({ upColor: css("--good"), downColor: css("--bad"), wickUpColor: css("--good"), wickDownColor: css("--bad"), borderVisible: false });
       cs.setData(bars);
+      if (CL.vol) {
+        const vs = CC.chart.addHistogramSeries({ priceScaleId: "vol", priceFormat: { type: "volume" }, lastValueVisible: false, priceLineVisible: false });
+        CC.chart.priceScale("vol").applyOptions({ scaleMargins: { top: 0.84, bottom: 0 } });
+        vs.setData(vb.map((b, i) => ({ time: bars[i].time, value: +b[5] || 0, color: b[4] >= b[1] ? rgba(col.cup, 0.32) : rgba(col.cdn, 0.32) })));
+        cs.priceScale().applyOptions({ scaleMargins: { top: 0.08, bottom: 0.2 } });
+      }
+      if (CL.sma) [[9, col.sma9], [20, col.sma20]].forEach(([n, color]) => {
+        let sum = 0; const pts = bars.map((b, i) => { sum += b.close; if (i >= n) sum -= bars[i - n].close; return i >= n - 1 ? { time: b.time, value: sum / n } : null; }).filter(Boolean);
+        CC.chart.addLineSeries({ color, lineWidth: 1.5, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false, title: `SMA ${n}` }).setData(pts);
+      });
+      if (CL.vwap && !daily) {  // resets each UTC day (8 PM New York), crypto's daily candle
+        let pv = 0, vv = 0, day = ""; const pts = [];
+        vb.forEach((b, i) => { const d = new Date(b[6] * 1000).toISOString().slice(0, 10); if (d !== day) { pv = 0; vv = 0; day = d; } const vol = +b[5] || 0; pv += (b[2] + b[3] + b[4]) / 3 * vol; vv += vol; pts.push(vv ? { time: bars[i].time, value: pv / vv } : { time: bars[i].time }); });
+        CC.chart.addLineSeries({ color: col.ink2, lineWidth: 1, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false, title: "VWAP" }).setData(pts);
+      }
+      const stf = CSTUDY_TF[CC.span], st0 = SD && SD.coins && SD.coins[CC.coin] ? SD.coins[CC.coin][stf] : null, st = st0 && st0.aoi ? st0 : null;
+      const cv = document.createElement("canvas"); cv.className = "cov"; box.appendChild(cv);
+      CC.draw = { cv, raw, cs, st };
+      CC.chart.timeScale().subscribeVisibleLogicalRangeChange(kickCStudies);
+      CC.chart.timeScale().subscribeSizeChange(kickCStudies);
+      CC.chart.subscribeCrosshairMove(kickCStudies);
       let note = `${bars.length} ${daily ? "daily" : CC.span === "1d" ? "1-minute" : CC.span === "5d" ? "15-minute" : "hourly"} bars · last ${money(bars[bars.length - 1].close)}`;
       if (daily && bars.length >= 200) {
         const ma = bars.map((b, i) => i >= 199 ? { time: b.time, value: bars.slice(i - 199, i + 1).reduce((s2, x) => s2 + x.close, 0) / 200 } : null).filter(Boolean);
@@ -2551,17 +2651,40 @@ td.r, th.r { text-align: right; }
         note += ` · 200-day average ${money(avg)} (${last > avg ? "above: the desk holds" : "below: the desk is in cash"})`;
       }
       CC.chart.timeScale().fitContent();
-      $("cchartNote").textContent = note + " · Yahoo Finance prices; the desk trades on Alpaca's.";
+      kickCStudies();
+      const studyNote = st ? ` · Mxwll studies on ${CSTUDY_NAME[stf]} candles (Alpaca), updated ${when(SD.updated_at)}` : " · Mxwll studies appear after the next hourly crypto run";
+      $("cchartNote").textContent = note + studyNote + " · Yahoo Finance prices; the desk trades on Alpaca's. Watch only: studies never place orders.";
       CC.key = key; CC.at = Date.now(); void dark;
     } catch (e) { box.innerHTML = `<div class="empty">Couldn't load the ${CC.coin.slice(0, 3)} chart (${esc(e.message || "error")}). It retries in a minute.</div>`; }
     finally { CC.busy = false; }
   }
   $("ccoin").addEventListener("click", (e) => { const b = e.target.closest("[data-coin]"); if (b) { CC.coin = b.dataset.coin; store.set("kuraCoin", CC.coin); cryptoChart(true); } });
+  $("clayers").addEventListener("click", (e) => { const b = e.target.closest("[data-cl]"); if (!b) return; CL[b.dataset.cl] = !CL[b.dataset.cl]; store.set("kuraCoinLayers", JSON.stringify(CL)); renderCLayers(); cryptoChart(true); });
   $("cspan").addEventListener("click", (e) => { const b = e.target.closest("[data-span]"); if (b) { CC.span = b.dataset.span; store.set("kuraCoinSpan", CC.span); cryptoChart(true); } });
   if (SITE_MODE) setInterval(() => cryptoChart(false), 60000);
+  function cwhy(w) {  // function declarations, so they work before this line runs
+    return ({ above_200d: "closed above its 200-day average", below_200d: "closed below its 200-day average",
+      mom7d_up: "learning: up on the week", mom7d_down: "learning: down on the week", stop: "learning: 6% stop" })[w] || w || "";
+  }
+  function ctrade(o) { return `${o.side === "buy" ? "Bought" : "Sold"} ${String(o.symbol).replace("/USD", "")}${o.book === "learning" ? " · learning" : ""}`; }
+  function renderLearning(L) {
+    $("learnCard").hidden = !L;
+    if (!L) return;
+    const p = L.position;
+    const hold = p ? `<div class="pnl ${cls(p.unrealized_pl)}">${smoney(p.unrealized_pl)}</div><div class="hold"><b>Holding</b> ${(+p.qty).toFixed(4)} SOL · worth ${money(p.market_value)} · bought at ${money(p.avg_entry_price)} · sells at ${money(L.stop_price)} or below</div>`
+      : `<div class="hold muted">${L.hold ? "Up on the week: it buys $" + L.usd + " at the next hourly check (unless it was stopped out today)." : "Not held. It buys when SOL's daily close is above the close 7 days earlier."}</div>`;
+    const recent = (L.orders || []).slice(0, 6);
+    $("learnBook").innerHTML = `<div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:4px"><div class="stat"><div class="label">So far (about)</div><div class="v ${cls(L.total_pnl)}">${smoney(L.total_pnl)}</div></div>
+        <div class="stat"><div class="label">Closed trades</div><div class="v">${L.trades}</div><div class="d muted">${L.wins} won</div></div>
+        <div class="stat"><div class="label">Call now</div><div class="v">${L.hold ? "Hold" : "Cash"}</div></div></div>
+      <div class="books"><div class="book"><div class="bh"><h3>SOL</h3>${L.hold ? `<span class="chip good">Up on the week</span>` : `<span class="chip">Down on the week</span>`}</div>${hold}
+        ${kv([["Last daily close", isNum(L.close) ? money(L.close) : "—"], ["Close 7 days earlier", isNum(L.close_7d_ago) ? money(L.close_7d_ago) : "—"]])}</div></div>
+      ${recent.length ? `<div class="tbl"><table style="width:100%"><thead><tr><th>When</th><th>Trade</th><th class="r">Result</th></tr></thead><tbody>${recent.map((o) => `<tr><td class="muted">${esc(when(o.ts))}</td><td>${esc(ctrade(o))} <span class="muted">${esc(o.book === "learning" ? cwhy(o.why) : "")}</span></td><td class="r ${cls(o.est_pnl)}">${isNum(o.est_pnl) ? smoney(o.est_pnl) : isNum(o.notional) ? money(o.notional) : "—"}</td></tr>`).join("")}</tbody></table></div>` : ""}
+      <p class="muted" style="font-size:12px;margin:10px 0 0">Here to learn, not to earn: no busier crypto rule passed the tests, so this one is expected to lose a little. Rule: hold SOL while its daily close is above the close 7 days earlier; $${L.usd} a buy; sell at ${L.stop_pct}% under the buy price. Results are about, before fees. Same paper account; it never touches BTC or ETH.</p>`;
+  }
   function renderCryptoTrades() {
     const os = (CRYPTO.data || {}).orders || [];
-    $("ctrades").innerHTML = os.length ? `<div class="tbl"><table style="width:100%"><thead><tr><th>When</th><th>Trade</th><th class="r">Amount</th><th>Why</th></tr></thead><tbody>${os.map((o) => `<tr><td class="muted">${esc(when(o.ts))}</td><td>${o.side === "buy" ? "Bought" : "Sold"} ${esc(String(o.symbol).replace("/USD", ""))}</td><td class="r">${isNum(o.notional) ? money(o.notional) : esc(o.qty)}</td><td class="muted">${o.why === "above_200d" ? "closed above its 200-day average" : o.why === "below_200d" ? "closed below its 200-day average" : esc(o.why || "")}</td></tr>`).join("")}</tbody></table></div>`
+    $("ctrades").innerHTML = os.length ? `<div class="tbl"><table style="width:100%"><thead><tr><th>When</th><th>Trade</th><th class="r">Amount</th><th>Why</th></tr></thead><tbody>${os.map((o) => `<tr><td class="muted">${esc(when(o.ts))}</td><td>${esc(ctrade(o))}</td><td class="r">${isNum(o.notional) ? money(o.notional) : esc(o.qty)}</td><td class="muted">${esc(cwhy(o.why))}</td></tr>`).join("")}</tbody></table></div>`
       : `<p class="muted">No crypto trades yet.</p>`;
   }
   function renderBooks(s) {

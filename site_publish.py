@@ -20,7 +20,8 @@ from common import load_json, path, save_json
 
 KV_NAMESPACE = "4bd0b89266be4f72ad1e73231e524459"  # spy-desk-site-data (site/wrangler.jsonc)
 MANIFEST = "site_published.json"  # name -> sha256 of what the site holds
-FILES = ["dashboard_state.json", "sentiment_state.json", "tests_state.json", "account.json", "crypto_state.json"]
+FILES = ["dashboard_state.json", "sentiment_state.json", "tests_state.json", "account.json", "crypto_state.json",
+         "crypto_charts.json"]
 CHARTS = "chart_*.json"
 
 

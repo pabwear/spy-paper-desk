@@ -8,7 +8,7 @@ import PAGE from "./dist/index.html";
 const COOKIE = "desk_session";
 const DAYS = 30;
 const FILE_RE = /^[A-Za-z0-9_.-]{1,80}\.json$/;
-const SYM_RE = /^([A-Z]{1,5}(\.[A-Z])?|BTC-USD|ETH-USD)$/;
+const SYM_RE = /^([A-Z]{1,5}(\.[A-Z])?|BTC-USD|ETH-USD|SOL-USD)$/;
 // chart spans the page may ask for: Yahoo range -> bar size
 const SPANS = { "1d": "1m", "5d": "15m", "1mo": "1h", "1y": "1d" };
 const LIVE_SECONDS = 20; // Yahoo is asked at most this often per stock; every viewer shares the answer
