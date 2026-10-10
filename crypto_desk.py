@@ -128,9 +128,6 @@ class CryptoBroker:
                 "last_equity": float(a.last_equity) if a.last_equity else None, "positions": pos, "history": hist}
 
     def submit(self, order: dict, coid: str) -> dict:
-        from alpaca.trading.enums import OrderSide, TimeInForce
-        from alpaca.trading.requests import MarketOrderRequest
-
         ls = learning.settings(self.cfg)
         if order.get("book") == "learning":
             if order["symbol"] != ls["symbol"] or order["symbol"] in self.cfg["symbols"]:
@@ -140,9 +137,12 @@ class CryptoBroker:
             if order["symbol"] not in self.cfg["symbols"]:
                 raise Refused(f"{order['symbol']} is not a configured coin.")
             cap = float(self.cfg["per_symbol_usd"])
+        if order["side"] == "buy" and order["notional"] > cap:
+            raise Refused("Buy larger than this book's limit.")
+        from alpaca.trading.enums import OrderSide, TimeInForce  # after the checks: a refusal needs no broker
+        from alpaca.trading.requests import MarketOrderRequest
+
         if order["side"] == "buy":
-            if order["notional"] > cap:
-                raise Refused("Buy larger than this book's limit.")
             req = MarketOrderRequest(symbol=order["symbol"], notional=order["notional"], side=OrderSide.BUY,
                                      time_in_force=TimeInForce.GTC, client_order_id=coid)
         else:
