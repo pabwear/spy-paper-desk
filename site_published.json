@@ -5,5 +5,6 @@
   "account.json": "7781ed46f1025294a598219191214471e4d05dc632e437e9a51e51409fdfe29c",
   "chart_SNDK.json": "8530b379dcce4ec818636f0761bf6b603c0bf44772f3126d1f2c4a1b33d38987",
   "chart_SPY.json": "25941f0e4d447cf440a44b2a246fb3ef9310777efc9bbdd8a1727a9e3cb0e889",
-  "chart_TSLA.json": "c5e6376e0238ccf01ae3043e4fabc2980f857afb868e580c26e45aa724e9d93a"
+  "chart_TSLA.json": "c5e6376e0238ccf01ae3043e4fabc2980f857afb868e580c26e45aa724e9d93a",
+  "crypto_state.json": "26981c6410dbd1504f1f0edfb1968cbc5f1dac816c09e0e5ca0949fc512ecf19"
 }
