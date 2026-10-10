@@ -304,14 +304,15 @@ button.chip { cursor: pointer; }
 .rmt .rbar { display: flex; height: 6px; border-radius: 4px; overflow: hidden; gap: 2px; background: var(--line); }
 .rmt .rbar i { display: block; height: 100%; border-radius: 4px; }
 .rmlist { display: grid; gap: 0; }
-.rmrow { display: grid; grid-template-columns: 74px 1fr auto; gap: 4px 12px; padding: 10px 2px; border-top: 1px solid var(--line); font-size: 13px; align-items: start; }
+.rmrow { display: grid; grid-template-columns: 74px minmax(0, 1fr) auto; gap: 4px 12px; padding: 10px 2px; border-top: 1px solid var(--line); font-size: 13px; align-items: start; }
 .rmrow:first-child { border-top: 0; }
 .rmrow .rwhen { color: var(--ink-3); font-size: 11.5px; padding-top: 2px; }
-.rmrow .rtext { color: var(--ink); line-height: 1.4; }
-.rmrow .rmeta { color: var(--ink-3); font-size: 11.5px; margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.rmrow .rtext { color: var(--ink); line-height: 1.4; overflow-wrap: anywhere; }
+.rmrow .rmeta { color: var(--ink-3); font-size: 11.5px; margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; min-width: 0; }
+.rmrow .rmeta .chip { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rmrow .rwhy { color: var(--ink-2); font-size: 12px; margin-top: 3px; }
 .rmrow .rdir { white-space: nowrap; }
-@media (max-width: 560px) { .rmrow { grid-template-columns: 1fr auto; } .rmrow .rwhen { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .rmrow { grid-template-columns: minmax(0, 1fr) auto; } .rmrow .rwhen { grid-column: 1 / -1; } }
 .chip.gold { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 60%, transparent); background: color-mix(in srgb, var(--gold) 12%, transparent); }
 .sw.best, .sw.bestT { height: 0; border-radius: 0; background: none; border-width: 2.5px 0 0; box-shadow: 0 0 6px var(--c); } .sw.bestT { border-top-style: dashed; border-width: 1.5px 0 0; }
 .lv:has(.sw.best) .lvn { color: var(--gold); font-weight: 700; }
@@ -493,7 +494,7 @@ td.r, th.r { text-align: right; }
   .shell, .shell.mini { grid-template-columns: minmax(0, 1fr); }
   .rail { display: none; }
   .main { padding-block-end: calc(92px + env(safe-area-inset-bottom, 0px)); }
-  .tabbar { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; background: var(--rail); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid var(--line); padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); }
+  .tabbar { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; background: var(--rail); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid var(--line); padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); }
   .tabbar button { position: relative; border: 0; background: none; color: var(--ink-3); display: grid; justify-items: center; gap: 3px; padding: 6px 1px; font-size: 10.5px; font-weight: 600; cursor: pointer; border-radius: 10px; min-width: 0; }
   .tabbar button span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tabbar button[aria-current="page"] { color: var(--ink); background: color-mix(in srgb, var(--accent) 16%, transparent); }
@@ -518,6 +519,37 @@ td.r, th.r { text-align: right; }
   @keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
 }
 @media (prefers-reduced-motion: reduce) { .pill.ok .dot { animation: none; } .shell { transition: none; } }
+/* ---------- the profit strip: one tile per account under the search bar, with a three.js gem */
+.pnlstrip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 0 14px; }
+.acct { display: flex; align-items: center; gap: 12px; text-align: left; padding: 12px 14px; border-radius: 18px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--panel); color: inherit; font: inherit; position: relative; overflow: hidden; }
+.acct[aria-pressed="true"] { border-color: var(--accent, var(--ink-3)); box-shadow: 0 0 0 1px var(--accent, var(--ink-3)) inset; }
+.acct .gem { width: 58px; height: 58px; flex: none; position: relative; }
+.acct .gem canvas { width: 58px !important; height: 58px !important; display: block; }
+.acct .ax { min-width: 0; display: grid; gap: 2px; }
+.acct .an { font-size: 12px; color: var(--ink-3); letter-spacing: .02em; }
+.acct .at { font-size: 22px; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.acct .ar { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.acct .ar span b { font-weight: 600; }
+.askcard .askrow { display: flex; gap: 8px; }
+.askcard input { flex: 1; min-width: 0; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: inherit; font: inherit; }
+.askcard .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.askcard .chips button { cursor: pointer; }
+.askout { margin-top: 12px; }
+.askout .say { font-size: 15px; margin: 0 0 10px; }
+.askout table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 14px; }
+.askout td, .askout th { white-space: nowrap; padding: 7px 6px; border-top: 1px solid var(--line); text-align: left; }
+.askout td.r, .askout th.r { text-align: right; }
+.cchart { height: 340px; position: relative; }
+.cseg { display: flex; flex-wrap: wrap; gap: 6px; }
+@media (max-width: 560px) {
+  .pnlstrip { gap: 8px; }
+  .acct { padding: 10px; gap: 8px; }
+  .acct .gem, .acct .gem canvas { width: 44px !important; height: 44px !important; }
+  .acct .at { font-size: 18px; }
+  .acct .ar { font-size: 11px; gap: 2px 8px; }
+  .cchart { height: 280px; }
+}
 </style>
 
 <div class="aura" aria-hidden="true"></div>
@@ -593,6 +625,33 @@ td.r, th.r { text-align: right; }
       <div class="me"><span class="av" aria-hidden="true">RR</span><span class="nm">Roy Rios</span></div>
     </header>
 
+    <div class="pnlstrip" id="pnlStrip" role="group" aria-label="Profit by account">
+      <button type="button" class="acct" id="acctStocks" data-go="dashboard" aria-pressed="true" title="Stocks dashboard">
+        <span class="gem" id="gemStocks" aria-hidden="true"></span>
+        <span class="ax"><span class="an">Stocks · SPY desk · today</span><span class="at" id="pnlStocksToday">—</span><span class="ar" id="pnlStocksRow"></span></span>
+      </button>
+      <button type="button" class="acct" id="acctCrypto" data-go="crypto" aria-pressed="false" title="Crypto dashboard">
+        <span class="gem" id="gemCrypto" aria-hidden="true"></span>
+        <span class="ax"><span class="an">Crypto desk · today</span><span class="at" id="pnlCryptoToday">—</span><span class="ar" id="pnlCryptoRow"></span></span>
+      </button>
+    </div>
+
+    <div class="card askcard" id="askCard">
+      <div class="head"><h2>Profits</h2><span class="label">ask, or tap a period</span></div>
+      <form class="askrow" id="askForm" autocomplete="off">
+        <input id="askQ" type="text" placeholder="e.g. how much did crypto make this week?" aria-label="Ask about profits">
+        <button class="btn" type="submit">Ask</button>
+      </form>
+      <div class="chips" id="askChips">
+        <button type="button" class="chip" data-ask="today">Today</button>
+        <button type="button" class="chip" data-ask="yesterday">Yesterday</button>
+        <button type="button" class="chip" data-ask="week">This week</button>
+        <button type="button" class="chip" data-ask="month">This month</button>
+        <button type="button" class="chip" data-ask="all">Since the start</button>
+      </div>
+      <div class="askout" id="askOut" aria-live="polite"></div>
+    </div>
+
     <div class="banners" id="banners"></div>
 
     <!-- dashboard -->
@@ -609,11 +668,6 @@ td.r, th.r { text-align: right; }
               </div>
             </div>
             <div class="orb" id="orb" aria-hidden="true"><span class="orb-cap" id="orbCap"></span></div>
-          </div>
-
-          <div class="card" id="cryptoCard" hidden>
-            <div class="head"><h2>Crypto desk</h2><span class="chip info" id="cryptoChip">separate paper account</span></div>
-            <div id="crypto"></div>
           </div>
 
           <div class="card chartcard edge" id="chartCard">
@@ -698,6 +752,27 @@ td.r, th.r { text-align: right; }
     </section>
 
     <!-- trades -->
+    <section class="view" data-view="crypto" aria-label="Crypto" hidden>
+      <div class="card" id="cryptoCard" hidden>
+        <div class="head"><h2>Crypto desk</h2><span class="chip info" id="cryptoChip">separate paper account</span></div>
+        <div id="crypto"></div>
+      </div>
+      <div class="card" id="cchartCard">
+        <div class="head"><h2 id="cchartTitle">Bitcoin</h2><span class="label" id="cchartSub">live prices, Yahoo Finance</span></div>
+        <div class="cseg" style="margin-bottom:10px">
+          <span class="cseg" id="ccoin"><button type="button" class="chip info" data-coin="BTC-USD">BTC</button><button type="button" class="chip" data-coin="ETH-USD">ETH</button></span>
+          <span class="grow"></span>
+          <span class="cseg" id="cspan"><button type="button" class="chip" data-span="1d">1D</button><button type="button" class="chip" data-span="5d">1W</button><button type="button" class="chip" data-span="1mo">1M</button><button type="button" class="chip info" data-span="1y">1Y</button></span>
+        </div>
+        <div class="cchart" id="cchart"></div>
+        <p class="muted" id="cchartNote" style="font-size:12px;margin:8px 0 0"></p>
+      </div>
+      <div class="card" id="ctradesCard">
+        <div class="head"><h2>Crypto trades</h2><span class="label">buys and sells on the crypto account</span></div>
+        <div id="ctrades"></div>
+      </div>
+    </section>
+
     <section class="view" data-view="trades" aria-label="Trades" hidden>
       <div class="title"><h1>Trades &amp; money</h1><p>Every fill in the paper account and everything the desk did.</p></div>
       <div class="tiles" id="tiles"></div>
@@ -823,7 +898,8 @@ td.r, th.r { text-align: right; }
     settings: "https://github.com/pabwear/spy-paper-desk/actions/workflows/settings.yml",
   };
   const VIEWS = [
-    { id: "dashboard", name: "Dashboard", short: "Home", icon: "i-home" },
+    { id: "dashboard", name: "Stocks", short: "Stocks", icon: "i-home" },
+    { id: "crypto", name: "Crypto", icon: "i-chart" },
     { id: "trades", name: "Trades", icon: "i-trades" },
     { id: "record", name: "Track record", short: "Record", icon: "i-chart" },
     { id: "learning", name: "Learning", icon: "i-learn" },
@@ -2310,8 +2386,10 @@ td.r, th.r { text-align: right; }
   }
   function renderCrypto() {
     const c = CRYPTO.data;
+    renderStrip();
     $("cryptoCard").hidden = !c;
     if (!c) return;
+    renderCryptoTrades();
     const start = c.start_usd || 1000, chg = isNum(c.equity) ? c.equity - start : null, day = isNum(c.equity) && isNum(c.last_equity) ? c.equity - c.last_equity : null;
     $("cryptoChip").textContent = `separate paper account · ${c.account_number}`;
     const coins = Object.entries(c.signals || {}).map(([sym, g]) => {
@@ -2321,13 +2399,171 @@ td.r, th.r { text-align: right; }
         ${kv([["Last daily close", money(g.close)], ["200-day average", isNum(g.average) ? money(g.average) : "—"], ["Gap", isNum(g.average) ? `${((g.close / g.average - 1) * 100).toFixed(1)}%` : "—"]])}
       </div>`;
     }).join("");
-    $("crypto").innerHTML = `<div class="stats"><div class="stat"><div class="label">Crypto account</div><div class="v big">${money(c.equity)}</div>
+    $("crypto").innerHTML = `<div class="stats" style="grid-template-columns:minmax(0,2fr) minmax(0,1fr)"><div class="stat"><div class="label">Crypto account</div><div class="v big">${money(c.equity)}</div>
         <div class="d"><span class="${cls(chg)}">${arrow(chg)}${smoney(chg)}</span> <span class="muted">since the ${money(start)} start</span>${isNum(day) ? ` · <span class="${cls(day)}">${smoney(day)}</span> <span class="muted">today</span>` : ""}</div></div>
         <div class="stat"><div class="label">Cash</div><div class="v">${money(c.cash)}</div></div></div>
       <div class="books">${coins}</div>
       <p class="muted" style="font-size:12px;margin:10px 0 0">Rule: hold each coin while its daily close is above its 200-day average, cash below. Checked once a day just after 8 PM New York time. Last check ${esc(when(c.updated_at))}. Paper money, its own account, separate from the SPY desk.</p>`;
   }
   if (typeof setInterval === "function") setInterval(loadCrypto, 120000);
+  // ---------- profit by account: today / yesterday / this week / this month / since the start
+  const etDay = (d = new Date()) => d.toLocaleDateString("en-CA", { timeZone: "America/New_York" });
+  function acctData(which) {
+    if (which === "stocks") {
+      const s = state || {}, a = s.account || {};
+      return { id: "stocks", name: "Stocks (SPY desk)", equity: a.equity, last: a.last_equity, start: (s.pnl || {}).book || 1000, hist: s.equity_history || [] };
+    }
+    const c = CRYPTO.data || {};
+    return { id: "crypto", name: "Crypto desk", equity: c.equity, last: c.last_equity, start: c.start_usd || 1000, hist: c.equity_history || [] };
+  }
+  function periodStart(period) {  // first New York date inside the period (inclusive)
+    const today = etDay(), d = new Date(today + "T12:00:00");
+    if (period === "week") { d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d.toISOString().slice(0, 10); }
+    if (period === "month") return today.slice(0, 8) + "01";
+    if (period === "all") return "0000-00-00";
+    return today;
+  }
+  function pnlFor(a, period) {
+    if (!isNum(a.equity)) return null;
+    const today = etDay(), H = (a.hist || []).filter((h) => isNum(h.equity) && h.date < today);
+    const closeBefore = (iso) => { const p = H.filter((h) => h.date < iso); return p.length ? +p[p.length - 1].equity : null; };
+    if (period === "today") return isNum(a.last) ? a.equity - a.last : null;
+    if (period === "yesterday") { if (!H.length) return null; const c1 = +H[H.length - 1].equity, c0 = H.length > 1 ? +H[H.length - 2].equity : a.start; return c1 - c0; }
+    if (period === "week" || period === "month") { const b = closeBefore(periodStart(period)); return a.equity - (b ?? a.start); }
+    return a.equity - a.start;
+  }
+  const pct = (v, base) => isNum(v) && base ? `${v >= 0 ? "+" : "−"}${Math.abs(v / base * 100).toFixed(2)}%` : "";
+
+  // ---------- the strip: one tile per account, its three.js gem spins faster and glows by today's move
+  const GEMS = { started: false, list: {} };
+  function renderStrip() {
+    [["stocks", "Stocks"], ["crypto", "Crypto"]].forEach(([id, K]) => {
+      const a = acctData(id), t = pnlFor(a, "today");
+      $(`pnl${K}Today`).innerHTML = isNum(t) ? `<span class="${cls(t)}">${smoney(t)}</span>` : "—";
+      const bit = (lab, per) => { const v = pnlFor(a, per); return `<span>${lab} <b class="${cls(v)}">${isNum(v) ? smoney(v) : "—"}</b></span>`; };
+      $(`pnl${K}Row`).innerHTML = isNum(a.equity) ? bit("Wk", "week") + bit("Mo", "month") + bit("All", "all") + `<span class="muted">${money(a.equity)}</span>` : `<span class="muted">${id === "crypto" ? "loading…" : "—"}</span>`;
+      const g = GEMS.list[id]; if (g) g.set(isNum(t) && a.equity ? t / (a.equity - t) * 100 : 0);
+    });
+    $("acctStocks").setAttribute("aria-pressed", String(view !== "crypto"));
+    $("acctCrypto").setAttribute("aria-pressed", String(view === "crypto"));
+    if (!GEMS.started && window.THREE) startGems();
+  }
+  function colorOf(klass) { const e = document.createElement("span"); e.className = klass; document.body.appendChild(e); const c = getComputedStyle(e).color; e.remove(); return c; }
+  function startGems() {
+    const THREE = window.THREE; GEMS.started = true;
+    const make = (host) => {
+      let r; try { r = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "low-power" }); } catch { return null; }
+      r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); r.setSize(58, 58, false); host.appendChild(r.domElement);
+      const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(35, 1, 0.1, 20); cam.position.z = 4.2;
+      const shell = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(1.05, 1)), new THREE.LineBasicMaterial({ transparent: true, opacity: 0.85 }));
+      const N = 260, pos = new Float32Array(N * 3);
+      for (let i = 0; i < N; i++) { const u = Math.random() * 2 - 1, th = Math.random() * Math.PI * 2, rr = 0.55 + Math.random() * 0.35, q = Math.sqrt(1 - u * u); pos[i * 3] = q * Math.cos(th) * rr; pos[i * 3 + 1] = u * rr; pos[i * 3 + 2] = q * Math.sin(th) * rr; }
+      const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+      const dust = new THREE.Points(g, new THREE.PointsMaterial({ size: 0.06, transparent: true, opacity: 0.9, depthWrite: false, blending: THREE.AdditiveBlending }));
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(1.45, 0.018, 8, 90), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.6 }));
+      ring.rotation.x = 1.2; sc.add(shell, dust, ring);
+      let speed = 0.4, tint = new THREE.Color(colorOf("muted"));
+      const paint = () => { [shell, dust, ring].forEach((m) => m.material.color = tint); };
+      paint();
+      return {
+        set(p) { tint = new THREE.Color(colorOf(p > 0.001 ? "pos" : p < -0.001 ? "neg" : "muted")); speed = 0.35 + Math.min(4, Math.abs(p)) * 0.9; paint(); },
+        draw(t) { shell.rotation.y = t * 0.0006 * speed; shell.rotation.x = Math.sin(t * 0.0004) * 0.4; dust.rotation.y = -t * 0.0009 * speed; ring.rotation.z = t * 0.0005 * speed; const k = 1 + Math.sin(t * 0.003 * speed) * 0.04; shell.scale.set(k, k, k); r.render(sc, cam); },
+      };
+    };
+    GEMS.list.stocks = make($("gemStocks")); GEMS.list.crypto = make($("gemCrypto"));
+    renderStrip();
+    const still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const loop = (t) => { if (document.visibilityState !== "hidden") Object.values(GEMS.list).forEach((g) => g && g.draw(still ? 0 : t)); if (!still) requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
+  }
+
+  // ---------- "Profits": tap a period or ask in plain words (answered here from the desks' numbers; no AI)
+  const PERIOD_NAMES = { today: "Today", yesterday: "Yesterday", week: "This week", month: "This month", all: "Since the start" };
+  function parseAsk(q) {
+    q = String(q || "").toLowerCase();
+    const period = /yesterday/.test(q) ? "yesterday" : /week/.test(q) ? "week" : /month/.test(q) ? "month"
+      : /(all|ever|start|total|overall|so far|lifetime)/.test(q) ? "all" : "today";
+    const c = /(crypto|btc|bitcoin|eth|ethereum|coin)/.test(q), st = /(stock|spy|sndk|tsla|option|spread|share|equit)/.test(q);
+    return { period, accounts: c && !st ? ["crypto"] : st && !c ? ["stocks"] : ["stocks", "crypto"] };
+  }
+  function tradesIn(period, which) {
+    const from = periodStart(period), today = etDay();
+    const yday = (() => { const H = (acctData(which).hist || []).filter((h) => h.date < today); return H.length ? H[H.length - 1].date : null; })();
+    const inside = (iso) => { const d = iso ? etDay(new Date(iso)) : null; if (!d) return false; return period === "yesterday" ? d === yday : d >= from && d <= today; };
+    if (which === "stocks") {
+      const g = {};
+      ((state || {}).round_trips || []).filter((t) => inside(t.closed_at)).forEach((t) => {
+        const k = `${t.book || ""}|${(t.closed_at || "").slice(0, 16)}`;
+        g[k] = g[k] || { when: t.closed_at, what: t.book === "spy_spreads" ? "SPY put spread" : t.symbol, book: t.book, pnl: 0 };
+        g[k].pnl += +t.pnl || 0;
+      });
+      return Object.values(g).sort((a, b) => String(b.when).localeCompare(String(a.when)));
+    }
+    return ((CRYPTO.data || {}).orders || []).filter((o) => inside(o.ts)).map((o) => ({ when: o.ts, what: `${o.side === "buy" ? "Bought" : "Sold"} ${String(o.symbol).replace("/USD", "")}`, book: "crypto", pnl: null, amount: o.notional }));
+  }
+  function answerAsk(period, accounts) {
+    const rows = accounts.map((id) => { const a = acctData(id); return { a, v: pnlFor(a, period) }; });
+    const known = rows.filter((r) => isNum(r.v)), total = known.reduce((s2, r) => s2 + r.v, 0);
+    const say = known.length ? `${PERIOD_NAMES[period]}: ` + known.map((r) => `${r.a.name} <b class="${cls(r.v)}">${smoney(r.v)}</b>`).join(", ") + (known.length > 1 ? ` · together <b class="${cls(total)}">${smoney(total)}</b>` : "") + "."
+      : `No numbers yet for ${PERIOD_NAMES[period].toLowerCase()}.`;
+    const table = `<div class="tbl" style="margin-top:0"><table><thead><tr><th>Account</th><th class="r">${esc(PERIOD_NAMES[period])}</th><th class="r">Value now</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${esc(r.a.name)}</td><td class="r ${cls(r.v)}">${isNum(r.v) ? `${smoney(r.v)} <span class="muted">${pct(r.v, r.a.equity - r.v)}</span>` : "—"}</td><td class="r">${money(r.a.equity)}</td></tr>`).join("")}</tbody></table></div>`;
+    const tr = accounts.flatMap((id) => tradesIn(period, id));
+    const list = tr.length ? `<div class="tbl" style="margin-top:10px"><table><thead><tr><th>Trade</th><th>When</th><th class="r">Result</th></tr></thead><tbody>${tr.map((t) => `<tr><td>${esc(t.what)}</td><td class="muted">${esc(when(t.when))}</td><td class="r ${cls(t.pnl)}">${isNum(t.pnl) ? smoney(t.pnl) : isNum(t.amount) ? money(t.amount) : "—"}</td></tr>`).join("")}</tbody></table></div>`
+      : `<p class="muted" style="margin:10px 0 0">No closed trades ${period === "today" ? "today" : "in this period"}${accounts.length === 1 ? " on this account" : ""}.</p>`;
+    $("askOut").innerHTML = `<p class="say">${say}</p>${table}${list}<p class="muted" style="font-size:12px;margin:8px 0 0">Results include open positions at today's prices. Paper money.</p>`;
+    document.querySelectorAll("#askChips [data-ask]").forEach((b) => b.classList.toggle("info", b.dataset.ask === period));
+  }
+  $("askChips").addEventListener("click", (e) => { const b = e.target.closest("[data-ask]"); if (b) { loadCrypto(); answerAsk(b.dataset.ask, ["stocks", "crypto"]); } });
+  $("askForm").addEventListener("submit", (e) => { e.preventDefault(); loadCrypto(); const q = parseAsk($("askQ").value); answerAsk(q.period, q.accounts); });
+
+  // ---------- the crypto dashboard's chart: Yahoo's BTC-USD / ETH-USD bars through the site, 200-day average on 1Y
+  const CC = { coin: store.get("kuraCoin") || "BTC-USD", span: store.get("kuraCoinSpan") || "1y", chart: null, key: "", busy: false };
+  const etOffset = (sec) => { const d = new Date(sec * 1000), u = new Date(d.toLocaleString("en-US", { timeZone: "UTC" })), n = new Date(d.toLocaleString("en-US", { timeZone: "America/New_York" })); return (n - u) / 1000; };
+  async function cryptoChart(force) {
+    const box = $("cchart"); if (!box || view !== "crypto") return;
+    $("cchartTitle").textContent = CC.coin === "BTC-USD" ? "Bitcoin" : "Ethereum";
+    document.querySelectorAll("#ccoin [data-coin]").forEach((b) => b.classList.toggle("info", b.dataset.coin === CC.coin));
+    document.querySelectorAll("#cspan [data-span]").forEach((b) => b.classList.toggle("info", b.dataset.span === CC.span));
+    if (!SITE_MODE) { box.innerHTML = `<div class="empty">Live crypto charts are on trade.riosventures.org.</div>`; return; }
+    if (!LW || CC.busy) return;
+    const key = CC.coin + CC.span; if (!force && CC.key === key && Date.now() - (CC.at || 0) < 60000) return;
+    CC.busy = true;
+    try {
+      const r = await fetch(`/live/${CC.coin}?r=${CC.span}`, { cache: "no-store", credentials: "same-origin" });
+      if (r.status === 401) { location.href = "/login"; return; }
+      const v = r.ok ? await r.json() : null;
+      if (!v || !v.bars || !v.bars.length) throw new Error((v && v.error) || "no data");
+      const daily = CC.span === "1y";
+      const bars = v.bars.filter((b) => isNum(b[6])).map((b) => ({ time: daily ? b[0].slice(0, 10) : b[6] + etOffset(b[6]), open: b[1], high: b[2], low: b[3], close: b[4] }));
+      if (CC.chart) { CC.chart.remove(); CC.chart = null; }
+      box.innerHTML = "";
+      const dark = isDark();
+      CC.chart = LW.createChart(box, { autoSize: true, layout: { background: { type: "solid", color: "transparent" }, textColor: css("--ink-3") },
+        grid: { vertLines: { color: css("--line") }, horzLines: { color: css("--line") } }, rightPriceScale: { borderVisible: false }, timeScale: { borderVisible: false, timeVisible: !daily } });
+      const cs = CC.chart.addCandlestickSeries({ upColor: css("--good"), downColor: css("--bad"), wickUpColor: css("--good"), wickDownColor: css("--bad"), borderVisible: false });
+      cs.setData(bars);
+      let note = `${bars.length} ${daily ? "daily" : CC.span === "1d" ? "1-minute" : CC.span === "5d" ? "15-minute" : "hourly"} bars · last ${money(bars[bars.length - 1].close)}`;
+      if (daily && bars.length >= 200) {
+        const ma = bars.map((b, i) => i >= 199 ? { time: b.time, value: bars.slice(i - 199, i + 1).reduce((s2, x) => s2 + x.close, 0) / 200 } : null).filter(Boolean);
+        const ls = CC.chart.addLineSeries({ color: css("--ink-2"), lineWidth: 2, priceLineVisible: false, lastValueVisible: true, title: "200-day avg" });
+        ls.setData(ma);
+        const last = bars[bars.length - 1].close, avg = ma[ma.length - 1].value;
+        note += ` · 200-day average ${money(avg)} (${last > avg ? "above: the desk holds" : "below: the desk is in cash"})`;
+      }
+      CC.chart.timeScale().fitContent();
+      $("cchartNote").textContent = note + " · Yahoo Finance prices; the desk trades on Alpaca's.";
+      CC.key = key; CC.at = Date.now(); void dark;
+    } catch (e) { box.innerHTML = `<div class="empty">Couldn't load the ${CC.coin.slice(0, 3)} chart (${esc(e.message || "error")}). It retries in a minute.</div>`; }
+    finally { CC.busy = false; }
+  }
+  $("ccoin").addEventListener("click", (e) => { const b = e.target.closest("[data-coin]"); if (b) { CC.coin = b.dataset.coin; store.set("kuraCoin", CC.coin); cryptoChart(true); } });
+  $("cspan").addEventListener("click", (e) => { const b = e.target.closest("[data-span]"); if (b) { CC.span = b.dataset.span; store.set("kuraCoinSpan", CC.span); cryptoChart(true); } });
+  if (SITE_MODE) setInterval(() => cryptoChart(false), 60000);
+  function renderCryptoTrades() {
+    const os = (CRYPTO.data || {}).orders || [];
+    $("ctrades").innerHTML = os.length ? `<div class="tbl"><table style="width:100%"><thead><tr><th>When</th><th>Trade</th><th class="r">Amount</th><th>Why</th></tr></thead><tbody>${os.map((o) => `<tr><td class="muted">${esc(when(o.ts))}</td><td>${o.side === "buy" ? "Bought" : "Sold"} ${esc(String(o.symbol).replace("/USD", ""))}</td><td class="r">${isNum(o.notional) ? money(o.notional) : esc(o.qty)}</td><td class="muted">${o.why === "above_200d" ? "closed above its 200-day average" : o.why === "below_200d" ? "closed below its 200-day average" : esc(o.why || "")}</td></tr>`).join("")}</tbody></table></div>`
+      : `<p class="muted">No crypto trades yet.</p>`;
+  }
   function renderBooks(s) {
     const bs = s.books || [];
     $("booksCard").hidden = !bs.length;
@@ -2506,7 +2742,8 @@ td.r, th.r { text-align: right; }
 
     $("posCard").hidden = !ps.length;
     renderBooks(s);
-    renderCrypto(); loadCrypto();
+    renderCrypto(); loadCrypto(); renderStrip();
+    if (view === "crypto") cryptoChart(false);
     renderChart(s);
     renderPlans(s);
     if (orb) orb.recolor();

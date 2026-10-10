@@ -8,7 +8,7 @@ Safety: paper URL only, the account number must match crypto_config.json, live_u
 configured coins, never more than per_symbol_usd per buy or more than the cash there is. Keys come from
 ALPACA_CRYPTO_API_KEY / ALPACA_CRYPTO_SECRET_KEY (GitHub secrets); they are never the SPY desk's keys.
 
-    python crypto_desk.py run       # check the rule and trade (crypto.yml runs this daily)
+    python crypto_desk.py run       # check the rule and trade (crypto.yml runs this hourly)
     python crypto_desk.py status    # show the account and today's signals, no orders
 """
 
@@ -20,7 +20,8 @@ import sys
 from datetime import datetime, timedelta, timezone
 
 import crypto_research as research
-from common import PAPER_HOST, load_json, path, save_json
+import pnl_periods
+from common import ET, PAPER_HOST, load_json, path, save_json
 from gate import host_of
 
 CONFIG = "crypto_config.json"
@@ -111,8 +112,16 @@ class CryptoBroker:
                           "market_value": float(p.market_value), "unrealized_pl": float(p.unrealized_pl),
                           "current_price": float(p.current_price)}
                for p in self._c.get_all_positions() if str(getattr(p.asset_class, "value", p.asset_class)) == "crypto"}
+        try:
+            import pnl_periods
+            from alpaca.trading.requests import GetPortfolioHistoryRequest
+
+            hist = pnl_periods.history_from_alpaca(
+                self._c.get_portfolio_history(GetPortfolioHistoryRequest(period="3M", timeframe="1D")))[-70:]
+        except Exception:  # noqa: BLE001 - a nicety only
+            hist = []
         return {"account_number": a.account_number, "equity": float(a.equity), "cash": float(a.cash),
-                "last_equity": float(a.last_equity) if a.last_equity else None, "positions": pos}
+                "last_equity": float(a.last_equity) if a.last_equity else None, "positions": pos, "history": hist}
 
     def submit(self, order: dict, coid: str) -> dict:
         from alpaca.trading.enums import OrderSide, TimeInForce
@@ -157,7 +166,9 @@ def write_state(now: datetime, cfg: dict, snap: dict, sigs: dict, orders: list[d
              "rule": cfg["rule"], "per_symbol_usd": cfg["per_symbol_usd"], "start_usd": cfg.get("start_usd", 1000),
              "equity": snap.get("equity"), "cash": snap.get("cash"), "last_equity": snap.get("last_equity"),
              "positions": snap.get("positions"), "signals": sigs, "last_orders": orders,
-             "orders": list(reversed(trades)), "history": hist[-400:]}
+             "orders": list(reversed(trades)), "history": hist[-400:], "equity_history": snap.get("history") or [],
+             "pnl_periods": pnl_periods.periods(snap.get("history") or [], snap.get("equity"), snap.get("last_equity"),
+                                                float(cfg.get("start_usd", 1000)), now.astimezone(ET).date())}
     save_json(STATE, state)
     save_json(ACCOUNT, snap)
     return state

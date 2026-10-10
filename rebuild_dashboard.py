@@ -202,6 +202,13 @@ BACKTEST_ROWS = [("current", "Desk now (checks every 10 min)"), ("current_every_
 _PART = ("trades", "win_pct", "total", "per_trade", "max_drawdown", "avg_win", "avg_loss")
 
 
+def _pnl_periods(account: dict, start: float, now: datetime) -> dict:
+    import pnl_periods
+
+    return pnl_periods.periods(account.get("history") or [], account.get("equity"), account.get("last_equity"),
+                               float(start or 1000), now.astimezone(ET).date())
+
+
 def _tests_state() -> dict:
     """The backtest of the current setup (backtests/current.json), the four-ideas backtest (backtests/ideas.json)
     and the newest dress rehearsal (backtests/rehearsal.json), trimmed for the Record view's charts.
@@ -372,6 +379,8 @@ def build_state(now: datetime | None = None) -> dict:
                                        "s50", "s80", "updated")} | {"days": dict(list((m.get("days") or {}).items())[-20:])}
             for tf, m in (load_json("projection_model.json", {}) or {}).items()
         },
+        "pnl_periods": _pnl_periods(account, book, now),
+        "equity_history": (account.get("history") or [])[-70:],
         "pnl": {
             "book": book,
             "realized_total": stats["realized_pnl"],

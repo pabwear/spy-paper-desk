@@ -42,6 +42,7 @@ class CryptoDeskTests(DeskTestCase):
         self.assertEqual([(o["symbol"], o["side"], o["notional"]) for o, _ in b.sent],
                          [("BTC/USD", "buy", 480.0), ("ETH/USD", "buy", 480.0)])
         self.assertTrue(st["signals"]["BTC/USD"]["hold"])
+        self.assertEqual((st["pnl_periods"]["all"], st["pnl_periods"]["today"]), (0.0, 0.0))
         held = FakeCryptoBroker(positions={"BTCUSD": {"qty": 0.005}, "ETHUSD": {"qty": 0.2}})
         cd.run(self.now, held, {"BTC/USD": UP, "ETH/USD": UP})
         self.assertEqual(held.sent, [])  # already holding: nothing to do

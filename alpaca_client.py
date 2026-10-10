@@ -91,7 +91,20 @@ class PaperBroker:
             "last_equity": float(a.last_equity) if getattr(a, "last_equity", None) else None,
             "position": desk[0] if desk else None,
             "positions": positions,
+            "history": self.equity_history(),
         }
+
+    def equity_history(self) -> list[dict]:
+        """Daily closing equity for the last 3 months (for today / week / month P&L). [] if Alpaca won't say."""
+        try:
+            from alpaca.trading.requests import GetPortfolioHistoryRequest
+
+            import pnl_periods
+
+            return pnl_periods.history_from_alpaca(
+                self._client.get_portfolio_history(GetPortfolioHistoryRequest(period="3M", timeframe="1D")))[-70:]
+        except Exception:  # noqa: BLE001 - the history is a nicety; the snapshot must not fail for it
+            return []
 
     def market_open(self) -> bool:
         return bool(self._client.get_clock().is_open)

@@ -1,11 +1,13 @@
-name: Crypto desk (daily)
+name: Crypto desk (hourly check, daily rule)
 
-# The crypto desk on its own Alpaca PAPER account (crypto_config.json). Once a day, just after the UTC daily
-# close (about 8 PM New York time), it checks the 200-day trend rule for BTC and ETH and buys, sells or does
-# nothing. Keys: ALPACA_CRYPTO_API_KEY / ALPACA_CRYPTO_SECRET_KEY, never the SPY desk's.
+# The crypto desk on its own Alpaca PAPER account (crypto_config.json). Every hour it refreshes the account
+# numbers for the dashboard and checks the 200-day trend rule for BTC and ETH on complete UTC days only, so
+# the call can change only once a day (just after the UTC close, about 8 PM New York time); then it buys,
+# sells or does nothing. Order ids carry the date, so a repeat in the same day is refused by Alpaca.
+# Keys: ALPACA_CRYPTO_API_KEY / ALPACA_CRYPTO_SECRET_KEY, never the SPY desk's.
 on:
   schedule:
-    - cron: "7 0 * * *"
+    - cron: "7 * * * *"
   workflow_dispatch:
     inputs:
       mode:

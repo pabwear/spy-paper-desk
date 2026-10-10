@@ -8,7 +8,9 @@ import PAGE from "./dist/index.html";
 const COOKIE = "desk_session";
 const DAYS = 30;
 const FILE_RE = /^[A-Za-z0-9_.-]{1,80}\.json$/;
-const SYM_RE = /^[A-Z]{1,5}(\.[A-Z])?$/;
+const SYM_RE = /^([A-Z]{1,5}(\.[A-Z])?|BTC-USD|ETH-USD)$/;
+// chart spans the page may ask for: Yahoo range -> bar size
+const SPANS = { "1d": "1m", "5d": "15m", "1mo": "1h", "1y": "1d" };
 const LIVE_SECONDS = 20; // Yahoo is asked at most this often per stock; every viewer shares the answer
 const HEADERS = {
   "X-Frame-Options": "DENY",
@@ -78,15 +80,16 @@ export function liveBars(yahoo) {
   r.timestamp.forEach((t, i) => {
     const o = q.open[i], h = q.high[i], l = q.low[i], c = q.close[i];
     if ([o, h, l, c].some((v) => v == null || !isFinite(v))) return;
-    const k = [etMinute(t), +o.toFixed(4), +h.toFixed(4), +l.toFixed(4), +c.toFixed(4), Math.round(q.volume[i] || 0)];
+    const k = [etMinute(t), +o.toFixed(4), +h.toFixed(4), +l.toFixed(4), +c.toFixed(4), Math.round(q.volume[i] || 0), t];
     if (out.length && out[out.length - 1][0] === k[0]) out[out.length - 1] = k; else out.push(k);
   });
   const m = r.meta || {};
   return { symbol: m.symbol, price: m.regularMarketPrice, time: m.regularMarketTime, source: "Yahoo Finance", bars: out };
 }
-async function live(sym, ctx) {
-  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1m&range=1d&includePrePost=true`;
-  const cache = caches.default, key = new Request(`https://live.cache/${sym}`);
+async function live(sym, ctx, range = "1d") {
+  const interval = SPANS[range] || "1m";
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=${interval}&range=${range}&includePrePost=true`;
+  const cache = caches.default, key = new Request(`https://live.cache/${sym}/${range}`);
   const hit = await cache.match(key);
   if (hit) return hit;
   const r = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (compatible; KuraTrades/1.0)", Accept: "application/json" } });
@@ -130,7 +133,8 @@ export default {
     if (url.pathname.startsWith("/live/")) {
       const sym = decodeURIComponent(url.pathname.slice(6)).toUpperCase();
       if (!SYM_RE.test(sym)) return new Response("not found", { status: 404, headers: HEADERS });
-      const r = await live(sym, ctx);
+      const range = SPANS[url.searchParams.get("r")] ? url.searchParams.get("r") : "1d";
+      const r = await live(sym, ctx, range);
       return new Response(r.body, { status: r.status, headers: { ...Object.fromEntries(r.headers), "Cache-Control": "no-store", ...HEADERS } });
     }
     if (url.pathname.startsWith("/data/")) {
