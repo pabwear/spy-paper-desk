@@ -27,6 +27,37 @@ days that decide its result. No new rule tested this week: 5 live trades is far 
 without fooling ourselves. Next check: the spread's first losing day (size vs the ~$490 worst case) and the
 options book once it has 10+ trades.
 
+## Oct 10 2026: crypto rules (before any crypto trading)
+
+Roy asked to add crypto. Five daily long-or-cash rules on BTC and ETH, set before the run (`crypto_research.py`),
+Jan 2021 – Oct 2026, 0.30% a trade:
+$1,000 compounding, 0.30% a trade. Rules set before the run. Passes = makes money in train, check AND exam, with a smaller worst drop than holding.
+
+## BTC/USD (2021-01-01 to 2026-10-09)
+
+| Rule | Train | Check | Exam | All | Worst drop | Trades |
+|---|---|---|---|---|---|---|
+| **hold** | +35.6% | +147.8% | -32.1% | +130.9% ($2,309) | -76.6% | 1 |
+| **trend50** ✓ | +19.8% | +78.1% | +1.8% | +119.8% ($2,198) | -60.7% | 123 |
+| **trend200** ✓ | +19.4% | +51.6% | +7.2% | +96.4% ($1,964) | -36.8% | 49 |
+| **mom28** | +199.0% | +24.9% | -4.0% | +262.9% ($3,629) | -48.9% | 181 |
+| **donchian** | +25.9% | +79.6% | -8.4% | +107.0% ($2,070) | -57.9% | 90 |
+
+## ETH/USD (2021-01-01 to 2026-10-09)
+
+| Rule | Train | Check | Exam | All | Worst drop | Trades |
+|---|---|---|---|---|---|---|
+| **hold** | +192.6% | +8.9% | -12.0% | +183.9% ($2,839) | -79.2% | 1 |
+| **trend50** | -4.3% | +41.9% | +84.5% | +151.9% ($2,519) | -59.4% | 110 |
+| **trend200** ✓ | +100.6% | +24.1% | +22.2% | +205.9% ($3,059) | -40.1% | 29 |
+| **mom28** ✓ | +77.7% | +15.5% | +11.7% | +130.6% ($2,306) | -56.7% | 177 |
+| **donchian** | +143.1% | +4.8% | -16.7% | +113.5% ($2,135) | -53.0% | 88 |
+
+Only the **200-day trend** rule passed on both coins: it made money in train, check and exam and halved the
+worst drop (BTC −37% vs −77% holding; ETH −40% vs −79%). On BTC it made less than holding overall
+(+96% vs +131%) but held up in the exam period when holding lost 32%. It trades rarely (about 8 times a year),
+so it is not a daily strategy. Six years of crypto is a short history with one big boom and bust in it.
+
 ## Oct 9 2026: no daily strategy has passed
 
 **The put spread at real prices.** The live spreads on Oct 7–8 were priced at about 0.5 × the VIX
