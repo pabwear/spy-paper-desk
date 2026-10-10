@@ -1,13 +1,28 @@
 {
-  "updated_at": "2026-10-10T02:07:50+00:00",
+  "updated_at": "2026-10-10T02:08:24+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 1000.0,
-  "cash": 1000.0,
+  "equity": 997.34,
+  "cash": 58.59,
   "last_equity": 1000.0,
-  "positions": {},
+  "positions": {
+    "BTCUSD": {
+      "qty": 0.005680767,
+      "avg_entry_price": 82649.705726906,
+      "market_value": 469.396494,
+      "unrealized_pl": -0.117227,
+      "current_price": 82629.07
+    },
+    "ETHUSD": {
+      "qty": 0.188344051,
+      "avg_entry_price": 2493.0,
+      "market_value": 469.357142,
+      "unrealized_pl": -0.184577,
+      "current_price": 2492.02
+    }
+  },
   "signals": {
     "BTC/USD": {
       "hold": true,
@@ -22,12 +37,52 @@
       "days": 419
     }
   },
-  "last_orders": [],
-  "orders": [],
+  "last_orders": [
+    {
+      "symbol": "BTC/USD",
+      "side": "buy",
+      "notional": 480.0,
+      "why": "above_200d",
+      "order_id": "781e486a-6c9f-4ff3-bd7f-7128c6b1e820",
+      "status": "pending_new"
+    },
+    {
+      "symbol": "ETH/USD",
+      "side": "buy",
+      "notional": 480.0,
+      "why": "above_200d",
+      "order_id": "e620fe9f-3b1d-424c-a764-f98c79e5588a",
+      "status": "pending_new"
+    }
+  ],
+  "orders": [
+    {
+      "ts": "2026-10-10T02:08:24+00:00",
+      "event": "order",
+      "symbol": "ETH/USD",
+      "side": "buy",
+      "notional": 480.0,
+      "why": "above_200d",
+      "order_id": "e620fe9f-3b1d-424c-a764-f98c79e5588a",
+      "status": "pending_new",
+      "client_order_id": "crypto-20261010-ethusd-buy"
+    },
+    {
+      "ts": "2026-10-10T02:08:24+00:00",
+      "event": "order",
+      "symbol": "BTC/USD",
+      "side": "buy",
+      "notional": 480.0,
+      "why": "above_200d",
+      "order_id": "781e486a-6c9f-4ff3-bd7f-7128c6b1e820",
+      "status": "pending_new",
+      "client_order_id": "crypto-20261010-btcusd-buy"
+    }
+  ],
   "history": [
     {
       "date": "2026-10-10",
-      "equity": 1000.0
+      "equity": 997.34
     }
   ]
 }
