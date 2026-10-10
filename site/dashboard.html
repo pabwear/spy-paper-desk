@@ -603,12 +603,17 @@ td.r, th.r { text-align: right; }
             <div>
               <div class="greet"><h1 id="greet">Good evening, <span class="grad-text">Roy</span></h1><div class="sub" id="greetSub"></div></div>
               <div class="stats">
-                <div class="stat"><div class="label">Paper equity</div><div class="v big" id="equity">—</div><div class="d" id="equityDelta"></div></div>
+                <div class="stat"><div class="label">SPY desk · paper equity</div><div class="v big" id="equity">—</div><div class="d" id="equityDelta"></div></div>
                 <div class="stat"><div class="label">Cash</div><div class="v" id="cash">—</div><div class="d"><span class="muted">available to trade</span></div></div>
                 <div class="stat"><div class="label">Options buying power</div><div class="v" id="bp">—</div><div class="d"><span class="muted" id="acctNo">—</span></div></div>
               </div>
             </div>
             <div class="orb" id="orb" aria-hidden="true"><span class="orb-cap" id="orbCap"></span></div>
+          </div>
+
+          <div class="card" id="cryptoCard" hidden>
+            <div class="head"><h2>Crypto desk</h2><span class="chip info" id="cryptoChip">separate paper account</span></div>
+            <div id="crypto"></div>
           </div>
 
           <div class="card chartcard edge" id="chartCard">
@@ -661,11 +666,6 @@ td.r, th.r { text-align: right; }
           <div class="card" id="booksCard">
             <div class="head"><h2>Trading books</h2><span class="label" id="booksSub">each trades on its own, sharing the account's cash</span></div>
             <div class="books" id="books"></div>
-          </div>
-
-          <div class="card" id="cryptoCard" hidden>
-            <div class="head"><h2>Crypto desk</h2><span class="chip info" id="cryptoChip">separate paper account</span></div>
-            <div id="crypto"></div>
           </div>
 
           <div class="card" id="rumorCard">
