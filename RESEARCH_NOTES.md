@@ -27,6 +27,26 @@ days that decide its result. No new rule tested this week: 5 live trades is far 
 without fooling ourselves. Next check: the spread's first losing day (size vs the ~$490 worst case) and the
 options book once it has 10+ trades.
 
+## Oct 10 2026: crypto LEARNING book (Roy said yes in chat; rules written before any run or test)
+
+No busier crypto rule passed (below), so this book is here to learn, not to earn: it is expected to lose
+a little, like the SPY options learning book. It sits in the crypto paper account next to trend200 and never
+touches BTC or ETH, so the two books can't sell each other's coins.
+
+- Coin: SOL/USD only (Alpaca paper, free data back to 2021).
+- Rule (mom7d, from the active-crypto test): hold while the last complete UTC daily close is above the close
+  7 days earlier; cash otherwise. Checked every hour (crypto.yml), but the call can change only once a day.
+- Size: $45 a buy (never more than 98% of the cash there is, never under $10). One position at a time.
+- Stop: sell if the price is 6% or more under the buy price at an hourly check. After a stop, no new buy
+  until the next UTC day.
+- Worst case: about $2.70 a trade plus fees at the stop; it can be more if the price jumps past the stop
+  between hourly checks, and it can never be more than the $45 in the trade (no leverage, long only).
+- At most one buy and one sell a day (dated order ids).
+- Kept as is: no tuning after it starts. Its trades and results go in the journal and on the Crypto page.
+  It can be switched off with "learning": {"enabled": false} in crypto_config.json.
+- One expectation check on past SOL prices (2021 to now), run once after this was written, so
+  the result can be compared with what it does live. It does not change the rule.
+
 ## Oct 10 2026: active crypto rules (Roy wants crypto to trade regularly)
 
 Five more active rules on hourly, 4-hour and daily bars, set before the run (`crypto_active.py`), 0.30% a trade:
