@@ -1,133 +1,73 @@
 {
-  "date": "2026-10-09",
+  "date": "2026-10-12",
   "bias": "neutral",
-  "written_at": "2026-10-09T15:06:39-04:00",
-  "as_of": "2026-10-09T19:08:00Z",
+  "written_at": "2026-10-12T09:30:31-04:00",
+  "as_of": "2026-10-12T09:30:31-04:00",
   "readings": {
-    "as_of": "2026-10-09T19:08:00Z",
-    "spy_price": 778.47,
-    "spy_change_pct": 0.59,
-    "vix": 14.92,
-    "fear_greed": 45,
+    "as_of": "2026-10-12T09:30:31-04:00",
+    "source": "desk_feeds",
+    "sources": {
+      "sentiment_flow": "stocktwits public stream",
+      "news": "yahoo finance rss",
+      "vix": "yfinance"
+    },
+    "spy_price": 778.97,
+    "spy_change_pct": 0.059,
     "stocktwits": {
       "SPY": {
-        "score": 75,
-        "bullish_pct": 56.05
+        "score": 55.6,
+        "bullish_pct": 55.6
       }
-    },
-    "reddit": {
-      "score": 0,
-      "posts": 0,
-      "top": []
     },
     "news": {
-      "score": 0,
       "headlines": [
-        "Telecoms still sharply lower: T -10%, VZ -9%, TMUS -12.6% on heavy volume",
-        "ASTS -12.6%, MRNA +12%, HIMS +9.9%, PLTR +4.2% (intraday record high chatter) lead Stocktwits trending",
-        "Gold +1.6%, TLT flat; QQQ +0.46%, IWM +0.63%",
-        "No major US data today; Canada unemployment 6.5% vs 6.4%"
+        "Salesforce at $229: One Of The Most Unpredictable AI Plays There Is",
+        "Stocktwits Pharma Pulse: JNJ Earnings, Cancer Updates And Two FDA Target Dates \u2014 The Week\u2019s Biotech Watchlist",
+        "Guide to Magnificent Seven ETF investing",
+        "Is Walt Disney (DIS) a Good or Bad Investment at Today\u2019s Price?",
+        "What is SBA Communications\u2019 (SBAC) Economic Moat, and is it Widening or Narrowing?",
+        "What is Copart\u2019s (CPRT) Economic Moat, and is it Widening or Narrowing?",
+        "What is Domino\u2019s (DPZ) Economic Moat, and is it Widening or Narrowing?",
+        "What is Philip Morris\u2019 (PM) Economic Moat, and is it Widening or Narrowing?",
+        "KLA Turned $1,000 Into $31,595 in a Decade, Crushing the S&P 500 by 8.7x",
+        "State Street (STT) Gains A Trump Account Tailwind, Is It Still 12% Below Fair Value?"
       ]
     },
-    "rumors": [
-      {
-        "text": "Telecom selloff (T, VZ, TMUS) tied to SpaceX (SPCX) direct-to-cell ambitions; unconfirmed, same story as earlier",
-        "source": "stocktwits",
-        "tickers": [
-          "T",
-          "VZ",
-          "TMUS"
-        ],
-        "names": {
-          "T": "AT&T",
-          "VZ": "Verizon",
-          "TMUS": "T-Mobile US"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "If SpaceX competes as a carrier, incumbents lose pricing power and subscribers"
-      },
-      {
-        "text": "Chatter about US business with Russia over diesel (Russian diesel imports) amid a diesel supply squeeze",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "Easing fuel supply stress would relieve an inflation and energy risk for the broad market"
-      },
-      {
-        "text": "Expected late-day drop or bleed into the close around 3:50pm after expiration pin",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "A weekend-risk de-risking would pull SPY off its highs into the bell"
-      }
-    ],
-    "names": {
-      "SPY": "SPDR S&P 500 ETF"
-    },
-    "plays": [
-      {
-        "ticker": "SPY",
-        "direction": "up",
-        "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Steady drift higher, VIX under 15, broad gains in QQQ and IWM; crowd bullish but split with bears calling a late drop",
-        "catalyst": "Friday expiration drift into close"
-      }
-    ],
-    "whats_new": "SPY ticked up to 778.47 (+0.59%) with VIX flat near 14.9 and fear and greed about 45. Telecom losses persist (SpaceX link still unconfirmed) and PLTR is pushing record highs. New chatter is about Russian diesel and a late-day drop call; earlier pin and thin-volume talk faded.",
-    "sources": {
-      "market_pulse": "stocklake",
-      "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending and messages; web search found nothing current"
-    }
+    "vix": 15.42,
+    "vix_change_pct": 3.91
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.59,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": 0.059,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
+      "value": 3.91,
+      "vote": 0,
+      "why": "in the neutral band"
+    },
+    {
+      "reading": "fear_greed",
       "value": null,
       "vote": 0,
       "why": "missing"
     },
     {
-      "reading": "fear_greed",
-      "value": 45.0,
-      "vote": -1,
-      "why": "\u2264 45.0"
-    },
-    {
       "reading": "stocktwits_spy_score",
-      "value": 75.0,
-      "vote": 1,
-      "why": "\u2265 60.0"
+      "value": 55.6,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": 1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
-    "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending and messages; web search found nothing current"
+    "sentiment_flow": "stocktwits public stream",
+    "news": "yahoo finance rss",
+    "vix": "yfinance"
   },
-  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
