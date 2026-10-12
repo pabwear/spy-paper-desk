@@ -1,22 +1,22 @@
 {
   "date": "2026-10-12",
   "bias": "neutral",
-  "written_at": "2026-10-12T14:40:25-04:00",
-  "as_of": "2026-10-12T14:40:25-04:00",
+  "written_at": "2026-10-12T15:10:28-04:00",
+  "as_of": "2026-10-12T15:10:28-04:00",
   "readings": {
-    "as_of": "2026-10-12T14:40:25-04:00",
+    "as_of": "2026-10-12T15:10:28-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 777.445,
-    "spy_change_pct": -0.137,
+    "spy_price": 777.27,
+    "spy_change_pct": -0.159,
     "stocktwits": {
       "SPY": {
-        "score": 37.5,
-        "bullish_pct": 37.5
+        "score": 50.0,
+        "bullish_pct": 50.0
       }
     },
     "news": {
@@ -33,19 +33,19 @@
         "Memory Stocks Slide as China\u2019s CXMT Flags Denser Chip Design: Micron and SK Hynix Fall 4%, Western Digital Drops 2%"
       ]
     },
-    "vix": 15.25,
-    "vix_change_pct": 2.76
+    "vix": 15.31,
+    "vix_change_pct": 3.17
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.137,
+      "value": -0.159,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 2.76,
+      "value": 3.17,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 37.5,
-      "vote": -1,
-      "why": "\u2264 40.0"
+      "value": 50.0,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
