@@ -1,22 +1,22 @@
 {
   "date": "2026-10-12",
   "bias": "neutral",
-  "written_at": "2026-10-12T11:10:27-04:00",
-  "as_of": "2026-10-12T11:10:27-04:00",
+  "written_at": "2026-10-12T11:40:35-04:00",
+  "as_of": "2026-10-12T11:40:35-04:00",
   "readings": {
-    "as_of": "2026-10-12T11:10:27-04:00",
+    "as_of": "2026-10-12T11:40:35-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 778.27,
-    "spy_change_pct": -0.031,
+    "spy_price": 778.325,
+    "spy_change_pct": -0.024,
     "stocktwits": {
       "SPY": {
-        "score": 25.0,
-        "bullish_pct": 25.0
+        "score": 85.7,
+        "bullish_pct": 85.7
       }
     },
     "news": {
@@ -33,19 +33,19 @@
         "IonQ Sinks 9% on All-Stock Elisity Deal Worth Up to $1.3B; D-Wave and Rigetti Fall 4%"
       ]
     },
-    "vix": 15.25,
-    "vix_change_pct": 2.76
+    "vix": 15.21,
+    "vix_change_pct": 2.49
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.031,
+      "value": -0.024,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 2.76,
+      "value": 2.49,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 25.0,
-      "vote": -1,
-      "why": "\u2264 40.0"
+      "value": 85.7,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
