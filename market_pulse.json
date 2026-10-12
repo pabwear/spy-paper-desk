@@ -1,22 +1,22 @@
 {
   "date": "2026-10-12",
   "bias": "neutral",
-  "written_at": "2026-10-12T09:30:31-04:00",
-  "as_of": "2026-10-12T09:30:31-04:00",
+  "written_at": "2026-10-12T10:00:31-04:00",
+  "as_of": "2026-10-12T10:00:31-04:00",
   "readings": {
-    "as_of": "2026-10-12T09:30:31-04:00",
+    "as_of": "2026-10-12T10:00:31-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 778.97,
-    "spy_change_pct": 0.059,
+    "spy_price": 778.55,
+    "spy_change_pct": 0.005,
     "stocktwits": {
       "SPY": {
-        "score": 55.6,
-        "bullish_pct": 55.6
+        "score": 57.1,
+        "bullish_pct": 57.1
       }
     },
     "news": {
@@ -30,22 +30,22 @@
         "What is Domino\u2019s (DPZ) Economic Moat, and is it Widening or Narrowing?",
         "What is Philip Morris\u2019 (PM) Economic Moat, and is it Widening or Narrowing?",
         "KLA Turned $1,000 Into $31,595 in a Decade, Crushing the S&P 500 by 8.7x",
-        "State Street (STT) Gains A Trump Account Tailwind, Is It Still 12% Below Fair Value?"
+        "The $5,250-a-Month Dividend Paycheck a 45-Year-Old Can Still Build by 65"
       ]
     },
-    "vix": 15.42,
-    "vix_change_pct": 3.91
+    "vix": 15.37,
+    "vix_change_pct": 3.57
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.059,
+      "value": 0.005,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 3.91,
+      "value": 3.57,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,7 +57,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 55.6,
+      "value": 57.1,
       "vote": 0,
       "why": "in the neutral band"
     }
