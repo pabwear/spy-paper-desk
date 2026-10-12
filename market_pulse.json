@@ -1,22 +1,22 @@
 {
   "date": "2026-10-12",
   "bias": "neutral",
-  "written_at": "2026-10-12T11:40:35-04:00",
-  "as_of": "2026-10-12T11:40:35-04:00",
+  "written_at": "2026-10-12T12:20:30-04:00",
+  "as_of": "2026-10-12T12:20:30-04:00",
   "readings": {
-    "as_of": "2026-10-12T11:40:35-04:00",
+    "as_of": "2026-10-12T12:20:30-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 778.325,
-    "spy_change_pct": -0.024,
+    "spy_price": 778.8,
+    "spy_change_pct": 0.037,
     "stocktwits": {
       "SPY": {
-        "score": 85.7,
-        "bullish_pct": 85.7
+        "score": 66.7,
+        "bullish_pct": 66.7
       }
     },
     "news": {
@@ -25,27 +25,27 @@
         "Stocktwits Pharma Pulse: JNJ Earnings, Cancer Updates And Two FDA Target Dates \u2014 The Week\u2019s Biotech Watchlist",
         "Guide to Magnificent Seven ETF investing",
         "Is Walt Disney (DIS) a Good or Bad Investment at Today\u2019s Price?",
-        "What is SBA Communications\u2019 (SBAC) Economic Moat, and is it Widening or Narrowing?",
-        "What is Copart\u2019s (CPRT) Economic Moat, and is it Widening or Narrowing?",
-        "What is Domino\u2019s (DPZ) Economic Moat, and is it Widening or Narrowing?",
+        "SanDisk Drops 6% in Memory Selloff on China\u2019s DRAM Progress; Seagate Slides 4%",
+        "SoundHound AI Slides 5% to Fresh Lows While C3.ai Climbs 4% on Northland Upgrade; UiPath Slips",
+        "NuScale Power Sinks 7% as Nuclear Names Give Back a Month of Ground; Oklo Falls 6%, Centrus Energy Drops 4%",
         "Memory Stocks Slide as China\u2019s CXMT Flags Denser Chip Design: Micron and SK Hynix Fall 4%, Western Digital Drops 2%",
         "Chipotle Slides 3% as Starbucks Rules Out Acquisition; Starbucks Stock Rises While McDonald\u2019s Stock Slips",
         "IonQ Sinks 9% on All-Stock Elisity Deal Worth Up to $1.3B; D-Wave and Rigetti Fall 4%"
       ]
     },
-    "vix": 15.21,
-    "vix_change_pct": 2.49
+    "vix": 15.12,
+    "vix_change_pct": 1.89
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.024,
+      "value": 0.037,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 2.49,
+      "value": 1.89,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,7 +57,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 85.7,
+      "value": 66.7,
       "vote": 1,
       "why": "\u2265 60.0"
     }
