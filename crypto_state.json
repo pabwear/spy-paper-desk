@@ -1,39 +1,39 @@
 {
-  "updated_at": "2026-10-11T21:44:17+00:00",
+  "updated_at": "2026-10-12T01:08:23+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 1007.88,
+  "equity": 1014.84,
   "cash": 58.59,
   "last_equity": 1000.0,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.705726906,
-      "market_value": 473.858964,
-      "unrealized_pl": 4.345243,
-      "current_price": 83414.61
+      "market_value": 476.784502,
+      "unrealized_pl": 7.270781,
+      "current_price": 83929.6
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 475.429166,
-      "unrealized_pl": 5.887447,
-      "current_price": 2524.259
+      "market_value": 479.467451,
+      "unrealized_pl": 9.925732,
+      "current_price": 2545.7
     }
   },
   "signals": {
     "BTC/USD": {
       "hold": true,
-      "close": 82909.38,
-      "average": 71919.47,
+      "close": 83677.93,
+      "average": 71981.44,
       "days": 419
     },
     "ETH/USD": {
       "hold": true,
-      "close": 2504.78,
-      "average": 2132.09,
+      "close": 2533.5865,
+      "average": 2133.91,
       "days": 419
     }
   },
@@ -70,6 +70,10 @@
     {
       "date": "2026-10-11",
       "equity": 1007.88
+    },
+    {
+      "date": "2026-10-12",
+      "equity": 1014.84
     }
   ],
   "equity_history": [
@@ -84,11 +88,11 @@
   ],
   "pnl_periods": {
     "as_of": "2026-10-11",
-    "equity": 1007.88,
-    "today": 7.88,
-    "week": 7.88,
-    "month": 7.88,
-    "all": 7.88,
+    "equity": 1014.84,
+    "today": 14.84,
+    "week": 14.84,
+    "month": 14.84,
+    "all": 14.84,
     "start_usd": 1000.0
   },
   "learning": {
@@ -98,8 +102,8 @@
     "stop_pct": 6,
     "enabled": true,
     "hold": false,
-    "close": 110.016,
-    "close_7d_ago": 119.64,
+    "close": 111.257,
+    "close_7d_ago": 121.54,
     "position": null,
     "stop_price": null,
     "trades": 0,
