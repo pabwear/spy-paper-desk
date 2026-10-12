@@ -1,51 +1,51 @@
 {
   "date": "2026-10-12",
   "bias": "neutral",
-  "written_at": "2026-10-12T14:00:30-04:00",
-  "as_of": "2026-10-12T14:00:30-04:00",
+  "written_at": "2026-10-12T14:40:25-04:00",
+  "as_of": "2026-10-12T14:40:25-04:00",
   "readings": {
-    "as_of": "2026-10-12T14:00:30-04:00",
+    "as_of": "2026-10-12T14:40:25-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 777.735,
-    "spy_change_pct": -0.1,
+    "spy_price": 777.445,
+    "spy_change_pct": -0.137,
     "stocktwits": {
       "SPY": {
-        "score": 57.1,
-        "bullish_pct": 57.1
+        "score": 37.5,
+        "bullish_pct": 37.5
       }
     },
     "news": {
       "headlines": [
         "Salesforce at $229: One Of The Most Unpredictable AI Plays There Is",
         "Dow Rises 200 Points, Nasdaq Wavers: China Chip Competition Hits Tech Stocks, Oil Climbs",
-        "Guide to Magnificent Seven ETF investing",
+        "USA Rare Earth Drops 6% With Milestone-Based Government Funding Still Ahead of It; MP Materials Falls 6%, Critical Metals Holds Steady",
+        "T-Mobile Rebounds 3% After Record Drop on Starlink Spectrum Move; SpaceX Ticks Up, Verizon Edges Higher",
         "Meta Climbs 4% on Muse Retention Data; Snap Rises 3%, Reddit Falls 3%",
         "Update: US Equity Indexes Mixed as Technology Leads Sector Losses, Ukraine-Russia Energy Ceasefire Struggles",
         "SanDisk Drops 6% in Memory Selloff on China\u2019s DRAM Progress; Seagate Slides 4%",
         "SoundHound AI Slides 5% to Fresh Lows While C3.ai Climbs 4% on Northland Upgrade; UiPath Slips",
         "NuScale Power Sinks 7% as Nuclear Names Give Back a Month of Ground; Oklo Falls 6%, Centrus Energy Drops 4%",
-        "Memory Stocks Slide as China\u2019s CXMT Flags Denser Chip Design: Micron and SK Hynix Fall 4%, Western Digital Drops 2%",
-        "Chipotle Slides 3% as Starbucks Rules Out Acquisition; Starbucks Stock Rises While McDonald\u2019s Stock Slips"
+        "Memory Stocks Slide as China\u2019s CXMT Flags Denser Chip Design: Micron and SK Hynix Fall 4%, Western Digital Drops 2%"
       ]
     },
-    "vix": 15.19,
-    "vix_change_pct": 2.36
+    "vix": 15.25,
+    "vix_change_pct": 2.76
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.1,
+      "value": -0.137,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 2.36,
+      "value": 2.76,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 57.1,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 37.5,
+      "vote": -1,
+      "why": "\u2264 40.0"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
