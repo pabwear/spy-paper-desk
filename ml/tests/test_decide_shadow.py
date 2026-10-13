@@ -191,3 +191,13 @@ class ShadowTests(unittest.TestCase):
         self.assertTrue(st2["kill_switch"]["on"])
         self.assertIn("kill_switch_off", st2["risk"]["failed"])
         self.assertIn("kill switch is on", st2["execution"]["why_not"])
+
+
+class ActiveModelTests(unittest.TestCase):
+    def test_the_installed_shadow_model_loads_with_numpy_only_and_is_not_approved(self):
+        active = Path(__file__).resolve().parents[1] / "models" / "active"
+        if not (active / "model.json").exists():
+            self.skipTest("no model installed")
+        m = infer.load(active)
+        self.assertFalse(m.meta["approved"])  # research only until the rules AND the holdout say otherwise
+        self.assertLessEqual(m.meta["validation"][1], json.loads((active.parents[1] / "holdout.json").read_text())["start"])

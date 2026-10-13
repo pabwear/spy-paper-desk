@@ -44,6 +44,32 @@ days that decide its result. No new rule tested this week: 5 live trades is far 
 without fooling ourselves. Next check: the spread's first losing day (size vs the ~$490 worst case) and the
 options book once it has 10+ trades.
 
+## Oct 13 2026: ML engine, first verdict — no edge in SPY minute bars after costs
+
+Built the ML research engine (`ml/`, docs/ML.md) per Roy's spec. Pass rules (`ml/acceptance.json`) and the holdout
+lock (May 2026 on, `ml/holdout.json`) were written before any model saw data.
+
+Walk-forward on Alpaca IEX 1-minute SPY bars, 14 test windows (Nov 2022 – Apr 2026), out-of-sample, after costs
+($0.02/share round trip + 0.5 bp slippage each side), 25 features, target "a long trade made money after costs":
+
+| Horizon | Logistic | Trees (GBT) | TCN (neural) | Trade every decision |
+|---|---|---|---|---|
+| 15 min | −$44 (271 trades) | −$22 (332) | **+$18** (471; per trade −$0.09…+$0.17) | −$354 (3,330) |
+| 30 min | −$20 (88) | −$31 (606) | −$81 (524) | −$281 |
+| 60 min | −$1 (999) | −$29 (1,108) | −$51 (1,000) | −$167 |
+
+- Nothing passed. Every model's probabilities scored worse than the plain base rate (Brier skill < 0); AUC 0.497–0.515
+  (0.5 = a coin). The TCN's +$18 at 15 minutes is inside the noise (range includes 0, 4 of 14 windows positive,
+  it abstained in 7 folds) and the same network lost at 30 and 60 minutes.
+- The models did cut the losses of trading blindly (−$354 → about −$20 to +$18), mostly by abstaining.
+- Controls behaved: on a pure random walk nothing passes; on a planted trend every model finds it. So the pipeline
+  can see an edge when one exists; SPY's minute bars, with these features, after costs, do not show one.
+- The holdout stays unused (only a passing candidate may use it, once). No LSTM: the TCN did not beat the baselines.
+- Shadow mode: the 15-minute TCN (the closest candidate) predicts in the desk every 10 minutes, logs, never orders,
+  and its forward record is scored on the dashboard. It stays unapproved.
+- Next experiments worth writing down before running: real quotes for spread costs; longer horizons (end of day);
+  cross-asset context (QQQ, VIX, sector ETFs); TSLA/SNDK (more movement per dollar of cost).
+
 ## Oct 10 2026: crypto LEARNING book (Roy said yes in chat; rules written before any run or test)
 
 No busier crypto rule passed (below), so this book is here to learn, not to earn: it is expected to lose

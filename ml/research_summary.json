@@ -1,0 +1,95 @@
+{
+ "report": "20261013-1447-SPY-up_net",
+ "holdout_start": "2026-05-01",
+ "folds": 14,
+ "horizons": [
+  {
+   "horizon": 15,
+   "models": [
+    {
+     "model": "logistic",
+     "trades": 271,
+     "net_pnl": -44.26,
+     "passed": false
+    },
+    {
+     "model": "gbt",
+     "trades": 332,
+     "net_pnl": -22.18,
+     "passed": false
+    },
+    {
+     "model": "tcn",
+     "trades": 471,
+     "net_pnl": 17.63,
+     "passed": false
+    },
+    {
+     "model": "every_decision",
+     "trades": 3330,
+     "net_pnl": -354.03,
+     "passed": false
+    }
+   ]
+  },
+  {
+   "horizon": 30,
+   "models": [
+    {
+     "model": "logistic",
+     "trades": 88,
+     "net_pnl": -20.01,
+     "passed": false
+    },
+    {
+     "model": "gbt",
+     "trades": 606,
+     "net_pnl": -31.39,
+     "passed": false
+    },
+    {
+     "model": "tcn",
+     "trades": 524,
+     "net_pnl": -80.85,
+     "passed": false
+    },
+    {
+     "model": "every_decision",
+     "trades": 3330,
+     "net_pnl": -280.9,
+     "passed": false
+    }
+   ]
+  },
+  {
+   "horizon": 60,
+   "models": [
+    {
+     "model": "logistic",
+     "trades": 999,
+     "net_pnl": -0.62,
+     "passed": false
+    },
+    {
+     "model": "gbt",
+     "trades": 1108,
+     "net_pnl": -28.56,
+     "passed": false
+    },
+    {
+     "model": "tcn",
+     "trades": 1000,
+     "net_pnl": -51.29,
+     "passed": false
+    },
+    {
+     "model": "every_decision",
+     "trades": 3215,
+     "net_pnl": -166.93,
+     "passed": false
+    }
+   ]
+  }
+ ],
+ "note": "Out-of-sample, Nov 2022 - Apr 2026, 14 test windows, after costs. No model passed the rules written beforehand, so the locked holdout (May 2026 on) stays unused and nothing trades."
+}
