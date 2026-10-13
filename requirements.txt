@@ -1,0 +1,5 @@
+alpaca-py
+pandas
+numpy
+yfinance
+tzdata  # time zone data for America/New_York on systems without it (Windows)

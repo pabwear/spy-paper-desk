@@ -1,0 +1,11 @@
+{
+  "date": null,
+  "bias": "none",
+  "sources": {
+    "market_pulse": null,
+    "macro_policy": null,
+    "sentiment_flow": null,
+    "rates_jobs": null
+  },
+  "note": "Weekday morning bias only. 'none' until the pulse agents write today's read."
+}

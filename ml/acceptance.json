@@ -1,0 +1,17 @@
+{
+  "written": "2026-10-13, before any model was trained on market data",
+  "applies_to": "each candidate (model x horizon) on the POOLED walk-forward test windows (2023-01 .. 2026-05), after costs",
+  "rules": {
+    "min_trades": 200,
+    "expectancy_ci_lower_gt_0": {"level": 0.95, "method": "bootstrap resampling whole trading days (keeps same-day trades together), 2000 draws"},
+    "beats_no_trade": "total net P&L > 0",
+    "beats_every_decision": "total net P&L > the same rules entering at every decision time (shows the model's choices add value)",
+    "beats_logistic": "for any non-logistic model: total net P&L and Brier score better than the logistic baseline on the same folds",
+    "brier_skill_gt_0": "Brier score better than predicting each fold's training base rate",
+    "profitable_fold_share": 0.6,
+    "profit_factor": 1.1
+  },
+  "multiple_testing": "Up to 9 candidates (3 models x 3 horizons) are compared, so one can pass by luck. Only the single best passing candidate (highest CI lower bound) goes to the locked holdout, ONCE. It must also make money there after costs with profit factor >= 1.1.",
+  "if_nothing_passes": "Report it as a negative result; nothing trades. Next experiment proposed in the report.",
+  "never": ["tune on the holdout", "change these rules after seeing results", "promote to paper orders without Roy saying so in chat"]
+}

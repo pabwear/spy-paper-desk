@@ -1,0 +1,6 @@
+# The ML engine (ml/). Training and research only; the 10-minute desk run never installs these.
+numpy        # arrays, the numpy inference path
+pandas       # bar cleaning, features, labels
+tzdata       # America/New_York on systems without a time zone database
+scikit-learn # baselines (logistic regression, gradient-boosted trees), calibration, AUC
+alpaca-py    # historical minute bars (keys from the environment; not needed by the tests)

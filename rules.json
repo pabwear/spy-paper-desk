@@ -1,0 +1,155 @@
+{
+  "mode": "paper",
+  "account_usd": 1000,
+  "symbol": "SPY",
+  "study": "Mxwll Price Action Suite (TradingView)",
+  "chart": "https://www.tradingview.com/chart/pY9HoHBw/?symbol=AMEX:SPY",
+  "aoi": {
+    "source": "Live Mxwll boxes read from Roy's TradingView during 09:30-09:59 ET the same day",
+    "trade_only_inside": true,
+    "buy": "RED only",
+    "sell_short_tp": "GREEN only (switched off: trade_colors is red only)",
+    "no_chase_outside_zones": true,
+    "stale_or_approx_not_tradable": true
+  },
+  "confluence_required": {
+    "base": "AOI",
+    "plus_at_least": 2,
+    "of": [
+      "structure (BOS/CHoCH, HH/LH/LL)",
+      "order blocks",
+      "RSI",
+      "VWAP",
+      "volume",
+      "session context"
+    ]
+  },
+  "live_trading": false,
+  "books": {
+    "spy_spreads": {
+      "label": "SPY daily put spread",
+      "symbol": "SPY",
+      "asset": "spread",
+      "enabled": true,
+      "budget_usd": 600,
+      "spread": {
+        "sd": 0.5,
+        "width": 5
+      },
+      "entry_window": [
+        "10:00",
+        "11:00"
+      ],
+      "max_entries_per_day": 1,
+      "max_hold_minutes": 0,
+      "stop": {},
+      "purpose": "Roy, 2026-10-07: \"make profits daily ... trade regardless of anything\". Sells a $5-wide SPY put spread expiring the same day, one remaining-day move below the price (VIX-sized), every day SPY has a same-day expiry; bought back at 15:40. The worst case is capped at the width minus the credit (about $470). Backtest (backtests/spreads.md, credits priced at the VIX, likely generous): won about 95% of days; this book prices with Alpaca's real quotes. 2026-10-07 10:25: real quotes paid only $3-7 one move below the price (the backtest assumed ~$34), so the short strike moved to half a move below for a meaningful credit."
+    },
+    "spy_shares": {
+      "label": "SPY shares",
+      "symbol": "SPY",
+      "asset": "shares",
+      "enabled": true,
+      "budget_usd": 4000,
+      "stop": {
+        "pct": 0.25
+      },
+      "stop_at_broker": true,
+      "max_hold_minutes": 30,
+      "max_entries_per_day": 2,
+      "purpose": "The idea that turned the desk's own signals profitable in the 6-year backtest (backtests/ideas.md): whole shares, the stop held at Alpaca."
+    },
+    "sndk_shares": {
+      "label": "SNDK shares",
+      "symbol": "SNDK",
+      "asset": "shares",
+      "enabled": true,
+      "budget_usd": 3000,
+      "stop": {
+        "range_fraction": 0.25,
+        "days": 20
+      },
+      "stop_at_broker": true,
+      "max_hold_minutes": 30,
+      "max_entries_per_day": 2,
+      "purpose": "Roy's pick (2026-10-07). Same rules as SPY shares; the stop is a quarter of SNDK's average daily range (SPY's 0.25% in SNDK's terms). See backtests/ideas-sndk.md."
+    },
+    "spy_options": {
+      "label": "SPY options (learning)",
+      "symbol": "SPY",
+      "asset": "option",
+      "enabled": true,
+      "budget_usd": 3000,
+      "stop": {
+        "pct": 0.25
+      },
+      "max_hold_minutes": 30,
+      "max_entries_per_day": 2,
+      "purpose": "Kept so the learner keeps learning options. Lost money in the backtest (backtests/current.md); paper only."
+    }
+  },
+  "books_note": "Each book trades on its own: one position at a time, its own daily entry limit and budget, capped by the cash in the account. Shares are whole so Alpaca can hold the stop; options keep the desk's own stop check every 10 minutes. Changed 2026-10-07 at Roy's request (\"switch the paper desk to shares for SNDK and a separate section for SPY, but another SPY to focus on options so it can learn\"). The spread book trades every day SPY has a same-day expiry, whatever the chart says. Books are tried in this order each run; the spread book is first so it gets first call on the cash (Roy's goal: a profit every day).",
+  "symbol_underlying": "SPY",
+  "option": {
+    "right_on_buy": "call",
+    "right_on_sell": "put",
+    "contracts": 1,
+    "strike": "atm_nearest_dollar",
+    "expiry": "about 30 days out, at least 7, that one contract can afford within the options book's budget",
+    "expiry_target_days": 30,
+    "expiry_min_days": 7,
+    "max_cost_usd": 3000
+  },
+  "stop_underlying_pct": 0.25,
+  "exit_on_zone_leave": false,
+  "hold_to": "30 minutes at most (max_hold_minutes), and never past the 15:40 flatten",
+  "overnight": false,
+  "min_confluence": 0,
+  "max_entries_per_day": 2,
+  "max_open_positions": 1,
+  "watch_only": "09:30-09:59 ET",
+  "book_usd": 1000,
+  "pulse_rules": {
+    "note": "Default rule for turning live readings into a Market Pulse bias. Each reading votes bullish (+1), bearish (-1) or not at all; the bias needs min_net_votes net votes, otherwise it is neutral, and neutral never contradicts a setup. Edit the thresholds to match how Roy reads the market.",
+    "votes": {
+      "spy_change_pct": {
+        "bullish_at_or_above": 0.3,
+        "bearish_at_or_below": -0.3
+      },
+      "vix_change_pct": {
+        "bearish_at_or_above": 5.0,
+        "bullish_at_or_below": -5.0
+      },
+      "fear_greed": {
+        "bullish_at_or_above": 55.0,
+        "bearish_at_or_below": 45.0
+      },
+      "stocktwits_spy_score": {
+        "bullish_at_or_above": 60.0,
+        "bearish_at_or_below": 40.0
+      }
+    },
+    "min_net_votes": 2
+  },
+  "studies": {
+    "mxwll": {
+      "_note": "Python port of the Mxwll Suite (MPL 2.0, Mxwll Capital) in studies/mxwll.py, read on the desk's candles (5 minutes; extended hours 04:00-20:00 ET by default; both changeable on the settings form). trusted: the desk's own 09:39 boxes are tradable when Ops publishes none that morning. Roy switched this on 2026-10-07 (\"let the desk trade its own boxes\") without a side-by-side check against his TradingView chart; set it back to false to make them practice-only again.",
+      "timeframe_minutes": 5,
+      "regular_hours_only": false,
+      "snapshot_time": "09:39",
+      "auto_zones": true,
+      "trusted": true,
+      "aoi_lookback": 50,
+      "atr_length": 14,
+      "internal_sensitivity": 3,
+      "external_sensitivity": 25,
+      "order_blocks_kept": 10
+    }
+  },
+  "trade_colors": [
+    "red"
+  ],
+  "max_hold_minutes": 30,
+  "setup_note": "Since 2026-10-07: the setup that came closest to break-even in the backtest (backtests/areas.md on desk-state; touch, red area only, no 2-signal minimum, 0.25% stop, sell after 30 minutes, a ~30-day option). It still lost a little in the backtest; this is paper practice, not a proven edge.",
+  "cost_policy": "Free sources only: free or free-tier data and services; nothing billed per use or per month without Roy's say-so (README)."
+}

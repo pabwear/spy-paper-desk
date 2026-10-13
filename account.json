@@ -1,0 +1,11 @@
+{
+  "source": "initial",
+  "account_name": "Paper 1000",
+  "account_number": null,
+  "snapshot_at": null,
+  "equity": 1000.0,
+  "cash": 1000.0,
+  "buying_power": null,
+  "position": null,
+  "note": "Starting book. Replaced by a paper account snapshot after the first sync or submit."
+}

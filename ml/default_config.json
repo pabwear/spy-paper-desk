@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "symbol": "SPY",
+  "symbols_next": ["TSLA", "SNDK"],
+  "bar_minutes": 1,
+  "session": {"open": "09:30", "close": "16:00", "half_day_close": "13:00", "first_decision": "10:00", "last_entry": "15:30"},
+  "decision_every_minutes": 10,
+  "entry_delay_bars": 1,
+  "horizons_minutes": [15, 30, 60],
+  "costs": {"per_share_round_trip_usd": 0.02, "slippage_bps_each_side": 0.5},
+  "move_threshold_bps": 5.0,
+  "lookback_bars": 60,
+  "data": {"provider": "alpaca", "feed": "iex", "adjustment": "split", "since": "2020-07-01"},
+  "splits": {"train_months": 24, "validation_months": 3, "test_months": 3, "step_months": 3,
+             "embargo_minutes": 60, "holdout_months": 6},
+  "seed": 7
+}

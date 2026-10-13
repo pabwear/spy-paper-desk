@@ -1,0 +1,14 @@
+{
+  "name": "Mxwll Price Action Suite",
+  "symbol": "SPY",
+  "mode": "paper",
+  "starting_capital": 1000.0,
+  "rules": {
+    "trade_only_inside_aoi": true,
+    "buy_only_in": "red_aoi",
+    "sell_only_in": "green_aoi",
+    "confluence_allowed": ["structure_BOS_CHoCH", "RSI", "VWAP", "volume", "order_blocks", "session"],
+    "max_risk_pct_per_idea": 10,
+    "notes": "Roy fades the study: buy red, sell green. Green is traditionally demand. Red is traditionally supply."
+  }
+}

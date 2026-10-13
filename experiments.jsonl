@@ -1,0 +1,1 @@
+{"at": "20261013-1239", "name": "20261013-1239-SPY-up_net", "symbol": "SPY", "target": "up_net", "config_hash": "a2ac08539f45", "data_sha": "0ea0a454a11f", "range": ["2020-07-27 09:30:00-04:00", "2026-10-12 15:59:00-04:00"], "horizons": [15, 30, 60], "models": ["base_rate", "logistic", "gbt"], "synthetic": false, "seed": 7, "passed": {"15": [], "30": [], "60": []}}

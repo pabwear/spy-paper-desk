@@ -1,0 +1,29 @@
+{
+  "weights": {
+    "structure": 1.0,
+    "order_blocks": 1.0,
+    "rsi": 1.0,
+    "vwap": 1.0,
+    "volume": 1.0,
+    "session": 1.0
+  },
+  "indicators": {
+    "timeframe_minutes": 1,
+    "rsi_period": 14,
+    "volume_avg_bars": 20
+  },
+  "note": "Score = sum of weight x learned multiplier for each confluence tag present. Highest score wins. Base weights are hand-set; learned_multipliers are written by the 4:15 review from closed paper trades.",
+  "learned_multipliers": {},
+  "ml": {
+    "mode": "shadow",
+    "min_trades_to_act": 30,
+    "veto_threshold": 0.65,
+    "min_tag_samples": 10,
+    "multiplier_range": [
+      0.5,
+      1.5
+    ],
+    "l2": 1.0,
+    "note": "shadow: predicts and logs, never acts. veto: may only SKIP an entry, and only after min_trades_to_act closed trades AND beating the base rate walk-forward. It can never add an order, resize a contract or bypass the gate."
+  }
+}

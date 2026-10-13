@@ -1,0 +1,4892 @@
+{
+ "config_hash": "a2ac08539f45",
+ "config": {
+  "schema": 1,
+  "symbol": "SPY",
+  "symbols_next": [
+   "TSLA",
+   "SNDK"
+  ],
+  "bar_minutes": 1,
+  "session": {
+   "open": "09:30",
+   "close": "16:00",
+   "half_day_close": "13:00",
+   "first_decision": "10:00",
+   "last_entry": "15:30"
+  },
+  "decision_every_minutes": 10,
+  "entry_delay_bars": 1,
+  "horizons_minutes": [
+   15,
+   30,
+   60
+  ],
+  "costs": {
+   "per_share_round_trip_usd": 0.02,
+   "slippage_bps_each_side": 0.5
+  },
+  "move_threshold_bps": 5.0,
+  "lookback_bars": 60,
+  "data": {
+   "provider": "alpaca",
+   "feed": "iex",
+   "adjustment": "split",
+   "since": "2020-07-01"
+  },
+  "splits": {
+   "train_months": 24,
+   "validation_months": 3,
+   "test_months": 3,
+   "step_months": 3,
+   "embargo_minutes": 60,
+   "holdout_months": 6
+  },
+  "seed": 7
+ },
+ "audit": {
+  "raw_rows": 613548,
+  "duplicates": 0,
+  "invalid": 0,
+  "outside_hours": 17790,
+  "missing_minutes": 11917,
+  "dropped_sessions": [
+   {
+    "session": "2020-12-24",
+    "coverage": 0.474
+   },
+   {
+    "session": "2024-12-23",
+    "coverage": 0.224
+   }
+  ],
+  "half_days": [
+   "2023-11-24",
+   "2024-12-23"
+  ],
+  "sessions": 1558,
+  "rows": 607440,
+  "first": "2020-07-27 09:30:00-04:00",
+  "last": "2026-10-12 15:59:00-04:00",
+  "data_sha": "0ea0a454a11f",
+  "provider": "alpaca+cache",
+  "symbol": "SPY",
+  "start": "2020-07-01",
+  "end": "2026-10-13"
+ },
+ "report": {
+  "target": "up_net",
+  "horizons": [
+   15,
+   30,
+   60
+  ],
+  "models": [
+   "base_rate",
+   "logistic",
+   "gbt"
+  ],
+  "folds": [
+   {
+    "k": 0,
+    "train": [
+     "2020-08-01",
+     "2022-08-01"
+    ],
+    "validation": [
+     "2022-08-01",
+     "2022-11-01"
+    ],
+    "test": [
+     "2022-11-01",
+     "2023-02-01"
+    ]
+   },
+   {
+    "k": 1,
+    "train": [
+     "2020-11-01",
+     "2022-11-01"
+    ],
+    "validation": [
+     "2022-11-01",
+     "2023-02-01"
+    ],
+    "test": [
+     "2023-02-01",
+     "2023-05-01"
+    ]
+   },
+   {
+    "k": 2,
+    "train": [
+     "2021-02-01",
+     "2023-02-01"
+    ],
+    "validation": [
+     "2023-02-01",
+     "2023-05-01"
+    ],
+    "test": [
+     "2023-05-01",
+     "2023-08-01"
+    ]
+   },
+   {
+    "k": 3,
+    "train": [
+     "2021-05-01",
+     "2023-05-01"
+    ],
+    "validation": [
+     "2023-05-01",
+     "2023-08-01"
+    ],
+    "test": [
+     "2023-08-01",
+     "2023-11-01"
+    ]
+   },
+   {
+    "k": 4,
+    "train": [
+     "2021-08-01",
+     "2023-08-01"
+    ],
+    "validation": [
+     "2023-08-01",
+     "2023-11-01"
+    ],
+    "test": [
+     "2023-11-01",
+     "2024-02-01"
+    ]
+   },
+   {
+    "k": 5,
+    "train": [
+     "2021-11-01",
+     "2023-11-01"
+    ],
+    "validation": [
+     "2023-11-01",
+     "2024-02-01"
+    ],
+    "test": [
+     "2024-02-01",
+     "2024-05-01"
+    ]
+   },
+   {
+    "k": 6,
+    "train": [
+     "2022-02-01",
+     "2024-02-01"
+    ],
+    "validation": [
+     "2024-02-01",
+     "2024-05-01"
+    ],
+    "test": [
+     "2024-05-01",
+     "2024-08-01"
+    ]
+   },
+   {
+    "k": 7,
+    "train": [
+     "2022-05-01",
+     "2024-05-01"
+    ],
+    "validation": [
+     "2024-05-01",
+     "2024-08-01"
+    ],
+    "test": [
+     "2024-08-01",
+     "2024-11-01"
+    ]
+   },
+   {
+    "k": 8,
+    "train": [
+     "2022-08-01",
+     "2024-08-01"
+    ],
+    "validation": [
+     "2024-08-01",
+     "2024-11-01"
+    ],
+    "test": [
+     "2024-11-01",
+     "2025-02-01"
+    ]
+   },
+   {
+    "k": 9,
+    "train": [
+     "2022-11-01",
+     "2024-11-01"
+    ],
+    "validation": [
+     "2024-11-01",
+     "2025-02-01"
+    ],
+    "test": [
+     "2025-02-01",
+     "2025-05-01"
+    ]
+   },
+   {
+    "k": 10,
+    "train": [
+     "2023-02-01",
+     "2025-02-01"
+    ],
+    "validation": [
+     "2025-02-01",
+     "2025-05-01"
+    ],
+    "test": [
+     "2025-05-01",
+     "2025-08-01"
+    ]
+   },
+   {
+    "k": 11,
+    "train": [
+     "2023-05-01",
+     "2025-05-01"
+    ],
+    "validation": [
+     "2025-05-01",
+     "2025-08-01"
+    ],
+    "test": [
+     "2025-08-01",
+     "2025-11-01"
+    ]
+   },
+   {
+    "k": 12,
+    "train": [
+     "2023-08-01",
+     "2025-08-01"
+    ],
+    "validation": [
+     "2025-08-01",
+     "2025-11-01"
+    ],
+    "test": [
+     "2025-11-01",
+     "2026-02-01"
+    ]
+   },
+   {
+    "k": 13,
+    "train": [
+     "2023-11-01",
+     "2025-11-01"
+    ],
+    "validation": [
+     "2025-11-01",
+     "2026-02-01"
+    ],
+    "test": [
+     "2026-02-01",
+     "2026-05-01"
+    ]
+   }
+  ],
+  "holdout_start": "2026-05-01",
+  "results": {
+   "15": {
+    "base_rate": {
+     "model": "base_rate",
+     "trade": {
+      "trades": 0,
+      "net_pnl": 0.0,
+      "folds": 14,
+      "profitable_folds": 0,
+      "worst_fold_drawdown_pct": 0.0,
+      "win_rate": null,
+      "expectancy": null,
+      "profit_factor": null,
+      "ci": {
+       "lo": null
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 1,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 2,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 3,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 5,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 6,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 7,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 8,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 9,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 10,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 11,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 12,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 13,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      }
+     ],
+     "prob": {
+      "n": 25922,
+      "base_rate": 0.4555,
+      "train_base_rate": 0.4593,
+      "brier": 0.24805,
+      "brier_base": 0.24805,
+      "brier_skill": 0.0,
+      "log_loss": 0.68924,
+      "auc": 0.4998,
+      "calibration": [
+       {
+        "p_mean": 0.4547,
+        "observed": 0.4546,
+        "n": 3984
+       },
+       {
+        "p_mean": 0.4554,
+        "observed": 0.4507,
+        "n": 3852
+       },
+       {
+        "p_mean": 0.4562,
+        "observed": 0.4505,
+        "n": 3940
+       },
+       {
+        "p_mean": 0.457,
+        "observed": 0.4565,
+        "n": 5856
+       },
+       {
+        "p_mean": 0.4583,
+        "observed": 0.4564,
+        "n": 3731
+       },
+       {
+        "p_mean": 0.459,
+        "observed": 0.4504,
+        "n": 3832
+       },
+       {
+        "p_mean": 0.4601,
+        "observed": 0.4475,
+        "n": 5569
+       },
+       {
+        "p_mean": 0.4624,
+        "observed": 0.4646,
+        "n": 3603
+       },
+       {
+        "p_mean": 0.4641,
+        "observed": 0.467,
+        "n": 5445
+       },
+       {
+        "p_mean": 0.4654,
+        "observed": 0.4472,
+        "n": 3012
+       }
+      ]
+     },
+     "latency_us_per_row": 0.55,
+     "model_settings": [
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.45675081290392217
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.45773051776278406
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.45980328864922343
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.45914825905554235
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4628723655873822
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.46479410425817247
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4660179254213949
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.46491987873538326
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.46174517354659944
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.45885890242053
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4556853384114042
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4566316318014344
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4550744515436898
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4543045277556928
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      }
+     ],
+     "regimes": {}
+    },
+    "logistic": {
+     "model": "logistic",
+     "trade": {
+      "trades": 271,
+      "net_pnl": -44.26,
+      "folds": 14,
+      "profitable_folds": 2,
+      "worst_fold_drawdown_pct": -3.613,
+      "win_rate": 0.4649,
+      "avg_win": 1.1237,
+      "avg_loss": -1.2817,
+      "expectancy": -0.1634,
+      "profit_factor": 0.762,
+      "costs": 29.37,
+      "ci": {
+       "mean": -0.1634,
+       "lo": -0.3463,
+       "hi": 0.0164,
+       "days": 164,
+       "level": 0.95
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": -7.28,
+       "trades": 42,
+       "win_rate": 0.4762,
+       "profit_factor": 0.82,
+       "max_drawdown_pct": -1.866,
+       "sharpe": -1.28,
+       "exposure": 0.0234,
+       "threshold": 0.5
+      },
+      {
+       "fold": 1,
+       "net_pnl": -29.43,
+       "trades": 30,
+       "win_rate": 0.3,
+       "profit_factor": 0.353,
+       "max_drawdown_pct": -3.613,
+       "sharpe": -4.198,
+       "exposure": 0.0159,
+       "threshold": 0.5
+      },
+      {
+       "fold": 2,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 3,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 5,
+       "net_pnl": 3.56,
+       "trades": 27,
+       "win_rate": 0.5185,
+       "profit_factor": 1.407,
+       "max_drawdown_pct": -0.507,
+       "sharpe": 1.5,
+       "exposure": 0.0146,
+       "threshold": 0.55
+      },
+      {
+       "fold": 6,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 7,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 8,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 9,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 10,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 11,
+       "net_pnl": -16.97,
+       "trades": 90,
+       "win_rate": 0.4222,
+       "profit_factor": 0.624,
+       "max_drawdown_pct": -2.118,
+       "sharpe": -4.261,
+       "exposure": 0.0458,
+       "threshold": 0.5
+      },
+      {
+       "fold": 12,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 13,
+       "net_pnl": 5.86,
+       "trades": 82,
+       "win_rate": 0.5488,
+       "profit_factor": 1.127,
+       "max_drawdown_pct": -1.205,
+       "sharpe": 0.872,
+       "exposure": 0.0485,
+       "threshold": 0.5
+      }
+     ],
+     "prob": {
+      "n": 25922,
+      "base_rate": 0.4555,
+      "train_base_rate": 0.4593,
+      "brier": 0.24828,
+      "brier_base": 0.24805,
+      "brier_skill": -0.00092,
+      "log_loss": 0.68974,
+      "auc": 0.5091,
+      "calibration": [
+       {
+        "p_mean": 0.4181,
+        "observed": 0.4439,
+        "n": 2593
+       },
+       {
+        "p_mean": 0.4348,
+        "observed": 0.4587,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4435,
+        "observed": 0.4495,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4497,
+        "observed": 0.4556,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4533,
+        "observed": 0.4379,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4576,
+        "observed": 0.4464,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4608,
+        "observed": 0.4595,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4662,
+        "observed": 0.4614,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4759,
+        "observed": 0.4475,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.5124,
+        "observed": 0.4944,
+        "n": 2593
+       }
+      ]
+     },
+     "latency_us_per_row": 0.99,
+     "model_settings": [
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69213
+       },
+       "calibration": {
+        "a": 0.5587174362810603,
+        "b": -0.021850029603102148
+       },
+       "fit_seconds": 1.98
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69215
+       },
+       "calibration": {
+        "a": 0.5011404781340135,
+        "b": -0.025892376909138003
+       },
+       "fit_seconds": 1.29
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.68981
+       },
+       "calibration": {
+        "a": 0.031680938548261026,
+        "b": -0.19071075124595674
+       },
+       "fit_seconds": 1.21
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.6887
+       },
+       "calibration": {
+        "a": 0.48539844881613203,
+        "b": -0.08410497248854067
+       },
+       "fit_seconds": 1.18
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.68723
+       },
+       "calibration": {
+        "a": -0.4067091223966106,
+        "b": -0.31641348924804047
+       },
+       "fit_seconds": 1.27
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69149
+       },
+       "calibration": {
+        "a": 3.2331783620571763,
+        "b": 0.5033054765212841
+       },
+       "fit_seconds": 1.29
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69065
+       },
+       "calibration": {
+        "a": 0.376047227628357,
+        "b": -0.08039647402194812
+       },
+       "fit_seconds": 1.05
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.68467
+       },
+       "calibration": {
+        "a": 0.05736953816868585,
+        "b": -0.2668610793510327
+       },
+       "fit_seconds": 1.02
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69036
+       },
+       "calibration": {
+        "a": 0.36622036785932705,
+        "b": -0.09324918203567717
+       },
+       "fit_seconds": 1.02
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 1.0,
+        "val_log_loss": 0.68767
+       },
+       "calibration": {
+        "a": 1.497265665220923,
+        "b": 0.06274471625800024
+       },
+       "fit_seconds": 1.07
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69634
+       },
+       "calibration": {
+        "a": 0.12464198982460589,
+        "b": -0.14438483024353216
+       },
+       "fit_seconds": 0.91
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.68782
+       },
+       "calibration": {
+        "a": 3.75152609068708,
+        "b": 0.5028142146943134
+       },
+       "fit_seconds": 1.11
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.68646
+       },
+       "calibration": {
+        "a": 1.4855496426328973,
+        "b": 0.07316206807171907
+       },
+       "fit_seconds": 0.98
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 1.0,
+        "val_log_loss": 0.68572
+       },
+       "calibration": {
+        "a": 1.8702084077543908,
+        "b": 0.12578226309227006
+       },
+       "fit_seconds": 1.28
+      }
+     ],
+     "regimes": {
+      "high-vol/trending": {
+       "trades": 131,
+       "net_pnl": -14.13,
+       "win_rate": 0.4886
+      },
+      "high-vol/sideways": {
+       "trades": 80,
+       "net_pnl": -23.08,
+       "win_rate": 0.4125
+      },
+      "mid-vol/trending": {
+       "trades": 20,
+       "net_pnl": -1.12,
+       "win_rate": 0.55
+      },
+      "low-vol/trending": {
+       "trades": 12,
+       "net_pnl": -1.22,
+       "win_rate": 0.4167
+      },
+      "mid-vol/sideways": {
+       "trades": 23,
+       "net_pnl": -3.09,
+       "win_rate": 0.4783
+      },
+      "low-vol/sideways": {
+       "trades": 5,
+       "net_pnl": -1.61,
+       "win_rate": 0.4
+      }
+     },
+     "acceptance": {
+      "rules": {
+       "min_trades": true,
+       "expectancy_ci_lower_gt_0": false,
+       "beats_no_trade": false,
+       "beats_every_decision": true,
+       "brier_skill_gt_0": false,
+       "profitable_fold_share": "False",
+       "profit_factor": false
+      },
+      "passed": false
+     }
+    },
+    "gbt": {
+     "model": "gbt",
+     "trade": {
+      "trades": 332,
+      "net_pnl": -22.18,
+      "folds": 14,
+      "profitable_folds": 2,
+      "worst_fold_drawdown_pct": -2.312,
+      "win_rate": 0.4789,
+      "avg_win": 0.6726,
+      "avg_loss": -0.7463,
+      "expectancy": -0.0668,
+      "profit_factor": 0.828,
+      "costs": 35.89,
+      "ci": {
+       "mean": -0.0668,
+       "lo": -0.1725,
+       "hi": 0.0306,
+       "days": 151,
+       "level": 0.95
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 1,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 2,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 3,
+       "net_pnl": 0.36,
+       "trades": 10,
+       "win_rate": 0.5,
+       "profit_factor": 1.102,
+       "max_drawdown_pct": -0.244,
+       "sharpe": 0.257,
+       "exposure": 0.0053,
+       "threshold": 0.51
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 5,
+       "net_pnl": -18.4,
+       "trades": 158,
+       "win_rate": 0.443,
+       "profit_factor": 0.641,
+       "max_drawdown_pct": -2.312,
+       "sharpe": -4.022,
+       "exposure": 0.0858,
+       "threshold": 0.5
+      },
+      {
+       "fold": 6,
+       "net_pnl": -4.17,
+       "trades": 37,
+       "win_rate": 0.4324,
+       "profit_factor": 0.766,
+       "max_drawdown_pct": -1.079,
+       "sharpe": -1.125,
+       "exposure": 0.0204,
+       "threshold": 0.5
+      },
+      {
+       "fold": 7,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 8,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 9,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 10,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 11,
+       "net_pnl": 0.25,
+       "trades": 62,
+       "win_rate": 0.5645,
+       "profit_factor": 1.011,
+       "max_drawdown_pct": -1.248,
+       "sharpe": 0.078,
+       "exposure": 0.034,
+       "threshold": 0.5
+      },
+      {
+       "fold": 12,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 13,
+       "net_pnl": -0.22,
+       "trades": 65,
+       "win_rate": 0.5077,
+       "profit_factor": 0.993,
+       "max_drawdown_pct": -1.305,
+       "sharpe": -0.032,
+       "exposure": 0.0363,
+       "threshold": 0.51
+      }
+     ],
+     "prob": {
+      "n": 25922,
+      "base_rate": 0.4555,
+      "train_base_rate": 0.4593,
+      "brier": 0.24813,
+      "brier_base": 0.24805,
+      "brier_skill": -0.00035,
+      "log_loss": 0.68943,
+      "auc": 0.5148,
+      "calibration": [
+       {
+        "p_mean": 0.4023,
+        "observed": 0.4399,
+        "n": 2594
+       },
+       {
+        "p_mean": 0.4292,
+        "observed": 0.4288,
+        "n": 2593
+       },
+       {
+        "p_mean": 0.4385,
+        "observed": 0.4668,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4471,
+        "observed": 0.4394,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4563,
+        "observed": 0.4525,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4611,
+        "observed": 0.461,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.466,
+        "observed": 0.4448,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4743,
+        "observed": 0.4726,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.4819,
+        "observed": 0.4541,
+        "n": 2592
+       },
+       {
+        "p_mean": 0.5086,
+        "observed": 0.4948,
+        "n": 2593
+       }
+      ]
+     },
+     "latency_us_per_row": 2.98,
+     "model_settings": [
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.6944,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.28198658703737917,
+        "b": -0.1175940458916227
+       },
+       "fit_seconds": 4.27
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69167,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.5944201214277816,
+        "b": -0.02876815578236722
+       },
+       "fit_seconds": 4.32
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 5,
+        "learning_rate": 0.05,
+        "max_iter": 150,
+        "val_log_loss": 0.68801,
+        "iterations": 150
+       },
+       "calibration": {
+        "a": 0.6135339358292189,
+        "b": -0.11464953357296079
+       },
+       "fit_seconds": 4.57
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 5,
+        "learning_rate": 0.05,
+        "max_iter": 150,
+        "val_log_loss": 0.6884,
+        "iterations": 150
+       },
+       "calibration": {
+        "a": 0.5206887007984858,
+        "b": -0.08742835522075973
+       },
+       "fit_seconds": 4.55
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68755,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.15348587483521345,
+        "b": -0.2167875931316387
+       },
+       "fit_seconds": 4.45
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 300,
+        "val_log_loss": 0.69016,
+        "iterations": 300
+       },
+       "calibration": {
+        "a": 0.9971652044052987,
+        "b": 0.10546233558944962
+       },
+       "fit_seconds": 4.5
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68819,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 1.1628700273372092,
+        "b": 0.060200479341266815
+       },
+       "fit_seconds": 4.44
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68803,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.154534142979435,
+        "b": -0.3158539142490972
+       },
+       "fit_seconds": 4.57
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.6915,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.025820920626391727,
+        "b": -0.15161902170225353
+       },
+       "fit_seconds": 4.33
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68729,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.9262870354768085,
+        "b": -0.029924428642109344
+       },
+       "fit_seconds": 4.4
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69197,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.14739613108006627,
+        "b": -0.13364930910282094
+       },
+       "fit_seconds": 4.34
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.6855,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 1.1716292028258253,
+        "b": 0.060960843600723964
+       },
+       "fit_seconds": 4.21
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68701,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.5177837213890394,
+        "b": -0.09053983513349932
+       },
+       "fit_seconds": 4.08
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68382,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 1.0975930119763646,
+        "b": -0.018944556913337997
+       },
+       "fit_seconds": 4.28
+      }
+     ],
+     "regimes": {
+      "low-vol/trending": {
+       "trades": 73,
+       "net_pnl": -6.31,
+       "win_rate": 0.4932
+      },
+      "mid-vol/trending": {
+       "trades": 56,
+       "net_pnl": -3.92,
+       "win_rate": 0.5
+      },
+      "low-vol/sideways": {
+       "trades": 48,
+       "net_pnl": -3.28,
+       "win_rate": 0.4583
+      },
+      "mid-vol/sideways": {
+       "trades": 34,
+       "net_pnl": -2.95,
+       "win_rate": 0.4706
+      },
+      "high-vol/sideways": {
+       "trades": 45,
+       "net_pnl": -1.92,
+       "win_rate": 0.5111
+      },
+      "high-vol/trending": {
+       "trades": 76,
+       "net_pnl": -3.75,
+       "win_rate": 0.4473
+      }
+     },
+     "acceptance": {
+      "rules": {
+       "min_trades": true,
+       "expectancy_ci_lower_gt_0": false,
+       "beats_no_trade": false,
+       "beats_every_decision": true,
+       "brier_skill_gt_0": false,
+       "profitable_fold_share": "False",
+       "profit_factor": false,
+       "beats_logistic": true
+      },
+      "passed": false
+     }
+    },
+    "every_decision": {
+     "model": "every_decision",
+     "trade": {
+      "trades": 3330,
+      "net_pnl": -354.03,
+      "folds": 14,
+      "profitable_folds": 1,
+      "worst_fold_drawdown_pct": -7.696,
+      "win_rate": 0.4393,
+      "avg_win": 0.728,
+      "avg_loss": -0.7601,
+      "expectancy": -0.1063,
+      "profit_factor": 0.751,
+      "costs": 365.16,
+      "ci": {
+       "mean": -0.1063,
+       "lo": -0.1423,
+       "hi": -0.0711,
+       "days": 874,
+       "level": 0.95
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": -27.93,
+       "trades": 238,
+       "win_rate": 0.4706,
+       "profit_factor": 0.793,
+       "max_drawdown_pct": -3.875,
+       "sharpe": -2.683,
+       "exposure": 0.1279,
+       "buy_hold_bps": 410.7
+      },
+      {
+       "fold": 1,
+       "net_pnl": -34.25,
+       "trades": 231,
+       "win_rate": 0.4286,
+       "profit_factor": 0.72,
+       "max_drawdown_pct": -4.34,
+       "sharpe": -3.504,
+       "exposure": 0.1251,
+       "buy_hold_bps": 263.1
+      },
+      {
+       "fold": 2,
+       "net_pnl": -21.25,
+       "trades": 244,
+       "win_rate": 0.4631,
+       "profit_factor": 0.751,
+       "max_drawdown_pct": -2.385,
+       "sharpe": -4.041,
+       "exposure": 0.1306,
+       "buy_hold_bps": 970.2
+      },
+      {
+       "fold": 3,
+       "net_pnl": -35.04,
+       "trades": 243,
+       "win_rate": 0.4198,
+       "profit_factor": 0.684,
+       "max_drawdown_pct": -3.504,
+       "sharpe": -4.977,
+       "exposure": 0.1244,
+       "buy_hold_bps": -872.8
+      },
+      {
+       "fold": 4,
+       "net_pnl": -23.77,
+       "trades": 238,
+       "win_rate": 0.4244,
+       "profit_factor": 0.694,
+       "max_drawdown_pct": -2.871,
+       "sharpe": -5.036,
+       "exposure": 0.1334,
+       "buy_hold_bps": 1413.7
+      },
+      {
+       "fold": 5,
+       "net_pnl": -13.92,
+       "trades": 233,
+       "win_rate": 0.4549,
+       "profit_factor": 0.801,
+       "max_drawdown_pct": -2.036,
+       "sharpe": -2.717,
+       "exposure": 0.1311,
+       "buy_hold_bps": 355.3
+      },
+      {
+       "fold": 6,
+       "net_pnl": -37.8,
+       "trades": 235,
+       "win_rate": 0.366,
+       "profit_factor": 0.554,
+       "max_drawdown_pct": -4.254,
+       "sharpe": -5.63,
+       "exposure": 0.1252,
+       "buy_hold_bps": 932.3
+      },
+      {
+       "fold": 7,
+       "net_pnl": -23.01,
+       "trades": 250,
+       "win_rate": 0.44,
+       "profit_factor": 0.771,
+       "max_drawdown_pct": -3.167,
+       "sharpe": -3.332,
+       "exposure": 0.1263,
+       "buy_hold_bps": 283.1
+      },
+      {
+       "fold": 8,
+       "net_pnl": -35.98,
+       "trades": 221,
+       "win_rate": 0.4163,
+       "profit_factor": 0.588,
+       "max_drawdown_pct": -3.852,
+       "sharpe": -5.583,
+       "exposure": 0.1237,
+       "buy_hold_bps": 520.6
+      },
+      {
+       "fold": 9,
+       "net_pnl": -52.18,
+       "trades": 230,
+       "win_rate": 0.4261,
+       "profit_factor": 0.711,
+       "max_drawdown_pct": -7.696,
+       "sharpe": -3.85,
+       "exposure": 0.1274,
+       "buy_hold_bps": -671.7
+      },
+      {
+       "fold": 10,
+       "net_pnl": 9.44,
+       "trades": 243,
+       "win_rate": 0.4856,
+       "profit_factor": 1.136,
+       "max_drawdown_pct": -1.434,
+       "sharpe": 1.764,
+       "exposure": 0.1336,
+       "buy_hold_bps": 1200.6
+      },
+      {
+       "fold": 11,
+       "net_pnl": -29.92,
+       "trades": 248,
+       "win_rate": 0.4194,
+       "profit_factor": 0.654,
+       "max_drawdown_pct": -3.502,
+       "sharpe": -5.539,
+       "exposure": 0.1297,
+       "buy_hold_bps": 852.0
+      },
+      {
+       "fold": 12,
+       "net_pnl": -26.09,
+       "trades": 235,
+       "win_rate": 0.4426,
+       "profit_factor": 0.733,
+       "max_drawdown_pct": -2.641,
+       "sharpe": -3.155,
+       "exposure": 0.1328,
+       "buy_hold_bps": 89.0
+      },
+      {
+       "fold": 13,
+       "net_pnl": -2.33,
+       "trades": 241,
+       "win_rate": 0.4896,
+       "profit_factor": 0.979,
+       "max_drawdown_pct": -2.18,
+       "sharpe": -0.231,
+       "exposure": 0.1347,
+       "buy_hold_bps": 409.0
+      }
+     ]
+    }
+   },
+   "30": {
+    "base_rate": {
+     "model": "base_rate",
+     "trade": {
+      "trades": 0,
+      "net_pnl": 0.0,
+      "folds": 14,
+      "profitable_folds": 0,
+      "worst_fold_drawdown_pct": 0.0,
+      "win_rate": null,
+      "expectancy": null,
+      "profit_factor": null,
+      "ci": {
+       "lo": null
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 1,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 2,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 3,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 5,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 6,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 7,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 8,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 9,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 10,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 11,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 12,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 13,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      }
+     ],
+     "prob": {
+      "n": 25141,
+      "base_rate": 0.4798,
+      "train_base_rate": 0.482,
+      "brier": 0.24958,
+      "brier_base": 0.24958,
+      "brier_skill": 0.0,
+      "log_loss": 0.69231,
+      "auc": 0.5042,
+      "calibration": [
+       {
+        "p_mean": 0.4772,
+        "observed": 0.4702,
+        "n": 3860
+       },
+       {
+        "p_mean": 0.4783,
+        "observed": 0.4745,
+        "n": 3939
+       },
+       {
+        "p_mean": 0.4788,
+        "observed": 0.4758,
+        "n": 3806
+       },
+       {
+        "p_mean": 0.4801,
+        "observed": 0.4859,
+        "n": 5524
+       },
+       {
+        "p_mean": 0.4813,
+        "observed": 0.4892,
+        "n": 3614
+       },
+       {
+        "p_mean": 0.4827,
+        "observed": 0.4729,
+        "n": 5304
+       },
+       {
+        "p_mean": 0.4843,
+        "observed": 0.4918,
+        "n": 3412
+       },
+       {
+        "p_mean": 0.4846,
+        "observed": 0.4892,
+        "n": 3624
+       },
+       {
+        "p_mean": 0.4858,
+        "observed": 0.4843,
+        "n": 5280
+       },
+       {
+        "p_mean": 0.4876,
+        "observed": 0.4707,
+        "n": 2955
+       }
+      ]
+     },
+     "latency_us_per_row": 0.55,
+     "model_settings": [
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4800584865885426
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4809073879659935
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.48446437468858994
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4823302859621565
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.48581164443922215
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4846573540223658
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.48802067223425094
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4871741640824694
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.484150186686832
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.48173694827837205
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.47917136891998646
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.47852475989860405
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4763783185050202
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4780742849377383
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      }
+     ],
+     "regimes": {}
+    },
+    "logistic": {
+     "model": "logistic",
+     "trade": {
+      "trades": 88,
+      "net_pnl": -20.01,
+      "folds": 14,
+      "profitable_folds": 1,
+      "worst_fold_drawdown_pct": -3.012,
+      "win_rate": 0.4091,
+      "avg_win": 1.6533,
+      "avg_loss": -1.5295,
+      "expectancy": -0.2274,
+      "profit_factor": 0.748,
+      "costs": 10.17,
+      "ci": {
+       "mean": -0.2274,
+       "lo": -0.6062,
+       "hi": 0.1391,
+       "days": 52,
+       "level": 0.95
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 1,
+       "net_pnl": -22.59,
+       "trades": 47,
+       "win_rate": 0.3617,
+       "profit_factor": 0.622,
+       "max_drawdown_pct": -3.012,
+       "sharpe": -3.148,
+       "exposure": 0.0446,
+       "threshold": 0.5
+      },
+      {
+       "fold": 2,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 3,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 5,
+       "net_pnl": 12.09,
+       "trades": 33,
+       "win_rate": 0.5758,
+       "profit_factor": 2.172,
+       "max_drawdown_pct": -0.454,
+       "sharpe": 4.078,
+       "exposure": 0.0356,
+       "threshold": 0.52
+      },
+      {
+       "fold": 6,
+       "net_pnl": -9.51,
+       "trades": 8,
+       "win_rate": 0.0,
+       "profit_factor": 0.0,
+       "max_drawdown_pct": -1.093,
+       "sharpe": -4.058,
+       "exposure": 0.0048,
+       "threshold": 0.5
+      },
+      {
+       "fold": 7,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 8,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 9,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 10,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 11,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 12,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 13,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      }
+     ],
+     "prob": {
+      "n": 25141,
+      "base_rate": 0.4798,
+      "train_base_rate": 0.482,
+      "brier": 0.24991,
+      "brier_base": 0.24958,
+      "brier_skill": -0.0013,
+      "log_loss": 0.69297,
+      "auc": 0.4972,
+      "calibration": [
+       {
+        "p_mean": 0.4469,
+        "observed": 0.4875,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4623,
+        "observed": 0.4759,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4686,
+        "observed": 0.4696,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.474,
+        "observed": 0.5066,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4791,
+        "observed": 0.4672,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4823,
+        "observed": 0.4736,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4846,
+        "observed": 0.4855,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4894,
+        "observed": 0.493,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4971,
+        "observed": 0.472,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.5078,
+        "observed": 0.4664,
+        "n": 2515
+       }
+      ]
+     },
+     "latency_us_per_row": 0.96,
+     "model_settings": [
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69474
+       },
+       "calibration": {
+        "a": -0.053579824034491505,
+        "b": -0.06469700822201557
+       },
+       "fit_seconds": 1.53
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69278
+       },
+       "calibration": {
+        "a": 0.485247316177024,
+        "b": -0.02553323295996815
+       },
+       "fit_seconds": 1.48
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69404
+       },
+       "calibration": {
+        "a": 0.19233510165415268,
+        "b": -0.015082990873311917
+       },
+       "fit_seconds": 1.45
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69498
+       },
+       "calibration": {
+        "a": 0.07454606112387893,
+        "b": 0.007236369191135375
+       },
+       "fit_seconds": 1.18
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.6915
+       },
+       "calibration": {
+        "a": -0.4813382048386273,
+        "b": -0.22139314225151507
+       },
+       "fit_seconds": 1.16
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69422
+       },
+       "calibration": {
+        "a": 0.5857473203133192,
+        "b": 0.06511657833958095
+       },
+       "fit_seconds": 1.5
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 1.0,
+        "val_log_loss": 0.69212
+       },
+       "calibration": {
+        "a": 0.5511584010300122,
+        "b": -0.041787990271165455
+       },
+       "fit_seconds": 1.39
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69653
+       },
+       "calibration": {
+        "a": -0.4713609685896655,
+        "b": -0.1709226065734636
+       },
+       "fit_seconds": 1.25
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69246
+       },
+       "calibration": {
+        "a": -0.16243196620759706,
+        "b": -0.1478908173468171
+       },
+       "fit_seconds": 1.39
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.1,
+        "val_log_loss": 0.69337
+       },
+       "calibration": {
+        "a": 0.006180733407817334,
+        "b": -0.07002365251488618
+       },
+       "fit_seconds": 1.23
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69409
+       },
+       "calibration": {
+        "a": 0.3951311446492121,
+        "b": -0.05239730232367001
+       },
+       "fit_seconds": 0.97
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69274
+       },
+       "calibration": {
+        "a": 0.21474018944569132,
+        "b": -0.06556763177694061
+       },
+       "fit_seconds": 1.18
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69285
+       },
+       "calibration": {
+        "a": -0.3654340147915959,
+        "b": -0.15003088390187685
+       },
+       "fit_seconds": 1.29
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 1.0,
+        "val_log_loss": 0.68961
+       },
+       "calibration": {
+        "a": 1.4167133460994783,
+        "b": -0.014992014026283357
+       },
+       "fit_seconds": 1.48
+      }
+     ],
+     "regimes": {
+      "high-vol/sideways": {
+       "trades": 28,
+       "net_pnl": -26.1,
+       "win_rate": 0.2857
+      },
+      "high-vol/trending": {
+       "trades": 20,
+       "net_pnl": 5.9,
+       "win_rate": 0.45
+      },
+      "mid-vol/sideways": {
+       "trades": 3,
+       "net_pnl": -2.43,
+       "win_rate": 0.3333
+      },
+      "mid-vol/trending": {
+       "trades": 13,
+       "net_pnl": -0.87,
+       "win_rate": 0.4615
+      },
+      "low-vol/trending": {
+       "trades": 20,
+       "net_pnl": 2.17,
+       "win_rate": 0.45
+      },
+      "low-vol/sideways": {
+       "trades": 4,
+       "net_pnl": 1.34,
+       "win_rate": 0.75
+      }
+     },
+     "acceptance": {
+      "rules": {
+       "min_trades": false,
+       "expectancy_ci_lower_gt_0": false,
+       "beats_no_trade": false,
+       "beats_every_decision": true,
+       "brier_skill_gt_0": false,
+       "profitable_fold_share": "False",
+       "profit_factor": false
+      },
+      "passed": false
+     }
+    },
+    "gbt": {
+     "model": "gbt",
+     "trade": {
+      "trades": 606,
+      "net_pnl": -31.39,
+      "folds": 14,
+      "profitable_folds": 3,
+      "worst_fold_drawdown_pct": -3.236,
+      "win_rate": 0.4274,
+      "avg_win": 1.424,
+      "avg_loss": -1.1533,
+      "expectancy": -0.0518,
+      "profit_factor": 0.922,
+      "costs": 66.93,
+      "ci": {
+       "mean": -0.0518,
+       "lo": -0.1948,
+       "hi": 0.1084,
+       "days": 253,
+       "level": 0.95
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": -16.4,
+       "trades": 41,
+       "win_rate": 0.3171,
+       "profit_factor": 0.542,
+       "max_drawdown_pct": -1.995,
+       "sharpe": -3.814,
+       "exposure": 0.0351,
+       "threshold": 0.51
+      },
+      {
+       "fold": 1,
+       "net_pnl": -2.02,
+       "trades": 133,
+       "win_rate": 0.4812,
+       "profit_factor": 0.977,
+       "max_drawdown_pct": -2.283,
+       "sharpe": -0.17,
+       "exposure": 0.1311,
+       "threshold": 0.5
+      },
+      {
+       "fold": 2,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 3,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 5,
+       "net_pnl": -14.62,
+       "trades": 167,
+       "win_rate": 0.4072,
+       "profit_factor": 0.814,
+       "max_drawdown_pct": -2.662,
+       "sharpe": -1.892,
+       "exposure": 0.1551,
+       "threshold": 0.51
+      },
+      {
+       "fold": 6,
+       "net_pnl": 7.23,
+       "trades": 8,
+       "win_rate": 0.375,
+       "profit_factor": 3.289,
+       "max_drawdown_pct": -0.307,
+       "sharpe": 1.947,
+       "exposure": 0.0081,
+       "threshold": 0.56
+      },
+      {
+       "fold": 7,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 8,
+       "net_pnl": -3.39,
+       "trades": 23,
+       "win_rate": 0.4783,
+       "profit_factor": 0.631,
+       "max_drawdown_pct": -0.586,
+       "sharpe": -1.549,
+       "exposure": 0.0224,
+       "threshold": 0.5
+      },
+      {
+       "fold": 9,
+       "net_pnl": 1.88,
+       "trades": 60,
+       "win_rate": 0.4333,
+       "profit_factor": 1.024,
+       "max_drawdown_pct": -3.236,
+       "sharpe": 0.153,
+       "exposure": 0.0553,
+       "threshold": 0.5
+      },
+      {
+       "fold": 10,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 11,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 12,
+       "net_pnl": 0.25,
+       "trades": 56,
+       "win_rate": 0.375,
+       "profit_factor": 1.007,
+       "max_drawdown_pct": -1.397,
+       "sharpe": 0.054,
+       "exposure": 0.0569,
+       "threshold": 0.5
+      },
+      {
+       "fold": 13,
+       "net_pnl": -4.32,
+       "trades": 118,
+       "win_rate": 0.4492,
+       "profit_factor": 0.94,
+       "max_drawdown_pct": -2.386,
+       "sharpe": -0.482,
+       "exposure": 0.1225,
+       "threshold": 0.5
+      }
+     ],
+     "prob": {
+      "n": 25141,
+      "base_rate": 0.4798,
+      "train_base_rate": 0.482,
+      "brier": 0.25031,
+      "brier_base": 0.24958,
+      "brier_skill": -0.00293,
+      "log_loss": 0.69379,
+      "auc": 0.4982,
+      "calibration": [
+       {
+        "p_mean": 0.4349,
+        "observed": 0.5109,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4582,
+        "observed": 0.4799,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4677,
+        "observed": 0.4632,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4737,
+        "observed": 0.4614,
+        "n": 2516
+       },
+       {
+        "p_mean": 0.478,
+        "observed": 0.4734,
+        "n": 2516
+       },
+       {
+        "p_mean": 0.4825,
+        "observed": 0.4915,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4884,
+        "observed": 0.4795,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.4943,
+        "observed": 0.4787,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.5022,
+        "observed": 0.4767,
+        "n": 2515
+       },
+       {
+        "p_mean": 0.528,
+        "observed": 0.4825,
+        "n": 2516
+       }
+      ]
+     },
+     "latency_us_per_row": 2.93,
+     "model_settings": [
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.6998,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.6291897245043568,
+        "b": -0.10189493475301506
+       },
+       "fit_seconds": 4.03
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68975,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 1.169181241079299,
+        "b": -0.011023973606962641
+       },
+       "fit_seconds": 4.22
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69554,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.1092121812903949,
+        "b": -0.032529323895287815
+       },
+       "fit_seconds": 4.28
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69439,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.40347905621768043,
+        "b": 0.030748560493549442
+       },
+       "fit_seconds": 4.3
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69466,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.40597474612834517,
+        "b": -0.20795112655426784
+       },
+       "fit_seconds": 4.26
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69206,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 1.022876022734512,
+        "b": 0.10626531613489307
+       },
+       "fit_seconds": 4.34
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69017,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.8875129904670268,
+        "b": -0.02481582083630691
+       },
+       "fit_seconds": 4.34
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.6947,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.1681559501338008,
+        "b": -0.0746260007257427
+       },
+       "fit_seconds": 4.27
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69083,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.6394737907331954,
+        "b": -0.09393738157250192
+       },
+       "fit_seconds": 4.14
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69333,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.3200460111042921,
+        "b": -0.045250570198730924
+       },
+       "fit_seconds": 4.13
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69405,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.32600723464131204,
+        "b": -0.04369880306639697
+       },
+       "fit_seconds": 3.95
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69507,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.17224420806076218,
+        "b": -0.06701208205173115
+       },
+       "fit_seconds": 3.92
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69239,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.4109821395177701,
+        "b": -0.04868039970912166
+       },
+       "fit_seconds": 3.84
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68855,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.9429891953921455,
+        "b": -0.07781147122313717
+       },
+       "fit_seconds": 3.92
+      }
+     ],
+     "regimes": {
+      "high-vol/trending": {
+       "trades": 177,
+       "net_pnl": -19.96,
+       "win_rate": 0.4237
+      },
+      "mid-vol/trending": {
+       "trades": 131,
+       "net_pnl": 7.72,
+       "win_rate": 0.5191
+      },
+      "high-vol/sideways": {
+       "trades": 84,
+       "net_pnl": 23.43,
+       "win_rate": 0.4286
+      },
+      "low-vol/sideways": {
+       "trades": 75,
+       "net_pnl": -14.25,
+       "win_rate": 0.3333
+      },
+      "mid-vol/sideways": {
+       "trades": 52,
+       "net_pnl": -15.32,
+       "win_rate": 0.3654
+      },
+      "low-vol/trending": {
+       "trades": 87,
+       "net_pnl": -12.99,
+       "win_rate": 0.4138
+      }
+     },
+     "acceptance": {
+      "rules": {
+       "min_trades": true,
+       "expectancy_ci_lower_gt_0": false,
+       "beats_no_trade": false,
+       "beats_every_decision": true,
+       "brier_skill_gt_0": false,
+       "profitable_fold_share": "False",
+       "profit_factor": false,
+       "beats_logistic": false
+      },
+      "passed": false
+     }
+    },
+    "every_decision": {
+     "model": "every_decision",
+     "trade": {
+      "trades": 3330,
+      "net_pnl": -280.9,
+      "folds": 14,
+      "profitable_folds": 2,
+      "worst_fold_drawdown_pct": -8.614,
+      "win_rate": 0.4306,
+      "avg_win": 1.0335,
+      "avg_loss": -0.9298,
+      "expectancy": -0.0844,
+      "profit_factor": 0.841,
+      "costs": 365.63,
+      "ci": {
+       "mean": -0.0844,
+       "lo": -0.129,
+       "hi": -0.0402,
+       "days": 874,
+       "level": 0.95
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": -6.57,
+       "trades": 236,
+       "win_rate": 0.4364,
+       "profit_factor": 0.959,
+       "max_drawdown_pct": -3.562,
+       "sharpe": -0.473,
+       "exposure": 0.2144,
+       "buy_hold_bps": 410.7
+      },
+      {
+       "fold": 1,
+       "net_pnl": -14.35,
+       "trades": 228,
+       "win_rate": 0.4518,
+       "profit_factor": 0.901,
+       "max_drawdown_pct": -3.601,
+       "sharpe": -1.187,
+       "exposure": 0.2174,
+       "buy_hold_bps": 263.1
+      },
+      {
+       "fold": 2,
+       "net_pnl": -13.76,
+       "trades": 243,
+       "win_rate": 0.4444,
+       "profit_factor": 0.869,
+       "max_drawdown_pct": -2.544,
+       "sharpe": -1.864,
+       "exposure": 0.2282,
+       "buy_hold_bps": 970.2
+      },
+      {
+       "fold": 3,
+       "net_pnl": -24.57,
+       "trades": 243,
+       "win_rate": 0.3909,
+       "profit_factor": 0.821,
+       "max_drawdown_pct": -3.673,
+       "sharpe": -2.216,
+       "exposure": 0.2153,
+       "buy_hold_bps": -872.8
+      },
+      {
+       "fold": 4,
+       "net_pnl": -10.12,
+       "trades": 238,
+       "win_rate": 0.4412,
+       "profit_factor": 0.895,
+       "max_drawdown_pct": -2.466,
+       "sharpe": -1.576,
+       "exposure": 0.2317,
+       "buy_hold_bps": 1413.7
+      },
+      {
+       "fold": 5,
+       "net_pnl": 3.96,
+       "trades": 243,
+       "win_rate": 0.4815,
+       "profit_factor": 1.043,
+       "max_drawdown_pct": -2.016,
+       "sharpe": 0.556,
+       "exposure": 0.2472,
+       "buy_hold_bps": 355.3
+      },
+      {
+       "fold": 6,
+       "net_pnl": -23.44,
+       "trades": 236,
+       "win_rate": 0.3814,
+       "profit_factor": 0.764,
+       "max_drawdown_pct": -2.658,
+       "sharpe": -2.925,
+       "exposure": 0.228,
+       "buy_hold_bps": 932.3
+      },
+      {
+       "fold": 7,
+       "net_pnl": -40.51,
+       "trades": 247,
+       "win_rate": 0.4008,
+       "profit_factor": 0.693,
+       "max_drawdown_pct": -4.278,
+       "sharpe": -4.684,
+       "exposure": 0.215,
+       "buy_hold_bps": 283.1
+      },
+      {
+       "fold": 8,
+       "net_pnl": -5.26,
+       "trades": 227,
+       "win_rate": 0.4714,
+       "profit_factor": 0.95,
+       "max_drawdown_pct": -1.837,
+       "sharpe": -0.473,
+       "exposure": 0.2289,
+       "buy_hold_bps": 520.6
+      },
+      {
+       "fold": 9,
+       "net_pnl": -74.35,
+       "trades": 231,
+       "win_rate": 0.3939,
+       "profit_factor": 0.671,
+       "max_drawdown_pct": -8.614,
+       "sharpe": -4.62,
+       "exposure": 0.2112,
+       "buy_hold_bps": -671.7
+      },
+      {
+       "fold": 10,
+       "net_pnl": 10.83,
+       "trades": 243,
+       "win_rate": 0.4897,
+       "profit_factor": 1.118,
+       "max_drawdown_pct": -1.467,
+       "sharpe": 1.674,
+       "exposure": 0.2435,
+       "buy_hold_bps": 1200.6
+      },
+      {
+       "fold": 11,
+       "net_pnl": -27.26,
+       "trades": 244,
+       "win_rate": 0.4098,
+       "profit_factor": 0.734,
+       "max_drawdown_pct": -3.364,
+       "sharpe": -3.557,
+       "exposure": 0.2307,
+       "buy_hold_bps": 852.0
+      },
+      {
+       "fold": 12,
+       "net_pnl": -30.87,
+       "trades": 232,
+       "win_rate": 0.4052,
+       "profit_factor": 0.767,
+       "max_drawdown_pct": -3.119,
+       "sharpe": -3.405,
+       "exposure": 0.229,
+       "buy_hold_bps": 89.0
+      },
+      {
+       "fold": 13,
+       "net_pnl": -24.63,
+       "trades": 239,
+       "win_rate": 0.431,
+       "profit_factor": 0.822,
+       "max_drawdown_pct": -4.943,
+       "sharpe": -2.176,
+       "exposure": 0.2349,
+       "buy_hold_bps": 409.0
+      }
+     ]
+    }
+   },
+   "60": {
+    "base_rate": {
+     "model": "base_rate",
+     "trade": {
+      "trades": 0,
+      "net_pnl": 0.0,
+      "folds": 14,
+      "profitable_folds": 0,
+      "worst_fold_drawdown_pct": 0.0,
+      "win_rate": null,
+      "expectancy": null,
+      "profit_factor": null,
+      "ci": {
+       "lo": null
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 1,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 2,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 3,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 5,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 6,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 7,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 8,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 9,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 10,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 11,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 12,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 13,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      }
+     ],
+     "prob": {
+      "n": 22650,
+      "base_rate": 0.5026,
+      "train_base_rate": 0.5026,
+      "brier": 0.25001,
+      "brier_base": 0.25001,
+      "brier_skill": 0.0,
+      "log_loss": 0.69316,
+      "auc": 0.5012,
+      "calibration": [
+       {
+        "p_mean": 0.4971,
+        "observed": 0.5053,
+        "n": 3493
+       },
+       {
+        "p_mean": 0.499,
+        "observed": 0.4965,
+        "n": 3561
+       },
+       {
+        "p_mean": 0.5005,
+        "observed": 0.4898,
+        "n": 3579
+       },
+       {
+        "p_mean": 0.5017,
+        "observed": 0.4959,
+        "n": 5076
+       },
+       {
+        "p_mean": 0.5028,
+        "observed": 0.4971,
+        "n": 3329
+       },
+       {
+        "p_mean": 0.503,
+        "observed": 0.4974,
+        "n": 3261
+       },
+       {
+        "p_mean": 0.5039,
+        "observed": 0.5107,
+        "n": 4815
+       },
+       {
+        "p_mean": 0.5047,
+        "observed": 0.5147,
+        "n": 3062
+       },
+       {
+        "p_mean": 0.5055,
+        "observed": 0.5043,
+        "n": 4374
+       },
+       {
+        "p_mean": 0.5076,
+        "observed": 0.4919,
+        "n": 2643
+       }
+      ]
+     },
+     "latency_us_per_row": 0.59,
+     "model_settings": [
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.504055720700778
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.502946625294472
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.5046060195147835
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.5011904675224441
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.5053311839927135
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.5026976876962603
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.5066480355322349
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.5084766443685222
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.5048129463015913
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.5030429396874736
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.5012962397299435
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4981476339692991
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.49607849363350587
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      },
+      {
+       "name": "base_rate",
+       "params": {
+        "p": 0.4998569771322326
+       },
+       "calibration": {
+        "a": 1.0,
+        "b": 0.0
+       },
+       "fit_seconds": 0.0
+      }
+     ],
+     "regimes": {}
+    },
+    "logistic": {
+     "model": "logistic",
+     "trade": {
+      "trades": 999,
+      "net_pnl": -0.62,
+      "folds": 14,
+      "profitable_folds": 5,
+      "worst_fold_drawdown_pct": -3.147,
+      "win_rate": 0.3974,
+      "avg_win": 1.5711,
+      "avg_loss": -1.0372,
+      "expectancy": -0.0006,
+      "profit_factor": 0.999,
+      "costs": 110.91,
+      "ci": {
+       "mean": -0.0006,
+       "lo": -0.1043,
+       "hi": 0.1016,
+       "days": 364,
+       "level": 0.95
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": 15.3,
+       "trades": 140,
+       "win_rate": 0.4357,
+       "profit_factor": 1.143,
+       "max_drawdown_pct": -1.959,
+       "sharpe": 1.27,
+       "exposure": 0.2325,
+       "threshold": 0.5
+      },
+      {
+       "fold": 1,
+       "net_pnl": -8.24,
+       "trades": 77,
+       "win_rate": 0.3766,
+       "profit_factor": 0.909,
+       "max_drawdown_pct": -2.084,
+       "sharpe": -0.819,
+       "exposure": 0.1188,
+       "threshold": 0.51
+      },
+      {
+       "fold": 2,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 3,
+       "net_pnl": -5.76,
+       "trades": 40,
+       "win_rate": 0.325,
+       "profit_factor": 0.781,
+       "max_drawdown_pct": -1.096,
+       "sharpe": -1.392,
+       "exposure": 0.0531,
+       "threshold": 0.58
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 5,
+       "net_pnl": 1.25,
+       "trades": 207,
+       "win_rate": 0.401,
+       "profit_factor": 1.012,
+       "max_drawdown_pct": -1.887,
+       "sharpe": 0.149,
+       "exposure": 0.3426,
+       "threshold": 0.5
+      },
+      {
+       "fold": 6,
+       "net_pnl": 7.44,
+       "trades": 67,
+       "win_rate": 0.3731,
+       "profit_factor": 1.206,
+       "max_drawdown_pct": -1.653,
+       "sharpe": 1.025,
+       "exposure": 0.1094,
+       "threshold": 0.5
+      },
+      {
+       "fold": 7,
+       "net_pnl": 17.35,
+       "trades": 159,
+       "win_rate": 0.4088,
+       "profit_factor": 1.189,
+       "max_drawdown_pct": -1.352,
+       "sharpe": 1.524,
+       "exposure": 0.2583,
+       "threshold": 0.5
+      },
+      {
+       "fold": 8,
+       "net_pnl": 2.86,
+       "trades": 44,
+       "win_rate": 0.4318,
+       "profit_factor": 1.086,
+       "max_drawdown_pct": -1.351,
+       "sharpe": 0.423,
+       "exposure": 0.0765,
+       "threshold": 0.5
+      },
+      {
+       "fold": 9,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 10,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": 0.52
+      },
+      {
+       "fold": 11,
+       "net_pnl": -25.68,
+       "trades": 243,
+       "win_rate": 0.3868,
+       "profit_factor": 0.788,
+       "max_drawdown_pct": -3.147,
+       "sharpe": -2.797,
+       "exposure": 0.3733,
+       "threshold": 0.5
+      },
+      {
+       "fold": 12,
+       "net_pnl": -5.14,
+       "trades": 22,
+       "win_rate": 0.3636,
+       "profit_factor": 0.683,
+       "max_drawdown_pct": -1.079,
+       "sharpe": -1.445,
+       "exposure": 0.0418,
+       "threshold": 0.51
+      },
+      {
+       "fold": 13,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      }
+     ],
+     "prob": {
+      "n": 22650,
+      "base_rate": 0.5026,
+      "train_base_rate": 0.5026,
+      "brier": 0.25075,
+      "brier_base": 0.25001,
+      "brier_skill": -0.00297,
+      "log_loss": 0.69466,
+      "auc": 0.5009,
+      "calibration": [
+       {
+        "p_mean": 0.46,
+        "observed": 0.4932,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.4757,
+        "observed": 0.4865,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.482,
+        "observed": 0.4993,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.4878,
+        "observed": 0.5219,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.4942,
+        "observed": 0.5241,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.5013,
+        "observed": 0.5042,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.5097,
+        "observed": 0.506,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.5213,
+        "observed": 0.4936,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.5285,
+        "observed": 0.4918,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.5591,
+        "observed": 0.506,
+        "n": 2265
+       }
+      ]
+     },
+     "latency_us_per_row": 1.08,
+     "model_settings": [
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69175
+       },
+       "calibration": {
+        "a": 0.7484641287328593,
+        "b": -0.03612156751903408
+       },
+       "fit_seconds": 1.45
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69345
+       },
+       "calibration": {
+        "a": 0.4495223955752266,
+        "b": -0.00506104445932822
+       },
+       "fit_seconds": 0.97
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69355
+       },
+       "calibration": {
+        "a": 0.37685728863659695,
+        "b": 0.032739238929397535
+       },
+       "fit_seconds": 1.32
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69799
+       },
+       "calibration": {
+        "a": -0.7203260804469215,
+        "b": 0.19184470452424715
+       },
+       "fit_seconds": 1.25
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.6954
+       },
+       "calibration": {
+        "a": -0.40166828393390547,
+        "b": -0.07774401733413312
+       },
+       "fit_seconds": 1.14
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69185
+       },
+       "calibration": {
+        "a": 1.2481437726001365,
+        "b": 0.10486560017590178
+       },
+       "fit_seconds": 1.07
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 1.0,
+        "val_log_loss": 0.69209
+       },
+       "calibration": {
+        "a": 0.9073065116522099,
+        "b": -0.07749164678139787
+       },
+       "fit_seconds": 1.17
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69835
+       },
+       "calibration": {
+        "a": -0.4435203714721005,
+        "b": -0.015908706302940025
+       },
+       "fit_seconds": 1.28
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69801
+       },
+       "calibration": {
+        "a": -0.5469982489052404,
+        "b": -0.06753204109067949
+       },
+       "fit_seconds": 1.11
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.1,
+        "val_log_loss": 0.69402
+       },
+       "calibration": {
+        "a": 0.2948949146271705,
+        "b": -0.09403007699301381
+       },
+       "fit_seconds": 1.26
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69859
+       },
+       "calibration": {
+        "a": 0.266683164943083,
+        "b": -0.0687791881805608
+       },
+       "fit_seconds": 1.44
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.6943
+       },
+       "calibration": {
+        "a": -0.0028976923995018356,
+        "b": 0.09858438739380501
+       },
+       "fit_seconds": 1.7
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.01,
+        "val_log_loss": 0.69486
+       },
+       "calibration": {
+        "a": -0.48296878487359285,
+        "b": -0.034763724140604496
+       },
+       "fit_seconds": 1.4
+      },
+      {
+       "name": "logistic",
+       "params": {
+        "C": 0.1,
+        "val_log_loss": 0.69199
+       },
+       "calibration": {
+        "a": 1.0693566053226844,
+        "b": 0.059843128978657144
+       },
+       "fit_seconds": 1.38
+      }
+     ],
+     "regimes": {
+      "mid-vol/sideways": {
+       "trades": 139,
+       "net_pnl": -1.73,
+       "win_rate": 0.3813
+      },
+      "high-vol/trending": {
+       "trades": 164,
+       "net_pnl": 6.36,
+       "win_rate": 0.4085
+      },
+      "high-vol/sideways": {
+       "trades": 95,
+       "net_pnl": 18.86,
+       "win_rate": 0.421
+      },
+      "mid-vol/trending": {
+       "trades": 194,
+       "net_pnl": 6.06,
+       "win_rate": 0.4072
+      },
+      "low-vol/trending": {
+       "trades": 178,
+       "net_pnl": -10.0,
+       "win_rate": 0.4157
+      },
+      "low-vol/sideways": {
+       "trades": 229,
+       "net_pnl": -20.16,
+       "win_rate": 0.3668
+      }
+     },
+     "acceptance": {
+      "rules": {
+       "min_trades": true,
+       "expectancy_ci_lower_gt_0": false,
+       "beats_no_trade": false,
+       "beats_every_decision": true,
+       "brier_skill_gt_0": false,
+       "profitable_fold_share": "False",
+       "profit_factor": false
+      },
+      "passed": false
+     }
+    },
+    "gbt": {
+     "model": "gbt",
+     "trade": {
+      "trades": 1108,
+      "net_pnl": -28.56,
+      "folds": 14,
+      "profitable_folds": 6,
+      "worst_fold_drawdown_pct": -3.147,
+      "win_rate": 0.4088,
+      "avg_win": 1.3265,
+      "avg_loss": -0.961,
+      "expectancy": -0.0258,
+      "profit_factor": 0.955,
+      "costs": 121.4,
+      "ci": {
+       "mean": -0.0258,
+       "lo": -0.1048,
+       "hi": 0.0541,
+       "days": 424,
+       "level": 0.95
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": 6.52,
+       "trades": 29,
+       "win_rate": 0.3793,
+       "profit_factor": 1.271,
+       "max_drawdown_pct": -1.129,
+       "sharpe": 1.051,
+       "exposure": 0.0409,
+       "threshold": 0.52
+      },
+      {
+       "fold": 1,
+       "net_pnl": -9.83,
+       "trades": 47,
+       "win_rate": 0.3617,
+       "profit_factor": 0.771,
+       "max_drawdown_pct": -1.653,
+       "sharpe": -1.712,
+       "exposure": 0.0708,
+       "threshold": 0.52
+      },
+      {
+       "fold": 2,
+       "net_pnl": 0.78,
+       "trades": 158,
+       "win_rate": 0.4051,
+       "profit_factor": 1.009,
+       "max_drawdown_pct": -1.82,
+       "sharpe": 0.108,
+       "exposure": 0.2463,
+       "threshold": 0.51
+      },
+      {
+       "fold": 3,
+       "net_pnl": -0.22,
+       "trades": 56,
+       "win_rate": 0.3929,
+       "profit_factor": 0.992,
+       "max_drawdown_pct": -1.114,
+       "sharpe": -0.053,
+       "exposure": 0.0876,
+       "threshold": 0.55
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 5,
+       "net_pnl": 4.9,
+       "trades": 184,
+       "win_rate": 0.4076,
+       "profit_factor": 1.054,
+       "max_drawdown_pct": -1.251,
+       "sharpe": 0.629,
+       "exposure": 0.3114,
+       "threshold": 0.5
+      },
+      {
+       "fold": 6,
+       "net_pnl": 1.71,
+       "trades": 27,
+       "win_rate": 0.4444,
+       "profit_factor": 1.142,
+       "max_drawdown_pct": -0.664,
+       "sharpe": 0.535,
+       "exposure": 0.0484,
+       "threshold": 0.51
+      },
+      {
+       "fold": 7,
+       "net_pnl": 5.57,
+       "trades": 88,
+       "win_rate": 0.4545,
+       "profit_factor": 1.111,
+       "max_drawdown_pct": -1.474,
+       "sharpe": 0.854,
+       "exposure": 0.1434,
+       "threshold": 0.52
+      },
+      {
+       "fold": 8,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 9,
+       "net_pnl": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "max_drawdown_pct": 0.0,
+       "sharpe": null,
+       "exposure": 0.0,
+       "threshold": null
+      },
+      {
+       "fold": 10,
+       "net_pnl": -13.13,
+       "trades": 142,
+       "win_rate": 0.4296,
+       "profit_factor": 0.834,
+       "max_drawdown_pct": -2.118,
+       "sharpe": -2.218,
+       "exposure": 0.2268,
+       "threshold": 0.5
+      },
+      {
+       "fold": 11,
+       "net_pnl": -25.68,
+       "trades": 243,
+       "win_rate": 0.3868,
+       "profit_factor": 0.788,
+       "max_drawdown_pct": -3.147,
+       "sharpe": -2.797,
+       "exposure": 0.3733,
+       "threshold": 0.5
+      },
+      {
+       "fold": 12,
+       "net_pnl": -11.25,
+       "trades": 99,
+       "win_rate": 0.4242,
+       "profit_factor": 0.823,
+       "max_drawdown_pct": -2.354,
+       "sharpe": -1.626,
+       "exposure": 0.166,
+       "threshold": 0.5
+      },
+      {
+       "fold": 13,
+       "net_pnl": 12.07,
+       "trades": 35,
+       "win_rate": 0.4286,
+       "profit_factor": 1.427,
+       "max_drawdown_pct": -1.519,
+       "sharpe": 1.68,
+       "exposure": 0.0597,
+       "threshold": 0.58
+      }
+     ],
+     "prob": {
+      "n": 22650,
+      "base_rate": 0.5026,
+      "train_base_rate": 0.5026,
+      "brier": 0.2512,
+      "brier_base": 0.25001,
+      "brier_skill": -0.00478,
+      "log_loss": 0.69561,
+      "auc": 0.4981,
+      "calibration": [
+       {
+        "p_mean": 0.4489,
+        "observed": 0.4918,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.4742,
+        "observed": 0.5011,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.4807,
+        "observed": 0.5416,
+        "n": 2269
+       },
+       {
+        "p_mean": 0.4862,
+        "observed": 0.5106,
+        "n": 2266
+       },
+       {
+        "p_mean": 0.4928,
+        "observed": 0.4905,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.5013,
+        "observed": 0.4896,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.5129,
+        "observed": 0.4865,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.524,
+        "observed": 0.4901,
+        "n": 2265
+       },
+       {
+        "p_mean": 0.5399,
+        "observed": 0.5124,
+        "n": 2266
+       },
+       {
+        "p_mean": 0.5699,
+        "observed": 0.511,
+        "n": 2266
+       }
+      ]
+     },
+     "latency_us_per_row": 2.77,
+     "model_settings": [
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.70592,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.3354032262579238,
+        "b": 0.0020408295275252553
+       },
+       "fit_seconds": 3.51
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69448,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.3937043427773335,
+        "b": -0.022731174625770692
+       },
+       "fit_seconds": 3.65
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69214,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.6026645282536749,
+        "b": 0.017881802488098078
+       },
+       "fit_seconds": 3.8
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69693,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.06100391520861297,
+        "b": 0.18802093161978725
+       },
+       "fit_seconds": 3.8
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69787,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.15418352557098494,
+        "b": -0.07545164631635436
+       },
+       "fit_seconds": 3.81
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68826,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 1.2519909952953314,
+        "b": 0.08401070777083612
+       },
+       "fit_seconds": 3.86
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.6946,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.4818221190129032,
+        "b": -0.09118172955574637
+       },
+       "fit_seconds": 3.89
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69001,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 1.0873366648513783,
+        "b": -0.027994158342124736
+       },
+       "fit_seconds": 3.81
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69552,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.26368062925818037,
+        "b": -0.07185024908830244
+       },
+       "fit_seconds": 3.66
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69926,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.3073485273572098,
+        "b": -0.09044458444884755
+       },
+       "fit_seconds": 3.57
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.71826,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.6645067546080186,
+        "b": -0.014983511665936235
+       },
+       "fit_seconds": 3.47
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69913,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 0.14272532436566168,
+        "b": 0.1002908879103302
+       },
+       "fit_seconds": 3.45
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.69764,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": -0.6454769021287955,
+        "b": -0.04120606675281154
+       },
+       "fit_seconds": 3.3
+      },
+      {
+       "name": "gbt",
+       "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "max_iter": 100,
+        "val_log_loss": 0.68971,
+        "iterations": 100
+       },
+       "calibration": {
+        "a": 1.0980102864444563,
+        "b": 0.029834447913481596
+       },
+       "fit_seconds": 3.41
+      }
+     ],
+     "regimes": {
+      "high-vol/trending": {
+       "trades": 145,
+       "net_pnl": 6.22,
+       "win_rate": 0.4
+      },
+      "mid-vol/trending": {
+       "trades": 202,
+       "net_pnl": 5.49,
+       "win_rate": 0.4208
+      },
+      "high-vol/sideways": {
+       "trades": 76,
+       "net_pnl": -12.01,
+       "win_rate": 0.3553
+      },
+      "low-vol/sideways": {
+       "trades": 273,
+       "net_pnl": -7.94,
+       "win_rate": 0.4102
+      },
+      "mid-vol/sideways": {
+       "trades": 152,
+       "net_pnl": 2.44,
+       "win_rate": 0.4079
+      },
+      "low-vol/trending": {
+       "trades": 260,
+       "net_pnl": -22.74,
+       "win_rate": 0.4192
+      }
+     },
+     "acceptance": {
+      "rules": {
+       "min_trades": true,
+       "expectancy_ci_lower_gt_0": false,
+       "beats_no_trade": false,
+       "beats_every_decision": true,
+       "brier_skill_gt_0": false,
+       "profitable_fold_share": "False",
+       "profit_factor": false,
+       "beats_logistic": false
+      },
+      "passed": false
+     }
+    },
+    "every_decision": {
+     "model": "every_decision",
+     "trade": {
+      "trades": 3215,
+      "net_pnl": -166.93,
+      "folds": 14,
+      "profitable_folds": 4,
+      "worst_fold_drawdown_pct": -8.143,
+      "win_rate": 0.3885,
+      "avg_win": 1.5132,
+      "avg_loss": -1.0463,
+      "expectancy": -0.0519,
+      "profit_factor": 0.919,
+      "costs": 354.74,
+      "ci": {
+       "mean": -0.0519,
+       "lo": -0.1093,
+       "hi": 0.0051,
+       "days": 874,
+       "level": 0.95
+      }
+     },
+     "folds": [
+      {
+       "fold": 0,
+       "net_pnl": -19.42,
+       "trades": 224,
+       "win_rate": 0.3616,
+       "profit_factor": 0.893,
+       "max_drawdown_pct": -4.717,
+       "sharpe": -1.135,
+       "exposure": 0.3367,
+       "buy_hold_bps": 410.7
+      },
+      {
+       "fold": 1,
+       "net_pnl": -16.47,
+       "trades": 227,
+       "win_rate": 0.3656,
+       "profit_factor": 0.91,
+       "max_drawdown_pct": -4.119,
+       "sharpe": -1.203,
+       "exposure": 0.3388,
+       "buy_hold_bps": 263.1
+      },
+      {
+       "fold": 2,
+       "net_pnl": -9.78,
+       "trades": 234,
+       "win_rate": 0.4017,
+       "profit_factor": 0.921,
+       "max_drawdown_pct": -2.331,
+       "sharpe": -1.005,
+       "exposure": 0.3706,
+       "buy_hold_bps": 970.2
+      },
+      {
+       "fold": 3,
+       "net_pnl": -38.37,
+       "trades": 241,
+       "win_rate": 0.3278,
+       "profit_factor": 0.77,
+       "max_drawdown_pct": -4.883,
+       "sharpe": -3.094,
+       "exposure": 0.3409,
+       "buy_hold_bps": -872.8
+      },
+      {
+       "fold": 4,
+       "net_pnl": 0.81,
+       "trades": 236,
+       "win_rate": 0.4322,
+       "profit_factor": 1.007,
+       "max_drawdown_pct": -2.432,
+       "sharpe": 0.104,
+       "exposure": 0.398,
+       "buy_hold_bps": 1413.7
+      },
+      {
+       "fold": 5,
+       "net_pnl": 23.77,
+       "trades": 231,
+       "win_rate": 0.4329,
+       "profit_factor": 1.214,
+       "max_drawdown_pct": -1.873,
+       "sharpe": 2.36,
+       "exposure": 0.3968,
+       "buy_hold_bps": 355.3
+      },
+      {
+       "fold": 6,
+       "net_pnl": 3.3,
+       "trades": 219,
+       "win_rate": 0.379,
+       "profit_factor": 1.03,
+       "max_drawdown_pct": -2.187,
+       "sharpe": 0.327,
+       "exposure": 0.3592,
+       "buy_hold_bps": 932.3
+      },
+      {
+       "fold": 7,
+       "net_pnl": -10.27,
+       "trades": 234,
+       "win_rate": 0.3675,
+       "profit_factor": 0.933,
+       "max_drawdown_pct": -3.734,
+       "sharpe": -0.79,
+       "exposure": 0.3583,
+       "buy_hold_bps": 283.1
+      },
+      {
+       "fold": 8,
+       "net_pnl": -10.53,
+       "trades": 214,
+       "win_rate": 0.3692,
+       "profit_factor": 0.915,
+       "max_drawdown_pct": -2.738,
+       "sharpe": -0.899,
+       "exposure": 0.3522,
+       "buy_hold_bps": 520.6
+      },
+      {
+       "fold": 9,
+       "net_pnl": -55.98,
+       "trades": 222,
+       "win_rate": 0.3288,
+       "profit_factor": 0.785,
+       "max_drawdown_pct": -8.143,
+       "sharpe": -2.747,
+       "exposure": 0.3387,
+       "buy_hold_bps": -671.7
+      },
+      {
+       "fold": 10,
+       "net_pnl": 23.37,
+       "trades": 238,
+       "win_rate": 0.4916,
+       "profit_factor": 1.218,
+       "max_drawdown_pct": -1.125,
+       "sharpe": 2.869,
+       "exposure": 0.4152,
+       "buy_hold_bps": 1200.6
+      },
+      {
+       "fold": 11,
+       "net_pnl": -25.68,
+       "trades": 243,
+       "win_rate": 0.3868,
+       "profit_factor": 0.788,
+       "max_drawdown_pct": -3.147,
+       "sharpe": -2.797,
+       "exposure": 0.3733,
+       "buy_hold_bps": 852.0
+      },
+      {
+       "fold": 12,
+       "net_pnl": -29.98,
+       "trades": 221,
+       "win_rate": 0.3891,
+       "profit_factor": 0.79,
+       "max_drawdown_pct": -3.752,
+       "sharpe": -2.548,
+       "exposure": 0.3716,
+       "buy_hold_bps": 89.0
+      },
+      {
+       "fold": 13,
+       "net_pnl": -1.7,
+       "trades": 231,
+       "win_rate": 0.3983,
+       "profit_factor": 0.989,
+       "max_drawdown_pct": -4.198,
+       "sharpe": -0.087,
+       "exposure": 0.3874,
+       "buy_hold_bps": 409.0
+      }
+     ]
+    }
+   }
+  },
+  "rows": 563370,
+  "sessions": 1445,
+  "seconds": 300.6
+ }
+}
