@@ -32,7 +32,8 @@ STATE_FILES = ["journal.jsonl", "trades.csv", "account.json", "market_pulse.json
                "sentiment.jsonl", "plays.jsonl", "backtests/current.json", "backtests/rehearsal.json",
                "backtests/ideas.json", "tests_state.json",
                "sentiment_state.json", "site_published.json",
-               "crypto_journal.jsonl", "crypto_state.json", "crypto_account.json"]
+               "crypto_journal.jsonl", "crypto_state.json", "crypto_account.json",
+               "ml_state.json", "ml_shadow.jsonl", "ml_kill_switch.json", "ml_journal.jsonl"]
 STATE_GLOBS = ["aoi_override.*.json", "backtests/ideas-*.json", "chart_*.json"]
 RANGE_RE = re.compile(r"^\s*(\d+(?:\.\d+)?)\s*[-–to ]+\s*(\d+(?:\.\d+)?)\s*$")
 

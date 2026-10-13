@@ -3,6 +3,7 @@
     python -m ml.run audit       --since 2020-07-01                  # fetch + clean, print the data audit
     python -m ml.run walkforward --since 2020-07-01 --horizons 15,30,60 --models base_rate,logistic,gbt
     python -m ml.run walkforward ... --synthetic                     # same pipeline on fake data (no keys)
+    python -m ml.run export --model logistic --horizon 60            # the model the desk's shadow run uses
 
 Market data comes from Alpaca (ALPACA_API_KEY / ALPACA_SECRET_KEY in the environment, never printed) through a
 month-by-month cache in ml_cache/. Reports go to ml/reports/ and one line per run to ml/experiments.jsonl.
@@ -34,7 +35,10 @@ def _provider(args, cfg):
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ml.run", description=__doc__.split("\n")[0])
-    ap.add_argument("command", choices=["audit", "walkforward"])
+    ap.add_argument("command", choices=["audit", "walkforward", "export"])
+    ap.add_argument("--model", default="logistic", help="export: logistic or tcn")
+    ap.add_argument("--horizon", type=int, default=60, help="export: horizon in minutes")
+    ap.add_argument("--dir", default=str(HERE / "models" / "active"), help="export: where to write the model")
     ap.add_argument("--symbol")
     ap.add_argument("--since")
     ap.add_argument("--until", help="default: today")
@@ -52,6 +56,12 @@ def main(argv: list[str] | None = None) -> int:
     bars, audit = data.load(_provider(a, cfg), symbol, since, until, cfg["session"])
     print(json.dumps({k: v for k, v in audit.items() if k != "dropped_sessions"}, indent=1))
     if a.command == "audit":
+        return 0
+    if a.command == "export":
+        info = walkforward.train_final(bars, cfg, a.model, a.horizon, a.dir, target=a.target,
+                                       extra_meta={"symbol": symbol, "config_hash": mlconfig.digest(cfg),
+                                                   "data_sha": audit.get("data_sha"), "synthetic": a.synthetic})
+        print(json.dumps({k: v for k, v in info.items() if k not in ("mean", "std", "scale", "coef")}, indent=1))
         return 0
     horizons = [int(x) for x in (a.horizons.split(",") if a.horizons else cfg["horizons_minutes"])]
     models = a.models.split(",")

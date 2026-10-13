@@ -187,7 +187,8 @@ def clean(raw: pd.DataFrame, session: dict, min_coverage: float = 0.5) -> tuple[
         grid = pd.date_range(datetime(day.year, day.month, day.day, open_m // 60, open_m % 60, tzinfo=ET),
                              periods=close_m - open_m, freq="min")
         s = g.set_index("t")[["o", "h", "l", "c", "v"]].reindex(grid)
-        coverage = 1 - s["c"].isna().mean()
+        # coverage up to the session's last bar: a session still in progress (live use) is not "thin"
+        coverage = 1 - s["c"].iloc[: int(_minute_of(g["t"]).max()) - open_m + 1].isna().mean()
         if coverage < min_coverage:
             audit["dropped_sessions"].append({"session": str(day), "coverage": round(float(coverage), 3)})
             continue

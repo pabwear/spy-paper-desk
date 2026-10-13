@@ -66,6 +66,13 @@ class CleaningTests(unittest.TestCase):
         self.assertEqual(a2["sessions"], 0)
         self.assertEqual(len(a2["dropped_sessions"]), 2)
 
+    def test_a_session_in_progress_is_kept(self):
+        raw = data.SyntheticProvider(seed=7).fetch("SPY", date(2026, 3, 2), date(2026, 3, 4))
+        cut = raw[raw["t"] < pd.Timestamp(datetime(2026, 3, 3, 11, 0, tzinfo=ET))]  # live, at 11:00
+        b, audit = data.clean(cut, CFG["session"])
+        today = b[b["session"] == date(2026, 3, 3)]
+        self.assertEqual(int((~today["missing"]).sum()), 90)  # 09:30-10:59, not dropped as "thin"
+
     def test_timezones_are_normalised(self):
         raw = data.SyntheticProvider(seed=5).fetch("SPY", date(2026, 3, 2), date(2026, 3, 3))
         utc = raw.assign(t=raw["t"].dt.tz_convert("UTC"))

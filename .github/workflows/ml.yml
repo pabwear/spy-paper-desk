@@ -5,6 +5,17 @@ name: ML research (walk-forward, paper only)
 on:
   workflow_dispatch:
     inputs:
+      command:
+        description: "walkforward = research report; export = train the shadow model (numpy) on the last window"
+        default: "walkforward"
+        type: choice
+        options: [walkforward, export]
+      model:
+        description: "export only: logistic or tcn"
+        default: "logistic"
+      horizon:
+        description: "export only: horizon in minutes"
+        default: "60"
       symbol:
         description: "Ticker"
         default: "SPY"
@@ -51,9 +62,15 @@ jobs:
           ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
           ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
         run: |
-          python -m ml.run walkforward --symbol "${{ inputs.symbol }}" --since "${{ inputs.since }}" \
-            --horizons "${{ inputs.horizons }}" --models "${{ inputs.models }}" --target "${{ inputs.target }}" \
-            --out out
+          if [ "${{ inputs.command }}" = "export" ]; then
+            python -m ml.run export --symbol "${{ inputs.symbol }}" --since "${{ inputs.since }}" \
+              --model "${{ inputs.model }}" --horizon "${{ inputs.horizon }}" --target "${{ inputs.target }}" \
+              --dir "out/model-${{ inputs.model }}-h${{ inputs.horizon }}"
+          else
+            python -m ml.run walkforward --symbol "${{ inputs.symbol }}" --since "${{ inputs.since }}" \
+              --horizons "${{ inputs.horizons }}" --models "${{ inputs.models }}" --target "${{ inputs.target }}" \
+              --out out
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: ml-report
@@ -61,19 +78,20 @@ jobs:
       - name: Save the report to the ml-results branch
         run: |
           set -e
-          tail -n 1 ml/experiments.jsonl > /tmp/line.jsonl
+          if [ "${{ inputs.command }}" = "walkforward" ]; then tail -n 1 ml/experiments.jsonl > /tmp/line.jsonl; else : > /tmp/line.jsonl; fi
           cp -r out /tmp/out
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if git fetch -q origin ml-results; then
             git checkout -q -B ml-results origin/ml-results
           else
-            git checkout -q --orphan ml-results
-            git rm -rq --cached . && git clean -fdq -e ml_cache
+            git switch -q --orphan ml-results
           fi
-          mkdir -p reports
-          cp /tmp/out/* reports/
+          mkdir -p reports models
+          for f in /tmp/out/*; do
+            if [ -d "$f" ]; then rm -rf "models/$(basename "$f")"; cp -r "$f" models/; else cp "$f" reports/; fi
+          done
           cat /tmp/line.jsonl >> experiments.jsonl
-          git add reports experiments.jsonl
-          git commit -qm "ml: walk-forward ${{ inputs.symbol }} $(date -u '+%F %H:%M') UTC"
+          git add reports models experiments.jsonl
+          git commit -qm "ml: ${{ inputs.command }} ${{ inputs.symbol }} $(date -u '+%F %H:%M') UTC"
           git push -q origin HEAD:ml-results

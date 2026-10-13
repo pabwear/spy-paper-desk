@@ -203,3 +203,53 @@ def _merge_regimes(rs: list[dict]) -> dict:
     for o in out.values():
         o["win_rate"] = round(o.pop("wins") / o["trades"], 4) if o["trades"] else None
     return out
+
+
+def train_final(bars: pd.DataFrame, cfg: dict, name: str, horizon: int, folder, target: str = "up_net",
+                holdout_path=splits.HOLDOUT_FILE, extra_meta: dict | None = None, min_val_trades: int = 15) -> dict:
+    """The model the desk would use: trained on the last train window before the holdout, calibrated and
+    thresholded on the last validation window. Never sees the holdout. Saved for numpy inference; approved
+    stays False until the acceptance rules AND the single holdout run say otherwise."""
+    from ml import infer
+
+    hstart = splits.holdout_start(holdout_path)
+    bars = bars[bars["session"] < hstart].reset_index(drop=True)
+    sp = cfg["splits"]
+    va_win = (splits.add_months(hstart, -int(sp["validation_months"])), hstart)
+    tr_win = (splits.add_months(va_win[0], -int(sp["train_months"])), va_win[0])
+    feats = features.build(bars)
+    lab = labels.build(bars, horizon, cfg)
+    known = features.usable(feats) & lab[target].notna()
+    tr = splits.purge(_window_rows(bars, tr_win) & known, lab["label_end"], va_win[0],
+                      int(sp["embargo_minutes"]), ET)
+    va = _window_rows(bars, va_win) & known & labels.decision_rows(bars, cfg)
+    splits.guard(bars.loc[tr | va, "session"], holdout_path)
+    X = feats[features.NAMES].to_numpy(float)
+    y = lab[target].to_numpy(float)
+    sess = pd.factorize(bars["session"])[0]
+    idx_tr, idx_va = np.flatnonzero(tr.to_numpy()), np.flatnonzero(va.to_numpy())
+    if name == "tcn":
+        from ml.tcn import TCN
+
+        tc = cfg.get("tcn") or {}
+        m = TCN(seed=int(cfg["seed"]), arch=tc.get("arch"), train=tc.get("train"))
+        m.fit_rows(X, sess, idx_tr, y[idx_tr], idx_va, y[idx_va])
+        pv = m.predict_rows(X, sess, idx_va)
+    else:
+        m = models.REGISTRY[name](seed=int(cfg["seed"]))
+        m.fit(X[idx_tr], y[idx_tr], X[idx_va], y[idx_va])
+        pv = m.predict(X[idx_va])
+    vwin = _window_rows(bars, va_win)
+    choice = pick_threshold(pv, bars.index[idx_va], bars[vwin], feats[vwin], cfg, horizon, min_val_trades)
+    thr = choice["threshold"]
+    net = lab["net"].to_numpy(float)[idx_va]
+    exp_net = float(np.nanmean(net[pv >= thr])) if thr is not None and (pv >= thr).any() else None
+    meta = {"name": name, "horizon": horizon, "target": target, "train": [str(x) for x in tr_win],
+            "validation": [str(x) for x in va_win], "threshold": thr, "expected_net_bps": exp_net,
+            "val_trades": choice.get("val_trades"), "approved": False, "holdout_start": str(hstart),
+            **(extra_meta or {})}
+    if name == "tcn":
+        return m.save(folder, meta)
+    if name == "logistic":
+        return infer.export_logistic(m, folder, meta)
+    raise ValueError(f"{name} cannot be exported for numpy inference (logistic and tcn can)")
