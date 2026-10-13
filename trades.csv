@@ -27,3 +27,4 @@ filled_at,order_id,symbol,asset,multiplier,role,side,qty,price,notional,position
 2026-10-13T14:40:31-04:00,74f67272-7a99-4038-acc1-24641ebcb290,SPY,shares,1,entry,buy,1.0,777.76,777.76,1.0,777.76,,,777.66,red,778.58,778.8868,structure|order_blocks|rsi,3.0,neutral,
 2026-10-13T15:20:29-04:00,39ad7665-6afc-441f-9fb0-caedcb5a17fe,SPY,shares,1,exit,sell,1.0,778.18,778.18,0.0,0.0,0.42,time,778.27,,,,,,,
 2026-10-13T15:30:30-04:00,e5eb9bbe-426a-4cb1-989e-8719a1e887d1,SPY261030C00778000,option,100,entry,buy,1.0,8.79,879.0,1.0,8.79,,,778.29,red,778.58,778.8868,structure|order_blocks,2.0,neutral,
+2026-10-13T15:40:29-04:00,8fbd8126-b743-4798-a365-1be0f2a39b13,SPY261030C00778000,option,100,exit,sell,1.0,8.77,877.0,0.0,0.0,-2.0,flatten,,,,,,,,
