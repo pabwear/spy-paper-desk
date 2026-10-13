@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T14:50:41+00:00",
+  "updated_at": "2026-10-13T15:00:42+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -8,43 +8,104 @@
     "at": null
   },
   "live": false,
+  "model": {
+    "name": "tcn",
+    "version": "tcn-5961b0695697",
+    "horizon": 15,
+    "target": "up_net",
+    "train": [
+      "2024-02-01",
+      "2026-02-01"
+    ],
+    "validation": [
+      "2026-02-01",
+      "2026-05-01"
+    ],
+    "threshold": 0.51,
+    "expected_net_bps": 2.2891162996277643,
+    "approved": false,
+    "symbol": "SPY",
+    "config_hash": "a2ac08539f45",
+    "feature_version": 1
+  },
+  "data": {
+    "last_bar": "2026-10-13 10:59:00-04:00",
+    "age_minutes": 0.7,
+    "source": "alpaca",
+    "sessions": 14,
+    "missing_minutes": 125,
+    "price": 776.88
+  },
+  "features": {
+    "ret_1": -2.124,
+    "ret_5": -1.609,
+    "ret_15": -10.164,
+    "ret_30": -8.106,
+    "ret_open": -5.662,
+    "gap": -9.13,
+    "rv_15": 1.169,
+    "rv_60": 1.566,
+    "rv_ratio": 0.746,
+    "atr_14": 1.586,
+    "range_x": 1.299,
+    "body": -0.562,
+    "upper_wick": 0.0,
+    "lower_wick": 0.438,
+    "vwap_dist": -11.368,
+    "dist_high": -24.042,
+    "dist_low": 0.901,
+    "rel_vol_15": 0.665,
+    "vol_accel": 0.931,
+    "tod": 0.228,
+    "tod_sin": 0.991,
+    "tod_cos": 0.137,
+    "dow": 1.0,
+    "stale": 0.0,
+    "missing_30": 0.0
+  },
   "prediction": {
-    "ok": false,
-    "error": "ModelLoadError: no model at /home/runner/work/spy-paper-desk/spy-paper-desk/ml/models/active: FileNotFoundError"
+    "ok": true,
+    "p": 0.4491,
+    "ood": false,
+    "latency_ms": 0.63,
+    "threshold": 0.51,
+    "expected_net_bps": 2.2891162996277643,
+    "approved": false
   },
   "decision": {
-    "outcome": "UNAVAILABLE",
+    "outcome": "NO_TRADE",
     "reasons": [
-      "ModelLoadError: no model at /home/runner/work/spy-paper-desk/spy-paper-desk/ml/models/active: FileNotFoundError"
+      "model not approved (did not pass the walk-forward rules and the holdout)",
+      "p 0.449 below the entry threshold 0.51 (no-trade zone)"
     ],
-    "p": null,
-    "threshold": null,
+    "p": 0.4491,
+    "threshold": 0.51,
     "risk": null,
     "qty": 0.0
   },
   "risk": {
-    "ok": false,
-    "qty": 0.0,
+    "ok": true,
+    "qty": 1.029,
     "passed": [
       "kill_switch_off",
       "not_live",
       "long_only",
+      "inputs_known",
       "in_session",
+      "data_fresh",
+      "model_healthy",
       "positions_below_max",
       "orders_below_max",
       "daily_loss_ok",
       "loss_streak_ok",
       "cooldown_over",
-      "spread_ok"
+      "spread_ok",
+      "stop_wide_enough",
+      "size_positive"
     ],
-    "failed": [
-      "inputs_known",
-      "data_fresh",
-      "model_healthy",
-      "stop_wide_enough"
-    ]
+    "failed": []
   },
-  "stop_bps": null,
+  "stop_bps": 8.0,
   "in_session": true,
   "execution": {
     "orders_allowed": false,
@@ -57,9 +118,115 @@
     "orders_sent": 0
   },
   "forward": {
-    "decisions": 0,
+    "decisions": 1,
     "scored": 0,
     "signals": 0
   },
-  "recent": []
+  "recent": [
+    {
+      "ts": "2026-10-13T15:00:42+00:00",
+      "bar_t": "2026-10-13 10:59:00-04:00",
+      "horizon": 15,
+      "p": 0.4491,
+      "threshold": 0.51,
+      "shadow_signal": false,
+      "outcome": "NO_TRADE",
+      "model": "tcn-5961b0695697"
+    }
+  ],
+  "research": {
+    "report": "20261013-1447-SPY-up_net",
+    "holdout_start": "2026-05-01",
+    "folds": 14,
+    "horizons": [
+      {
+        "horizon": 15,
+        "models": [
+          {
+            "model": "logistic",
+            "trades": 271,
+            "net_pnl": -44.26,
+            "passed": false
+          },
+          {
+            "model": "gbt",
+            "trades": 332,
+            "net_pnl": -22.18,
+            "passed": false
+          },
+          {
+            "model": "tcn",
+            "trades": 471,
+            "net_pnl": 17.63,
+            "passed": false
+          },
+          {
+            "model": "every_decision",
+            "trades": 3330,
+            "net_pnl": -354.03,
+            "passed": false
+          }
+        ]
+      },
+      {
+        "horizon": 30,
+        "models": [
+          {
+            "model": "logistic",
+            "trades": 88,
+            "net_pnl": -20.01,
+            "passed": false
+          },
+          {
+            "model": "gbt",
+            "trades": 606,
+            "net_pnl": -31.39,
+            "passed": false
+          },
+          {
+            "model": "tcn",
+            "trades": 524,
+            "net_pnl": -80.85,
+            "passed": false
+          },
+          {
+            "model": "every_decision",
+            "trades": 3330,
+            "net_pnl": -280.9,
+            "passed": false
+          }
+        ]
+      },
+      {
+        "horizon": 60,
+        "models": [
+          {
+            "model": "logistic",
+            "trades": 999,
+            "net_pnl": -0.62,
+            "passed": false
+          },
+          {
+            "model": "gbt",
+            "trades": 1108,
+            "net_pnl": -28.56,
+            "passed": false
+          },
+          {
+            "model": "tcn",
+            "trades": 1000,
+            "net_pnl": -51.29,
+            "passed": false
+          },
+          {
+            "model": "every_decision",
+            "trades": 3215,
+            "net_pnl": -166.93,
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "note": "Out-of-sample, Nov 2022 - Apr 2026, 14 test windows, after costs. No model passed the rules written beforehand, so the locked holdout (May 2026 on) stays unused and nothing trades."
+  }
 }
