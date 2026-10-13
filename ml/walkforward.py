@@ -74,6 +74,7 @@ def run(bars: pd.DataFrame, cfg: dict, horizons: list[int], model_names: list[st
               "holdout_start": str(hstart), "results": {}, "rows": int(len(bars)),
               "sessions": int(bars["session"].nunique())}
     X_all = feats[features.NAMES].to_numpy(float)
+    sess_codes = pd.factorize(bars["session"])[0]
     for h in horizons:
         lab = labels.build(bars, h, cfg)
         y_all = lab[target].to_numpy(float)
@@ -102,14 +103,24 @@ def run(bars: pd.DataFrame, cfg: dict, horizons: list[int], model_names: list[st
             bh = float(np.log(bars_t["c"].dropna().iloc[-1] / bars_t["o"].dropna().iloc[0]) * 1e4)
             per["every_decision"].append({"fold": f.k, "trades": r_every["trades"], **_fold_summary(r_every, minutes_t),
                                           "buy_hold_bps": round(bh, 1)})
+            idx_tr, idx_va, idx_te = (np.flatnonzero(w.to_numpy()) for w in (tr, va, te))
             for name in model_names:
-                m = models.REGISTRY[name](seed=int(cfg["seed"]))
-                m.fit(X_all[tr], y_all[tr], X_all[va], y_all[va])
-                pv = m.predict(X_all[va])
+                if name == "tcn":  # sequence model: windows of past minutes (imports PyTorch only when asked)
+                    from ml.tcn import TCN
+
+                    tc = cfg.get("tcn") or {}
+                    m = TCN(seed=int(cfg["seed"]), arch=tc.get("arch"), train=tc.get("train"))
+                    m.fit_rows(X_all, sess_codes, idx_tr, y_all[idx_tr], idx_va, y_all[idx_va])
+                    predict = lambda idx, m=m: m.predict_rows(X_all, sess_codes, idx)  # noqa: E731
+                else:
+                    m = models.REGISTRY[name](seed=int(cfg["seed"]))
+                    m.fit(X_all[tr], y_all[tr], X_all[va], y_all[va])
+                    predict = lambda idx, m=m: m.predict(X_all[idx])  # noqa: E731
+                pv = predict(idx_va)
                 choice = pick_threshold(pv, bars.index[va], bars_v, feats_v, cfg, h, min_val_trades) \
                     if name != "base_rate" else {"threshold": None, "note": "yardstick: never trades"}
                 t1 = time.perf_counter()
-                pt = m.predict(X_all[te])
+                pt = predict(idx_te)
                 latency_us = (time.perf_counter() - t1) / max(1, int(te.sum())) * 1e6
                 sig = pd.Series(False, index=bars_t.index)
                 if choice["threshold"] is not None:

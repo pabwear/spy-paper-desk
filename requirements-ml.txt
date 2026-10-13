@@ -4,3 +4,7 @@ pandas       # bar cleaning, features, labels
 tzdata       # America/New_York on systems without a time zone database
 scikit-learn # baselines (logistic regression, gradient-boosted trees), calibration, AUC
 alpaca-py    # historical minute bars (keys from the environment; not needed by the tests)
+# The TCN (ml/tcn.py): PyTorch, CPU-only build (~200 MB instead of ~2 GB with GPU libraries). Training only;
+# the desk runs the network with numpy (ml/tcn.py NumpyTCN).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1+cpu
