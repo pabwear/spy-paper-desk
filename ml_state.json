@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T18:10:38+00:00",
+  "updated_at": "2026-10-13T18:20:36+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -29,45 +29,45 @@
     "feature_version": 1
   },
   "data": {
-    "last_bar": "2026-10-13 14:09:00-04:00",
+    "last_bar": "2026-10-13 14:19:00-04:00",
     "age_minutes": 0.6,
     "source": "alpaca",
     "sessions": 14,
-    "missing_minutes": 116,
-    "price": 778.0
+    "missing_minutes": 106,
+    "price": 777.68
   },
   "features": {
-    "ret_1": 1.093,
-    "ret_5": 12.218,
-    "ret_15": 14.921,
-    "ret_30": 7.201,
-    "ret_open": 8.744,
+    "ret_1": -0.064,
+    "ret_5": -3.6,
+    "ret_15": 8.104,
+    "ret_30": 6.431,
+    "ret_open": 4.63,
     "gap": -9.13,
-    "rv_15": 2.598,
-    "rv_60": 1.859,
-    "rv_ratio": 1.397,
-    "atr_14": 2.369,
-    "range_x": 0.651,
-    "body": 0.417,
-    "upper_wick": 0.083,
-    "lower_wick": 0.5,
-    "vwap_dist": 8.297,
-    "dist_high": -9.635,
-    "dist_low": 26.32,
-    "rel_vol_15": 0.943,
-    "vol_accel": 1.842,
-    "tod": 0.715,
-    "tod_sin": -0.976,
-    "tod_cos": -0.216,
+    "rv_15": 2.697,
+    "rv_60": 1.868,
+    "rv_ratio": 1.443,
+    "atr_14": 2.507,
+    "range_x": 0.564,
+    "body": -0.818,
+    "upper_wick": 0.0,
+    "lower_wick": 0.182,
+    "vwap_dist": 3.979,
+    "dist_high": -13.749,
+    "dist_low": 22.206,
+    "rel_vol_15": 1.299,
+    "vol_accel": 0.682,
+    "tod": 0.741,
+    "tod_sin": -0.998,
+    "tod_cos": -0.056,
     "dow": 1.0,
     "stale": 0.0,
-    "missing_30": 0.033
+    "missing_30": 0.0
   },
   "prediction": {
     "ok": true,
-    "p": 0.4604,
+    "p": 0.4398,
     "ood": false,
-    "latency_ms": 0.76,
+    "latency_ms": 0.7,
     "threshold": 0.51,
     "expected_net_bps": 2.2891162996277643,
     "approved": false
@@ -76,9 +76,9 @@
     "outcome": "NO_TRADE",
     "reasons": [
       "model not approved (did not pass the walk-forward rules and the holdout)",
-      "p 0.460 below the entry threshold 0.51 (no-trade zone)"
+      "p 0.440 below the entry threshold 0.51 (no-trade zone)"
     ],
-    "p": 0.4604,
+    "p": 0.4398,
     "threshold": 0.51,
     "risk": null,
     "qty": 0.0
@@ -118,27 +118,13 @@
     "orders_sent": 0
   },
   "forward": {
-    "decisions": 20,
-    "scored": 18,
+    "decisions": 21,
+    "scored": 19,
     "signals": 0,
-    "brier": 0.269,
-    "base_rate": 0.6111
+    "brier": 0.2713,
+    "base_rate": 0.6316
   },
   "recent": [
-    {
-      "ts": "2026-10-13T16:20:33+00:00",
-      "bar_t": "2026-10-13 12:19:00-04:00",
-      "horizon": 15,
-      "p": 0.4327,
-      "threshold": 0.51,
-      "shadow_signal": false,
-      "outcome": "NO_TRADE",
-      "model": "tcn-5961b0695697",
-      "result": {
-        "net_bps": 6.65,
-        "up_net": 1
-      }
-    },
     {
       "ts": "2026-10-13T16:30:47+00:00",
       "bar_t": "2026-10-13 12:29:00-04:00",
@@ -273,13 +259,27 @@
       "threshold": 0.51,
       "shadow_signal": false,
       "outcome": "NO_TRADE",
-      "model": "tcn-5961b0695697"
+      "model": "tcn-5961b0695697",
+      "result": {
+        "net_bps": 9.35,
+        "up_net": 1
+      }
     },
     {
       "ts": "2026-10-13T18:10:38+00:00",
       "bar_t": "2026-10-13 14:09:00-04:00",
       "horizon": 15,
       "p": 0.4604,
+      "threshold": 0.51,
+      "shadow_signal": false,
+      "outcome": "NO_TRADE",
+      "model": "tcn-5961b0695697"
+    },
+    {
+      "ts": "2026-10-13T18:20:36+00:00",
+      "bar_t": "2026-10-13 14:19:00-04:00",
+      "horizon": 15,
+      "p": 0.4398,
       "threshold": 0.51,
       "shadow_signal": false,
       "outcome": "NO_TRADE",
