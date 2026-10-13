@@ -5,6 +5,23 @@ keep learning from it; these notes are the record.
 
 ## Daily log
 
+### Mon Oct 12 2026 — −$18.20 (equity $1,038.00; +$38.00 since the $1,000 start)
+- SPY put spread 775/770: sold 10:00 for $8 (mid $0.09, natural $0.08), bought back 15:40 → about +$7.
+  Real price 0.36 × VIX (assumed 0.5): the second low reading of three; credits keep coming in under the model.
+- SPY options (learning): Oct 22 779 call $543 → about $501 (−$42) and Oct 20 778 call $493 → about $510
+  (+$17), both closed on the 30-minute time limit. Book so far: 4 trades, 2 won, about −$8.
+- SPY shares: 5 buy attempts (11:20–12:40) refused by Alpaca for buying power ($522–539 free, 1 share ≈ $778)
+  while the spread's collateral was held. No money lost; the desk's own budget check uses equity, not buying
+  power. A $1,000 account cannot hold the spread and a share at once (the parked $10k reset, task 15).
+- All positions closed at the end of the day.
+- Price forecasts: direction 48.5% (1m, 5m), 42.7% (3m), 26.7% (30m, 15 scored); "flat" leads all
+  timeframes. Still no short-term predictability.
+- Loss model: shadow; 11 closed trades, 4 learnable of the 30 it needs.
+- Crypto (Sat–Mon): no trades. BTC and ETH held, both above their 200-day averages (gap 13.5% and 14.4%).
+  Account $1,005.21 (+$5.21). Learning book (SOL) stayed in cash: SOL $105.59 vs $120.77 seven days earlier.
+  Only 10 crypto runs in ~60 hours: GitHub's hourly schedule is skipping most runs (no stop was at risk,
+  since SOL was not held).
+
 ### Fri Oct 9 2026 — +$30.80 (equity $1,056.42; +$56.42 since the $1,000 start)
 - SPY put spread 772/767: sold 10:00 for $15 (mid $0.18, natural $0.15), bought back 15:40 for $1 → about +$14.
   All legs closed in one order. Real price 0.46 × VIX (assumed 0.5): in line.
