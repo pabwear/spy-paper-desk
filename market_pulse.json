@@ -1,73 +1,124 @@
 {
   "date": "2026-10-13",
   "bias": "neutral",
-  "written_at": "2026-10-13T14:40:28-04:00",
-  "as_of": "2026-10-13T14:40:28-04:00",
+  "written_at": "2026-10-13T15:07:21-04:00",
+  "as_of": "2026-10-13T19:10:00Z",
   "readings": {
-    "as_of": "2026-10-13T14:40:28-04:00",
-    "source": "desk_feeds",
-    "sources": {
-      "sentiment_flow": "stocktwits public stream",
-      "news": "yahoo finance rss",
-      "vix": "yfinance"
-    },
-    "spy_price": 777.66,
-    "spy_change_pct": -0.048,
+    "as_of": "2026-10-13T19:10:00Z",
+    "spy_price": 777.79,
+    "spy_change_pct": -0.04,
+    "vix": 15.45,
+    "fear_greed": 45,
     "stocktwits": {
       "SPY": {
-        "score": 35.7,
-        "bullish_pct": 35.7
+        "score": 63,
+        "bullish_pct": 50.7
       }
     },
     "news": {
+      "score": -0.1,
       "headlines": [
-        "Is Qualcomm (QCOM) a Good or Bad Investment at Today\u2019s Price?",
-        "Rivian (RIVN) vs. Lucid (LCID): Which EV Stock Has a Better Chance of Making It?",
-        "Snowflake (SNOW) Has a Moat. Is It Strong Enough to Justify its Lofty Valuation?",
-        "Atlassian (TEAM): Can AI Deliver Enough to Justify Its Valuation?",
-        "Uber (UBER) vs. DoorDash (DASH): Is Faster Growth Worth Paying More For?",
-        "Merck (MRK) Reports a Negative Operating Margin and Pays Out 266% of Earnings. What Explains Both?",
-        "Simon Property (SPG) Earns a 45% Higher Net Margin Compared to Operating Margin. Where Does the Extra Come From?",
-        "First Solar Climbs 4% as Truist Buy Call and December Tariff Floor Reset Panel Pricing Outlook; Enphase Energy and Sunrun Hold Flat",
-        "Take-Two Interactive Slides 5% as Wells Fargo Trims Estimates Behind $300 Target; Roblox Holds Flat, GameStop Barely Budges",
-        "Six Flags Retreats 17% as Fatal Georgia Coaster Incident Closes Rides Across Its Parks; United Parks & Resorts Slips"
+        "Six Flags down ~14-17% after fatal Georgia coaster incident closes rides",
+        "Take-Two slides ~4-5% as Wells Fargo trims estimates",
+        "JNJ down ~6% on heavy volume",
+        "US CPI due tomorrow 12:30 UTC (prev MoM 0.4, core 0.3)"
       ]
     },
-    "vix": 15.44,
-    "vix_change_pct": 1.51
+    "rumors": [
+      {
+        "text": "A hot CPI print tomorrow could trigger a 1-2% SPY selloff on thin recent volume",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "Hot inflation would push rate expectations up and pressure equities"
+      },
+      {
+        "text": "Heavy short-dated options selling is suppressing volatility and could be dislodged next week",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "A volatility unwind could cause sharp moves in either direction, leaning down from low VIX"
+      },
+      {
+        "text": "Nike, called the most hated stock, shows early signs of a rebound",
+        "source": "stocktwits",
+        "tickers": [
+          "NKE"
+        ],
+        "names": {
+          "NKE": "Nike"
+        },
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "Contrarian bounce would lift a heavily shorted large cap"
+      }
+    ],
+    "names": {
+      "SPY": "SPDR S&P 500 ETF"
+    },
+    "plays": [
+      {
+        "ticker": "SPY",
+        "direction": "down",
+        "horizon": "1d",
+        "confidence": 0.52,
+        "reason": "Pre-CPI positioning with low VIX, QQQ weaker than SPY, and crowd chatter leaning toward a hot print",
+        "catalyst": "US CPI 12:30 UTC Oct 14"
+      }
+    ],
+    "whats_new": "SPY is flat near 777.8 and Stocktwits sentiment improved from 35.7 to 63 since the last reading. Fear and greed reads 45 (fear) and VIX is steady near 15.4. Focus is on tomorrow's US CPI, with Six Flags, Take-Two and JNJ the notable laggards.",
+    "sources": {
+      "market_pulse": "stocklake",
+      "sentiment_flow": "stocktwits",
+      "reddit": "unavailable",
+      "news": "stocklake calendar, prior reading headlines"
+    }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.048,
+      "value": -0.04,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 1.51,
-      "vote": 0,
-      "why": "in the neutral band"
-    },
-    {
-      "reading": "fear_greed",
       "value": null,
       "vote": 0,
       "why": "missing"
     },
     {
-      "reading": "stocktwits_spy_score",
-      "value": 35.7,
+      "reading": "fear_greed",
+      "value": 45.0,
       "vote": -1,
-      "why": "\u2264 40.0"
+      "why": "\u2264 45.0"
+    },
+    {
+      "reading": "stocktwits_spy_score",
+      "value": 63.0,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "sentiment_flow": "stocktwits public stream",
-    "news": "yahoo finance rss",
-    "vix": "yfinance"
+    "market_pulse": "stocklake",
+    "sentiment_flow": "stocktwits",
+    "reddit": "unavailable",
+    "news": "stocklake calendar, prior reading headlines"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
