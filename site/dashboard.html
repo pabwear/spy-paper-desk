@@ -459,6 +459,7 @@ td.r, th.r { text-align: right; }
 .tile .v { font: 600 1.35rem var(--display); letter-spacing: -0.02em; margin-top: 6px; }
 .kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 18px; font-size: 14px; margin: 14px 0 0; }
 .kv dt { color: var(--ink-3); } .kv dd { margin: 0; text-align: right; overflow-wrap: anywhere; }
+#mlBody .kv { grid-template-columns: minmax(0, 1fr); gap: 2px; } #mlBody .kv dt { margin-top: 8px; font-size: 12px; } #mlBody .kv dd { text-align: left; }
 .steps { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 12px; }
 .step { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; padding: 16px; border-radius: 14px; background: var(--panel-2); border: 1px solid var(--line); }
 .step .n { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font: 600 15px var(--display); border: 1px solid var(--line-2); background: var(--panel-solid); }
@@ -746,6 +747,10 @@ td.r, th.r { text-align: right; }
           <div class="card edge plans" id="plansCard">
             <div class="head"><h2>Call &amp; put trades</h2><span class="chip info" id="plansChip">—</span></div>
             <div id="plansBody"><div class="empty">Appears with the chart data.</div></div>
+          </div>
+          <div class="card" id="mlCard" hidden>
+            <div class="head"><h2>Model (research)</h2><span class="chip" id="mlChip">—</span></div>
+            <div id="mlBody"></div>
           </div>
           <div class="card proj" id="projCard">
             <div class="head"><h2>Projection</h2><span class="chip info" id="projChip">—</span></div>
@@ -2383,6 +2388,48 @@ td.r, th.r { text-align: right; }
   }
   // ---------- the crypto desk: its own Alpaca paper account (crypto_state.json, written by crypto.yml daily)
   const CRYPTO = { data: null, at: 0, busy: false };
+  // ---------- the ML engine's shadow state (ml/shadow.py): predictions and decisions, never orders
+  const ML = { data: null, at: 0, busy: false };
+  async function loadML() {
+    if (!mcp || ML.busy || Date.now() - ML.at < 120000) return;
+    ML.busy = true; ML.at = Date.now();
+    try {
+      const r = await mcp.callTool(GH, "get_file_contents", { ...REPO, path: "ml_state.json", ref: "refs/heads/desk-state" }, { cache: { refresh: true } });
+      const v = extractJson(r, "decision");
+      if (v) { ML.data = v; renderML(); }
+    } catch { /* not there yet */ }
+    ML.busy = false;
+  }
+  const ML_OUT = { BUY_CANDIDATE: ["good", "Buy candidate"], EXIT_LONG: ["warn", "Exit long"], HOLD: ["info", "Hold"],
+    NO_TRADE: ["", "No trade"], RISK_REJECTED: ["warn", "Risk rejected"], UNAVAILABLE: ["bad", "Unavailable"] };
+  function renderML() {
+    const d = ML.data; $("mlCard").hidden = !d; if (!d) return;
+    const ks = (d.kill_switch || {}).on, m = d.model || {}, p = d.prediction || {}, dec = d.decision || {}, dt = d.data || {};
+    const fw = d.forward || {}, rk = d.risk || {}, ex = d.execution || {};
+    $("mlChip").className = "chip " + (ks ? "bad" : "info");
+    $("mlChip").textContent = ks ? "Kill switch ON" : `${String(d.mode || "shadow")} · no orders`;
+    const [oc, olab] = ML_OUT[dec.outcome] || ["", dec.outcome || "—"];
+    const pct = (v) => isNum(v) ? `${(v * 100).toFixed(1)}%` : "—";
+    const rows = [
+      ["Decision", `<span class="chip ${oc}">${esc(olab)}</span>`],
+      ["Why", esc((dec.reasons || []).join("; ") || "—")],
+      ["P(long makes money after costs)", `${pct(p.p)}${isNum(m.threshold) ? ` · needs ${pct(m.threshold)}` : " · no entry threshold (abstains)"}`],
+      ["Model", m.version ? `${esc(m.name)} · ${esc(m.horizon)}-min horizon · ${esc(m.version)}` : "none installed"],
+      ["Trained on", m.train ? `${esc(m.train[0])} → ${esc(m.train[1])} (checked on ${esc((m.validation || [])[0] || "")} → ${esc((m.validation || [])[1] || "")})` : "—"],
+      ["Approved to trade", m.approved ? "yes" : "no: research only"],
+      ["Market data", dt.last_bar ? `last minute ${esc(when(dt.last_bar))} · ${isNum(dt.age_minutes) ? dt.age_minutes.toFixed(1) + " min old" : "—"}` : "—"],
+      ["Risk checks", rk.failed && rk.failed.length ? `failed: ${esc(rk.failed.join(", "))}` : (rk.passed ? `all ${rk.passed.length} passed` : "—")],
+      ["Speed", isNum(p.latency_ms) ? `${p.latency_ms.toFixed(1)} ms${p.ood ? " · inputs out of range" : ""}` : "—"],
+      ["Orders sent", `${ex.orders_sent || 0}${ex.why_not && ex.why_not.length ? ` · ${esc(ex.why_not[0])}` : ""}`],
+      ["Forward check (hypothetical)", fw.scored ? `${fw.scored} of ${fw.decisions} predictions scored · Brier ${fw.brier ?? "—"} (base rate ${pct(fw.base_rate)})${fw.signals ? ` · ${fw.signals} would-be entries averaged ${fw.signal_avg_net_bps >= 0 ? "+" : ""}${fw.signal_avg_net_bps} bp` : ""}` : `${fw.decisions || 0} predictions logged, none scored yet`],
+    ];
+    const res = d.research || {};
+    const table = res.horizons ? `<div class="tbl" style="margin-top:10px"><table><thead><tr><th>Walk-forward test</th><th class="r">Trades</th><th class="r">Net</th><th>Passes</th></tr></thead><tbody>${
+      res.horizons.flatMap((h) => h.models.map((x) => `<tr><td>${esc(x.model)} · ${esc(h.horizon)} min</td><td class="r">${x.trades}</td><td class="r ${cls(x.net_pnl)}">${smoney(x.net_pnl)}</td><td>${x.passed ? "yes" : "no"}</td></tr>`)).join("")}</tbody></table></div>
+      <p class="muted" style="font-size:12px;margin:6px 0 0">${esc(res.note || "")}</p>` : "";
+    $("mlBody").innerHTML = kv(rows) + table +
+      `<p class="muted" style="font-size:12px;margin:10px 0 0">Predictions are not trades. The model has to pass rules written before testing, and a locked final test, before it can even ask to place paper orders; Roy decides after that. Updated ${esc(when(d.updated_at))}.</p>`;
+  }
   async function loadCrypto() {
     if (!mcp || CRYPTO.busy || Date.now() - CRYPTO.at < 120000) return;
     CRYPTO.busy = true; CRYPTO.at = Date.now();
@@ -2865,7 +2912,7 @@ td.r, th.r { text-align: right; }
 
     $("posCard").hidden = !ps.length;
     renderBooks(s);
-    renderCrypto(); loadCrypto(); renderStrip();
+    renderCrypto(); loadCrypto(); renderStrip(); loadML();
     if (view === "crypto") cryptoChart(false);
     renderChart(s);
     renderPlans(s);

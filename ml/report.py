@@ -54,3 +54,15 @@ def markdown(rep: dict, audit: dict, cfg_hash: str) -> str:
           "- Several models and horizons are compared, so one can look good by luck; only the locked holdout, used "
           "once, can confirm a winner.", ""]
     return "\n".join(L)
+
+
+def summary(rep: dict, name: str, note: str) -> dict:
+    """The compact verdict the dashboard shows (ml/research_summary.json)."""
+    hs = []
+    for h, res in rep["results"].items():
+        hs.append({"horizon": int(h), "models": [
+            {"model": m, "trades": e["trade"]["trades"], "net_pnl": e["trade"]["net_pnl"],
+             "passed": bool((e.get("acceptance") or {}).get("passed"))}
+            for m, e in res.items() if m != "base_rate"]})
+    return {"report": name, "holdout_start": rep["holdout_start"], "folds": len(rep["folds"]), "horizons": hs,
+            "note": note}
