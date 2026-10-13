@@ -116,8 +116,12 @@ class SyntheticProvider:
     name = "synthetic"
 
     def __init__(self, seed: int = 0, drift_bps: float = 0.0, vol_bps: float = 4.0, start_price: float = 400.0,
-                 drop_frac: float = 0.0, duplicate_frac: float = 0.0, half_days: tuple[date, ...] = ()) -> None:
+                 drop_frac: float = 0.0, duplicate_frac: float = 0.0, half_days: tuple[date, ...] = (),
+                 trend_bps: float = 0.0, trend_block: int = 45) -> None:
+        """trend_bps > 0 plants a REAL, learnable pattern for positive-control tests: the drift is
+        +/- trend_bps per minute, its sign drawn at random every `trend_block` minutes and held."""
         self.seed, self.drift, self.vol, self.p0 = seed, drift_bps / 1e4, vol_bps / 1e4, start_price
+        self.trend, self.block = trend_bps / 1e4, trend_block
         self.drop, self.dup, self.half_days = drop_frac, duplicate_frac, set(half_days)
 
     def fetch(self, symbol: str, start: date, end: date) -> pd.DataFrame:
@@ -128,9 +132,12 @@ class SyntheticProvider:
                 n = 210 if d in self.half_days else 390
                 p *= float(np.exp(rng.normal(0, self.vol * 5)))  # overnight gap
                 t0 = datetime(d.year, d.month, d.day, 9, 30, tzinfo=ET)
+                sign = 1.0
                 for k in range(n):
+                    if k % self.block == 0:
+                        sign = 1.0 if rng.random() < 0.5 else -1.0
                     o = p
-                    p *= float(np.exp(self.drift + rng.normal(0, self.vol)))
+                    p *= float(np.exp(self.drift + sign * self.trend + rng.normal(0, self.vol)))
                     hi, lo = max(o, p) * (1 + abs(rng.normal(0, self.vol / 3))), min(o, p) * (1 - abs(rng.normal(0, self.vol / 3)))
                     if rng.random() < self.drop:
                         continue

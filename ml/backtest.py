@@ -75,7 +75,7 @@ def run(bars: pd.DataFrame, enter: pd.Series, feats: pd.DataFrame, cfg: dict, ho
         proceeds = pos["qty"] * fill - pos["qty"] * per_share_side
         pnl = proceeds - pos["cost_usd"]
         cash += proceeds
-        trades.append({"entry_t": pos["t"], "entry": pos["px"], "exit_t": tt[i], "exit": fill, "qty": pos["qty"],
+        trades.append({"decision_t": pos["dec"], "entry_t": pos["t"], "entry": pos["px"], "exit_t": tt[i], "exit": fill, "qty": pos["qty"],
                        "pnl": pnl, "ret_bps": pnl / pos["cost_usd"] * 1e4, "why": why, "stop": pos["stop"],
                        "minutes": int(minute[i] - pos["m"]) + (0 if why in ("flatten", "stop_gap") else 1),
                        "costs": pos["qty"] * (pos["raw"] * slip + px * slip + 2 * per_share_side)})
@@ -107,7 +107,8 @@ def run(bars: pd.DataFrame, enter: pd.Series, feats: pd.DataFrame, cfg: dict, ho
                     stop_px = o[i] * (1 - pending["stop_bps"] / 1e4)
                     tp = pending["tp_bps"]
                     pos = {"t": tt[i], "px": px, "raw": o[i], "qty": qty, "cost_usd": cost_usd, "stop": stop_px, "m": minute[i],
-                           "tp": o[i] * (1 + tp / 1e4) if tp else None, "due": i + horizon - 1, "i": i}
+                           "tp": o[i] * (1 + tp / 1e4) if tp else None, "due": i + horizon - 1, "i": i,
+                           "dec": pending["dec"]}
                     n_entries += 1
                     n_orders += 1
             pending = None
@@ -148,7 +149,8 @@ def run(bars: pd.DataFrame, enter: pd.Series, feats: pd.DataFrame, cfg: dict, ho
                 if verdict.ok:
                     j = i + 1 + delay
                     if j < len(bars) and sess[j] == sess[i]:
-                        pending = {"i": j, "qty": verdict.qty, "stop_bps": stop_bps, "tp_bps": tp_bps}
+                        pending = {"i": j, "qty": verdict.qty, "stop_bps": stop_bps, "tp_bps": tp_bps,
+                                   "dec": tt[i] + np.timedelta64(1, "m")}
                     else:
                         rejects["no_bar_to_fill"] += 1
                 else:
