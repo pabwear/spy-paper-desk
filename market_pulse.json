@@ -1,18 +1,18 @@
 {
   "date": "2026-10-13",
   "bias": "neutral",
-  "written_at": "2026-10-13T10:07:33-04:00",
-  "as_of": "2026-10-13T14:10:00Z",
+  "written_at": "2026-10-13T11:07:32-04:00",
+  "as_of": "2026-10-13T15:10:00Z",
   "readings": {
-    "as_of": "2026-10-13T14:10:00Z",
-    "spy_price": 778.37,
-    "spy_change_pct": -0.03,
+    "as_of": "2026-10-13T15:10:00Z",
+    "spy_price": 777.71,
+    "spy_change_pct": -0.05,
     "vix": 15.3,
     "fear_greed": 46,
     "stocktwits": {
       "SPY": {
         "score": 63,
-        "bullish_pct": 52.7
+        "bullish_pct": 52.0
       }
     },
     "reddit": {
@@ -23,15 +23,14 @@
     "news": {
       "score": -0.1,
       "headlines": [
-        "ETFs lower, futures mixed pre-bell Tuesday amid chip weakness, bank earnings",
-        "UnitedHealth up 4% on earnings beat and raised full-year outlook",
-        "Michael Burry flags 'bull trap' risk, holds back on new shorts",
-        "JPMorgan reports Q3 earnings today; US CPI due Wed 12:30 UTC"
+        "Futures edge lower ahead of US CPI (Wed 12:30 UTC) and JPMorgan Q3 earnings",
+        "Week ahead: JPM, GS, C bank earnings, CPI report, Kevin Warsh speech",
+        "Michael Burry flags 'bull trap' risk, holds back on new shorts"
       ]
     },
     "rumors": [
       {
-        "text": "Michael Burry warns of a 'bull trap' in the market but is not adding new shorts",
+        "text": "Michael Burry warns of a 'bull trap' in the market but is not adding new shorts (re-shared from earlier reading)",
         "source": "news",
         "tickers": [
           "SPY"
@@ -40,50 +39,63 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.35,
-        "why": "If right, the rally is fragile and a pullback could follow; no new shorts means low conviction."
+        "credibility": 0.3,
+        "why": "If right, the rally is fragile; no new shorts means low conviction. Not new since last hour."
       },
       {
-        "text": "Stocktwits posters claim mega-cap names like META are being pumped to hold up SPY while QQQ slides",
+        "text": "Stocktwits posters say tomorrow's CPI will be hot ('brutal') and technicals point to SPY 770",
         "source": "stocktwits",
         "tickers": [
-          "META",
           "SPY"
         ],
         "names": {
-          "META": "Meta Platforms",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "If true, index support rests on a few names and could fade."
+        "credibility": 0.25,
+        "why": "A hot print would pressure rate-sensitive stocks and the index."
+      },
+      {
+        "text": "A Stocktwits poster claims an announcement in the next 20-30 minutes will push SPY over 780",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.1,
+        "why": "Unspecified catalyst; if real it would lift the index."
       }
     ],
     "names": {
-      "SPY": "SPDR S&P 500 ETF"
+      "SPY": "SPDR S&P 500 ETF",
+      "QQQ": "Invesco QQQ Trust",
+      "IWM": "iShares Russell 2000 ETF"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.54,
-        "reason": "QQQ down about 1% on chip weakness while SPY is flat; crowd eyeing 774-776; CPI risk tomorrow",
-        "catalyst": "Chip weakness, JPM earnings reaction, pre-CPI positioning"
+        "confidence": 0.53,
+        "reason": "QQQ -0.4% and IWM -0.6% while SPY is flat; crowd split but leaning cautious into CPI",
+        "catalyst": "Pre-CPI positioning and bank earnings reaction"
       }
     ],
-    "whats_new": "SPY is flat near 778.4 and VIX about 15.3 as before. Stocktwits SPY sentiment now reads 63 (bullish 52.7%) versus 0 earlier, which looks like a data gap. QQQ is down about 1% on chip weakness, and US CPI lands tomorrow.",
+    "whats_new": "SPY is little changed near 777.7 with VIX steady at 15.3 and fear and greed neutral near 46. Small caps (IWM -0.57%) and QQQ (-0.39%) lag while TLT is up 0.44%, a mild risk-off tilt. Stocktwits chatter is split and focused on tomorrow's CPI; Reddit was unreachable.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar, desk feed, web search"
+      "news": "stocklake calendar, web search"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.03,
+      "value": -0.05,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -112,7 +124,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar, desk feed, web search"
+    "news": "stocklake calendar, web search"
   },
   "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
