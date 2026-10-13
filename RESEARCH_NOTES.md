@@ -5,6 +5,23 @@ keep learning from it; these notes are the record.
 
 ## Daily log
 
+### Tue Oct 13 2026 — −$2.02 (equity $1,035.76; +$35.76 since the $1,000 start; week −$20.44)
+- SPY shares (first trades of this book): 10:00 buy 1 @ $777.93, out 10:30 on time (−$0.39); 14:40 buy 1 @ $777.76,
+  out 15:20 on time (+$0.42). Net about $0. The buying-power refusals of Monday did not recur (no spread open).
+- SPY options (learning): bought the Oct 30 778 call at 15:30 for $879, flattened at 15:40 (−$2). An entry 10 minutes
+  before the flatten can only pay its spread: lesson logged, rule unchanged (options book now 5 trades, 2 won).
+- Put spread: no trade. Skipped on credit_too_small (5 checks) and worst_case_affordable (3): the real credit stayed
+  under the book's minimum all morning. Rule working as written.
+- All positions closed at the end of the day. No rejected orders.
+- Price forecasts: direction 36% (1m), 35% (3m), 45% (5m), 33% (30m); "flat" leads. Loss model: shadow, 14 closed
+  trades, 7 learnable of 30.
+- ML shadow model (15-min TCN, installed 10:50): 28 predictions, all scored. p stayed 0.43–0.46, under its 0.51 bar
+  (no would-be entries). Brier 0.264 vs 0.245 for the day's base rate (57% of windows made money): worse than the
+  base rate, as the walk-forward predicted.
+- Crypto: no trades. BTC +13.5% and ETH +14.4% above their 200-day averages (hold); account $1,002.63 (+$2.63).
+  Learning book (SOL) in cash: $105.59 vs $120.77 a week earlier. Last crypto check 17:29 UTC, 2 h 44 min before
+  this review: GitHub's hourly schedule keeps skipping runs (6 checks since Monday).
+
 ### Mon Oct 12 2026 — −$18.20 (equity $1,038.00; +$38.00 since the $1,000 start)
 - SPY put spread 775/770: sold 10:00 for $8 (mid $0.09, natural $0.08), bought back 15:40 → about +$7.
   Real price 0.36 × VIX (assumed 0.5): the second low reading of three; credits keep coming in under the model.
