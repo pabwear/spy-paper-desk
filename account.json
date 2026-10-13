@@ -3,14 +3,34 @@
   "account_name": "Paper 1000",
   "account_number": "PA36VOEO5PHB",
   "status": "ACTIVE",
-  "snapshot_at": "2026-10-13T14:30:32-04:00",
-  "equity": 1037.39,
-  "cash": 1037.39,
-  "buying_power": 1037.39,
-  "options_buying_power": 1037.39,
+  "snapshot_at": "2026-10-13T14:40:33-04:00",
+  "equity": 1037.38,
+  "cash": 259.63,
+  "buying_power": 259.63,
+  "options_buying_power": 259.63,
   "last_equity": 1037.78,
-  "position": null,
-  "positions": [],
+  "position": {
+    "symbol": "SPY",
+    "asset_class": "us_equity",
+    "qty": 1.0,
+    "avg_entry_price": 777.76,
+    "current_price": 777.75,
+    "market_value": 777.75,
+    "unrealized_pl": -0.01,
+    "unrealized_plpc": -1e-05
+  },
+  "positions": [
+    {
+      "symbol": "SPY",
+      "asset_class": "us_equity",
+      "qty": 1.0,
+      "avg_entry_price": 777.76,
+      "current_price": 777.75,
+      "market_value": 777.75,
+      "unrealized_pl": -0.01,
+      "unrealized_plpc": -1e-05
+    }
+  ],
   "history": [
     {
       "date": "2026-10-05",
