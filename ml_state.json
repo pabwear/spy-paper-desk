@@ -1,0 +1,65 @@
+{
+  "updated_at": "2026-10-13T14:40:45+00:00",
+  "mode": "shadow",
+  "symbol": "SPY",
+  "kill_switch": {
+    "on": false,
+    "why": null,
+    "at": null
+  },
+  "live": false,
+  "prediction": {
+    "ok": false,
+    "error": "ModelLoadError: no model at /home/runner/work/spy-paper-desk/spy-paper-desk/ml/models/active: FileNotFoundError"
+  },
+  "decision": {
+    "outcome": "UNAVAILABLE",
+    "reasons": [
+      "ModelLoadError: no model at /home/runner/work/spy-paper-desk/spy-paper-desk/ml/models/active: FileNotFoundError"
+    ],
+    "p": null,
+    "threshold": null,
+    "risk": null,
+    "qty": 0.0
+  },
+  "risk": {
+    "ok": false,
+    "qty": 0.0,
+    "passed": [
+      "kill_switch_off",
+      "not_live",
+      "long_only",
+      "in_session",
+      "positions_below_max",
+      "orders_below_max",
+      "daily_loss_ok",
+      "loss_streak_ok",
+      "cooldown_over",
+      "spread_ok"
+    ],
+    "failed": [
+      "inputs_known",
+      "data_fresh",
+      "model_healthy",
+      "stop_wide_enough"
+    ]
+  },
+  "stop_bps": null,
+  "in_session": true,
+  "execution": {
+    "orders_allowed": false,
+    "why_not": [
+      "shadow mode: decisions are logged, never sent",
+      "model not approved (walk-forward rules + holdout)",
+      "Roy has not approved paper orders for this model",
+      "no separate paper account configured"
+    ],
+    "orders_sent": 0
+  },
+  "forward": {
+    "decisions": 0,
+    "scored": 0,
+    "signals": 0
+  },
+  "recent": []
+}
