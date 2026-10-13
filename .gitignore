@@ -10,3 +10,7 @@ dashboard_state.json
 ml_model.json
 learning_report.json
 charts.json
+
+# ML engine: downloaded market data and local training output (never committed)
+ml_cache/
+ml_runs/
