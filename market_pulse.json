@@ -1,10 +1,10 @@
 {
   "date": "2026-10-13",
   "bias": "neutral",
-  "written_at": "2026-10-13T13:30:30-04:00",
-  "as_of": "2026-10-13T13:30:30-04:00",
+  "written_at": "2026-10-13T14:00:35-04:00",
+  "as_of": "2026-10-13T14:00:35-04:00",
   "readings": {
-    "as_of": "2026-10-13T13:30:30-04:00",
+    "as_of": "2026-10-13T14:00:35-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
@@ -15,26 +15,26 @@
     "spy_change_pct": -0.134,
     "stocktwits": {
       "SPY": {
-        "score": 37.5,
-        "bullish_pct": 37.5
+        "score": 0.0,
+        "bullish_pct": 0.0
       }
     },
     "news": {
       "headlines": [
         "What If You\u2019d Bought Vanguard\u2019s Growth ETF at the Worst Possible Moment?",
-        "Exchange-Traded Funds Lower, Equity Futures Mixed Pre-Bell Tuesday Amid Chip Weakness, Bank Earnings",
-        "Michael Burry Flags \u2018Bull Trap\u2019 Risk, Holds Back On New Shorts \u2014 Why Trump\u2019s Fannie-Freddie Call Matters To His Portfolio",
+        "Rivian (RIVN) vs. Lucid (LCID): Which EV Stock Has a Better Chance of Making It?",
+        "Snowflake (SNOW) Has a Moat. Is It Strong Enough to Justify its Lofty Valuation?",
+        "Atlassian (TEAM): Can AI Deliver Enough to Justify Its Valuation?",
+        "Uber (UBER) vs. DoorDash (DASH): Is Faster Growth Worth Paying More For?",
+        "Merck (MRK) Reports a Negative Operating Margin and Pays Out 266% of Earnings. What Explains Both?",
+        "Simon Property (SPG) Earns a 45% Higher Net Margin Compared to Operating Margin. Where Does the Extra Come From?",
         "UnitedHealth Rises 4% on Earnings Beat and Raised Full-Year Outlook; Humana Advances 2%",
-        "Adobe is Being Punished for a Creative Cannibalization Threat That Isn\u2019t Real",
-        "Illumina\u2019s (ILMN) Sequencing Business Is Recovering, But Is the Stock Getting Ahead of Itself?",
-        "Paul Tudor Jones Says Oil Can Rally Another $25, Warns 2027 Will Be 'Really Challenging' for Stocks",
-        "AMC Rallies 5% a Week After $3.97B Refinancing Closed; Cinemark Climbs 4%, IMAX Drifts Lower",
-        "Everyone Declared Software Dead in April. This ETF Is Up 41% Since Then.",
-        "Caterpillar Sinks 5% as Deere Edges Higher: Is the Data Center Power Premium Unwinding?"
+        "Six Flags Retreats 17% as Fatal Georgia Coaster Incident Closes Rides Across Its Parks; United Parks & Resorts Slips",
+        "Axsome Therapeutics (AXSM) vs. Neurocrine Biosciences (NBIX): Is Faster Growth Worth Paying More For?"
       ]
     },
-    "vix": 15.49,
-    "vix_change_pct": 1.84
+    "vix": 15.47,
+    "vix_change_pct": 1.71
   },
   "votes": [
     {
@@ -45,7 +45,7 @@
     },
     {
       "reading": "vix_change_pct",
-      "value": 1.84,
+      "value": 1.71,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,7 +57,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 37.5,
+      "value": 0.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
