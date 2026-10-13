@@ -1,39 +1,39 @@
 {
-  "updated_at": "2026-10-12T18:51:30+00:00",
+  "updated_at": "2026-10-13T01:13:08+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 998.49,
+  "equity": 977.87,
   "cash": 58.59,
   "last_equity": 1000.0,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.705726906,
-      "market_value": 467.222635,
-      "unrealized_pl": -2.291086,
-      "current_price": 82246.4
+      "market_value": 462.84799,
+      "unrealized_pl": -6.665731,
+      "current_price": 81476.32
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 472.679531,
-      "unrealized_pl": 3.137812,
-      "current_price": 2509.66
+      "market_value": 456.434857,
+      "unrealized_pl": -13.106862,
+      "current_price": 2423.41
     }
   },
   "signals": {
     "BTC/USD": {
       "hold": true,
-      "close": 83677.93,
-      "average": 71981.44,
+      "close": 81743.745,
+      "average": 72046.32,
       "days": 419
     },
     "ETH/USD": {
       "hold": true,
-      "close": 2533.5865,
-      "average": 2133.91,
+      "close": 2444.02,
+      "average": 2135.84,
       "days": 419
     }
   },
@@ -74,6 +74,10 @@
     {
       "date": "2026-10-12",
       "equity": 998.49
+    },
+    {
+      "date": "2026-10-13",
+      "equity": 977.87
     }
   ],
   "equity_history": [
@@ -88,11 +92,11 @@
   ],
   "pnl_periods": {
     "as_of": "2026-10-12",
-    "equity": 998.49,
-    "today": -1.51,
-    "week": -1.51,
-    "month": -1.51,
-    "all": -1.51,
+    "equity": 977.87,
+    "today": -22.13,
+    "week": -22.13,
+    "month": -22.13,
+    "all": -22.13,
     "start_usd": 1000.0
   },
   "learning": {
@@ -102,8 +106,8 @@
     "stop_pct": 6,
     "enabled": true,
     "hold": false,
-    "close": 111.257,
-    "close_7d_ago": 121.54,
+    "close": 105.592,
+    "close_7d_ago": 120.767,
     "position": null,
     "stop_price": null,
     "trades": 0,
