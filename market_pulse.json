@@ -1,22 +1,22 @@
 {
   "date": "2026-10-13",
   "bias": "neutral",
-  "written_at": "2026-10-13T13:00:29-04:00",
-  "as_of": "2026-10-13T13:00:29-04:00",
+  "written_at": "2026-10-13T13:30:30-04:00",
+  "as_of": "2026-10-13T13:30:30-04:00",
   "readings": {
-    "as_of": "2026-10-13T13:00:29-04:00",
+    "as_of": "2026-10-13T13:30:30-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 777.33,
-    "spy_change_pct": -0.09,
+    "spy_price": 776.99,
+    "spy_change_pct": -0.134,
     "stocktwits": {
       "SPY": {
-        "score": 42.9,
-        "bullish_pct": 42.9
+        "score": 37.5,
+        "bullish_pct": 37.5
       }
     },
     "news": {
@@ -27,25 +27,25 @@
         "UnitedHealth Rises 4% on Earnings Beat and Raised Full-Year Outlook; Humana Advances 2%",
         "Adobe is Being Punished for a Creative Cannibalization Threat That Isn\u2019t Real",
         "Illumina\u2019s (ILMN) Sequencing Business Is Recovering, But Is the Stock Getting Ahead of Itself?",
-        "TransDigm (TDG) Has Negative Book Value of almost $168 a Share. Is That a Problem?",
-        "Ventas (VTR) Pays Out Over 370% of Its Earnings as Dividends, So What Actually Funds It?",
-        "Charter Communications (CHTR) Trades at 2.69 Times Earnings With 41.52% of Its Float Sold Short. Which Side Is Reading It Right?",
+        "Paul Tudor Jones Says Oil Can Rally Another $25, Warns 2027 Will Be 'Really Challenging' for Stocks",
+        "AMC Rallies 5% a Week After $3.97B Refinancing Closed; Cinemark Climbs 4%, IMAX Drifts Lower",
+        "Everyone Declared Software Dead in April. This ETF Is Up 41% Since Then.",
         "Caterpillar Sinks 5% as Deere Edges Higher: Is the Data Center Power Premium Unwinding?"
       ]
     },
-    "vix": 15.42,
-    "vix_change_pct": 1.38
+    "vix": 15.49,
+    "vix_change_pct": 1.84
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.09,
+      "value": -0.134,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 1.38,
+      "value": 1.84,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 42.9,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 37.5,
+      "vote": -1,
+      "why": "\u2264 40.0"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
