@@ -1,22 +1,22 @@
 {
   "date": "2026-10-14",
   "bias": "bearish",
-  "written_at": "2026-10-14T12:00:37-04:00",
-  "as_of": "2026-10-14T12:00:37-04:00",
+  "written_at": "2026-10-14T12:40:26-04:00",
+  "as_of": "2026-10-14T12:40:26-04:00",
   "readings": {
-    "as_of": "2026-10-14T12:00:37-04:00",
+    "as_of": "2026-10-14T12:40:26-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 770.82,
-    "spy_change_pct": -0.927,
+    "spy_price": 770.07,
+    "spy_change_pct": -1.023,
     "stocktwits": {
       "SPY": {
-        "score": 16.7,
-        "bullish_pct": 16.7
+        "score": 57.1,
+        "bullish_pct": 57.1
       }
     },
     "news": {
@@ -33,19 +33,19 @@
         "Cipher Digital Falls 5% as $850M Zero-Coupon Note Pricing Extends Slide; Applied Digital Declines 6%, IREN Drops 4%"
       ]
     },
-    "vix": 16.17,
-    "vix_change_pct": 5.89
+    "vix": 16.66,
+    "vix_change_pct": 9.1
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.927,
+      "value": -1.023,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": 5.89,
+      "value": 9.1,
       "vote": -1,
       "why": "\u2265 5.0"
     },
@@ -57,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 16.7,
-      "vote": -1,
-      "why": "\u2264 40.0"
+      "value": 57.1,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": -3,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
