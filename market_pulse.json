@@ -1,22 +1,22 @@
 {
   "date": "2026-10-14",
-  "bias": "neutral",
-  "written_at": "2026-10-14T11:20:25-04:00",
-  "as_of": "2026-10-14T11:20:25-04:00",
+  "bias": "bearish",
+  "written_at": "2026-10-14T12:00:37-04:00",
+  "as_of": "2026-10-14T12:00:37-04:00",
   "readings": {
-    "as_of": "2026-10-14T11:20:25-04:00",
+    "as_of": "2026-10-14T12:00:37-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 772.095,
-    "spy_change_pct": -0.763,
+    "spy_price": 770.82,
+    "spy_change_pct": -0.927,
     "stocktwits": {
       "SPY": {
-        "score": 50.0,
-        "bullish_pct": 50.0
+        "score": 16.7,
+        "bullish_pct": 16.7
       }
     },
     "news": {
@@ -28,26 +28,26 @@
         "Dow Futures Rise, Nasdaq Subdued Premarket Ahead Of Inflation Data: ASML, MU, SKHY, TSLA, BAC, LQDA, GME, IREN Stocks In Focus",
         "AST SpaceMobile Falls 8% as Piper Sandler Cuts Target to $54 on SpaceX Competition; Rocket Lab Slips",
         "Why Your Retirement Age Doesn\u2019t Matter (But This Number Does)",
+        "Core Inflation Just Accelerated. The Fed Is Listening.",
         "Goldman Sachs Just Did the Opposite of BlackRock on Stocks",
-        "Cipher Digital Falls 5% as $850M Zero-Coupon Note Pricing Extends Slide; Applied Digital Declines 6%, IREN Drops 4%",
-        "Paul Tudor Jones Says He\u2019ll Be Short Stocks All of 2027"
+        "Cipher Digital Falls 5% as $850M Zero-Coupon Note Pricing Extends Slide; Applied Digital Declines 6%, IREN Drops 4%"
       ]
     },
-    "vix": 15.9,
-    "vix_change_pct": 4.13
+    "vix": 16.17,
+    "vix_change_pct": 5.89
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.763,
+      "value": -0.927,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": 4.13,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 5.89,
+      "vote": -1,
+      "why": "\u2265 5.0"
     },
     {
       "reading": "fear_greed",
@@ -57,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 50.0,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 16.7,
+      "vote": -1,
+      "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": -3,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
