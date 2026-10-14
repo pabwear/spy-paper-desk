@@ -1,39 +1,39 @@
 {
-  "updated_at": "2026-10-13T22:31:39+00:00",
+  "updated_at": "2026-10-14T01:44:55+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 1004.81,
+  "equity": 1002.21,
   "cash": 58.59,
   "last_equity": 988.717954164671,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 473.706662,
-      "unrealized_pl": 4.192527,
-      "current_price": 83387.8
+      "market_value": 472.722583,
+      "unrealized_pl": 3.208448,
+      "current_price": 83214.57
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 472.508891,
-      "unrealized_pl": 2.967172,
-      "current_price": 2508.754
+      "market_value": 470.897796,
+      "unrealized_pl": 1.356077,
+      "current_price": 2500.2
     }
   },
   "signals": {
     "BTC/USD": {
       "hold": true,
-      "close": 81743.745,
-      "average": 72046.32,
+      "close": 83103.188,
+      "average": 72130.06,
       "days": 419
     },
     "ETH/USD": {
       "hold": true,
-      "close": 2444.02,
-      "average": 2135.84,
+      "close": 2495.95,
+      "average": 2138.36,
       "days": 419
     }
   },
@@ -78,6 +78,10 @@
     {
       "date": "2026-10-13",
       "equity": 1004.81
+    },
+    {
+      "date": "2026-10-14",
+      "equity": 1002.21
     }
   ],
   "equity_history": [
@@ -96,11 +100,11 @@
   ],
   "pnl_periods": {
     "as_of": "2026-10-13",
-    "equity": 1004.81,
-    "today": 16.09,
-    "week": 4.81,
-    "month": 4.81,
-    "all": 4.81,
+    "equity": 1002.21,
+    "today": 13.49,
+    "week": 2.21,
+    "month": 2.21,
+    "all": 2.21,
     "start_usd": 1000.0
   },
   "learning": {
@@ -110,8 +114,8 @@
     "stop_pct": 6,
     "enabled": true,
     "hold": false,
-    "close": 105.592,
-    "close_7d_ago": 120.767,
+    "close": 106.7305,
+    "close_7d_ago": 120.6985,
     "position": null,
     "stop_price": null,
     "trades": 0,
