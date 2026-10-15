@@ -1,51 +1,51 @@
 {
   "date": "2026-10-15",
   "bias": "neutral",
-  "written_at": "2026-10-15T13:52:11-04:00",
-  "as_of": "2026-10-15T13:52:11-04:00",
+  "written_at": "2026-10-15T14:30:30-04:00",
+  "as_of": "2026-10-15T14:30:30-04:00",
   "readings": {
-    "as_of": "2026-10-15T13:52:11-04:00",
+    "as_of": "2026-10-15T14:30:30-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 769.56,
-    "spy_change_pct": -0.012,
+    "spy_price": 769.57,
+    "spy_change_pct": -0.01,
     "stocktwits": {
       "SPY": {
-        "score": 44.4,
-        "bullish_pct": 44.4
+        "score": 55.6,
+        "bullish_pct": 55.6
       }
     },
     "news": {
       "headlines": [
-        "Exchange-Traded Funds Lower, Equity Futures Mixed Pre-Bell Thursday Amid Economic Data Release",
-        "eBay Jumps 5% on Takeover Speculation; Etsy Rallies 7%, Shopify Holds Flat",
-        "The Fed Just Found AI Is Starting to Cost Jobs in 5 of Its 12 Districts",
-        "Moderna Rallies 6% as Money Rotates Into Healthcare; BioNTech and Pfizer Edge Higher",
-        "Simply Put, Palantir Remains a Valuation Trap",
-        "Skydance Rebounds 5% as Warrant Adjustment Selloff Fades; Netflix Rises 3%, Disney Advances 2%",
-        "Opendoor and Zillow Surge 7% as Long-Term Rates Retreat; Compass Climbs 6%",
-        "Quantum Computing Stocks Rebound After Dilution Scare: IonQ and Rigetti Climb 3%, D-Wave Advances 2%",
-        "Data Center Stocks Tumble as Financing Costs Draw Scrutiny: Cipher Digital Drops 9%, Applied Digital Falls 6%",
-        "PPI, Retail Sales Jump, Claims Stay Resilient"
+        "Starwood Property Trust (STWD) Earnings Fell 95%. Is the Stock Still Cheap?",
+        "Rithm Capital (RITM) Trades at 0.76 Times Book Value. Should You Buy It?",
+        "Dynex Capital (DX) Trades at 4 Times Last Year\u2019s Earnings and 8 Times Next Year\u2019s. Which is Right?",
+        "Essent Group (ESNT): Good Investment or Just a Cheap One?",
+        "Is UWM Holdings (UWMC) the Most Expensive Cheap Stock in Mortgage Lending?",
+        "Annaly Capital (NLY) Borrows $7 for Every $1 of Equity. What Does That Buy?",
+        "MGIC Investment (MTG) Earns 80% Margins on Falling Revenue. Is the Stock Cheap Enough?",
+        "AGNC Investment (AGNC) Is the Most Expensive Mortgage REIT on Book Value. Why?",
+        "Radian Group (RDN) Bought a Lloyd\u2019s Insurer. Is It Still a Mortgage Stock?",
+        "Why Does Rocket Companies (RKT) Earn Just 3% on Equity After Doubling Revenue?"
       ]
     },
-    "vix": 16.66,
-    "vix_change_pct": -1.24
+    "vix": 16.83,
+    "vix_change_pct": -0.24
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.012,
+      "value": -0.01,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": -1.24,
+      "value": -0.24,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,7 +57,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 44.4,
+      "value": 55.6,
       "vote": 0,
       "why": "in the neutral band"
     }
