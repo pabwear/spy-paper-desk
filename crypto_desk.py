@@ -233,7 +233,38 @@ def _send(broker, o: dict, coid: str, now: datetime, sent: list) -> None:
         print(f"Roy: crypto {o['side']} {o['symbol']} FAILED ({type(e).__name__}).")
 
 
+def audit(days: int = 3) -> None:
+    """Read-only: everything the paper account did lately, including anything the desk did NOT do (manual trades,
+    other assets, cash adjustments). Prints amounts and symbols only; never keys."""
+    from alpaca.trading.enums import QueryOrderStatus
+    from alpaca.trading.requests import GetOrdersRequest
+
+    b = CryptoBroker(config())
+    a = b._c.get_account()
+    print("ACCOUNT", {k: str(getattr(a, k, None)) for k in ("account_number", "status", "crypto_status", "equity", "cash",
+                                                             "last_equity", "buying_power", "long_market_value",
+                                                             "short_market_value", "non_marginable_buying_power")})
+    for p in b._c.get_all_positions():
+        print("POSITION", p.symbol, str(getattr(p.asset_class, "value", p.asset_class)), p.qty, p.side, p.market_value,
+              p.unrealized_pl)
+    since = datetime.now(timezone.utc) - timedelta(days=days)
+    for o in b._c.get_orders(GetOrdersRequest(status=QueryOrderStatus.ALL, after=since, limit=200)):
+        print("ORDER", o.submitted_at, o.symbol, getattr(o.side, "value", o.side), o.qty, o.notional,
+              getattr(o.status, "value", o.status), o.filled_qty, o.filled_avg_price, o.client_order_id)
+    try:
+        acts = b._c.get("/account/activities", {"after": since.isoformat(), "page_size": 100})
+    except Exception as e:  # noqa: BLE001
+        acts = []
+        print("ACTIVITIES unavailable:", type(e).__name__)
+    for x in acts or []:
+        print("ACTIVITY", {k: x.get(k) for k in ("activity_type", "date", "transaction_time", "symbol", "side", "qty",
+                                                 "price", "net_amount", "description", "status")})
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
+    if cmd == "audit":
+        audit()
+        sys.exit(0)
     st = run(trade=(cmd == "run"))
     print(f"Equity ${st['equity']:,.2f}, cash ${st['cash']:,.2f}, positions {list(st['positions'] or {})}")
