@@ -5,6 +5,23 @@ keep learning from it; these notes are the record.
 
 ## Daily log
 
+### Thu Oct 15 2026 — +$61.80 (equity $1,034.23; +$34.23 since the $1,000 start; week −$21.97)
+- SPY put spread 761/756: sold 10:00 for $34 (mid $0.33, natural $0.30; 0.56 × VIX, in line with 0.5), bought back
+  15:40 → about +$33 (short +$46, long −$13). Spread book: 6 trades, 5 won, ≈ +$17.
+- SPY options (learning): Oct 22 770 call 12:50 → 13:30 (+$41); 14:10 → 14:50 (−$12); both on the time limit.
+  Options book: 7 trades, 3 won, ≈ +$19.
+- SPY shares: 17 buys refused by Alpaca for buying power (≈$506–547 free while the spread's collateral was held;
+  1 share ≈ $770). Same cause as Monday; harmless but noisy. A buying-power pre-check would turn these into quiet
+  skips (proposed to Roy, not changed).
+- All positions closed at the end of the day.
+- Price forecasts: direction 44% (1m), 25% (3m), 63% (5m), 8% (30m, 12 scored); "flat" leads. Loss model: shadow,
+  20 closed trades, 9 learnable of 30.
+- ML shadow (15-min TCN): 31 predictions, p 0.39–0.52; first would-be entry (10:09, p 0.52 ≥ 0.51) would have lost
+  7.5 bp after costs. Forward so far: 82 scored, Brier 0.254 vs about 0.249 for the base rate: no better than it.
+- Crypto: no trades; the account anomaly persists (cash −$3,707.05, reported equity −$2,779; BTC/ETH positions
+  unchanged). BTC and ETH each 13% above their 200-day averages (hold). SOL learning book in cash ($104.15 vs
+  $116.18 a week earlier). Last crypto check 18:09 UTC (≈2 h before this review).
+
 ### Wed Oct 14 2026 — −$63.10 (equity $972.54; −$27.46 since the $1,000 start; week −$83.66)
 - SPY put spread 769/764: sold 10:10 for $19 (mid $0.18, natural $0.15; 0.48 × VIX, in line with the 0.5 assumed).
   SPY fell toward the short strike; bought back at 15:40 → −$63 (short leg −$60, long leg −$3). The book's first
