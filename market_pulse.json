@@ -1,10 +1,10 @@
 {
   "date": "2026-10-15",
   "bias": "neutral",
-  "written_at": "2026-10-15T13:20:27-04:00",
-  "as_of": "2026-10-15T13:20:27-04:00",
+  "written_at": "2026-10-15T13:52:11-04:00",
+  "as_of": "2026-10-15T13:52:11-04:00",
   "readings": {
-    "as_of": "2026-10-15T13:20:27-04:00",
+    "as_of": "2026-10-15T13:52:11-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
@@ -15,26 +15,26 @@
     "spy_change_pct": -0.012,
     "stocktwits": {
       "SPY": {
-        "score": 42.9,
-        "bullish_pct": 42.9
+        "score": 44.4,
+        "bullish_pct": 44.4
       }
     },
     "news": {
       "headlines": [
         "Exchange-Traded Funds Lower, Equity Futures Mixed Pre-Bell Thursday Amid Economic Data Release",
         "eBay Jumps 5% on Takeover Speculation; Etsy Rallies 7%, Shopify Holds Flat",
+        "The Fed Just Found AI Is Starting to Cost Jobs in 5 of Its 12 Districts",
         "Moderna Rallies 6% as Money Rotates Into Healthcare; BioNTech and Pfizer Edge Higher",
         "Simply Put, Palantir Remains a Valuation Trap",
         "Skydance Rebounds 5% as Warrant Adjustment Selloff Fades; Netflix Rises 3%, Disney Advances 2%",
         "Opendoor and Zillow Surge 7% as Long-Term Rates Retreat; Compass Climbs 6%",
         "Quantum Computing Stocks Rebound After Dilution Scare: IonQ and Rigetti Climb 3%, D-Wave Advances 2%",
         "Data Center Stocks Tumble as Financing Costs Draw Scrutiny: Cipher Digital Drops 9%, Applied Digital Falls 6%",
-        "PPI, Retail Sales Jump, Claims Stay Resilient",
-        "Rocket Lab Tumbles 11% as Neutron\u2019s First Flight Moves to 2027; SpaceX and AST SpaceMobile Pull Back"
+        "PPI, Retail Sales Jump, Claims Stay Resilient"
       ]
     },
-    "vix": 16.81,
-    "vix_change_pct": -0.36
+    "vix": 16.66,
+    "vix_change_pct": -1.24
   },
   "votes": [
     {
@@ -45,7 +45,7 @@
     },
     {
       "reading": "vix_change_pct",
-      "value": -0.36,
+      "value": -1.24,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,7 +57,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 42.9,
+      "value": 44.4,
       "vote": 0,
       "why": "in the neutral band"
     }
