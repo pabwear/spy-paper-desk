@@ -4,8 +4,8 @@
     "date": "2026-10-15",
     "plans": {
       "tf": "5m",
-      "horizon": 24,
-      "until": "2026-10-15T14:55",
+      "horizon": 23,
+      "until": "2026-10-15T14:50",
       "by_close": true,
       "last": 769.56,
       "stop_pct": 0.25,
@@ -21,16 +21,16 @@
           "entry": 770.3,
           "stop": 768.38,
           "inside_now": false,
-          "reach_pct": 61.3,
-          "win_if_entered_pct": 39.1,
-          "stopped_if_entered_pct": 43.5,
-          "loss_at_close_if_entered_pct": 17.4,
+          "reach_pct": 60.0,
+          "win_if_entered_pct": 40.0,
+          "stopped_if_entered_pct": 40.0,
+          "loss_at_close_if_entered_pct": 20.0,
           "profit_pct": 24.0,
-          "median_move_pct": -0.029,
+          "median_move_pct": -0.032,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 35.0,
-            "avg_loss": -75.0,
+            "avg_win": 32.0,
+            "avg_loss": -74.0,
             "at_stop": -96.0,
             "expected": -32.0
           },
@@ -39,73 +39,73 @@
               {
                 "name": "near edge",
                 "price": 770.3,
-                "reach_pct": 61.3,
+                "reach_pct": 60.0,
                 "profit_pct": 24.0,
-                "win_if_entered_pct": 39.1,
-                "target1_pct": 15.2,
+                "win_if_entered_pct": 40.0,
+                "target1_pct": 15.6,
                 "target2_pct": 0.0,
-                "expected": -20.0
+                "expected": -19.0
               },
               {
                 "name": "middle",
                 "price": 770.69,
-                "reach_pct": 52.0,
-                "profit_pct": 16.0,
-                "win_if_entered_pct": 30.8,
-                "target1_pct": 17.9,
+                "reach_pct": 50.7,
+                "profit_pct": 13.3,
+                "win_if_entered_pct": 26.3,
+                "target1_pct": 18.4,
                 "target2_pct": 0.0,
-                "expected": -21.0
+                "expected": -20.0
               },
               {
                 "name": "far edge",
                 "price": 771.08,
-                "reach_pct": 41.3,
-                "profit_pct": 6.7,
-                "win_if_entered_pct": 16.1,
-                "target1_pct": 9.7,
+                "reach_pct": 38.7,
+                "profit_pct": 5.3,
+                "win_if_entered_pct": 13.8,
+                "target1_pct": 10.3,
                 "target2_pct": 0.0,
-                "expected": -21.0
+                "expected": -18.0
               }
             ],
-            "suggested": 0,
+            "suggested": 2,
             "targets": [
               {
                 "name": "Target 1 (1\u00d7 the stop)",
-                "price": 772.23,
-                "hit_pct": 15.2
+                "price": 773.01,
+                "hit_pct": 10.3
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
-                "price": 774.15,
+                "price": 774.94,
                 "hit_pct": 0.0
               }
             ],
-            "stop": 768.37,
+            "stop": 769.15,
             "size": {
               "contracts": 1,
               "risk_per_contract": 96.0,
               "risk_limit": 100.0,
               "within_limit": true,
               "contracts_within_limit": 1,
-              "stop_pct_that_fits": 0.26
+              "stop_pct_that_fits": 0.259
             }
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 61.3,
-            "break_pct": 65.2,
-            "bounce_pct": 15.2,
-            "stall_pct": 19.6,
+            "touched_pct": 60.0,
+            "break_pct": 62.2,
+            "bounce_pct": 15.6,
+            "stall_pct": 22.2,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "put",
             "entry": 770.3,
             "stop": 772.23,
-            "reach_pct": 61.3,
-            "win_if_entered_pct": 50.0,
-            "stopped_if_entered_pct": 15.2,
-            "profit_pct": 30.7
+            "reach_pct": 60.0,
+            "win_if_entered_pct": 55.6,
+            "stopped_if_entered_pct": 15.6,
+            "profit_pct": 33.3
           },
           "traded": true
         },
@@ -119,50 +119,50 @@
           "entry": 765.52,
           "stop": 767.43,
           "inside_now": false,
-          "reach_pct": 10.7,
-          "win_if_entered_pct": 87.5,
+          "reach_pct": 8.0,
+          "win_if_entered_pct": 100.0,
           "stopped_if_entered_pct": 0.0,
-          "loss_at_close_if_entered_pct": 12.5,
-          "profit_pct": 9.3,
-          "median_move_pct": 0.508,
+          "loss_at_close_if_entered_pct": 0.0,
+          "profit_pct": 8.0,
+          "median_move_pct": 0.523,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 186.0,
-            "avg_loss": 0.0,
+            "avg_win": 160.0,
+            "avg_loss": null,
             "at_stop": -96.0,
-            "expected": 162.0
+            "expected": 160.0
           },
           "suggest": {
             "entries": [
               {
                 "name": "near edge",
                 "price": 765.52,
-                "reach_pct": 10.7,
-                "profit_pct": 9.3,
-                "win_if_entered_pct": 87.5,
-                "target1_pct": 75.0,
-                "target2_pct": 62.5,
-                "expected": 17.0
+                "reach_pct": 8.0,
+                "profit_pct": 8.0,
+                "win_if_entered_pct": 100.0,
+                "target1_pct": 66.7,
+                "target2_pct": 50.0,
+                "expected": 13.0
               },
               {
                 "name": "middle",
                 "price": 765.13,
-                "reach_pct": 10.7,
-                "profit_pct": 8.0,
-                "win_if_entered_pct": 75.0,
-                "target1_pct": 62.5,
-                "target2_pct": 50.0,
-                "expected": 14.0
+                "reach_pct": 6.7,
+                "profit_pct": 6.7,
+                "win_if_entered_pct": 100.0,
+                "target1_pct": 80.0,
+                "target2_pct": 60.0,
+                "expected": 11.0
               },
               {
                 "name": "far edge",
                 "price": 764.74,
-                "reach_pct": 10.7,
-                "profit_pct": 8.0,
-                "win_if_entered_pct": 75.0,
-                "target1_pct": 62.5,
-                "target2_pct": 37.5,
-                "expected": 12.0
+                "reach_pct": 6.7,
+                "profit_pct": 6.7,
+                "win_if_entered_pct": 100.0,
+                "target1_pct": 80.0,
+                "target2_pct": 20.0,
+                "expected": 10.0
               }
             ],
             "suggested": 0,
@@ -170,12 +170,12 @@
               {
                 "name": "Target 1 (1\u00d7 the stop)",
                 "price": 763.61,
-                "hit_pct": 75.0
+                "hit_pct": 66.7
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
                 "price": 761.69,
-                "hit_pct": 62.5
+                "hit_pct": 50.0
               }
             ],
             "stop": 767.43,
@@ -190,19 +190,19 @@
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 10.7,
-            "break_pct": 87.5,
+            "touched_pct": 8.0,
+            "break_pct": 83.3,
             "bounce_pct": 0.0,
-            "stall_pct": 12.5,
+            "stall_pct": 16.7,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "call",
             "entry": 765.52,
             "stop": 763.61,
-            "reach_pct": 10.7,
+            "reach_pct": 8.0,
             "win_if_entered_pct": 0.0,
-            "stopped_if_entered_pct": 75.0,
+            "stopped_if_entered_pct": 66.7,
             "profit_pct": 0.0
           },
           "traded": false
@@ -12219,52 +12219,52 @@
             "2026-10-16T10:00"
           ],
           "q10": [
-            767.5459,
-            768.4873,
-            767.4104,
-            762.1905,
-            764.412,
-            766.54,
+            767.594,
+            768.5997,
+            767.5477,
+            762.3151,
+            764.471,
+            766.607,
             764.1664,
             762.3462
           ],
           "q25": [
-            768.8759,
-            769.033,
-            768.0164,
-            766.8868,
-            767.309,
-            767.5468,
+            768.924,
+            769.1454,
+            768.1538,
+            767.0123,
+            767.3682,
+            767.614,
             766.5927,
             765.9201
           ],
           "q50": [
-            769.3926,
-            769.4119,
-            769.2542,
-            769.1592,
-            769.0661,
-            768.9978,
+            769.4407,
+            769.5244,
+            769.3919,
+            769.285,
+            769.1255,
+            769.0651,
             769.3701,
             769.3795
           ],
           "q75": [
-            770.0975,
-            770.4619,
-            770.0732,
-            769.8909,
-            770.1913,
-            770.8442,
+            770.1458,
+            770.5746,
+            770.211,
+            770.0169,
+            770.2507,
+            770.9117,
             774.032,
             772.7884
           ],
           "q90": [
-            770.353,
-            770.9922,
-            771.5253,
-            773.5944,
-            776.6268,
-            776.0861,
+            770.4013,
+            771.105,
+            771.6634,
+            773.721,
+            776.6867,
+            776.154,
             777.9012,
             778.565
           ],
@@ -12298,16 +12298,16 @@
           },
           "record": {
             "tests": 60,
-            "direction_hit_pct": 51.7,
+            "direction_hit_pct": 50.0,
             "inside_50_pct": 45.0,
             "inside_80_pct": 73.3,
             "expert_error": {
-              "analog_10": 0.888,
-              "analog_20": 0.861,
+              "analog_10": 0.887,
+              "analog_20": 0.86,
               "analog_40": 0.846,
-              "momentum": 1.001,
-              "reversion": 1.048,
-              "flat": 0.865
+              "momentum": 1.0,
+              "reversion": 1.047,
+              "flat": 0.864
             }
           },
           "live": {
@@ -13907,22 +13907,22 @@
             "2026-10-16T12:30"
           ],
           "q10": [
-            768.6336,
-            767.3576,
-            764.4786,
-            763.0205,
-            762.241,
-            760.9321,
-            761.4635
+            768.635,
+            767.361,
+            764.4862,
+            763.0304,
+            762.2523,
+            760.9461,
+            761.4768
           ],
           "q25": [
-            769.331,
-            769.145,
-            768.4342,
-            766.3515,
-            766.1106,
-            767.2335,
-            765.9877
+            769.3301,
+            769.1434,
+            768.4304,
+            766.3405,
+            766.0982,
+            767.2232,
+            765.9732
           ],
           "q50": [
             769.6197,
@@ -13934,22 +13934,22 @@
             770.4829
           ],
           "q75": [
-            770.2562,
-            770.1407,
-            770.1142,
-            771.4092,
-            772.9971,
-            773.3087,
-            772.5186
+            770.2583,
+            770.1423,
+            770.1159,
+            771.4146,
+            773.0069,
+            773.318,
+            772.5252
           ],
           "q90": [
-            770.7765,
-            771.8851,
-            772.6005,
-            775.2624,
-            776.4469,
-            777.7345,
-            777.5027
+            770.7748,
+            771.8818,
+            772.5961,
+            775.2542,
+            776.4372,
+            777.7236,
+            777.4923
           ],
           "horizon": 7,
           "neighbours": 25,
@@ -13977,7 +13977,7 @@
             "s50": 1.04,
             "s80": 1.23,
             "source": "history",
-            "half80": 0.010422
+            "half80": 0.010407
           },
           "record": {
             "tests": 60,
@@ -13985,12 +13985,12 @@
             "inside_50_pct": 46.7,
             "inside_80_pct": 73.3,
             "expert_error": {
-              "analog_10": 0.79,
-              "analog_20": 0.775,
-              "analog_40": 0.77,
-              "momentum": 0.853,
-              "reversion": 0.752,
-              "flat": 0.748
+              "analog_10": 0.786,
+              "analog_20": 0.773,
+              "analog_40": 0.76,
+              "momentum": 0.85,
+              "reversion": 0.748,
+              "flat": 0.746
             }
           },
           "live": {
@@ -14007,11 +14007,11 @@
         "c": [
           [
             "2026-08-17T13:30",
-            773.55,
+            773.585,
             773.81,
             772.51,
             772.62,
-            704876
+            630909
           ],
           [
             "2026-08-18T09:30",
@@ -28774,11 +28774,11 @@
             "tests": 60,
             "direction_hit_pct": 46.7,
             "inside_50_pct": 36.7,
-            "inside_80_pct": 80.0,
+            "inside_80_pct": 78.3,
             "expert_error": {
-              "analog_10": 0.703,
-              "analog_20": 0.682,
-              "analog_40": 0.691,
+              "analog_10": 0.697,
+              "analog_20": 0.68,
+              "analog_40": 0.693,
               "momentum": 0.736,
               "reversion": 0.795,
               "flat": 0.667
@@ -30481,11 +30481,11 @@
         "c": [
           [
             "2026-08-17T12:00",
-            773.55,
+            773.585,
             773.81,
             772.51,
             772.62,
-            704876
+            630909
           ],
           [
             "2026-08-17T16:00",
@@ -34067,15 +34067,15 @@
         "symbol": "SPY261022C00770000"
       }
     ],
-    "updated_at": "2026-10-15T13:52:11-04:00"
+    "updated_at": "2026-10-15T14:00:27-04:00"
   },
   "SNDK": {
     "symbol": "SNDK",
     "date": "2026-10-15",
     "plans": {
       "tf": "5m",
-      "horizon": 24,
-      "until": "2026-10-15T14:55",
+      "horizon": 23,
+      "until": "2026-10-15T14:50",
       "by_close": true,
       "last": 1344.78,
       "stop_pct": 0.25,
@@ -34175,50 +34175,50 @@
           "entry": 1280.77,
           "stop": 1283.97,
           "inside_now": false,
-          "reach_pct": 29.3,
-          "win_if_entered_pct": 86.4,
-          "stopped_if_entered_pct": 4.5,
-          "loss_at_close_if_entered_pct": 9.1,
-          "profit_pct": 25.3,
-          "median_move_pct": 6.536,
+          "reach_pct": 26.7,
+          "win_if_entered_pct": 90.0,
+          "stopped_if_entered_pct": 5.0,
+          "loss_at_close_if_entered_pct": 5.0,
+          "profit_pct": 24.0,
+          "median_move_pct": 7.325,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 4676.0,
-            "avg_loss": -53.0,
+            "avg_win": 5043.0,
+            "avg_loss": -80.0,
             "at_stop": -160.0,
-            "expected": 4032.0
+            "expected": 4531.0
           },
           "suggest": {
             "entries": [
               {
                 "name": "near edge",
                 "price": 1280.77,
-                "reach_pct": 29.3,
-                "profit_pct": 25.3,
-                "win_if_entered_pct": 86.4,
-                "target1_pct": 86.4,
-                "target2_pct": 86.4,
-                "expected": 1183.0
+                "reach_pct": 26.7,
+                "profit_pct": 24.0,
+                "win_if_entered_pct": 90.0,
+                "target1_pct": 95.0,
+                "target2_pct": 95.0,
+                "expected": 1208.0
               },
               {
                 "name": "middle",
                 "price": 1274.88,
-                "reach_pct": 28.0,
-                "profit_pct": 22.7,
-                "win_if_entered_pct": 81.0,
-                "target1_pct": 90.5,
-                "target2_pct": 90.5,
-                "expected": 1099.0
+                "reach_pct": 25.3,
+                "profit_pct": 24.0,
+                "win_if_entered_pct": 94.7,
+                "target1_pct": 100.0,
+                "target2_pct": 100.0,
+                "expected": 1127.0
               },
               {
                 "name": "far edge",
                 "price": 1268.99,
-                "reach_pct": 28.0,
-                "profit_pct": 21.3,
-                "win_if_entered_pct": 76.2,
-                "target1_pct": 90.5,
-                "target2_pct": 90.5,
-                "expected": 1023.0
+                "reach_pct": 25.3,
+                "profit_pct": 22.7,
+                "win_if_entered_pct": 89.5,
+                "target1_pct": 100.0,
+                "target2_pct": 100.0,
+                "expected": 1046.0
               }
             ],
             "suggested": 0,
@@ -34226,12 +34226,12 @@
               {
                 "name": "Target 1 (1\u00d7 the stop)",
                 "price": 1277.57,
-                "hit_pct": 86.4
+                "hit_pct": 95.0
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
                 "price": 1274.37,
-                "hit_pct": 86.4
+                "hit_pct": 95.0
               }
             ],
             "stop": 1283.97,
@@ -34246,19 +34246,19 @@
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 29.3,
-            "break_pct": 86.4,
+            "touched_pct": 26.7,
+            "break_pct": 95.0,
             "bounce_pct": 0.0,
-            "stall_pct": 13.6,
+            "stall_pct": 5.0,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "call",
             "entry": 1280.77,
             "stop": 1277.57,
-            "reach_pct": 29.3,
+            "reach_pct": 26.7,
             "win_if_entered_pct": 0.0,
-            "stopped_if_entered_pct": 86.4,
+            "stopped_if_entered_pct": 95.0,
             "profit_pct": 0.0
           },
           "traded": false
@@ -46389,61 +46389,61 @@
             "2026-10-16T10:00"
           ],
           "q10": [
-            1331.0977,
+            1331.6393,
             1322.5821,
             1324.8123,
             1324.1306,
-            1318.2408,
-            1316.509,
+            1318.0204,
+            1316.4461,
             1262.4219,
-            1268.2848
+            1269.7955
           ],
           "q25": [
-            1336.9668,
+            1337.5108,
             1328.9972,
             1330.6324,
             1328.6465,
-            1334.8778,
-            1326.0776,
+            1334.6546,
+            1326.0142,
             1315.6633,
-            1303.8441
+            1305.3971
           ],
           "q50": [
-            1343.5744,
+            1344.1211,
             1344.1592,
             1342.9216,
             1342.3128,
-            1342.5474,
-            1342.5426,
+            1342.3229,
+            1342.4784,
             1339.5441,
-            1339.8134
+            1341.4093
           ],
           "q75": [
-            1352.24,
+            1352.7902,
             1353.9087,
             1354.807,
             1352.3693,
-            1352.5153,
-            1354.8926,
+            1352.2891,
+            1354.8278,
             1357.1596,
-            1363.6338
+            1365.2581
           ],
           "q90": [
-            1357.1952,
+            1357.7474,
             1358.0559,
             1364.4051,
             1371.155,
-            1365.3467,
-            1382.4204,
+            1365.1184,
+            1382.3543,
             1379.7959,
-            1388.5378
+            1390.1917
           ],
           "horizon": 8,
           "neighbours": 25,
           "window": 20,
           "last": 1344.78,
           "experts": {
-            "analog_10": 1320.2367,
+            "analog_10": 1330.4692,
             "analog_20": 1354.5758,
             "analog_40": 1349.0529,
             "momentum": 1317.6682,
@@ -46472,11 +46472,11 @@
             "inside_50_pct": 48.3,
             "inside_80_pct": 66.7,
             "expert_error": {
-              "analog_10": 0.821,
+              "analog_10": 0.819,
               "analog_20": 0.818,
               "analog_40": 0.808,
-              "momentum": 0.855,
-              "reversion": 0.991,
+              "momentum": 0.854,
+              "reversion": 0.989,
               "flat": 0.806
             }
           },
@@ -48030,22 +48030,22 @@
             "2026-10-16T12:30"
           ],
           "q10": [
-            1331.7103,
-            1329.4915,
-            1322.2666,
-            1285.5687,
-            1239.5485,
-            1222.8092,
-            1192.7577
+            1331.7318,
+            1329.5153,
+            1322.2986,
+            1285.6472,
+            1239.6808,
+            1222.96,
+            1192.9415
           ],
           "q25": [
-            1337.9462,
-            1337.9811,
-            1334.1802,
-            1323.3152,
-            1320.3766,
-            1320.6401,
-            1302.6081
+            1337.8946,
+            1337.9323,
+            1334.1172,
+            1323.2016,
+            1320.2668,
+            1320.5409,
+            1302.4303
           ],
           "q50": [
             1347.7082,
@@ -48057,22 +48057,22 @@
             1336.5193
           ],
           "q75": [
-            1359.7291,
-            1363.0566,
-            1361.5624,
-            1385.0158,
-            1399.7048,
-            1402.1483,
-            1394.9349
+            1359.7932,
+            1363.1412,
+            1361.6451,
+            1385.2321,
+            1400.0221,
+            1402.4888,
+            1395.2519
           ],
           "q90": [
-            1370.1282,
-            1369.1618,
-            1385.2106,
-            1410.0181,
-            1452.3008,
-            1513.3093,
-            1493.4153
+            1370.0976,
+            1369.1319,
+            1385.1569,
+            1409.9278,
+            1452.1444,
+            1513.0593,
+            1493.1909
           ],
           "horizon": 7,
           "neighbours": 25,
@@ -48100,20 +48100,20 @@
             "s50": 1.62,
             "s80": 1.4,
             "source": "history",
-            "half80": 0.112399
+            "half80": 0.112247
           },
           "record": {
             "tests": 60,
             "direction_hit_pct": 43.3,
-            "inside_50_pct": 35.0,
+            "inside_50_pct": 33.3,
             "inside_80_pct": 75.0,
             "expert_error": {
-              "analog_10": 0.755,
-              "analog_20": 0.745,
-              "analog_40": 0.739,
-              "momentum": 0.831,
-              "reversion": 1.07,
-              "flat": 0.739
+              "analog_10": 0.751,
+              "analog_20": 0.741,
+              "analog_40": 0.74,
+              "momentum": 0.825,
+              "reversion": 1.067,
+              "flat": 0.735
             }
           },
           "live": {
@@ -48130,11 +48130,11 @@
         "c": [
           [
             "2026-08-17T13:30",
-            1790.73,
-            1794.92,
+            1788.11,
+            1791.34,
             1761.49,
             1787.84,
-            121189
+            98779
           ],
           [
             "2026-08-18T09:30",
@@ -48806,15 +48806,15 @@
           "aoi": {
             "red": {
               "low": 1894.845,
-              "high": 1954.318,
+              "high": 1954.3166,
               "visible": true
             },
             "green": {
-              "low": 1254.182,
+              "low": 1254.1834,
               "high": 1313.655,
               "visible": true
             },
-            "atr": 59.473
+            "atr": 59.4716
           },
           "internal": {
             "dir": "bear",
@@ -62875,9 +62875,9 @@
             "inside_80_pct": 73.3,
             "expert_error": {
               "analog_10": 0.816,
-              "analog_20": 0.86,
-              "analog_40": 0.832,
-              "momentum": 0.882,
+              "analog_20": 0.858,
+              "analog_40": 0.831,
+              "momentum": 0.881,
               "reversion": 1.101,
               "flat": 0.819
             }
@@ -64562,11 +64562,11 @@
         "c": [
           [
             "2026-08-17T12:00",
-            1790.73,
-            1794.92,
+            1788.11,
+            1791.34,
             1761.49,
             1787.84,
-            121189
+            98779
           ],
           [
             "2026-08-17T16:00",
@@ -65470,15 +65470,15 @@
           "aoi": {
             "red": {
               "low": 1894.845,
-              "high": 1940.7863,
+              "high": 1940.7861,
               "visible": true
             },
             "green": {
-              "low": 1283.8287,
+              "low": 1283.8289,
               "high": 1329.77,
               "visible": true
             },
-            "atr": 45.9413
+            "atr": 45.9411
           },
           "internal": {
             "dir": "bear",
@@ -68101,15 +68101,15 @@
     },
     "extended_hours": true,
     "trades": [],
-    "updated_at": "2026-10-15T13:52:11-04:00"
+    "updated_at": "2026-10-15T14:00:27-04:00"
   },
   "TSLA": {
     "symbol": "TSLA",
     "date": "2026-10-15",
     "plans": {
       "tf": "5m",
-      "horizon": 24,
-      "until": "2026-10-15T14:55",
+      "horizon": 23,
+      "until": "2026-10-15T14:50",
       "by_close": true,
       "last": 360.07,
       "stop_pct": 0.25,
@@ -68214,13 +68214,13 @@
           "stopped_if_entered_pct": 2.5,
           "loss_at_close_if_entered_pct": 7.5,
           "profit_pct": 48.0,
-          "median_move_pct": 1.702,
+          "median_move_pct": 1.49,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 330.0,
-            "avg_loss": -39.0,
+            "avg_win": 347.0,
+            "avg_loss": -24.0,
             "at_stop": -45.0,
-            "expected": 293.0
+            "expected": 310.0
           },
           "suggest": {
             "entries": [
@@ -68232,7 +68232,7 @@
                 "win_if_entered_pct": 90.0,
                 "target1_pct": 92.5,
                 "target2_pct": 75.0,
-                "expected": 156.0
+                "expected": 165.0
               },
               {
                 "name": "middle",
@@ -68242,17 +68242,17 @@
                 "win_if_entered_pct": 86.8,
                 "target1_pct": 78.9,
                 "target2_pct": 71.1,
-                "expected": 125.0
+                "expected": 134.0
               },
               {
                 "name": "far edge",
                 "price": 356.53,
-                "reach_pct": 49.3,
-                "profit_pct": 37.3,
-                "win_if_entered_pct": 75.7,
-                "target1_pct": 75.7,
-                "target2_pct": 75.7,
-                "expected": 111.0
+                "reach_pct": 48.0,
+                "profit_pct": 38.7,
+                "win_if_entered_pct": 80.6,
+                "target1_pct": 77.8,
+                "target2_pct": 77.8,
+                "expected": 120.0
               }
             ],
             "suggested": 0,
@@ -68281,9 +68281,9 @@
           "outcomes": {
             "paths": 75,
             "touched_pct": 53.3,
-            "break_pct": 90.0,
+            "break_pct": 87.5,
             "bounce_pct": 2.5,
-            "stall_pct": 7.5,
+            "stall_pct": 10.0,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
@@ -68291,9 +68291,9 @@
             "entry": 357.91,
             "stop": 357.02,
             "reach_pct": 53.3,
-            "win_if_entered_pct": 2.5,
+            "win_if_entered_pct": 5.0,
             "stopped_if_entered_pct": 95.0,
-            "profit_pct": 1.3
+            "profit_pct": 2.7
           },
           "traded": false
         }
@@ -80572,15 +80572,15 @@
           "record": {
             "tests": 60,
             "direction_hit_pct": 48.3,
-            "inside_50_pct": 55.0,
+            "inside_50_pct": 56.7,
             "inside_80_pct": 78.3,
             "expert_error": {
-              "analog_10": 0.619,
-              "analog_20": 0.602,
-              "analog_40": 0.621,
-              "momentum": 0.733,
-              "reversion": 0.793,
-              "flat": 0.577
+              "analog_10": 0.618,
+              "analog_20": 0.599,
+              "analog_40": 0.623,
+              "momentum": 0.732,
+              "reversion": 0.792,
+              "flat": 0.576
             }
           },
           "live": {
@@ -82144,49 +82144,49 @@
             "2026-10-16T12:30"
           ],
           "q10": [
-            358.0783,
-            356.231,
-            354.9206,
-            353.401,
-            351.8363,
-            353.6968,
-            353.0647
+            358.1632,
+            356.1311,
+            355.8959,
+            353.4253,
+            351.8644,
+            353.7191,
+            353.091
           ],
           "q25": [
-            359.3284,
-            358.9624,
-            357.788,
-            356.3721,
-            357.0575,
-            357.0563,
-            355.0042
+            359.1847,
+            358.5075,
+            358.0314,
+            356.355,
+            357.046,
+            357.0435,
+            354.9798
           ],
           "q50": [
-            360.2959,
-            360.32,
-            360.6826,
+            360.2723,
+            360.2736,
+            360.387,
             360.0669,
             359.5507,
             359.8104,
             360.289
           ],
           "q75": [
-            361.5962,
-            362.1816,
-            361.9716,
-            365.2261,
-            365.7657,
-            373.8339,
-            374.5839
+            361.6814,
+            362.3465,
+            362.6611,
+            365.2503,
+            365.7949,
+            366.1881,
+            370.1955
           ],
           "q90": [
-            364.1439,
-            367.7432,
-            370.5991,
-            379.8704,
-            379.9303,
-            384.4582,
-            381.5674
+            364.2077,
+            367.8708,
+            371.5584,
+            379.7955,
+            379.8532,
+            384.3645,
+            381.4869
           ],
           "horizon": 7,
           "neighbours": 25,
@@ -82211,23 +82211,23 @@
           "weights_source": "live",
           "leader": "flat",
           "bands": {
-            "s50": 0.87,
-            "s80": 0.87,
+            "s50": 0.88,
+            "s80": 0.86,
             "source": "history",
-            "half80": 0.038818
+            "half80": 0.038675
           },
           "record": {
             "tests": 60,
-            "direction_hit_pct": 38.3,
-            "inside_50_pct": 55.0,
+            "direction_hit_pct": 40.0,
+            "inside_50_pct": 53.3,
             "inside_80_pct": 83.3,
             "expert_error": {
-              "analog_10": 0.608,
-              "analog_20": 0.608,
-              "analog_40": 0.614,
-              "momentum": 0.687,
-              "reversion": 0.733,
-              "flat": 0.581
+              "analog_10": 0.625,
+              "analog_20": 0.617,
+              "analog_40": 0.637,
+              "momentum": 0.7,
+              "reversion": 0.751,
+              "flat": 0.594
             }
           },
           "live": {
@@ -82244,11 +82244,11 @@
         "c": [
           [
             "2026-08-17T13:30",
-            339.75,
+            339.48,
             345.36,
             337.59,
             339.31,
-            263886
+            238102
           ],
           [
             "2026-08-18T09:30",
@@ -97076,8 +97076,8 @@
             "inside_80_pct": 85.0,
             "expert_error": {
               "analog_10": 0.629,
-              "analog_20": 0.626,
-              "analog_40": 0.623,
+              "analog_20": 0.624,
+              "analog_40": 0.62,
               "momentum": 0.65,
               "reversion": 0.858,
               "flat": 0.578
@@ -98750,11 +98750,11 @@
         "c": [
           [
             "2026-08-17T12:00",
-            339.75,
+            339.48,
             345.36,
             337.59,
             339.31,
-            263886
+            238102
           ],
           [
             "2026-08-18T08:00",
@@ -102147,6 +102147,6 @@
     },
     "extended_hours": true,
     "trades": [],
-    "updated_at": "2026-10-15T13:52:11-04:00"
+    "updated_at": "2026-10-15T14:00:27-04:00"
   }
 }
