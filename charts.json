@@ -4,8 +4,8 @@
     "date": "2026-10-15",
     "plans": {
       "tf": "5m",
-      "horizon": 31,
-      "until": "2026-10-15T15:30",
+      "horizon": 29,
+      "until": "2026-10-15T15:20",
       "by_close": true,
       "last": 769.56,
       "stop_pct": 0.25,
@@ -21,50 +21,50 @@
           "entry": 770.3,
           "stop": 768.38,
           "inside_now": false,
-          "reach_pct": 61.3,
-          "win_if_entered_pct": 21.7,
-          "stopped_if_entered_pct": 56.5,
-          "loss_at_close_if_entered_pct": 21.7,
-          "profit_pct": 13.3,
+          "reach_pct": 62.7,
+          "win_if_entered_pct": 29.8,
+          "stopped_if_entered_pct": 55.3,
+          "loss_at_close_if_entered_pct": 14.9,
+          "profit_pct": 18.7,
           "median_move_pct": -0.25,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 69.0,
-            "avg_loss": -79.0,
+            "avg_win": 21.0,
+            "avg_loss": -84.0,
             "at_stop": -96.0,
-            "expected": -47.0
+            "expected": -53.0
           },
           "suggest": {
             "entries": [
               {
                 "name": "near edge",
                 "price": 770.3,
-                "reach_pct": 61.3,
-                "profit_pct": 13.3,
-                "win_if_entered_pct": 21.7,
-                "target1_pct": 17.4,
+                "reach_pct": 62.7,
+                "profit_pct": 18.7,
+                "win_if_entered_pct": 29.8,
+                "target1_pct": 17.0,
                 "target2_pct": 0.0,
-                "expected": -29.0
+                "expected": -33.0
               },
               {
                 "name": "middle",
                 "price": 770.69,
-                "reach_pct": 54.7,
-                "profit_pct": 12.0,
-                "win_if_entered_pct": 22.0,
-                "target1_pct": 19.5,
+                "reach_pct": 56.0,
+                "profit_pct": 6.7,
+                "win_if_entered_pct": 11.9,
+                "target1_pct": 19.0,
                 "target2_pct": 0.0,
-                "expected": -30.0
+                "expected": -34.0
               },
               {
                 "name": "far edge",
                 "price": 771.08,
-                "reach_pct": 45.3,
-                "profit_pct": 9.3,
-                "win_if_entered_pct": 20.6,
-                "target1_pct": 8.8,
+                "reach_pct": 44.0,
+                "profit_pct": 5.3,
+                "win_if_entered_pct": 12.1,
+                "target1_pct": 9.1,
                 "target2_pct": 0.0,
-                "expected": -28.0
+                "expected": -31.0
               }
             ],
             "suggested": 2,
@@ -72,7 +72,7 @@
               {
                 "name": "Target 1 (1\u00d7 the stop)",
                 "price": 773.01,
-                "hit_pct": 8.8
+                "hit_pct": 9.1
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
@@ -92,19 +92,19 @@
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 61.3,
-            "break_pct": 69.6,
-            "bounce_pct": 15.2,
-            "stall_pct": 15.2,
+            "touched_pct": 62.7,
+            "break_pct": 68.1,
+            "bounce_pct": 14.9,
+            "stall_pct": 17.0,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "put",
             "entry": 770.3,
             "stop": 772.23,
-            "reach_pct": 61.3,
-            "win_if_entered_pct": 54.3,
-            "stopped_if_entered_pct": 21.7,
+            "reach_pct": 62.7,
+            "win_if_entered_pct": 53.2,
+            "stopped_if_entered_pct": 19.1,
             "profit_pct": 33.3
           },
           "traded": true
@@ -119,50 +119,50 @@
           "entry": 765.52,
           "stop": 767.43,
           "inside_now": false,
-          "reach_pct": 20.0,
-          "win_if_entered_pct": 86.7,
+          "reach_pct": 17.3,
+          "win_if_entered_pct": 61.5,
           "stopped_if_entered_pct": 0.0,
-          "loss_at_close_if_entered_pct": 13.3,
-          "profit_pct": 17.3,
-          "median_move_pct": 0.164,
+          "loss_at_close_if_entered_pct": 38.5,
+          "profit_pct": 10.7,
+          "median_move_pct": 0.179,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 138.0,
-            "avg_loss": -25.0,
+            "avg_win": 166.0,
+            "avg_loss": -2.0,
             "at_stop": -96.0,
-            "expected": 116.0
+            "expected": 101.0
           },
           "suggest": {
             "entries": [
               {
                 "name": "near edge",
                 "price": 765.52,
-                "reach_pct": 20.0,
-                "profit_pct": 17.3,
-                "win_if_entered_pct": 86.7,
-                "target1_pct": 53.3,
-                "target2_pct": 40.0,
-                "expected": 23.0
+                "reach_pct": 17.3,
+                "profit_pct": 10.7,
+                "win_if_entered_pct": 61.5,
+                "target1_pct": 46.2,
+                "target2_pct": 38.5,
+                "expected": 18.0
               },
               {
                 "name": "middle",
                 "price": 765.13,
-                "reach_pct": 18.7,
-                "profit_pct": 14.7,
-                "win_if_entered_pct": 78.6,
+                "reach_pct": 16.0,
+                "profit_pct": 10.7,
+                "win_if_entered_pct": 66.7,
                 "target1_pct": 50.0,
-                "target2_pct": 35.7,
-                "expected": 20.0
+                "target2_pct": 41.7,
+                "expected": 15.0
               },
               {
                 "name": "far edge",
                 "price": 764.74,
-                "reach_pct": 14.7,
-                "profit_pct": 12.0,
-                "win_if_entered_pct": 81.8,
-                "target1_pct": 54.5,
-                "target2_pct": 45.5,
-                "expected": 17.0
+                "reach_pct": 12.0,
+                "profit_pct": 10.7,
+                "win_if_entered_pct": 88.9,
+                "target1_pct": 55.6,
+                "target2_pct": 55.6,
+                "expected": 13.0
               }
             ],
             "suggested": 0,
@@ -170,12 +170,12 @@
               {
                 "name": "Target 1 (1\u00d7 the stop)",
                 "price": 763.61,
-                "hit_pct": 53.3
+                "hit_pct": 46.2
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
                 "price": 761.69,
-                "hit_pct": 40.0
+                "hit_pct": 38.5
               }
             ],
             "stop": 767.43,
@@ -190,19 +190,19 @@
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 20.0,
-            "break_pct": 73.3,
+            "touched_pct": 17.3,
+            "break_pct": 69.2,
             "bounce_pct": 0.0,
-            "stall_pct": 26.7,
+            "stall_pct": 30.8,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "call",
             "entry": 765.52,
             "stop": 763.61,
-            "reach_pct": 20.0,
-            "win_if_entered_pct": 13.3,
-            "stopped_if_entered_pct": 53.3,
+            "reach_pct": 17.3,
+            "win_if_entered_pct": 15.4,
+            "stopped_if_entered_pct": 46.2,
             "profit_pct": 2.7
           },
           "traded": false
@@ -12298,16 +12298,16 @@
           },
           "record": {
             "tests": 60,
-            "direction_hit_pct": 46.7,
+            "direction_hit_pct": 51.7,
             "inside_50_pct": 45.0,
             "inside_80_pct": 73.3,
             "expert_error": {
-              "analog_10": 0.885,
-              "analog_20": 0.863,
-              "analog_40": 0.855,
-              "momentum": 1.0,
-              "reversion": 1.045,
-              "flat": 0.864
+              "analog_10": 0.888,
+              "analog_20": 0.861,
+              "analog_40": 0.846,
+              "momentum": 1.001,
+              "reversion": 1.048,
+              "flat": 0.865
             }
           },
           "live": {
@@ -14007,11 +14007,11 @@
         "c": [
           [
             "2026-08-17T13:30",
-            773.56,
-            773.85,
+            773.55,
+            773.81,
             772.51,
             772.62,
-            770428
+            704876
           ],
           [
             "2026-08-18T09:30",
@@ -30381,22 +30381,22 @@
             "2026-10-15T19:00"
           ],
           "q10": [
-            767.6144,
-            765.9958,
-            766.2931,
-            763.6251,
-            761.9998,
-            761.5989,
-            763.6228
+            767.767,
+            766.276,
+            766.5377,
+            764.0661,
+            762.5794,
+            762.2155,
+            764.0836
           ],
           "q25": [
-            768.7891,
-            768.3339,
-            767.6495,
-            768.3278,
-            768.2847,
-            766.3885,
-            766.9361
+            768.8542,
+            768.4422,
+            767.7879,
+            768.4329,
+            768.4168,
+            766.6507,
+            767.1486
           ],
           "q50": [
             769.801,
@@ -30408,22 +30408,22 @@
             770.246
           ],
           "q75": [
-            770.5979,
-            770.9088,
-            772.409,
-            772.9264,
-            772.759,
-            773.3748,
-            775.03
+            770.5466,
+            770.8515,
+            772.2411,
+            772.7354,
+            772.6032,
+            773.1879,
+            774.7213
           ],
           "q90": [
-            772.3211,
-            773.7574,
-            775.123,
-            775.96,
-            779.1953,
-            776.7489,
-            778.6542
+            772.1449,
+            773.4956,
+            774.7502,
+            775.5396,
+            778.5734,
+            776.309,
+            778.0639
           ],
           "horizon": 7,
           "neighbours": 25,
@@ -30448,23 +30448,23 @@
           "weights_source": "live",
           "leader": "flat",
           "bands": {
-            "s50": 1.3,
-            "s80": 1.52,
+            "s50": 1.22,
+            "s80": 1.42,
             "source": "history",
-            "half80": 0.009747
+            "half80": 0.009066
           },
           "record": {
             "tests": 60,
-            "direction_hit_pct": 46.7,
-            "inside_50_pct": 45.0,
-            "inside_80_pct": 61.7,
+            "direction_hit_pct": 50.0,
+            "inside_50_pct": 46.7,
+            "inside_80_pct": 63.3,
             "expert_error": {
-              "analog_10": 0.917,
-              "analog_20": 0.853,
-              "analog_40": 0.976,
-              "momentum": 1.006,
-              "reversion": 0.976,
-              "flat": 0.862
+              "analog_10": 0.904,
+              "analog_20": 0.846,
+              "analog_40": 0.97,
+              "momentum": 1.003,
+              "reversion": 0.977,
+              "flat": 0.859
             }
           },
           "live": {
@@ -30481,11 +30481,11 @@
         "c": [
           [
             "2026-08-17T12:00",
-            773.56,
-            773.85,
+            773.55,
+            773.81,
             772.51,
             772.62,
-            770428
+            704876
           ],
           [
             "2026-08-17T16:00",
@@ -34057,17 +34057,25 @@
         "signal": "buy",
         "price": 769.7,
         "symbol": "SPY261022C00770000"
+      },
+      {
+        "t": "2026-10-15T13:30:28-04:00",
+        "role": "exit",
+        "reason": "time",
+        "signal": null,
+        "price": 769.56,
+        "symbol": "SPY261022C00770000"
       }
     ],
-    "updated_at": "2026-10-15T13:20:27-04:00"
+    "updated_at": "2026-10-15T13:30:28-04:00"
   },
   "SNDK": {
     "symbol": "SNDK",
     "date": "2026-10-15",
     "plans": {
       "tf": "5m",
-      "horizon": 31,
-      "until": "2026-10-15T15:30",
+      "horizon": 29,
+      "until": "2026-10-15T15:20",
       "by_close": true,
       "last": 1344.78,
       "stop_pct": 0.25,
@@ -34167,50 +34175,50 @@
           "entry": 1280.77,
           "stop": 1283.97,
           "inside_now": false,
-          "reach_pct": 41.3,
-          "win_if_entered_pct": 80.6,
-          "stopped_if_entered_pct": 12.9,
-          "loss_at_close_if_entered_pct": 6.5,
-          "profit_pct": 33.3,
-          "median_move_pct": 3.058,
+          "reach_pct": 36.0,
+          "win_if_entered_pct": 85.2,
+          "stopped_if_entered_pct": 11.1,
+          "loss_at_close_if_entered_pct": 3.7,
+          "profit_pct": 30.7,
+          "median_move_pct": 5.191,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 3199.0,
-            "avg_loss": -107.0,
+            "avg_win": 3772.0,
+            "avg_loss": -137.0,
             "at_stop": -160.0,
-            "expected": 2560.0
+            "expected": 3193.0
           },
           "suggest": {
             "entries": [
               {
                 "name": "near edge",
                 "price": 1280.77,
-                "reach_pct": 41.3,
-                "profit_pct": 33.3,
-                "win_if_entered_pct": 80.6,
-                "target1_pct": 90.3,
-                "target2_pct": 90.3,
-                "expected": 1058.0
+                "reach_pct": 36.0,
+                "profit_pct": 30.7,
+                "win_if_entered_pct": 85.2,
+                "target1_pct": 96.3,
+                "target2_pct": 96.3,
+                "expected": 1149.0
               },
               {
                 "name": "middle",
                 "price": 1274.88,
-                "reach_pct": 40.0,
-                "profit_pct": 32.0,
-                "win_if_entered_pct": 80.0,
-                "target1_pct": 93.3,
-                "target2_pct": 93.3,
-                "expected": 954.0
+                "reach_pct": 34.7,
+                "profit_pct": 29.3,
+                "win_if_entered_pct": 84.6,
+                "target1_pct": 100.0,
+                "target2_pct": 100.0,
+                "expected": 1050.0
               },
               {
                 "name": "far edge",
                 "price": 1268.99,
-                "reach_pct": 40.0,
-                "profit_pct": 30.7,
-                "win_if_entered_pct": 76.7,
-                "target1_pct": 93.3,
-                "target2_pct": 93.3,
-                "expected": 851.0
+                "reach_pct": 34.7,
+                "profit_pct": 28.0,
+                "win_if_entered_pct": 80.8,
+                "target1_pct": 100.0,
+                "target2_pct": 100.0,
+                "expected": 954.0
               }
             ],
             "suggested": 0,
@@ -34218,12 +34226,12 @@
               {
                 "name": "Target 1 (1\u00d7 the stop)",
                 "price": 1277.57,
-                "hit_pct": 90.3
+                "hit_pct": 96.3
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
                 "price": 1274.37,
-                "hit_pct": 90.3
+                "hit_pct": 96.3
               }
             ],
             "stop": 1283.97,
@@ -34238,19 +34246,19 @@
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 41.3,
-            "break_pct": 90.3,
-            "bounce_pct": 3.2,
-            "stall_pct": 6.5,
+            "touched_pct": 36.0,
+            "break_pct": 96.3,
+            "bounce_pct": 3.7,
+            "stall_pct": 0.0,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "call",
             "entry": 1280.77,
             "stop": 1277.57,
-            "reach_pct": 41.3,
-            "win_if_entered_pct": 3.2,
-            "stopped_if_entered_pct": 90.3,
+            "reach_pct": 36.0,
+            "win_if_entered_pct": 3.7,
+            "stopped_if_entered_pct": 96.3,
             "profit_pct": 1.3
           },
           "traded": false
@@ -46460,16 +46468,16 @@
           },
           "record": {
             "tests": 60,
-            "direction_hit_pct": 55.0,
+            "direction_hit_pct": 53.3,
             "inside_50_pct": 48.3,
             "inside_80_pct": 66.7,
             "expert_error": {
-              "analog_10": 0.822,
-              "analog_20": 0.821,
-              "analog_40": 0.809,
-              "momentum": 0.856,
-              "reversion": 0.993,
-              "flat": 0.808
+              "analog_10": 0.821,
+              "analog_20": 0.818,
+              "analog_40": 0.808,
+              "momentum": 0.855,
+              "reversion": 0.991,
+              "flat": 0.806
             }
           },
           "live": {
@@ -48122,11 +48130,11 @@
         "c": [
           [
             "2026-08-17T13:30",
-            1784.075,
-            1797.69,
+            1790.73,
+            1794.92,
             1761.49,
             1787.84,
-            140460
+            121189
           ],
           [
             "2026-08-18T09:30",
@@ -48798,15 +48806,15 @@
           "aoi": {
             "red": {
               "low": 1894.845,
-              "high": 1954.3191,
+              "high": 1954.318,
               "visible": true
             },
             "green": {
-              "low": 1254.1809,
+              "low": 1254.182,
               "high": 1313.655,
               "visible": true
             },
-            "atr": 59.4741
+            "atr": 59.473
           },
           "internal": {
             "dir": "bear",
@@ -62866,12 +62874,12 @@
             "inside_50_pct": 36.7,
             "inside_80_pct": 73.3,
             "expert_error": {
-              "analog_10": 0.818,
-              "analog_20": 0.861,
-              "analog_40": 0.835,
+              "analog_10": 0.816,
+              "analog_20": 0.86,
+              "analog_40": 0.832,
               "momentum": 0.882,
-              "reversion": 1.103,
-              "flat": 0.82
+              "reversion": 1.101,
+              "flat": 0.819
             }
           },
           "live": {
@@ -64454,22 +64462,22 @@
             "2026-10-15T19:00"
           ],
           "q10": [
-            1329.9235,
-            1323.4252,
-            1261.6154,
-            1255.7177,
-            1212.483,
-            1227.5605,
-            1241.4508
+            1329.7059,
+            1323.121,
+            1260.5178,
+            1254.5282,
+            1210.7528,
+            1226.0626,
+            1240.1387
           ],
           "q25": [
-            1338.2116,
-            1336.1784,
-            1320.2326,
-            1330.5723,
-            1291.6527,
-            1304.166,
-            1312.6344
+            1338.26,
+            1336.2395,
+            1320.3914,
+            1330.6811,
+            1291.9923,
+            1304.4101,
+            1312.8218
           ],
           "q50": [
             1346.544,
@@ -64481,22 +64489,22 @@
             1345.2081
           ],
           "q75": [
-            1362.0419,
-            1365.5118,
-            1370.555,
-            1392.7055,
-            1382.7343,
-            1391.6449,
-            1406.1422
+            1361.9512,
+            1365.4016,
+            1370.4213,
+            1392.4492,
+            1382.5492,
+            1391.3793,
+            1405.7795
           ],
           "q90": [
-            1400.2935,
-            1459.3956,
-            1455.9141,
-            1510.5628,
-            1545.5857,
-            1545.2144,
-            1574.3683
+            1401.0158,
+            1460.9414,
+            1457.3951,
+            1512.81,
+            1548.3235,
+            1548.0151,
+            1577.6343
           ],
           "horizon": 7,
           "neighbours": 25,
@@ -64521,10 +64529,10 @@
           "weights_source": "live",
           "leader": "flat",
           "bands": {
-            "s50": 1.44,
-            "s80": 1.57,
+            "s50": 1.43,
+            "s80": 1.59,
             "source": "history",
-            "half80": 0.118787
+            "half80": 0.120352
           },
           "record": {
             "tests": 60,
@@ -64532,12 +64540,12 @@
             "inside_50_pct": 40.0,
             "inside_80_pct": 70.0,
             "expert_error": {
-              "analog_10": 0.811,
-              "analog_20": 0.811,
-              "analog_40": 0.824,
-              "momentum": 0.866,
-              "reversion": 1.136,
-              "flat": 0.787
+              "analog_10": 0.806,
+              "analog_20": 0.8,
+              "analog_40": 0.82,
+              "momentum": 0.864,
+              "reversion": 1.132,
+              "flat": 0.784
             }
           },
           "live": {
@@ -64554,11 +64562,11 @@
         "c": [
           [
             "2026-08-17T12:00",
-            1784.075,
-            1797.69,
+            1790.73,
+            1794.92,
             1761.49,
             1787.84,
-            140460
+            121189
           ],
           [
             "2026-08-17T16:00",
@@ -65462,15 +65470,15 @@
           "aoi": {
             "red": {
               "low": 1894.845,
-              "high": 1940.7864,
+              "high": 1940.7863,
               "visible": true
             },
             "green": {
-              "low": 1283.8286,
+              "low": 1283.8287,
               "high": 1329.77,
               "visible": true
             },
-            "atr": 45.9414
+            "atr": 45.9413
           },
           "internal": {
             "dir": "bear",
@@ -68093,15 +68101,15 @@
     },
     "extended_hours": true,
     "trades": [],
-    "updated_at": "2026-10-15T13:20:27-04:00"
+    "updated_at": "2026-10-15T13:30:28-04:00"
   },
   "TSLA": {
     "symbol": "TSLA",
     "date": "2026-10-15",
     "plans": {
       "tf": "5m",
-      "horizon": 31,
-      "until": "2026-10-15T15:30",
+      "horizon": 29,
+      "until": "2026-10-15T15:20",
       "by_close": true,
       "last": 360.07,
       "stop_pct": 0.25,
@@ -68201,50 +68209,50 @@
           "entry": 357.91,
           "stop": 358.8,
           "inside_now": false,
-          "reach_pct": 61.3,
-          "win_if_entered_pct": 80.4,
-          "stopped_if_entered_pct": 13.0,
-          "loss_at_close_if_entered_pct": 6.5,
+          "reach_pct": 57.3,
+          "win_if_entered_pct": 86.0,
+          "stopped_if_entered_pct": 7.0,
+          "loss_at_close_if_entered_pct": 7.0,
           "profit_pct": 49.3,
-          "median_move_pct": 0.574,
+          "median_move_pct": 1.0,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 265.0,
-            "avg_loss": -34.0,
+            "avg_win": 276.0,
+            "avg_loss": -29.0,
             "at_stop": -45.0,
-            "expected": 207.0
+            "expected": 233.0
           },
           "suggest": {
             "entries": [
               {
                 "name": "near edge",
                 "price": 357.91,
-                "reach_pct": 61.3,
+                "reach_pct": 57.3,
                 "profit_pct": 49.3,
-                "win_if_entered_pct": 80.4,
-                "target1_pct": 87.0,
-                "target2_pct": 76.1,
-                "expected": 127.0
+                "win_if_entered_pct": 86.0,
+                "target1_pct": 90.7,
+                "target2_pct": 79.1,
+                "expected": 134.0
               },
               {
                 "name": "middle",
                 "price": 357.22,
-                "reach_pct": 54.7,
-                "profit_pct": 36.0,
-                "win_if_entered_pct": 65.9,
-                "target1_pct": 78.0,
-                "target2_pct": 70.7,
-                "expected": 87.0
+                "reach_pct": 53.3,
+                "profit_pct": 40.0,
+                "win_if_entered_pct": 75.0,
+                "target1_pct": 77.5,
+                "target2_pct": 70.0,
+                "expected": 94.0
               },
               {
                 "name": "far edge",
                 "price": 356.53,
-                "reach_pct": 52.0,
-                "profit_pct": 30.7,
-                "win_if_entered_pct": 59.0,
-                "target1_pct": 76.9,
-                "target2_pct": 76.9,
-                "expected": 73.0
+                "reach_pct": 50.7,
+                "profit_pct": 36.0,
+                "win_if_entered_pct": 71.1,
+                "target1_pct": 76.3,
+                "target2_pct": 76.3,
+                "expected": 80.0
               }
             ],
             "suggested": 0,
@@ -68252,12 +68260,12 @@
               {
                 "name": "Target 1 (1\u00d7 the stop)",
                 "price": 357.02,
-                "hit_pct": 87.0
+                "hit_pct": 90.7
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
                 "price": 356.12,
-                "hit_pct": 76.1
+                "hit_pct": 79.1
               }
             ],
             "stop": 358.8,
@@ -68272,20 +68280,20 @@
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 61.3,
-            "break_pct": 82.6,
-            "bounce_pct": 8.7,
-            "stall_pct": 8.7,
+            "touched_pct": 57.3,
+            "break_pct": 86.0,
+            "bounce_pct": 7.0,
+            "stall_pct": 7.0,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "call",
             "entry": 357.91,
             "stop": 357.02,
-            "reach_pct": 61.3,
-            "win_if_entered_pct": 8.7,
-            "stopped_if_entered_pct": 89.1,
-            "profit_pct": 5.3
+            "reach_pct": 57.3,
+            "win_if_entered_pct": 4.7,
+            "stopped_if_entered_pct": 93.0,
+            "profit_pct": 2.7
           },
           "traded": false
         }
@@ -80567,12 +80575,12 @@
             "inside_50_pct": 55.0,
             "inside_80_pct": 78.3,
             "expert_error": {
-              "analog_10": 0.623,
-              "analog_20": 0.608,
-              "analog_40": 0.626,
-              "momentum": 0.738,
-              "reversion": 0.802,
-              "flat": 0.581
+              "analog_10": 0.619,
+              "analog_20": 0.602,
+              "analog_40": 0.621,
+              "momentum": 0.733,
+              "reversion": 0.793,
+              "flat": 0.577
             }
           },
           "live": {
@@ -82236,11 +82244,11 @@
         "c": [
           [
             "2026-08-17T13:30",
-            339.07,
+            339.75,
             345.36,
             337.59,
             339.31,
-            282849
+            263886
           ],
           [
             "2026-08-18T09:30",
@@ -97065,14 +97073,14 @@
             "tests": 60,
             "direction_hit_pct": 48.3,
             "inside_50_pct": 50.0,
-            "inside_80_pct": 83.3,
+            "inside_80_pct": 85.0,
             "expert_error": {
-              "analog_10": 0.632,
-              "analog_20": 0.634,
-              "analog_40": 0.628,
-              "momentum": 0.655,
-              "reversion": 0.861,
-              "flat": 0.582
+              "analog_10": 0.629,
+              "analog_20": 0.626,
+              "analog_40": 0.623,
+              "momentum": 0.65,
+              "reversion": 0.858,
+              "flat": 0.578
             }
           },
           "live": {
@@ -98642,22 +98650,22 @@
             "2026-10-15T19:00"
           ],
           "q10": [
-            356.7461,
-            357.1201,
-            351.6528,
-            352.7839,
-            352.6958,
-            349.6136,
-            351.2018
+            356.7446,
+            357.1188,
+            351.649,
+            352.7807,
+            352.693,
+            349.6092,
+            351.1979
           ],
           "q25": [
-            358.7486,
-            358.8008,
-            357.0367,
-            357.1601,
-            358.0179,
-            355.2912,
-            355.6694
+            358.5849,
+            358.6554,
+            356.6499,
+            356.8136,
+            357.8707,
+            354.7707,
+            355.1402
           ],
           "q50": [
             360.2189,
@@ -98669,22 +98677,22 @@
             360.4449
           ],
           "q75": [
-            362.32,
-            363.7293,
-            363.1676,
-            364.707,
-            366.057,
-            364.9205,
-            367.8185
+            362.5553,
+            364.1361,
+            363.4644,
+            365.2047,
+            366.8146,
+            365.4754,
+            368.651
           ],
           "q90": [
-            364.3008,
-            369.2753,
-            376.9992,
-            383.5794,
-            387.2281,
-            384.8804,
-            384.4265
+            364.3026,
+            369.2793,
+            377.0065,
+            383.5897,
+            387.2406,
+            384.8914,
+            384.4372
           ],
           "horizon": 7,
           "neighbours": 25,
@@ -98709,23 +98717,23 @@
           "weights_source": "live",
           "leader": "flat",
           "bands": {
-            "s50": 0.93,
+            "s50": 1.03,
             "s80": 0.94,
             "source": "history",
-            "half80": 0.045196
+            "half80": 0.045215
           },
           "record": {
             "tests": 60,
-            "direction_hit_pct": 31.7,
-            "inside_50_pct": 51.7,
+            "direction_hit_pct": 35.0,
+            "inside_50_pct": 50.0,
             "inside_80_pct": 81.7,
             "expert_error": {
               "analog_10": 0.642,
-              "analog_20": 0.66,
-              "analog_40": 0.624,
-              "momentum": 0.713,
-              "reversion": 0.842,
-              "flat": 0.61
+              "analog_20": 0.666,
+              "analog_40": 0.629,
+              "momentum": 0.72,
+              "reversion": 0.851,
+              "flat": 0.616
             }
           },
           "live": {
@@ -98742,11 +98750,11 @@
         "c": [
           [
             "2026-08-17T12:00",
-            339.07,
+            339.75,
             345.36,
             337.59,
             339.31,
-            282849
+            263886
           ],
           [
             "2026-08-18T08:00",
@@ -102139,6 +102147,6 @@
     },
     "extended_hours": true,
     "trades": [],
-    "updated_at": "2026-10-15T13:20:27-04:00"
+    "updated_at": "2026-10-15T13:30:28-04:00"
   }
 }
