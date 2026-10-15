@@ -4,8 +4,8 @@
     "date": "2026-10-15",
     "plans": {
       "tf": "5m",
-      "horizon": 33,
-      "until": "2026-10-15T15:40",
+      "horizon": 31,
+      "until": "2026-10-15T15:30",
       "by_close": true,
       "last": 769.56,
       "stop_pct": 0.25,
@@ -21,91 +21,91 @@
           "entry": 770.3,
           "stop": 768.38,
           "inside_now": false,
-          "reach_pct": 65.3,
-          "win_if_entered_pct": 36.7,
-          "stopped_if_entered_pct": 57.1,
-          "loss_at_close_if_entered_pct": 6.1,
-          "profit_pct": 24.0,
+          "reach_pct": 61.3,
+          "win_if_entered_pct": 21.7,
+          "stopped_if_entered_pct": 56.5,
+          "loss_at_close_if_entered_pct": 21.7,
+          "profit_pct": 13.3,
           "median_move_pct": -0.25,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 43.0,
-            "avg_loss": -92.0,
+            "avg_win": 69.0,
+            "avg_loss": -79.0,
             "at_stop": -96.0,
-            "expected": -42.0
+            "expected": -47.0
           },
           "suggest": {
             "entries": [
               {
                 "name": "near edge",
                 "price": 770.3,
-                "reach_pct": 65.3,
-                "profit_pct": 24.0,
-                "win_if_entered_pct": 36.7,
-                "target1_pct": 16.3,
+                "reach_pct": 61.3,
+                "profit_pct": 13.3,
+                "win_if_entered_pct": 21.7,
+                "target1_pct": 17.4,
                 "target2_pct": 0.0,
-                "expected": -28.0
+                "expected": -29.0
               },
               {
                 "name": "middle",
                 "price": 770.69,
-                "reach_pct": 60.0,
-                "profit_pct": 17.3,
-                "win_if_entered_pct": 28.9,
-                "target1_pct": 17.8,
+                "reach_pct": 54.7,
+                "profit_pct": 12.0,
+                "win_if_entered_pct": 22.0,
+                "target1_pct": 19.5,
                 "target2_pct": 0.0,
-                "expected": -29.0
+                "expected": -30.0
               },
               {
                 "name": "far edge",
                 "price": 771.08,
-                "reach_pct": 48.0,
-                "profit_pct": 13.3,
-                "win_if_entered_pct": 27.8,
-                "target1_pct": 8.3,
+                "reach_pct": 45.3,
+                "profit_pct": 9.3,
+                "win_if_entered_pct": 20.6,
+                "target1_pct": 8.8,
                 "target2_pct": 0.0,
-                "expected": -29.0
+                "expected": -28.0
               }
             ],
-            "suggested": 0,
+            "suggested": 2,
             "targets": [
               {
                 "name": "Target 1 (1\u00d7 the stop)",
-                "price": 772.23,
-                "hit_pct": 16.3
+                "price": 773.01,
+                "hit_pct": 8.8
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
-                "price": 774.15,
+                "price": 774.94,
                 "hit_pct": 0.0
               }
             ],
-            "stop": 768.37,
+            "stop": 769.15,
             "size": {
               "contracts": 1,
               "risk_per_contract": 96.0,
               "risk_limit": 100.0,
               "within_limit": true,
               "contracts_within_limit": 1,
-              "stop_pct_that_fits": 0.26
+              "stop_pct_that_fits": 0.259
             }
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 65.3,
-            "break_pct": 69.4,
-            "bounce_pct": 14.3,
-            "stall_pct": 16.3,
+            "touched_pct": 61.3,
+            "break_pct": 69.6,
+            "bounce_pct": 15.2,
+            "stall_pct": 15.2,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "put",
             "entry": 770.3,
             "stop": 772.23,
-            "reach_pct": 65.3,
-            "win_if_entered_pct": 38.8,
-            "stopped_if_entered_pct": 20.4,
-            "profit_pct": 25.3
+            "reach_pct": 61.3,
+            "win_if_entered_pct": 54.3,
+            "stopped_if_entered_pct": 21.7,
+            "profit_pct": 33.3
           },
           "traded": true
         },
@@ -124,13 +124,13 @@
           "stopped_if_entered_pct": 0.0,
           "loss_at_close_if_entered_pct": 13.3,
           "profit_pct": 17.3,
-          "median_move_pct": 0.278,
+          "median_move_pct": 0.164,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 173.0,
-            "avg_loss": -49.0,
+            "avg_win": 138.0,
+            "avg_loss": -25.0,
             "at_stop": -96.0,
-            "expected": 143.0
+            "expected": 116.0
           },
           "suggest": {
             "entries": [
@@ -140,29 +140,29 @@
                 "reach_pct": 20.0,
                 "profit_pct": 17.3,
                 "win_if_entered_pct": 86.7,
-                "target1_pct": 66.7,
+                "target1_pct": 53.3,
                 "target2_pct": 40.0,
-                "expected": 29.0
+                "expected": 23.0
               },
               {
                 "name": "middle",
                 "price": 765.13,
-                "reach_pct": 20.0,
+                "reach_pct": 18.7,
                 "profit_pct": 14.7,
-                "win_if_entered_pct": 73.3,
-                "target1_pct": 46.7,
-                "target2_pct": 40.0,
-                "expected": 25.0
+                "win_if_entered_pct": 78.6,
+                "target1_pct": 50.0,
+                "target2_pct": 35.7,
+                "expected": 20.0
               },
               {
                 "name": "far edge",
                 "price": 764.74,
-                "reach_pct": 17.3,
-                "profit_pct": 13.3,
-                "win_if_entered_pct": 76.9,
-                "target1_pct": 46.2,
-                "target2_pct": 46.2,
-                "expected": 22.0
+                "reach_pct": 14.7,
+                "profit_pct": 12.0,
+                "win_if_entered_pct": 81.8,
+                "target1_pct": 54.5,
+                "target2_pct": 45.5,
+                "expected": 17.0
               }
             ],
             "suggested": 0,
@@ -170,7 +170,7 @@
               {
                 "name": "Target 1 (1\u00d7 the stop)",
                 "price": 763.61,
-                "hit_pct": 66.7
+                "hit_pct": 53.3
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
@@ -191,9 +191,9 @@
           "outcomes": {
             "paths": 75,
             "touched_pct": 20.0,
-            "break_pct": 86.7,
+            "break_pct": 73.3,
             "bounce_pct": 0.0,
-            "stall_pct": 13.3,
+            "stall_pct": 26.7,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
@@ -201,9 +201,9 @@
             "entry": 765.52,
             "stop": 763.61,
             "reach_pct": 20.0,
-            "win_if_entered_pct": 6.7,
-            "stopped_if_entered_pct": 66.7,
-            "profit_pct": 1.3
+            "win_if_entered_pct": 13.3,
+            "stopped_if_entered_pct": 53.3,
+            "profit_pct": 2.7
           },
           "traded": false
         }
@@ -34059,15 +34059,15 @@
         "symbol": "SPY261022C00770000"
       }
     ],
-    "updated_at": "2026-10-15T13:10:27-04:00"
+    "updated_at": "2026-10-15T13:20:27-04:00"
   },
   "SNDK": {
     "symbol": "SNDK",
     "date": "2026-10-15",
     "plans": {
       "tf": "5m",
-      "horizon": 33,
-      "until": "2026-10-15T15:40",
+      "horizon": 31,
+      "until": "2026-10-15T15:30",
       "by_close": true,
       "last": 1344.78,
       "stop_pct": 0.25,
@@ -34167,50 +34167,50 @@
           "entry": 1280.77,
           "stop": 1283.97,
           "inside_now": false,
-          "reach_pct": 42.7,
-          "win_if_entered_pct": 81.2,
-          "stopped_if_entered_pct": 15.6,
-          "loss_at_close_if_entered_pct": 3.1,
-          "profit_pct": 34.7,
-          "median_move_pct": 3.658,
+          "reach_pct": 41.3,
+          "win_if_entered_pct": 80.6,
+          "stopped_if_entered_pct": 12.9,
+          "loss_at_close_if_entered_pct": 6.5,
+          "profit_pct": 33.3,
+          "median_move_pct": 3.058,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 3088.0,
-            "avg_loss": -134.0,
+            "avg_win": 3199.0,
+            "avg_loss": -107.0,
             "at_stop": -160.0,
-            "expected": 2484.0
+            "expected": 2560.0
           },
           "suggest": {
             "entries": [
               {
                 "name": "near edge",
                 "price": 1280.77,
-                "reach_pct": 42.7,
-                "profit_pct": 34.7,
-                "win_if_entered_pct": 81.2,
-                "target1_pct": 96.9,
-                "target2_pct": 96.9,
-                "expected": 1060.0
+                "reach_pct": 41.3,
+                "profit_pct": 33.3,
+                "win_if_entered_pct": 80.6,
+                "target1_pct": 90.3,
+                "target2_pct": 90.3,
+                "expected": 1058.0
               },
               {
                 "name": "middle",
                 "price": 1274.88,
-                "reach_pct": 41.3,
-                "profit_pct": 34.7,
-                "win_if_entered_pct": 83.9,
-                "target1_pct": 100.0,
-                "target2_pct": 100.0,
-                "expected": 948.0
+                "reach_pct": 40.0,
+                "profit_pct": 32.0,
+                "win_if_entered_pct": 80.0,
+                "target1_pct": 93.3,
+                "target2_pct": 93.3,
+                "expected": 954.0
               },
               {
                 "name": "far edge",
                 "price": 1268.99,
-                "reach_pct": 41.3,
-                "profit_pct": 32.0,
-                "win_if_entered_pct": 77.4,
-                "target1_pct": 100.0,
-                "target2_pct": 100.0,
-                "expected": 830.0
+                "reach_pct": 40.0,
+                "profit_pct": 30.7,
+                "win_if_entered_pct": 76.7,
+                "target1_pct": 93.3,
+                "target2_pct": 93.3,
+                "expected": 851.0
               }
             ],
             "suggested": 0,
@@ -34218,12 +34218,12 @@
               {
                 "name": "Target 1 (1\u00d7 the stop)",
                 "price": 1277.57,
-                "hit_pct": 96.9
+                "hit_pct": 90.3
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
                 "price": 1274.37,
-                "hit_pct": 96.9
+                "hit_pct": 90.3
               }
             ],
             "stop": 1283.97,
@@ -34238,19 +34238,19 @@
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 42.7,
-            "break_pct": 96.9,
-            "bounce_pct": 3.1,
-            "stall_pct": 0.0,
+            "touched_pct": 41.3,
+            "break_pct": 90.3,
+            "bounce_pct": 3.2,
+            "stall_pct": 6.5,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "call",
             "entry": 1280.77,
             "stop": 1277.57,
-            "reach_pct": 42.7,
-            "win_if_entered_pct": 3.1,
-            "stopped_if_entered_pct": 96.9,
+            "reach_pct": 41.3,
+            "win_if_entered_pct": 3.2,
+            "stopped_if_entered_pct": 90.3,
             "profit_pct": 1.3
           },
           "traded": false
@@ -68093,15 +68093,15 @@
     },
     "extended_hours": true,
     "trades": [],
-    "updated_at": "2026-10-15T13:10:27-04:00"
+    "updated_at": "2026-10-15T13:20:27-04:00"
   },
   "TSLA": {
     "symbol": "TSLA",
     "date": "2026-10-15",
     "plans": {
       "tf": "5m",
-      "horizon": 33,
-      "until": "2026-10-15T15:40",
+      "horizon": 31,
+      "until": "2026-10-15T15:30",
       "by_close": true,
       "last": 360.07,
       "stop_pct": 0.25,
@@ -68201,50 +68201,50 @@
           "entry": 357.91,
           "stop": 358.8,
           "inside_now": false,
-          "reach_pct": 65.3,
-          "win_if_entered_pct": 73.5,
-          "stopped_if_entered_pct": 20.4,
-          "loss_at_close_if_entered_pct": 6.1,
-          "profit_pct": 48.0,
-          "median_move_pct": 0.534,
+          "reach_pct": 61.3,
+          "win_if_entered_pct": 80.4,
+          "stopped_if_entered_pct": 13.0,
+          "loss_at_close_if_entered_pct": 6.5,
+          "profit_pct": 49.3,
+          "median_move_pct": 0.574,
           "option_est": {
             "per_dollar": 50.0,
-            "avg_win": 289.0,
-            "avg_loss": -38.0,
+            "avg_win": 265.0,
+            "avg_loss": -34.0,
             "at_stop": -45.0,
-            "expected": 202.0
+            "expected": 207.0
           },
           "suggest": {
             "entries": [
               {
                 "name": "near edge",
                 "price": 357.91,
-                "reach_pct": 65.3,
-                "profit_pct": 48.0,
-                "win_if_entered_pct": 73.5,
-                "target1_pct": 87.8,
-                "target2_pct": 77.6,
-                "expected": 132.0
+                "reach_pct": 61.3,
+                "profit_pct": 49.3,
+                "win_if_entered_pct": 80.4,
+                "target1_pct": 87.0,
+                "target2_pct": 76.1,
+                "expected": 127.0
               },
               {
                 "name": "middle",
                 "price": 357.22,
-                "reach_pct": 61.3,
-                "profit_pct": 41.3,
-                "win_if_entered_pct": 67.4,
-                "target1_pct": 78.3,
-                "target2_pct": 71.7,
-                "expected": 91.0
+                "reach_pct": 54.7,
+                "profit_pct": 36.0,
+                "win_if_entered_pct": 65.9,
+                "target1_pct": 78.0,
+                "target2_pct": 70.7,
+                "expected": 87.0
               },
               {
                 "name": "far edge",
                 "price": 356.53,
-                "reach_pct": 58.7,
-                "profit_pct": 34.7,
-                "win_if_entered_pct": 59.1,
-                "target1_pct": 77.3,
-                "target2_pct": 77.3,
-                "expected": 76.0
+                "reach_pct": 52.0,
+                "profit_pct": 30.7,
+                "win_if_entered_pct": 59.0,
+                "target1_pct": 76.9,
+                "target2_pct": 76.9,
+                "expected": 73.0
               }
             ],
             "suggested": 0,
@@ -68252,12 +68252,12 @@
               {
                 "name": "Target 1 (1\u00d7 the stop)",
                 "price": 357.02,
-                "hit_pct": 87.8
+                "hit_pct": 87.0
               },
               {
                 "name": "Target 2 (2\u00d7 the stop)",
                 "price": 356.12,
-                "hit_pct": 77.6
+                "hit_pct": 76.1
               }
             ],
             "stop": 358.8,
@@ -68272,20 +68272,20 @@
           },
           "outcomes": {
             "paths": 75,
-            "touched_pct": 65.3,
-            "break_pct": 83.7,
-            "bounce_pct": 10.2,
-            "stall_pct": 6.1,
+            "touched_pct": 61.3,
+            "break_pct": 82.6,
+            "bounce_pct": 8.7,
+            "stall_pct": 8.7,
             "bounce_move_pct": 0.25
           },
           "bounce_trade": {
             "contract": "call",
             "entry": 357.91,
             "stop": 357.02,
-            "reach_pct": 65.3,
-            "win_if_entered_pct": 6.1,
-            "stopped_if_entered_pct": 93.9,
-            "profit_pct": 4.0
+            "reach_pct": 61.3,
+            "win_if_entered_pct": 8.7,
+            "stopped_if_entered_pct": 89.1,
+            "profit_pct": 5.3
           },
           "traded": false
         }
@@ -102139,6 +102139,6 @@
     },
     "extended_hours": true,
     "trades": [],
-    "updated_at": "2026-10-15T13:10:27-04:00"
+    "updated_at": "2026-10-15T13:20:27-04:00"
   }
 }

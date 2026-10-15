@@ -1,128 +1,73 @@
 {
   "date": "2026-10-15",
   "bias": "neutral",
-  "written_at": "2026-10-15T12:09:03-04:00",
-  "as_of": "2026-10-15T16:12:00Z",
+  "written_at": "2026-10-15T13:20:27-04:00",
+  "as_of": "2026-10-15T13:20:27-04:00",
   "readings": {
-    "as_of": "2026-10-15T16:12:00Z",
-    "spy_price": 769.88,
-    "spy_change_pct": 0.04,
-    "vix": 17.46,
-    "fear_greed": 29,
+    "as_of": "2026-10-15T13:20:27-04:00",
+    "source": "desk_feeds",
+    "sources": {
+      "sentiment_flow": "stocktwits public stream",
+      "news": "yahoo finance rss",
+      "vix": "yfinance"
+    },
+    "spy_price": 769.56,
+    "spy_change_pct": -0.012,
     "stocktwits": {
       "SPY": {
-        "score": 45,
-        "bullish_pct": 46.3
+        "score": 42.9,
+        "bullish_pct": 42.9
       }
-    },
-    "reddit": {
-      "score": 0,
-      "posts": 0,
-      "top": []
     },
     "news": {
-      "score": -0.2,
       "headlines": [
-        "US retail sales Sep +0.8% m/m vs +1.2% prior; ex-autos +0.9%",
-        "US CPI y/y 3.7% (prior 3.4%), core 2.6% y/y (prior 2.4%), released Oct 14",
-        "AI/neocloud and semis names weak: IREN -7%, NBIS -4.6%, RKLB -10%, SOXL -6%, SMCI -4%",
-        "QQQ -0.7% while IWM +0.8%; TLT +1.5%, GLD +1.2%"
+        "Exchange-Traded Funds Lower, Equity Futures Mixed Pre-Bell Thursday Amid Economic Data Release",
+        "eBay Jumps 5% on Takeover Speculation; Etsy Rallies 7%, Shopify Holds Flat",
+        "Moderna Rallies 6% as Money Rotates Into Healthcare; BioNTech and Pfizer Edge Higher",
+        "Simply Put, Palantir Remains a Valuation Trap",
+        "Skydance Rebounds 5% as Warrant Adjustment Selloff Fades; Netflix Rises 3%, Disney Advances 2%",
+        "Opendoor and Zillow Surge 7% as Long-Term Rates Retreat; Compass Climbs 6%",
+        "Quantum Computing Stocks Rebound After Dilution Scare: IonQ and Rigetti Climb 3%, D-Wave Advances 2%",
+        "Data Center Stocks Tumble as Financing Costs Draw Scrutiny: Cipher Digital Drops 9%, Applied Digital Falls 6%",
+        "PPI, Retail Sales Jump, Claims Stay Resilient",
+        "Rocket Lab Tumbles 11% as Neutron\u2019s First Flight Moves to 2027; SpaceX and AST SpaceMobile Pull Back"
       ]
     },
-    "rumors": [
-      {
-        "text": "AI infrastructure and neocloud stocks are being sold on financing-cost worries",
-        "source": "news",
-        "tickers": [
-          "IREN",
-          "NBIS",
-          "CRWV"
-        ],
-        "names": {
-          "IREN": "IREN Limited",
-          "NBIS": "Nebius Group",
-          "CRWV": "CoreWeave"
-        },
-        "direction": "down",
-        "credibility": 0.45,
-        "why": "Higher funding costs would squeeze AI builders and weigh on semis and QQQ"
-      },
-      {
-        "text": "Stocktwits chatter that the market is too resilient and a bigger selloff is coming, with many holding SPY/QQQ puts",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Crowded bearish positioning can fuel a squeeze higher, or mark real weakness if the AI unwind spreads"
-      },
-      {
-        "text": "Stocktwits users say a Fed speaker is due tomorrow and a hot PPI is a problem for rates",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Hot inflation data plus hawkish Fed talk would pressure rate-sensitive index names"
-      }
-    ],
-    "names": {
-      "SPY": "SPDR S&P 500 ETF",
-      "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF"
-    },
-    "plays": [],
-    "whats_new": "SPY is flat near 770 (+0.04%) with VIX steady near 17.5 and fear and greed at 29, little changed. Stocktwits SPY score is unchanged at 45 with chatter leaning bearish and put-heavy. The AI/semis selloff continues (QQQ -0.7%) while small caps and bonds are bid; no new rumors beyond Fed-speaker chatter.",
-    "sources": {
-      "market_pulse": "stocklake",
-      "sentiment_flow": "stocktwits",
-      "reddit": "blocked",
-      "news": "stocklake calendar, stocktwits trending, standard web search (nothing dated today)"
-    }
+    "vix": 16.81,
+    "vix_change_pct": -0.36
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.04,
+      "value": -0.012,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
+      "value": -0.36,
+      "vote": 0,
+      "why": "in the neutral band"
+    },
+    {
+      "reading": "fear_greed",
       "value": null,
       "vote": 0,
       "why": "missing"
     },
     {
-      "reading": "fear_greed",
-      "value": 29.0,
-      "vote": -1,
-      "why": "\u2264 45.0"
-    },
-    {
       "reading": "stocktwits_spy_score",
-      "value": 45.0,
+      "value": 42.9,
       "vote": 0,
       "why": "in the neutral band"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
-    "sentiment_flow": "stocktwits",
-    "reddit": "blocked",
-    "news": "stocklake calendar, stocktwits trending, standard web search (nothing dated today)"
+    "sentiment_flow": "stocktwits public stream",
+    "news": "yahoo finance rss",
+    "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
