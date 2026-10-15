@@ -1,36 +1,37 @@
 {
   "date": "2026-10-15",
   "bias": "neutral",
-  "written_at": "2026-10-15T11:07:04-04:00",
-  "as_of": "2026-10-15T15:10:00Z",
+  "written_at": "2026-10-15T12:09:03-04:00",
+  "as_of": "2026-10-15T16:12:00Z",
   "readings": {
-    "as_of": "2026-10-15T15:10:00Z",
-    "spy_price": 769.1,
-    "spy_change_pct": -0.06,
-    "vix": 17.49,
-    "fear_greed": 30,
+    "as_of": "2026-10-15T16:12:00Z",
+    "spy_price": 769.88,
+    "spy_change_pct": 0.04,
+    "vix": 17.46,
+    "fear_greed": 29,
     "stocktwits": {
       "SPY": {
         "score": 45,
-        "bullish_pct": 46.9
+        "bullish_pct": 46.3
       }
+    },
+    "reddit": {
+      "score": 0,
+      "posts": 0,
+      "top": []
     },
     "news": {
       "score": -0.2,
       "headlines": [
         "US retail sales Sep +0.8% m/m vs +1.2% prior; ex-autos +0.9%",
-        "US CPI y/y 3.7% (prior 3.4%), core 2.6% y/y, released Oct 14",
-        "AI/data-center names sell off: IREN -8%, NBIS -6%, RKLB -9%, SOXL -6.6%",
-        "Walmart +2.6% after Deutsche Bank upgrade",
-        "TLT +2%, GLD +1.3% on the day"
+        "US CPI y/y 3.7% (prior 3.4%), core 2.6% y/y (prior 2.4%), released Oct 14",
+        "AI/neocloud and semis names weak: IREN -7%, NBIS -4.6%, RKLB -10%, SOXL -6%, SMCI -4%",
+        "QQQ -0.7% while IWM +0.8%; TLT +1.5%, GLD +1.2%"
       ]
-    },
-    "reddit": {
-      "posts": 0
     },
     "rumors": [
       {
-        "text": "Data center and AI-neocloud stocks are under pressure as financing costs draw scrutiny",
+        "text": "AI infrastructure and neocloud stocks are being sold on financing-cost worries",
         "source": "news",
         "tickers": [
           "IREN",
@@ -43,11 +44,11 @@
           "CRWV": "CoreWeave"
         },
         "direction": "down",
-        "credibility": 0.5,
-        "why": "Higher funding costs would squeeze AI infrastructure builders and weigh on semis and QQQ"
+        "credibility": 0.45,
+        "why": "Higher funding costs would squeeze AI builders and weigh on semis and QQQ"
       },
       {
-        "text": "Stocktwits chatter that the AI bubble is about to pop and retail dip-buyers will be hurt",
+        "text": "Stocktwits chatter that the market is too resilient and a bigger selloff is coming, with many holding SPY/QQQ puts",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -59,25 +60,40 @@
         },
         "direction": "down",
         "credibility": 0.2,
-        "why": "An AI-led unwind would hit the heavily tech-weighted index"
+        "why": "Crowded bearish positioning can fuel a squeeze higher, or mark real weakness if the AI unwind spreads"
+      },
+      {
+        "text": "Stocktwits users say a Fed speaker is due tomorrow and a hot PPI is a problem for rates",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Hot inflation data plus hawkish Fed talk would pressure rate-sensitive index names"
       }
     ],
     "names": {
-      "SPY": "SPDR S&P 500 ETF"
+      "SPY": "SPDR S&P 500 ETF",
+      "QQQ": "Invesco QQQ Trust",
+      "IWM": "iShares Russell 2000 ETF"
     },
     "plays": [],
-    "whats_new": "SPY is roughly flat near 769 after dipping earlier, with a recovery toward 770 and VIX near 17.5. Stocktwits SPY score slipped to 45 (neutral) from 57, while fear and greed sits at 30. AI and data-center names are selling off hard while small caps (IWM +0.9%) and defensives hold up; bonds and gold are bid.",
+    "whats_new": "SPY is flat near 770 (+0.04%) with VIX steady near 17.5 and fear and greed at 29, little changed. Stocktwits SPY score is unchanged at 45 with chatter leaning bearish and put-heavy. The AI/semis selloff continues (QQQ -0.7%) while small caps and bonds are bid; no new rumors beyond Fed-speaker chatter.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "blocked",
-      "news": "stocklake calendar, stocktwits trending, standard web search (no dated results)"
+      "news": "stocklake calendar, stocktwits trending, standard web search (nothing dated today)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.06,
+      "value": 0.04,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -89,7 +105,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 30.0,
+      "value": 29.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -106,7 +122,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "blocked",
-    "news": "stocklake calendar, stocktwits trending, standard web search (no dated results)"
+    "news": "stocklake calendar, stocktwits trending, standard web search (nothing dated today)"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
