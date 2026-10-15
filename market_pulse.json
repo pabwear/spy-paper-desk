@@ -1,44 +1,45 @@
 {
   "date": "2026-10-15",
   "bias": "neutral",
-  "written_at": "2026-10-15T09:30:28-04:00",
-  "as_of": "2026-10-15T09:30:28-04:00",
+  "written_at": "2026-10-15T10:00:34-04:00",
+  "as_of": "2026-10-15T10:00:34-04:00",
   "readings": {
-    "as_of": "2026-10-15T09:30:28-04:00",
+    "as_of": "2026-10-15T10:00:34-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 766.38,
-    "spy_change_pct": -0.425,
+    "spy_price": 765.48,
+    "spy_change_pct": -0.542,
     "stocktwits": {
       "SPY": {
-        "score": 55.6,
-        "bullish_pct": 55.6
+        "score": 50.0,
+        "bullish_pct": 50.0
       }
     },
     "news": {
       "headlines": [
         "Exchange-Traded Funds Lower, Equity Futures Mixed Pre-Bell Thursday Amid Economic Data Release",
+        "Data Center Stocks Tumble as Financing Costs Draw Scrutiny: Cipher Digital Drops 9%, Applied Digital Falls 6%",
         "Rocket Lab Tumbles 11% as Neutron\u2019s First Flight Moves to 2027; SpaceX and AST SpaceMobile Pull Back",
         "Walmart Climbs 3% on Deutsche Bank Upgrade; Costco and Target Tick Up"
       ]
     },
-    "vix": 17.44,
-    "vix_change_pct": 3.38
+    "vix": 17.41,
+    "vix_change_pct": 3.2
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.425,
+      "value": -0.542,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": 3.38,
+      "value": 3.2,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -50,7 +51,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 55.6,
+      "value": 50.0,
       "vote": 0,
       "why": "in the neutral band"
     }
