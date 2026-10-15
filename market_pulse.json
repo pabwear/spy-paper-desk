@@ -1,67 +1,112 @@
 {
   "date": "2026-10-15",
   "bias": "neutral",
-  "written_at": "2026-10-15T10:40:25-04:00",
-  "as_of": "2026-10-15T10:40:25-04:00",
+  "written_at": "2026-10-15T11:07:04-04:00",
+  "as_of": "2026-10-15T15:10:00Z",
   "readings": {
-    "as_of": "2026-10-15T10:40:25-04:00",
-    "source": "desk_feeds",
-    "sources": {
-      "sentiment_flow": "stocktwits public stream",
-      "news": "yahoo finance rss",
-      "vix": "yfinance"
-    },
-    "spy_price": 768.12,
-    "spy_change_pct": -0.199,
+    "as_of": "2026-10-15T15:10:00Z",
+    "spy_price": 769.1,
+    "spy_change_pct": -0.06,
+    "vix": 17.49,
+    "fear_greed": 30,
     "stocktwits": {
       "SPY": {
-        "score": 57.1,
-        "bullish_pct": 57.1
+        "score": 45,
+        "bullish_pct": 46.9
       }
     },
     "news": {
+      "score": -0.2,
       "headlines": [
-        "Exchange-Traded Funds Lower, Equity Futures Mixed Pre-Bell Thursday Amid Economic Data Release",
-        "Data Center Stocks Tumble as Financing Costs Draw Scrutiny: Cipher Digital Drops 9%, Applied Digital Falls 6%",
-        "Rocket Lab Tumbles 11% as Neutron\u2019s First Flight Moves to 2027; SpaceX and AST SpaceMobile Pull Back",
-        "Walmart Climbs 3% on Deutsche Bank Upgrade; Costco and Target Tick Up"
+        "US retail sales Sep +0.8% m/m vs +1.2% prior; ex-autos +0.9%",
+        "US CPI y/y 3.7% (prior 3.4%), core 2.6% y/y, released Oct 14",
+        "AI/data-center names sell off: IREN -8%, NBIS -6%, RKLB -9%, SOXL -6.6%",
+        "Walmart +2.6% after Deutsche Bank upgrade",
+        "TLT +2%, GLD +1.3% on the day"
       ]
     },
-    "vix": 17.42,
-    "vix_change_pct": 3.26
+    "reddit": {
+      "posts": 0
+    },
+    "rumors": [
+      {
+        "text": "Data center and AI-neocloud stocks are under pressure as financing costs draw scrutiny",
+        "source": "news",
+        "tickers": [
+          "IREN",
+          "NBIS",
+          "CRWV"
+        ],
+        "names": {
+          "IREN": "IREN Limited",
+          "NBIS": "Nebius Group",
+          "CRWV": "CoreWeave"
+        },
+        "direction": "down",
+        "credibility": 0.5,
+        "why": "Higher funding costs would squeeze AI infrastructure builders and weigh on semis and QQQ"
+      },
+      {
+        "text": "Stocktwits chatter that the AI bubble is about to pop and retail dip-buyers will be hurt",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "An AI-led unwind would hit the heavily tech-weighted index"
+      }
+    ],
+    "names": {
+      "SPY": "SPDR S&P 500 ETF"
+    },
+    "plays": [],
+    "whats_new": "SPY is roughly flat near 769 after dipping earlier, with a recovery toward 770 and VIX near 17.5. Stocktwits SPY score slipped to 45 (neutral) from 57, while fear and greed sits at 30. AI and data-center names are selling off hard while small caps (IWM +0.9%) and defensives hold up; bonds and gold are bid.",
+    "sources": {
+      "market_pulse": "stocklake",
+      "sentiment_flow": "stocktwits",
+      "reddit": "blocked",
+      "news": "stocklake calendar, stocktwits trending, standard web search (no dated results)"
+    }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.199,
+      "value": -0.06,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 3.26,
-      "vote": 0,
-      "why": "in the neutral band"
-    },
-    {
-      "reading": "fear_greed",
       "value": null,
       "vote": 0,
       "why": "missing"
     },
     {
+      "reading": "fear_greed",
+      "value": 30.0,
+      "vote": -1,
+      "why": "\u2264 45.0"
+    },
+    {
       "reading": "stocktwits_spy_score",
-      "value": 57.1,
+      "value": 45.0,
       "vote": 0,
       "why": "in the neutral band"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "sentiment_flow": "stocktwits public stream",
-    "news": "yahoo finance rss",
-    "vix": "yfinance"
+    "market_pulse": "stocklake",
+    "sentiment_flow": "stocktwits",
+    "reddit": "blocked",
+    "news": "stocklake calendar, stocktwits trending, standard web search (no dated results)"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
