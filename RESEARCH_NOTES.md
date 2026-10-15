@@ -5,6 +5,24 @@ keep learning from it; these notes are the record.
 
 ## Daily log
 
+### Wed Oct 14 2026 — −$63.10 (equity $972.54; −$27.46 since the $1,000 start; week −$83.66)
+- SPY put spread 769/764: sold 10:10 for $19 (mid $0.18, natural $0.15; 0.48 × VIX, in line with the 0.5 assumed).
+  SPY fell toward the short strike; bought back at 15:40 → −$63 (short leg −$60, long leg −$3). The book's first
+  losing day: about 3× a typical win, far inside its ~$481 worst case. Spread book so far: 5 trades, 4 won, ≈ −$16.
+  This is the shape the backtest warned about: frequent small wins, rarer bigger losses.
+- Shares, SNDK and options: no trades (118 checks outside the zones). All positions closed at the end of the day.
+- Price forecasts: direction 61% (1m), 62% (3m), 54% (5m), 20% (30m, 15 scored); "flat" still leads.
+  Loss model: shadow, 16 closed trades, 7 learnable of 30.
+- ML shadow (15-min TCN): 33 predictions, p 0.43–0.51, no would-be entries. Only 33% of windows made money after
+  costs; Brier over two days 0.251 vs base rate 0.443 (about 0.247): still no better than the base rate.
+- **Crypto account anomaly.** Cash went from $58.59 to −$3,707.05 between 07:24 and 13:32 UTC with NO order from
+  the desk. A read-only audit (`crypto_desk.py audit`) shows no orders in 3 days, BTC/ETH positions unchanged
+  (0.005681 BTC, 0.188344 ETH), and only zero-dollar coin-fee entries dated Oct 12. Reported equity −$2,788.
+  Looks like an Alpaca paper-account accounting problem. The desk cannot buy with negative cash (fails closed);
+  sells would still work. Roy to check the Alpaca dashboard / reset the paper account. Crypto P&L numbers since
+  this point are not meaningful.
+- BTC +15.2% and ETH +16.7% above their 200-day averages (hold). SOL learning book in cash ($106.73 vs $120.70).
+
 ### Tue Oct 13 2026 — −$2.02 (equity $1,035.76; +$35.76 since the $1,000 start; week −$20.44)
 - SPY shares (first trades of this book): 10:00 buy 1 @ $777.93, out 10:30 on time (−$0.39); 14:40 buy 1 @ $777.76,
   out 15:20 on time (+$0.42). Net about $0. The buying-power refusals of Monday did not recur (no spread open).
