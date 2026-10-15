@@ -1,8 +1,8 @@
 {
-  "trained_at": "2026-10-14T16:10:26-04:00",
+  "trained_at": "2026-10-15T16:10:25-04:00",
   "mode": "shadow",
-  "closed_trades": 16,
-  "learnable_trades": 7,
+  "closed_trades": 20,
+  "learnable_trades": 9,
   "min_trades_to_act": 30,
   "model": null,
   "tags": [
@@ -26,10 +26,10 @@
     },
     {
       "tag": "rsi",
-      "trades": 3,
-      "wins": 1,
-      "win_rate": 0.333,
-      "pnl": -41.97,
+      "trades": 5,
+      "wins": 2,
+      "win_rate": 0.4,
+      "pnl": -12.97,
       "multiplier": 1.0,
       "active": false
     },
@@ -61,27 +61,18 @@
       "active": false
     }
   ],
-  "trades": 16,
-  "losses": 9,
-  "loss_rate": 0.562,
+  "trades": 20,
+  "losses": 11,
+  "loss_rate": 0.55,
   "mistakes": [
     {
       "tag": "flattened_red_at_close",
       "label": "Flattened at 16:00 for a loss",
-      "trades": 6,
-      "losses": 6,
-      "loss_rate": 1.0,
-      "avg_pnl": -12.5,
-      "total_pnl": -75.0
-    },
-    {
-      "tag": "outside_box_entry",
-      "label": "Entered near, not inside, the box",
       "trades": 7,
-      "losses": 4,
-      "loss_rate": 0.571,
-      "avg_pnl": -1.42,
-      "total_pnl": -9.97
+      "losses": 7,
+      "loss_rate": 1.0,
+      "avg_pnl": -12.57,
+      "total_pnl": -88.0
     },
     {
       "tag": "late_entry_after_15",
@@ -129,22 +120,31 @@
       "total_pnl": 0
     },
     {
-      "tag": "re_entry_after_loss",
-      "label": "Second entry right after a loss",
-      "trades": 4,
-      "losses": 1,
-      "loss_rate": 0.25,
-      "avg_pnl": 14.11,
-      "total_pnl": 56.42
+      "tag": "outside_box_entry",
+      "label": "Entered near, not inside, the box",
+      "trades": 9,
+      "losses": 5,
+      "loss_rate": 0.556,
+      "avg_pnl": 2.11,
+      "total_pnl": 19.03
     },
     {
       "tag": "rsi_near_50",
       "label": "RSI within 5 of 50",
-      "trades": 4,
+      "trades": 6,
+      "losses": 2,
+      "loss_rate": 0.333,
+      "avg_pnl": 14.67,
+      "total_pnl": 88.03
+    },
+    {
+      "tag": "re_entry_after_loss",
+      "label": "Second entry right after a loss",
+      "trades": 5,
       "losses": 1,
-      "loss_rate": 0.25,
-      "avg_pnl": 14.76,
-      "total_pnl": 59.03
+      "loss_rate": 0.2,
+      "avg_pnl": 20.48,
+      "total_pnl": 102.42
     }
   ],
   "lessons": [],
@@ -152,7 +152,7 @@
     {
       "tag": "order_rejected",
       "label": "Entry order rejected",
-      "count": 26
+      "count": 43
     },
     {
       "tag": "exit_failed",
@@ -167,10 +167,68 @@
     {
       "tag": "no_contract",
       "label": "No listed option contract found",
-      "count": 9
+      "count": 23
     }
   ],
   "recent": [
+    {
+      "symbol": "SPY261015P00756000",
+      "opened_at": "2026-10-15T10:00:37-04:00",
+      "closed_at": "2026-10-15T15:40:22-04:00",
+      "pnl": -13.0,
+      "result": "loss",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "flattened_red_at_close"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
+    {
+      "symbol": "SPY261015P00761000",
+      "opened_at": "2026-10-15T10:00:37-04:00",
+      "closed_at": "2026-10-15T15:40:22-04:00",
+      "pnl": 46.0,
+      "result": "win",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "re_entry_after_loss"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
+    {
+      "symbol": "SPY261022C00770000",
+      "opened_at": "2026-10-15T14:10:31-04:00",
+      "closed_at": "2026-10-15T14:50:40-04:00",
+      "pnl": -12.0,
+      "result": "loss",
+      "exit_reason": "time",
+      "mistakes": [
+        "outside_box_entry",
+        "rsi_near_50"
+      ],
+      "p_loss": null,
+      "tags": [
+        "rsi"
+      ]
+    },
+    {
+      "symbol": "SPY261022C00770000",
+      "opened_at": "2026-10-15T12:50:30-04:00",
+      "closed_at": "2026-10-15T13:30:29-04:00",
+      "pnl": 41.0,
+      "result": "win",
+      "exit_reason": "time",
+      "mistakes": [
+        "outside_box_entry",
+        "rsi_near_50"
+      ],
+      "p_loss": null,
+      "tags": [
+        "rsi"
+      ]
+    },
     {
       "symbol": "SPY261014P00764000",
       "opened_at": "2026-10-14T10:10:31-04:00",
