@@ -1,22 +1,22 @@
 {
   "date": "2026-10-15",
   "bias": "neutral",
-  "written_at": "2026-10-15T15:00:32-04:00",
-  "as_of": "2026-10-15T15:00:32-04:00",
+  "written_at": "2026-10-15T15:30:34-04:00",
+  "as_of": "2026-10-15T15:30:34-04:00",
   "readings": {
-    "as_of": "2026-10-15T15:00:32-04:00",
+    "as_of": "2026-10-15T15:30:34-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 770.685,
-    "spy_change_pct": 0.134,
+    "spy_price": 772.1,
+    "spy_change_pct": 0.318,
     "stocktwits": {
       "SPY": {
-        "score": 72.7,
-        "bullish_pct": 72.7
+        "score": 53.8,
+        "bullish_pct": 53.8
       }
     },
     "news": {
@@ -33,19 +33,19 @@
         "Why Does Rocket Companies (RKT) Earn Just 3% on Equity After Doubling Revenue?"
       ]
     },
-    "vix": 16.73,
-    "vix_change_pct": -0.83
+    "vix": 16.36,
+    "vix_change_pct": -3.02
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.134,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 0.318,
+      "vote": 1,
+      "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -0.83,
+      "value": -3.02,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,9 +57,9 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 72.7,
-      "vote": 1,
-      "why": "\u2265 60.0"
+      "value": 53.8,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
   "net_votes": 1,
