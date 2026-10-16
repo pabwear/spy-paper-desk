@@ -1,7 +1,7 @@
 {
-  "trained_at": "2026-10-15T16:10:25-04:00",
+  "trained_at": "2026-10-16T16:10:25-04:00",
   "mode": "shadow",
-  "closed_trades": 20,
+  "closed_trades": 22,
   "learnable_trades": 9,
   "min_trades_to_act": 30,
   "model": null,
@@ -61,18 +61,18 @@
       "active": false
     }
   ],
-  "trades": 20,
-  "losses": 11,
-  "loss_rate": 0.55,
+  "trades": 22,
+  "losses": 12,
+  "loss_rate": 0.545,
   "mistakes": [
     {
       "tag": "flattened_red_at_close",
       "label": "Flattened at 16:00 for a loss",
-      "trades": 7,
-      "losses": 7,
+      "trades": 8,
+      "losses": 8,
       "loss_rate": 1.0,
-      "avg_pnl": -12.57,
-      "total_pnl": -88.0
+      "avg_pnl": -65.0,
+      "total_pnl": -520.0
     },
     {
       "tag": "late_entry_after_15",
@@ -140,11 +140,11 @@
     {
       "tag": "re_entry_after_loss",
       "label": "Second entry right after a loss",
-      "trades": 5,
+      "trades": 6,
       "losses": 1,
-      "loss_rate": 0.2,
-      "avg_pnl": 20.48,
-      "total_pnl": 102.42
+      "loss_rate": 0.167,
+      "avg_pnl": 24.74,
+      "total_pnl": 148.42
     }
   ],
   "lessons": [],
@@ -171,6 +171,32 @@
     }
   ],
   "recent": [
+    {
+      "symbol": "SPY261016P00762000",
+      "opened_at": "2026-10-16T10:00:33-04:00",
+      "closed_at": "2026-10-16T15:40:28-04:00",
+      "pnl": 46.0,
+      "result": "win",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "re_entry_after_loss"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
+    {
+      "symbol": "SPY261016P00767000",
+      "opened_at": "2026-10-16T10:00:33-04:00",
+      "closed_at": "2026-10-16T15:40:28-04:00",
+      "pnl": -432.0,
+      "result": "loss",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "flattened_red_at_close"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
     {
       "symbol": "SPY261015P00756000",
       "opened_at": "2026-10-15T10:00:37-04:00",
