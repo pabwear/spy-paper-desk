@@ -1,22 +1,22 @@
 {
   "date": "2026-10-16",
   "bias": "bearish",
-  "written_at": "2026-10-16T14:20:33-04:00",
-  "as_of": "2026-10-16T14:20:33-04:00",
+  "written_at": "2026-10-16T15:00:53-04:00",
+  "as_of": "2026-10-16T15:00:53-04:00",
   "readings": {
-    "as_of": "2026-10-16T14:20:33-04:00",
+    "as_of": "2026-10-16T15:00:53-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 762.51,
-    "spy_change_pct": -1.2,
+    "spy_price": 761.9,
+    "spy_change_pct": -1.279,
     "stocktwits": {
       "SPY": {
-        "score": 20.0,
-        "bullish_pct": 20.0
+        "score": 42.9,
+        "bullish_pct": 42.9
       }
     },
     "news": {
@@ -24,28 +24,28 @@
         "Health Care and Crude Led the Week While Tech Lost Its Grip",
         "Ford Rises 2%, General Motors and Stellantis Edge Higher While the Stock Market Sells Off",
         "Exchange-Traded Funds, Equity Futures Mixed Pre-Bell Friday Amid Investor Caution",
+        "A $1,000 Investment in Eli Lilly Became $18,637. The Obesity Boom Changed Everything",
         "Rocket Lab Drops 6% as Citizens Cuts Target Over Neutron Delay; Planet Labs Slides 5%, SpaceX Slips",
         "Sandisk Just Dipped Below $1400 Which Means a Lot to Certain Investors",
         "Novavax Plunges 12% as Selloff Hits Vaccine Makers; Moderna Tumbles 10%, Pfizer Holds Steady",
         "Alcoa Gains 8%, United States Antimony Jumps 10% After Alcoa\u2019s Q3 Beat and Data Center Site Sale; Cleveland-Cliffs Rises 2%",
         "Moderna Tumbles 10% as Profit Taking Hits Cancer Vaccine Rally; BioNTech Eases, Pfizer Stays Put",
-        "After Hot CPI, Hot PPI: Producer Prices Rose the Most Since 2022",
-        "Applied Digital Sinks 4% as Rotation Out of Debt-Funded AI Builders Extends; TeraWulf Dips 3%, Core Scientific Retreats 2%"
+        "After Hot CPI, Hot PPI: Producer Prices Rose the Most Since 2022"
       ]
     },
-    "vix": 21.7,
-    "vix_change_pct": 31.83
+    "vix": 20.47,
+    "vix_change_pct": 24.36
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.2,
+      "value": -1.279,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": 31.83,
+      "value": 24.36,
       "vote": -1,
       "why": "\u2265 5.0"
     },
@@ -57,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 20.0,
-      "vote": -1,
-      "why": "\u2264 40.0"
+      "value": 42.9,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": -3,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
