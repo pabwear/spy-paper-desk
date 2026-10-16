@@ -1,51 +1,46 @@
 {
-  "date": "2026-10-15",
+  "date": "2026-10-16",
   "bias": "neutral",
-  "written_at": "2026-10-15T15:30:34-04:00",
-  "as_of": "2026-10-15T15:30:34-04:00",
+  "written_at": "2026-10-16T09:30:29-04:00",
+  "as_of": "2026-10-16T09:30:29-04:00",
   "readings": {
-    "as_of": "2026-10-15T15:30:34-04:00",
+    "as_of": "2026-10-16T09:30:29-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 772.1,
-    "spy_change_pct": 0.318,
+    "spy_price": 773.24,
+    "spy_change_pct": 0.19,
     "stocktwits": {
       "SPY": {
-        "score": 53.8,
-        "bullish_pct": 53.8
+        "score": 87.5,
+        "bullish_pct": 87.5
       }
     },
     "news": {
       "headlines": [
-        "Starwood Property Trust (STWD) Earnings Fell 95%. Is the Stock Still Cheap?",
-        "Rithm Capital (RITM) Trades at 0.76 Times Book Value. Should You Buy It?",
-        "Dynex Capital (DX) Trades at 4 Times Last Year\u2019s Earnings and 8 Times Next Year\u2019s. Which is Right?",
-        "Essent Group (ESNT): Good Investment or Just a Cheap One?",
-        "Is UWM Holdings (UWMC) the Most Expensive Cheap Stock in Mortgage Lending?",
-        "Annaly Capital (NLY) Borrows $7 for Every $1 of Equity. What Does That Buy?",
-        "MGIC Investment (MTG) Earns 80% Margins on Falling Revenue. Is the Stock Cheap Enough?",
-        "AGNC Investment (AGNC) Is the Most Expensive Mortgage REIT on Book Value. Why?",
-        "Radian Group (RDN) Bought a Lloyd\u2019s Insurer. Is It Still a Mortgage Stock?",
-        "Why Does Rocket Companies (RKT) Earn Just 3% on Equity After Doubling Revenue?"
+        "Health Care and Crude Led the Week While Tech Lost Its Grip",
+        "Exchange-Traded Funds, Equity Futures Mixed Pre-Bell Friday Amid Investor Caution",
+        "October Rate-Hike Odds Collapse as Warsh Keeps His Cards Close but AI Transition Looms",
+        "Netflix Falls 3% as Peter Rice Takes Over Content After Layoffs; Disney and Spotify Hold Steady",
+        "Rocket Lab Tumbles on Yet Another Neutron Delay. Time to Bail?"
       ]
     },
-    "vix": 16.36,
-    "vix_change_pct": -3.02
+    "vix": 15.84,
+    "vix_change_pct": -3.77
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.318,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": 0.19,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": -3.02,
+      "value": -3.77,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,9 +52,9 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 53.8,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 87.5,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
   "net_votes": 1,
