@@ -1,28 +1,30 @@
 {
   "date": "2026-10-16",
   "bias": "neutral",
-  "written_at": "2026-10-16T10:40:28-04:00",
-  "as_of": "2026-10-16T10:40:28-04:00",
+  "written_at": "2026-10-16T11:20:30-04:00",
+  "as_of": "2026-10-16T11:20:30-04:00",
   "readings": {
-    "as_of": "2026-10-16T10:40:28-04:00",
+    "as_of": "2026-10-16T11:20:30-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 772.105,
-    "spy_change_pct": 0.043,
+    "spy_price": 769.62,
+    "spy_change_pct": -0.279,
     "stocktwits": {
       "SPY": {
-        "score": 75.0,
-        "bullish_pct": 75.0
+        "score": 50.0,
+        "bullish_pct": 50.0
       }
     },
     "news": {
       "headlines": [
         "Health Care and Crude Led the Week While Tech Lost Its Grip",
         "Exchange-Traded Funds, Equity Futures Mixed Pre-Bell Friday Amid Investor Caution",
+        "Alcoa Gains 8%, United States Antimony Jumps 10% After Alcoa\u2019s Q3 Beat and Data Center Site Sale; Cleveland-Cliffs Rises 2%",
+        "Moderna Tumbles 10% as Profit Taking Hits Cancer Vaccine Rally; BioNTech Eases, Pfizer Stays Put",
         "After Hot CPI, Hot PPI: Producer Prices Rose the Most Since 2022",
         "Applied Digital Sinks 4% as Rotation Out of Debt-Funded AI Builders Extends; TeraWulf Dips 3%, Core Scientific Retreats 2%",
         "Strategy and Riot Fall 4%, Cipher Digital Declines 3% as MSCI Index Rules and Convertible Sale Weigh",
@@ -31,19 +33,19 @@
         "Rocket Lab Tumbles on Yet Another Neutron Delay. Time to Bail?"
       ]
     },
-    "vix": 16.02,
-    "vix_change_pct": -2.67
+    "vix": 15.87,
+    "vix_change_pct": -3.58
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.043,
+      "value": -0.279,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": -2.67,
+      "value": -3.58,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -55,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 75.0,
-      "vote": 1,
-      "why": "\u2265 60.0"
+      "value": 50.0,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": 1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
