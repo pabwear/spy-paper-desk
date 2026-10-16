@@ -1,46 +1,47 @@
 {
   "date": "2026-10-16",
   "bias": "neutral",
-  "written_at": "2026-10-16T09:30:29-04:00",
-  "as_of": "2026-10-16T09:30:29-04:00",
+  "written_at": "2026-10-16T10:00:30-04:00",
+  "as_of": "2026-10-16T10:00:30-04:00",
   "readings": {
-    "as_of": "2026-10-16T09:30:29-04:00",
+    "as_of": "2026-10-16T10:00:30-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 773.24,
-    "spy_change_pct": 0.19,
+    "spy_price": 771.41,
+    "spy_change_pct": -0.047,
     "stocktwits": {
       "SPY": {
-        "score": 87.5,
-        "bullish_pct": 87.5
+        "score": 46.7,
+        "bullish_pct": 46.7
       }
     },
     "news": {
       "headlines": [
         "Health Care and Crude Led the Week While Tech Lost Its Grip",
         "Exchange-Traded Funds, Equity Futures Mixed Pre-Bell Friday Amid Investor Caution",
+        "Strategy and Riot Fall 4%, Cipher Digital Declines 3% as MSCI Index Rules and Convertible Sale Weigh",
         "October Rate-Hike Odds Collapse as Warsh Keeps His Cards Close but AI Transition Looms",
         "Netflix Falls 3% as Peter Rice Takes Over Content After Layoffs; Disney and Spotify Hold Steady",
         "Rocket Lab Tumbles on Yet Another Neutron Delay. Time to Bail?"
       ]
     },
-    "vix": 15.84,
-    "vix_change_pct": -3.77
+    "vix": 15.93,
+    "vix_change_pct": -3.22
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.19,
+      "value": -0.047,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": -3.77,
+      "value": -3.22,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -52,17 +53,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 87.5,
-      "vote": 1,
-      "why": "\u2265 60.0"
+      "value": 46.7,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": 1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
