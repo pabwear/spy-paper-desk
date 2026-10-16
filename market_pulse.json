@@ -1,22 +1,22 @@
 {
   "date": "2026-10-16",
-  "bias": "neutral",
-  "written_at": "2026-10-16T13:10:28-04:00",
-  "as_of": "2026-10-16T13:10:28-04:00",
+  "bias": "bearish",
+  "written_at": "2026-10-16T13:40:32-04:00",
+  "as_of": "2026-10-16T13:40:32-04:00",
   "readings": {
-    "as_of": "2026-10-16T13:10:28-04:00",
+    "as_of": "2026-10-16T13:40:32-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 763.92,
-    "spy_change_pct": -1.017,
+    "spy_price": 764.35,
+    "spy_change_pct": -0.961,
     "stocktwits": {
       "SPY": {
-        "score": 71.4,
-        "bullish_pct": 71.4
+        "score": 46.2,
+        "bullish_pct": 46.2
       }
     },
     "news": {
@@ -33,19 +33,19 @@
         "Strategy and Riot Fall 4%, Cipher Digital Declines 3% as MSCI Index Rules and Convertible Sale Weigh"
       ]
     },
-    "vix": 18.38,
-    "vix_change_pct": 11.66
+    "vix": 21.3,
+    "vix_change_pct": 29.4
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.017,
+      "value": -0.961,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": 11.66,
+      "value": 29.4,
       "vote": -1,
       "why": "\u2265 5.0"
     },
@@ -57,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 71.4,
-      "vote": 1,
-      "why": "\u2265 60.0"
+      "value": 46.2,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": -1,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
