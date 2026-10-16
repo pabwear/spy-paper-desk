@@ -1,53 +1,53 @@
 {
   "date": "2026-10-16",
-  "bias": "bearish",
-  "written_at": "2026-10-16T12:40:23-04:00",
-  "as_of": "2026-10-16T12:40:23-04:00",
+  "bias": "neutral",
+  "written_at": "2026-10-16T13:10:28-04:00",
+  "as_of": "2026-10-16T13:10:28-04:00",
   "readings": {
-    "as_of": "2026-10-16T12:40:23-04:00",
+    "as_of": "2026-10-16T13:10:28-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 766.63,
-    "spy_change_pct": -0.666,
+    "spy_price": 763.92,
+    "spy_change_pct": -1.017,
     "stocktwits": {
       "SPY": {
-        "score": 33.3,
-        "bullish_pct": 33.3
+        "score": 71.4,
+        "bullish_pct": 71.4
       }
     },
     "news": {
       "headlines": [
         "Health Care and Crude Led the Week While Tech Lost Its Grip",
         "Exchange-Traded Funds, Equity Futures Mixed Pre-Bell Friday Amid Investor Caution",
+        "Rocket Lab Drops 6% as Citizens Cuts Target Over Neutron Delay; Planet Labs Slides 5%, SpaceX Slips",
+        "Sandisk Just Dipped Below $1400 Which Means a Lot to Certain Investors",
+        "Novavax Plunges 12% as Selloff Hits Vaccine Makers; Moderna Tumbles 10%, Pfizer Holds Steady",
         "Alcoa Gains 8%, United States Antimony Jumps 10% After Alcoa\u2019s Q3 Beat and Data Center Site Sale; Cleveland-Cliffs Rises 2%",
         "Moderna Tumbles 10% as Profit Taking Hits Cancer Vaccine Rally; BioNTech Eases, Pfizer Stays Put",
         "After Hot CPI, Hot PPI: Producer Prices Rose the Most Since 2022",
         "Applied Digital Sinks 4% as Rotation Out of Debt-Funded AI Builders Extends; TeraWulf Dips 3%, Core Scientific Retreats 2%",
-        "Strategy and Riot Fall 4%, Cipher Digital Declines 3% as MSCI Index Rules and Convertible Sale Weigh",
-        "October Rate-Hike Odds Collapse as Warsh Keeps His Cards Close but AI Transition Looms",
-        "Netflix Falls 3% as Peter Rice Takes Over Content After Layoffs; Disney and Spotify Hold Steady",
-        "Rocket Lab Tumbles on Yet Another Neutron Delay. Time to Bail?"
+        "Strategy and Riot Fall 4%, Cipher Digital Declines 3% as MSCI Index Rules and Convertible Sale Weigh"
       ]
     },
-    "vix": 17.16,
-    "vix_change_pct": 4.25
+    "vix": 18.38,
+    "vix_change_pct": 11.66
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.666,
+      "value": -1.017,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": 4.25,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 11.66,
+      "vote": -1,
+      "why": "\u2265 5.0"
     },
     {
       "reading": "fear_greed",
@@ -57,17 +57,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 33.3,
-      "vote": -1,
-      "why": "\u2264 40.0"
+      "value": 71.4,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
