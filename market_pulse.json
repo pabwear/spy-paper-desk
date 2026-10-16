@@ -1,22 +1,22 @@
 {
   "date": "2026-10-16",
   "bias": "bearish",
-  "written_at": "2026-10-16T12:00:35-04:00",
-  "as_of": "2026-10-16T12:00:35-04:00",
+  "written_at": "2026-10-16T12:40:23-04:00",
+  "as_of": "2026-10-16T12:40:23-04:00",
   "readings": {
-    "as_of": "2026-10-16T12:00:35-04:00",
+    "as_of": "2026-10-16T12:40:23-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 767.52,
-    "spy_change_pct": -0.551,
+    "spy_price": 766.63,
+    "spy_change_pct": -0.666,
     "stocktwits": {
       "SPY": {
-        "score": 37.5,
-        "bullish_pct": 37.5
+        "score": 33.3,
+        "bullish_pct": 33.3
       }
     },
     "news": {
@@ -33,19 +33,19 @@
         "Rocket Lab Tumbles on Yet Another Neutron Delay. Time to Bail?"
       ]
     },
-    "vix": 16.52,
-    "vix_change_pct": 0.36
+    "vix": 17.16,
+    "vix_change_pct": 4.25
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.551,
+      "value": -0.666,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": 0.36,
+      "value": 4.25,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,7 +57,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 37.5,
+      "value": 33.3,
       "vote": -1,
       "why": "\u2264 40.0"
     }
