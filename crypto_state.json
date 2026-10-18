@@ -1,39 +1,39 @@
 {
-  "updated_at": "2026-10-17T23:54:34+00:00",
+  "updated_at": "2026-10-18T04:04:57+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": -2794.09,
+  "equity": -2786.46,
   "cash": -3707.05,
   "last_equity": -2789.23127417542,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 462.156527,
-      "unrealized_pl": -7.357608,
-      "current_price": 81354.6
+      "market_value": 464.666858,
+      "unrealized_pl": -4.847277,
+      "current_price": 81796.5
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 450.801486,
-      "unrealized_pl": -18.740233,
-      "current_price": 2393.5
+      "market_value": 455.922561,
+      "unrealized_pl": -13.619158,
+      "current_price": 2420.69
     }
   },
   "signals": {
     "BTC/USD": {
       "hold": true,
-      "close": 81505.0825,
-      "average": 72361.09,
+      "close": 81382.1,
+      "average": 72426.86,
       "days": 419
     },
     "ETH/USD": {
       "hold": true,
-      "close": 2420.0895,
-      "average": 2144.75,
+      "close": 2399.731,
+      "average": 2146.23,
       "days": 419
     }
   },
@@ -94,6 +94,10 @@
     {
       "date": "2026-10-17",
       "equity": -2794.09
+    },
+    {
+      "date": "2026-10-18",
+      "equity": -2786.46
     }
   ],
   "equity_history": [
@@ -111,12 +115,12 @@
     }
   ],
   "pnl_periods": {
-    "as_of": "2026-10-17",
-    "equity": -2794.09,
-    "today": -4.86,
-    "week": -3794.09,
-    "month": -3794.09,
-    "all": -3794.09,
+    "as_of": "2026-10-18",
+    "equity": -2786.46,
+    "today": 2.77,
+    "week": -3786.46,
+    "month": -3786.46,
+    "all": -3786.46,
     "start_usd": 1000.0
   },
   "learning": {
@@ -126,8 +130,8 @@
     "stop_pct": 6,
     "enabled": true,
     "hold": false,
-    "close": 104.335,
-    "close_7d_ago": 109.045,
+    "close": 103.34,
+    "close_7d_ago": 110.016,
     "position": null,
     "stop_price": null,
     "trades": 0,
