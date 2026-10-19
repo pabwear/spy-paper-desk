@@ -3,12 +3,12 @@
   "account_name": "Paper 1000",
   "account_number": "PA36VOEO5PHB",
   "status": "ACTIVE",
-  "snapshot_at": "2026-10-16T16:50:23-04:00",
-  "equity": 647.91,
-  "cash": 647.91,
-  "buying_power": 647.91,
-  "options_buying_power": 647.91,
-  "last_equity": 1034.01,
+  "snapshot_at": "2026-10-19T09:00:29-04:00",
+  "equity": 647.8,
+  "cash": 647.8,
+  "buying_power": 647.8,
+  "options_buying_power": 647.8,
+  "last_equity": 647.8,
   "position": null,
   "positions": [],
   "history": [
@@ -47,6 +47,10 @@
     {
       "date": "2026-10-15",
       "equity": 1034.01
+    },
+    {
+      "date": "2026-10-16",
+      "equity": 647.8
     }
   ]
 }
