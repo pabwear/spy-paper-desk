@@ -1,18 +1,18 @@
 {
   "date": "2026-10-19",
-  "bias": "bearish",
-  "written_at": "2026-10-19T10:09:37-04:00",
-  "as_of": "2026-10-19T14:10:00Z",
+  "bias": "neutral",
+  "written_at": "2026-10-19T11:08:42-04:00",
+  "as_of": "2026-10-19T15:10:00Z",
   "readings": {
-    "as_of": "2026-10-19T14:10:00Z",
-    "spy_price": 766.59,
-    "spy_change_pct": -0.65,
+    "as_of": "2026-10-19T15:10:00Z",
+    "spy_price": 767.38,
+    "spy_change_pct": 0.54,
     "vix": 18.82,
     "fear_greed": 27,
     "stocktwits": {
       "SPY": {
         "score": 33,
-        "bullish_pct": 46.7
+        "bullish_pct": 46.9
       }
     },
     "reddit": {
@@ -21,72 +21,43 @@
       "top": []
     },
     "news": {
-      "score": 0,
+      "score": 0.1,
       "headlines": [
-        "China Q3 GDP 4.5% y/y vs 4.3% prior; retail sales 1.1%",
+        "China Q3 GDP 4.5% y/y vs 4.3% prior",
         "Canada CPI 3.1% y/y vs 3.0% prior",
-        "Meta, Tesla and chipmaker earnings due this week"
+        "AMZN +5% and QQQ +1.4% lead the rebound"
       ]
     },
-    "rumors": [
-      {
-        "text": "Breakthrough US-Iran deal reportedly expected this week to prevent military escalation (Investing.com post shared on Stocktwits)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "up",
-        "credibility": 0.35,
-        "why": "A deal would ease oil and geopolitical risk and could lift equities"
-      },
-      {
-        "text": "Big names got word of a Meta capital raise; rallies in Meta being sold (one bearish trader)",
-        "source": "stocktwits",
-        "tickers": [
-          "META",
-          "QQQ"
-        ],
-        "names": {
-          "META": "Meta Platforms",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "An equity raise would dilute holders and weigh on Meta and megacap tech"
-      }
-    ],
+    "rumors": [],
     "names": {
-      "SPY": "SPDR S&P 500 ETF"
+      "SPY": "SPDR S&P 500 ETF",
+      "QQQ": "Invesco QQQ Trust",
+      "AMZN": "Amazon.com"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Fear and greed 27 and bearish crowd (33) with Iran-deal hopes, but cash market is weak (QQQ -1.3%, IWM -1.5%)",
-        "catalyst": "Iran deal headlines and Meta/Tesla earnings this week"
+        "confidence": 0.53,
+        "reason": "Cash session reversed green with QQQ +1.4% led by AMZN while the crowd is still bearish (score 33) and fear/greed is 27; but traders call it a weak, double-rejected bounce near 767-774",
+        "catalyst": "Megacap earnings this week (Meta, Tesla) and AMZN-led tech strength"
       }
     ],
-    "whats_new": "Since the last reading the early futures bounce faded: SPY is about -0.65%, QQQ -1.3% and IWM -1.5% in the cash session, so the earlier 'futures higher' story is stale. VIX is flat near 18.8 and Stocktwits SPY stays bearish (33). A reported US-Iran deal this week is the new unconfirmed upside rumor; the old Hormuz claim is dropped.",
+    "whats_new": "Since the last reading SPY flipped from about -0.65% to +0.54%, QQQ from -1.3% to +1.4% and IWM from -1.5% to +0.2%, with Amazon up about 5% leading. VIX is flat near 18.8 and Stocktwits SPY is still bearish (33) even as the tape rallies, a crowd-versus-price disagreement. The earlier Iran-deal rumor was not re-seen and no new specific rumors were found.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar, stocktwits posts; web search found nothing current"
+      "news": "stocklake calendar, stocktwits trending; web search found nothing current"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.65,
-      "vote": -1,
-      "why": "\u2264 -0.3"
+      "value": 0.54,
+      "vote": 1,
+      "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -107,13 +78,13 @@
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -3,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar, stocktwits posts; web search found nothing current"
+    "news": "stocklake calendar, stocktwits trending; web search found nothing current"
   },
-  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
