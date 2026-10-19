@@ -751,7 +751,14 @@ NO_QUOTE_LIMIT = {"sell": 0.01, "buy": 0.05}  # a leg nobody quotes is (nearly) 
 
 
 def _close_leg(broker, leg: dict, qty: float, coid: str) -> dict:
-    """Close one option leg at market; if Alpaca refuses for lack of a quote, at a limit instead."""
+    """Close one option leg at market; if Alpaca refuses for lack of a quote, at a limit instead.
+    An earlier close still open on the leg is cancelled first: Alpaca counts it against the position, so a second
+    sell would read as opening a short put (Oct 19). A sell that sat unfilled is resent as a 1-cent limit, which
+    sells at whatever bid there is."""
+    stale = broker.cancel_orders(leg["symbol"]) if hasattr(broker, "cancel_orders") else 0
+    if stale and leg["side"] == "sell" and hasattr(broker, "submit_limit"):
+        return broker.submit_limit("sell", qty, NO_QUOTE_LIMIT["sell"], f"{coid}-lmt", symbol=leg["symbol"],
+                                   intent=leg["intent"])
     try:
         return broker.submit_market(leg["side"], qty, coid, symbol=leg["symbol"], intent=leg["intent"])
     except Exception as e:  # noqa: BLE001

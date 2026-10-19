@@ -5,6 +5,24 @@ keep learning from it; these notes are the record.
 
 ## Daily log
 
+### Mon Oct 19 2026 — +$14.92 (equity $662.72; −$337.28 since the $1,000 start)
+- SPY put spread 761/756: sold 10:00 for $17 (mid $0.18, natural $0.17; 0.46 × VIX, in line with 0.5) with SPY at
+  $766.58, VIX 20. Short leg bought back 15:40 for $0.02 (+$23); the long 756 put had no bid and stayed open
+  (−$8, expires worthless today; a bought option, no further risk). Spread book: 8 trades, 6 won, ≈ −$342.
+- Close-out bug: the long leg's market sell sat unfilled, and the 15:50 retry was refused by Alpaca as a new
+  cash-secured put (the open sell already covered the position). Fixed in `_close_leg`: a stale close on the leg is
+  cancelled first and a sell is resent as a 1-cent limit (sells at any bid); test added. Order handling only, no rule
+  changed.
+- Options book: no trades; 31 checks skipped on budget_too_small (≈$663 left, one SPY call costs more than its
+  budget allows). Shares, SNDK: no trades.
+- Price forecasts: direction 45% (1m), 40% (3m), 42% (5m), 47% (30m); "flat" leads. Loss model: shadow, 23 closed
+  trades, 9 learnable of 30.
+- ML shadow: 34 predictions, p 0.42–0.50, no would-be entry. Forward: 160 scored, Brier 0.254 vs ≈0.248 base rate.
+- Crypto: no orders. Checks only at 12:47 and 19:11 UTC today (gaps ≈6½ h). Anomaly unchanged (cash −$3,707.05).
+  BTC $465 and ETH $451 held, 13% and 12% above their 200-day averages. SOL learning book in cash (mom7d no).
+- Roy asked "what happened?" about Friday's −$386. Recommended turning the spread book off (it lost at real prices
+  in the Oct 9 backtest); waiting for his answer. Rules unchanged until he says so.
+
 ### Fri Oct 16 2026 — −$386.10 (equity $647.91; −$352.09 since the $1,000 start; week −$408.29)
 (Review written Mon Oct 19: the scheduled Friday review reached this session late.)
 - SPY put spread 767/762: sold 10:00 for $21 (mid $0.22, natural $0.21; 0.49 × VIX, in line with 0.5) with SPY at

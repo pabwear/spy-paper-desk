@@ -138,6 +138,19 @@ class SpreadBookTests(DeskTestCase):
         self.assertEqual(broker.spread_closes, [])
         self.assertEqual([(o["symbol"], o["side"]) for o in broker.submitted], [(legs[1]["symbol"], "sell")])
 
+    def test_a_stale_unfilled_sell_is_cancelled_and_resent_at_a_cent(self):
+        # Oct 19: the long leg's market sell sat unfilled (no bid); the next run's second sell was refused by Alpaca
+        # as a new cash-secured put. The stale order must go first, then a 1-cent limit (sells at any bid there is).
+        broker = FakeBroker(cash=1000.0, quote_fn=quotes)
+        legs = self._open_spread(broker)
+        broker._positions = [broker._positions[1]]
+        broker._open = [{"id": "stale-1", "symbol": legs[1]["symbol"], "side": "sell", "qty": 1}]
+        run_study.cmd_manage(at(THURSDAY, 15, 50), broker, bars=self.bars(at(THURSDAY, 15, 50)))
+        self.assertEqual(broker.cancelled, [legs[1]["symbol"]])
+        self.assertEqual(broker._open, [])
+        self.assertEqual([(o["symbol"], o["side"], o.get("limit_price")) for o in broker.submitted],
+                         [(legs[1]["symbol"], "sell", 0.01)])
+
     def test_held_through_the_day_no_stock_stop_or_time_limit(self):
         broker = FakeBroker(cash=1000.0, quote_fn=quotes)
         self._open_spread(broker)
