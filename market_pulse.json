@@ -1,18 +1,18 @@
 {
   "date": "2026-10-19",
   "bias": "neutral",
-  "written_at": "2026-10-19T14:06:42-04:00",
-  "as_of": "2026-10-19T18:07:00Z",
+  "written_at": "2026-10-19T15:07:11-04:00",
+  "as_of": "2026-10-19T19:08:00Z",
   "readings": {
-    "as_of": "2026-10-19T18:07:00Z",
-    "spy_price": 767.18,
-    "spy_change_pct": 0.51,
+    "as_of": "2026-10-19T19:08:00Z",
+    "spy_price": 767.87,
+    "spy_change_pct": 0.6,
     "vix": 17.99,
     "fear_greed": 25,
     "stocktwits": {
       "SPY": {
-        "score": 34,
-        "bullish_pct": 46.6
+        "score": 33,
+        "bullish_pct": 46.5
       }
     },
     "reddit": {
@@ -24,27 +24,12 @@
       "headlines": [
         "China Q3 GDP 4.5% y/y vs 4.3% prior",
         "Canada CPI 3.1% y/y vs 3.0% prior",
-        "QQQ +1.38%, IWM +0.27%, TLT -0.72%, GLD -0.54%"
+        "QQQ +1.32%, IWM +0.24%, TLT -0.61%, GLD -0.54%"
       ]
     },
     "rumors": [
       {
-        "text": "Stocktwits posters say oil jumps every time Trump mentions a deal, with talk of Brent near $100",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "An oil spike would push yields up and pressure equities"
-      },
-      {
-        "text": "Stocktwits posters say algos keep defending the 767 level in SPY and a break would hurt late dip buyers",
+        "text": "Stocktwits posters expect big companies to report earnings on the night of the 20th and a weak house sales print tomorrow, with SPY retesting 7700 before then",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -53,8 +38,21 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "A clean break of support near 766 could trigger stop selling"
+        "credibility": 0.25,
+        "why": "A soft housing print plus pre-earnings caution could pull the index back toward recent support"
+      },
+      {
+        "text": "Stocktwits posters say sellers are waiting to dump SPY all at once while others call this a generational dip",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "A crowded two-sided argument with no concrete catalyst; a late sell-off would hurt dip buyers"
       }
     ],
     "names": {
@@ -67,12 +65,12 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Support near 767 keeps holding while crowd stays bearish (score 34, fear/greed 25) and tech leads",
+        "confidence": 0.53,
+        "reason": "SPY holds a gain near 768 while the crowd is bearish (score 33, fear/greed 25) and tech leads",
         "catalyst": "Earnings week starting tomorrow"
       }
     ],
-    "whats_new": "SPY eased to +0.51% from +0.65% an hour ago and QQQ to +1.38% from +1.65%; VIX steady near 18. Crowd still bearish (34) and chatter centers on the 767 support and oil reacting to Trump deal talk. No confirmed new catalysts.",
+    "whats_new": "SPY firmed slightly to +0.6% from +0.51% an hour ago and QQQ eased to +1.32%; VIX unchanged near 18. Crowd stays bearish (33) with chatter about pre-earnings caution; trending names CRWV, DJT, QXO and CBRS are all weaker. No confirmed new catalysts.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -83,7 +81,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.51,
+      "value": 0.6,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -101,7 +99,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 34.0,
+      "value": 33.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
