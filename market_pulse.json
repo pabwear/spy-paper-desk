@@ -1,18 +1,18 @@
 {
   "date": "2026-10-19",
   "bias": "neutral",
-  "written_at": "2026-10-19T13:08:00-04:00",
-  "as_of": "2026-10-19T17:10:00Z",
+  "written_at": "2026-10-19T14:06:42-04:00",
+  "as_of": "2026-10-19T18:07:00Z",
   "readings": {
-    "as_of": "2026-10-19T17:10:00Z",
-    "spy_price": 768.23,
-    "spy_change_pct": 0.65,
-    "vix": 17.89,
+    "as_of": "2026-10-19T18:07:00Z",
+    "spy_price": 767.18,
+    "spy_change_pct": 0.51,
+    "vix": 17.99,
     "fear_greed": 25,
     "stocktwits": {
       "SPY": {
-        "score": 33,
-        "bullish_pct": 46.7
+        "score": 34,
+        "bullish_pct": 46.6
       }
     },
     "reddit": {
@@ -20,31 +20,31 @@
       "top": []
     },
     "news": {
-      "score": 0.1,
+      "score": 0.0,
       "headlines": [
         "China Q3 GDP 4.5% y/y vs 4.3% prior",
         "Canada CPI 3.1% y/y vs 3.0% prior",
-        "AMZN +4.9% leads trending list; QQQ +1.65%"
+        "QQQ +1.38%, IWM +0.27%, TLT -0.72%, GLD -0.54%"
       ]
     },
     "rumors": [
       {
-        "text": "Stocktwits poster says Goldman saw the fastest hedge-fund technology unwind in a week since 2016",
+        "text": "Stocktwits posters say oil jumps every time Trump mentions a deal, with talk of Brent near $100",
         "source": "stocktwits",
         "tickers": [
-          "QQQ",
-          "SPY"
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "QQQ": "Invesco QQQ Trust",
-          "SPY": "SPDR S&P 500 ETF"
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "If true, institutional de-grossing in tech could cap the rally"
+        "credibility": 0.25,
+        "why": "An oil spike would push yields up and pressure equities"
       },
       {
-        "text": "Traders say Brent crude turned green for the day and talk of oil breaking $100",
+        "text": "Stocktwits posters say algos keep defending the 767 level in SPY and a break would hurt late dip buyers",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -54,13 +54,13 @@
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "An oil spike would pressure yields and equities"
+        "why": "A clean break of support near 766 could trigger stop selling"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "AMZN": "Amazon.com"
+      "IWM": "iShares Russell 2000 ETF"
     },
     "plays": [
       {
@@ -68,22 +68,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Price holding 50-day SMA near 767 while crowd stays bearish (score 33, fear/greed 25); megacap strength",
-        "catalyst": "Big earnings week starting tomorrow"
+        "reason": "Support near 767 keeps holding while crowd stays bearish (score 34, fear/greed 25) and tech leads",
+        "catalyst": "Earnings week starting tomorrow"
       }
     ],
-    "whats_new": "SPY eased to +0.65% from +0.89% an hour ago and QQQ to +1.65% from +2.0%; VIX flat near 17.9. Crowd still bearish (33) and chatter turned to oil/Brent going green and a reported hedge-fund tech unwind. No confirmed new catalysts.",
+    "whats_new": "SPY eased to +0.51% from +0.65% an hour ago and QQQ to +1.38% from +1.65%; VIX steady near 18. Crowd still bearish (34) and chatter centers on the 767 support and oil reacting to Trump deal talk. No confirmed new catalysts.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar, stocktwits; web search found nothing current"
+      "news": "stocklake calendar; web search found nothing current"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.65,
+      "value": 0.51,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -101,7 +101,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 33.0,
+      "value": 34.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
@@ -112,7 +112,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar, stocktwits; web search found nothing current"
+    "news": "stocklake calendar; web search found nothing current"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
