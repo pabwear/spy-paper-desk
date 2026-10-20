@@ -1,36 +1,37 @@
 {
   "date": "2026-10-20",
   "bias": "neutral",
-  "written_at": "2026-10-20T13:07:51-04:00",
-  "as_of": "2026-10-20T17:08:00Z",
+  "written_at": "2026-10-20T14:06:47-04:00",
+  "as_of": "2026-10-20T18:08:00Z",
   "readings": {
-    "as_of": "2026-10-20T17:08:00Z",
-    "spy_price": 769.26,
-    "spy_change_pct": 0.36,
-    "vix": 17.7,
-    "fear_greed": 29,
+    "as_of": "2026-10-20T18:08:00Z",
+    "spy_price": 769.63,
+    "spy_change_pct": 0.41,
+    "vix": 17.69,
+    "fear_greed": 27,
     "stocktwits": {
       "SPY": {
-        "score": 22,
-        "bullish_pct": 47.3
+        "score": 21,
+        "bullish_pct": 47.4
       }
     },
     "reddit": {
+      "score": 0,
       "posts": 0,
       "top": []
     },
     "news": {
       "score": 0,
       "headlines": [
-        "Canada CPI 3.1% y/y (Oct 19), core 2.2%",
-        "China Q3 GDP 4.5% y/y vs 4.3% prior",
         "UK and Canada CPI due Oct 21",
-        "Stocktwits posters flag a Trump/Vance announcement due around 17:30 UTC"
+        "UK ILO unemployment 4.7% vs 4.9% prior",
+        "China Q3 GDP 4.5% y/y",
+        "GM -8.5%, GE -4.0%, SE -7.9% among Stocktwits trending names; MRNA +6.2%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say a tweet about an Iran deal is moving markets today, but argue Iran will not agree to a deal before the midterms",
+        "text": "A poster says a DC source claims the war will be over this week",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -40,12 +41,12 @@
           "SPY": "SPDR S&P 500 ETF",
           "USO": "United States Oil Fund"
         },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "If the deal talk is false, the headline-driven bounce fades and the oil risk premium stays"
+        "direction": "up",
+        "credibility": 0.08,
+        "why": "If true, oil risk premium falls and stocks could rally, but the source is a friend of a poster"
       },
       {
-        "text": "Posters expect a big move (up to 2%) whichever way the Trump/Vance announcement goes",
+        "text": "Posters wait for a Trump/Vance announcement and expect a big move either way",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -55,22 +56,9 @@
           "SPY": "SPDR S&P 500 ETF",
           "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "Event risk could produce a sharp swing, but the content of the announcement is unknown"
-      },
-      {
-        "text": "Posters are heavily bearish on SPY while price is green, with talk of 750 and a crash; some are scalping calls near 769",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
         "direction": "down",
-        "credibility": 0.25,
-        "why": "Crowded bearish tilt could fade, or a break below the 768.21 gamma flip could extend the drop"
+        "credibility": 0.2,
+        "why": "Event risk with unknown content; the crowd is bearish into it"
       }
     ],
     "names": {
@@ -79,18 +67,18 @@
       "IWM": "iShares Russell 2000 ETF"
     },
     "plays": [],
-    "whats_new": "SPY is 769.26 (+0.36%), little changed from an hour ago, sitting just above the 768.21 gamma-flip level. Stocktwits SPY sentiment is 22 (extremely bearish) against a green tape, and posters are watching a Trump/Vance announcement due around 17:30 UTC. Small caps still lead (IWM +1.6%, QQQ +0.1%); biotech is bid (XBI +3.1%) while GE and SE fall.",
+    "whats_new": "SPY edged up to 769.63 (+0.41%) from 769.26 with VIX flat near 17.7 and fear and greed slipping to 27. Stocktwits SPY sentiment is still extremely bearish (21) against a green tape, and the 17:30 UTC announcement talk has not produced a confirmed headline. Small caps lead (IWM +1.7%) while GM, GE and SE fall hard.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar; web search found nothing current for today"
+      "news": "stocklake calendar; web search found nothing current"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.36,
+      "value": 0.41,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -102,13 +90,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 29.0,
+      "value": 27.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 22.0,
+      "value": 21.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
@@ -119,7 +107,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar; web search found nothing current for today"
+    "news": "stocklake calendar; web search found nothing current"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
