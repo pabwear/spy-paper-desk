@@ -1,18 +1,19 @@
 {
   "date": "2026-10-20",
   "bias": "neutral",
-  "written_at": "2026-10-20T10:11:00-04:00",
-  "as_of": "2026-10-20T14:15:00Z",
+  "written_at": "2026-10-20T11:10:53-04:00",
+  "as_of": "2026-10-20T15:12:00Z",
   "readings": {
-    "as_of": "2026-10-20T14:15:00Z",
-    "spy_price": 766.87,
-    "spy_change_pct": 0.47,
-    "vix": 18.75,
-    "fear_greed": 22,
+    "as_of": "2026-10-20T15:12:00Z",
+    "spy_price": 771.71,
+    "spy_change_pct": 0.68,
+    "vix": 17.7,
+    "vix_change_pct": -5.6,
+    "fear_greed": 29,
     "stocktwits": {
       "SPY": {
-        "score": 25,
-        "bullish_pct": 46.3
+        "score": 29,
+        "bullish_pct": 46.5
       }
     },
     "reddit": {
@@ -20,53 +21,42 @@
       "top": []
     },
     "news": {
-      "score": 0,
+      "score": -0.05,
       "headlines": [
+        "Elice IPO collapse puts AI infrastructure stocks under fresh pressure (Investing.com, via Stocktwits)",
         "Canada CPI 3.1% y/y (Oct 19), core 2.2%",
         "China Q3 GDP 4.5% y/y vs 4.3% prior",
-        "GM -5.7% and CoreWeave -1.6% in trading; LLY +4.3%",
-        "UK and Canada CPI due tomorrow"
+        "UK and Canada CPI due Oct 21"
       ]
     },
     "rumors": [
       {
-        "text": "Stocktwits posters keep calling for a US-Iran peace deal soon",
+        "text": "Posters say the Elice IPO flop is a fresh warning for AI-infrastructure/neocloud names",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "CRWV",
+          "IREN"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "A real deal would ease geopolitical and oil risk and lift the index; repeated every morning, unverified"
-      },
-      {
-        "text": "Posters say shorts have stop losses stacked just above 770 on SPY, so a break could squeeze",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.25,
-        "why": "A move through 770 could force short covering"
-      },
-      {
-        "text": "Posters say AI/neocloud names are unwinding a bubble",
-        "source": "stocktwits",
-        "tickers": [
-          "CRWV"
-        ],
-        "names": {
-          "CRWV": "CoreWeave"
+          "CRWV": "CoreWeave",
+          "IREN": "IREN Limited"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "Continued AI-infrastructure selling could weigh on QQQ-heavy SPY"
+        "credibility": 0.35,
+        "why": "More AI-infra selling could weigh on QQQ-heavy SPY, though CRWV is bouncing today"
+      },
+      {
+        "text": "Some posters call the SPY rise a news pump and are buying 7-day puts near 768",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "Crowded bearish positioning could fade the move, or fuel a squeeze if SPY keeps rising"
       }
     ],
     "names": {
@@ -79,52 +69,52 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Extreme fear (22) and bearish crowd (25) while SPY is up 0.47% with IWM and QQQ both rising; contrarian lean, but 770 may cap it",
-        "catalyst": "Possible Iran deal headlines; short covering above 770"
+        "confidence": 0.54,
+        "reason": "SPY broke above 770 (the level shorts were said to defend) while fear/greed is 29 and Stocktwits is bearish at 29; IWM +2% shows broad risk appetite. Contrarian lean, but momentum already faded in the chop",
+        "catalyst": "Short covering above 770; falling VIX"
       }
     ],
-    "whats_new": "SPY gain widened to +0.47% from +0.31% and VIX is steady near 18.75, while fear/greed stays at 22 and Stocktwits sentiment slipped to 25. Small caps (IWM +0.8%) are leading; GM is down about 5.7% and LLY up about 4.3%. Peace-deal chatter and the 770 level dominate the crowd.",
+    "whats_new": "SPY rose to 771.71 (+0.68%) from 766.87 and broke through 770, which the previous reading flagged as a squeeze level. VIX fell to 17.7 from 18.75 and fear/greed rose to 29 from 22, while Stocktwits stays bearish at 29. Small caps lead (IWM +2%); the US-Iran peace chatter was not seen this hour, and AI-infra worries now center on the Elice IPO.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar; web search found nothing current"
+      "news": "stocklake calendar; stocktwits links; web search found nothing current"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.47,
+      "value": 0.68,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": null,
-      "vote": 0,
-      "why": "missing"
+      "value": -5.6,
+      "vote": 1,
+      "why": "\u2264 -5.0"
     },
     {
       "reading": "fear_greed",
-      "value": 22.0,
+      "value": 29.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 25.0,
+      "value": 29.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar; web search found nothing current"
+    "news": "stocklake calendar; stocktwits links; web search found nothing current"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
