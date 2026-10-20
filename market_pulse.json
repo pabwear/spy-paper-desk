@@ -1,18 +1,18 @@
 {
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "bias": "neutral",
-  "written_at": "2026-10-19T15:07:11-04:00",
-  "as_of": "2026-10-19T19:08:00Z",
+  "written_at": "2026-10-20T09:10:38-04:00",
+  "as_of": "2026-10-20T13:12:00Z",
   "readings": {
-    "as_of": "2026-10-19T19:08:00Z",
-    "spy_price": 767.87,
-    "spy_change_pct": 0.6,
-    "vix": 17.99,
-    "fear_greed": 25,
+    "as_of": "2026-10-20T13:12:00Z",
+    "spy_price": 765.62,
+    "spy_change_pct": 0.31,
+    "vix": 18.75,
+    "fear_greed": 22,
     "stocktwits": {
       "SPY": {
-        "score": 33,
-        "bullish_pct": 46.5
+        "score": 28,
+        "bullish_pct": 46.3
       }
     },
     "reddit": {
@@ -20,39 +20,60 @@
       "top": []
     },
     "news": {
-      "score": 0.0,
+      "score": -0.1,
       "headlines": [
-        "China Q3 GDP 4.5% y/y vs 4.3% prior",
-        "Canada CPI 3.1% y/y vs 3.0% prior",
-        "QQQ +1.32%, IWM +0.24%, TLT -0.61%, GLD -0.54%"
+        "UK ILO unemployment 4.7% vs 4.9% prior",
+        "Canada CPI 3.1% y/y (released Oct 19)",
+        "Pre-market: GM -7%, CRM -2.9%, CRWV -3.8%, SMR -7.6%; USO +1.2%",
+        "UK and Canada CPI due tomorrow"
       ]
     },
     "rumors": [
       {
-        "text": "Stocktwits posters expect big companies to report earnings on the night of the 20th and a weak house sales print tomorrow, with SPY retesting 7700 before then",
+        "text": "Stocktwits posters say a new US-Iran proposal looks more realistic than earlier ones, with some closing shorts",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "SPY",
+          "USO"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "SPY": "SPDR S&P 500 ETF",
+          "USO": "United States Oil Fund"
         },
-        "direction": "down",
+        "direction": "up",
         "credibility": 0.25,
-        "why": "A soft housing print plus pre-earnings caution could pull the index back toward recent support"
+        "why": "A real deal would ease oil and geopolitical risk, lifting the index; other posters call it a fake peace deal every morning"
       },
       {
-        "text": "Stocktwits posters say sellers are waiting to dump SPY all at once while others call this a generational dip",
+        "text": "Stocktwits posters say neocloud/AI infrastructure names are in a bubble that is now unwinding",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "CRWV",
+          "NBIS",
+          "CBRS"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "CRWV": "CoreWeave",
+          "NBIS": "Nebius",
+          "CBRS": "Cerebras Systems"
         },
         "direction": "down",
+        "credibility": 0.3,
+        "why": "Continued AI-infrastructure selling could weigh on QQQ-heavy SPY"
+      },
+      {
+        "text": "A poster says CCXI SPAC merger gives exposure to Agility Digit robots used at Amazon, symbol changing to AGLT on 11/3",
+        "source": "stocktwits",
+        "tickers": [
+          "CCXI",
+          "AMZN"
+        ],
+        "names": {
+          "AMZN": "Amazon"
+        },
+        "direction": "up",
         "credibility": 0.15,
-        "why": "A crowded two-sided argument with no concrete catalyst; a late sell-off would hurt dip buyers"
+        "why": "Promotional small-cap hype with no confirmation; little effect on SPY"
       }
     ],
     "names": {
@@ -65,12 +86,12 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "SPY holds a gain near 768 while the crowd is bearish (score 33, fear/greed 25) and tech leads",
-        "catalyst": "Earnings week starting tomorrow"
+        "confidence": 0.52,
+        "reason": "Extreme fear (22) and bearish crowd (28) while SPY holds a gain and QQQ leads; contrarian lean",
+        "catalyst": "Possible US-Iran deal headlines; earnings week"
       }
     ],
-    "whats_new": "SPY firmed slightly to +0.6% from +0.51% an hour ago and QQQ eased to +1.32%; VIX unchanged near 18. Crowd stays bearish (33) with chatter about pre-earnings caution; trending names CRWV, DJT, QXO and CBRS are all weaker. No confirmed new catalysts.",
+    "whats_new": "SPY gain cooled to +0.31% from +0.6% last reading and VIX rose to 18.75; fear/greed fell to 22 (extreme fear) and Stocktwits sentiment dropped to 28. Pre-market weakness in GM, CRM and AI-infrastructure names; oil-linked USO is up and Iran peace-deal talk dominates chatter.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -81,7 +102,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.6,
+      "value": 0.31,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -93,13 +114,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 25.0,
+      "value": 22.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 33.0,
+      "value": 28.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
