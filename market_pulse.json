@@ -1,19 +1,18 @@
 {
   "date": "2026-10-20",
   "bias": "neutral",
-  "written_at": "2026-10-20T11:10:53-04:00",
-  "as_of": "2026-10-20T15:12:00Z",
+  "written_at": "2026-10-20T12:07:13-04:00",
+  "as_of": "2026-10-20T16:08:00Z",
   "readings": {
-    "as_of": "2026-10-20T15:12:00Z",
-    "spy_price": 771.71,
-    "spy_change_pct": 0.68,
+    "as_of": "2026-10-20T16:08:00Z",
+    "spy_price": 769.66,
+    "spy_change_pct": 0.41,
     "vix": 17.7,
-    "vix_change_pct": -5.6,
     "fear_greed": 29,
     "stocktwits": {
       "SPY": {
-        "score": 29,
-        "bullish_pct": 46.5
+        "score": 24,
+        "bullish_pct": 47.3
       }
     },
     "reddit": {
@@ -21,9 +20,8 @@
       "top": []
     },
     "news": {
-      "score": -0.05,
+      "score": 0,
       "headlines": [
-        "Elice IPO collapse puts AI infrastructure stocks under fresh pressure (Investing.com, via Stocktwits)",
         "Canada CPI 3.1% y/y (Oct 19), core 2.2%",
         "China Q3 GDP 4.5% y/y vs 4.3% prior",
         "UK and Canada CPI due Oct 21"
@@ -31,22 +29,22 @@
     },
     "rumors": [
       {
-        "text": "Posters say the Elice IPO flop is a fresh warning for AI-infrastructure/neocloud names",
+        "text": "Posters argue Iran will not strike a deal before the midterms, keeping the US-Iran conflict unresolved",
         "source": "stocktwits",
         "tickers": [
-          "CRWV",
-          "IREN"
+          "SPY",
+          "USO"
         ],
         "names": {
-          "CRWV": "CoreWeave",
-          "IREN": "IREN Limited"
+          "SPY": "SPDR S&P 500 ETF",
+          "USO": "United States Oil Fund"
         },
         "direction": "down",
-        "credibility": 0.35,
-        "why": "More AI-infra selling could weigh on QQQ-heavy SPY, though CRWV is bouncing today"
+        "credibility": 0.25,
+        "why": "No near-term de-escalation would keep oil and geopolitical risk premium elevated"
       },
       {
-        "text": "Some posters call the SPY rise a news pump and are buying 7-day puts near 768",
+        "text": "Some posters expect SPY to close red today and are buying 768 puts near the 768.86 VWAP",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -56,7 +54,22 @@
         },
         "direction": "down",
         "credibility": 0.25,
-        "why": "Crowded bearish positioning could fade the move, or fuel a squeeze if SPY keeps rising"
+        "why": "Crowded bearish positioning could fade the move or fuel a squeeze"
+      },
+      {
+        "text": "Posters expect a year-end rally starting around the midterms",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "RSP"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "RSP": "Invesco S&P 500 Equal Weight ETF"
+        },
+        "direction": "up",
+        "credibility": 0.3,
+        "why": "Would favor buying dips in broad indices into November"
       }
     ],
     "names": {
@@ -64,36 +77,27 @@
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF"
     },
-    "plays": [
-      {
-        "ticker": "SPY",
-        "direction": "up",
-        "horizon": "close",
-        "confidence": 0.54,
-        "reason": "SPY broke above 770 (the level shorts were said to defend) while fear/greed is 29 and Stocktwits is bearish at 29; IWM +2% shows broad risk appetite. Contrarian lean, but momentum already faded in the chop",
-        "catalyst": "Short covering above 770; falling VIX"
-      }
-    ],
-    "whats_new": "SPY rose to 771.71 (+0.68%) from 766.87 and broke through 770, which the previous reading flagged as a squeeze level. VIX fell to 17.7 from 18.75 and fear/greed rose to 29 from 22, while Stocktwits stays bearish at 29. Small caps lead (IWM +2%); the US-Iran peace chatter was not seen this hour, and AI-infra worries now center on the Elice IPO.",
+    "plays": [],
+    "whats_new": "SPY has faded to 769.66 (+0.41%) from 771.71 an hour ago, back under the 770 level. VIX is flat at 17.7 and fear/greed is about 29; Stocktwits SPY sentiment slipped to 24 (extremely bearish) from 29. Small caps still lead (IWM +1.6%, QQQ +0.1%); GE, RTX, SE and IREN are among trending decliners; Elice IPO worry did not resurface this hour.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar; stocktwits links; web search found nothing current"
+      "news": "stocklake calendar; web search found nothing current"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.68,
+      "value": 0.41,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -5.6,
-      "vote": 1,
-      "why": "\u2264 -5.0"
+      "value": null,
+      "vote": 0,
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -103,18 +107,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 29.0,
+      "value": 24.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar; stocktwits links; web search found nothing current"
+    "news": "stocklake calendar; web search found nothing current"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
