@@ -1,18 +1,18 @@
 {
   "date": "2026-10-21",
-  "bias": "neutral",
-  "written_at": "2026-10-21T10:12:52-04:00",
-  "as_of": "2026-10-21T14:14:00Z",
+  "bias": "bearish",
+  "written_at": "2026-10-21T11:07:27-04:00",
+  "as_of": "2026-10-21T15:08:00Z",
   "readings": {
-    "as_of": "2026-10-21T14:14:00Z",
-    "spy_price": 770.68,
-    "spy_change_pct": 0.55,
+    "as_of": "2026-10-21T15:08:00Z",
+    "spy_price": 769.82,
+    "spy_change_pct": 0.1,
     "vix": 17.35,
     "fear_greed": 29,
     "stocktwits": {
       "SPY": {
         "score": 26,
-        "bullish_pct": 48.5
+        "bullish_pct": 48.7
       }
     },
     "reddit": {
@@ -21,35 +21,19 @@
       "top": []
     },
     "news": {
-      "score": 0.1,
+      "score": -0.1,
       "headlines": [
         "UK CPI 3.5% y/y vs 3.1% prior",
         "Meta, Tesla and IBM report Q3 after the close today",
-        "BlackRock's Fink says a slow AI buildout would spur inflation",
-        "Stocktwits trending: NFLX -3.8%, T -5.4%, CMG -4.5%, SMCI +10.5%, SPCX +11.6%, GOOG -2.9%",
-        "IWM +2.2%, QQQ +0.4%, TLT +1.2%, GLD -0.2%"
+        "Trump says 'doing very well' with Iran; oil near five-month highs",
+        "Citadel's Ken Griffin says investors almost certainly in an AI bubble",
+        "Stocktwits trending: SPCX +9.6%, SMCI +11%, NFLX -4.4%, BABA -4.5%, GOOG -2.6%, ISRG -3.2%",
+        "QQQ +0.7%, IWM +0.5%, TLT +1.1%, GLD +0.2%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say AI-linked names (GOOGL and others) will dump back unless the broad market recovers",
-        "source": "stocktwits",
-        "tickers": [
-          "GOOGL",
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "GOOGL": "Alphabet",
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Opinion with no catalyst; GOOG is down about 2.9% so the AI group is lagging today"
-      },
-      {
-        "text": "Heavy retail put buying on SPY at 762-769 strikes for 0DTE and Oct 23 expiry",
+        "text": "An Iran war resolution or peace announcement could come any moment",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -57,40 +41,82 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "A deal would drop oil and lift risk assets; Trump's remarks about a 'nice way or not nice way' keep it unconfirmed"
+      },
+      {
+        "text": "Unusual SPY call volume at the 778 strike",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.25,
+        "why": "If real, upside positioning could pull SPY through the repeated 771 rejections; a single post, unverified"
+      },
+      {
+        "text": "Meta earnings after the close will hit the market hard",
+        "source": "stocktwits",
+        "tickers": [
+          "META",
+          "QQQ",
+          "SPY"
+        ],
+        "names": {
+          "META": "Meta Platforms",
+          "QQQ": "Invesco QQQ Trust",
+          "SPY": "SPDR S&P 500 ETF"
+        },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "A crowded bearish lean against a green tape can squeeze higher, or signal fading momentum if SPY loses 769"
+        "credibility": 0.15,
+        "why": "Pure opinion; a big miss or capex shock could weigh on AI names and the index tomorrow"
+      },
+      {
+        "text": "MU is about to lead the market to new highs above 820",
+        "source": "stocktwits",
+        "tickers": [
+          "MU"
+        ],
+        "names": {
+          "MU": "Micron Technology"
+        },
+        "direction": "up",
+        "credibility": 0.1,
+        "why": "Single bullish post with no catalyst; would help chip-heavy indexes if true"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF"
+      "QQQ": "Invesco QQQ Trust"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Tape is green with small caps leading and VIX at 17, while retail is crowded into puts (sentiment 26); squeeze potential, but the AI group lags",
-        "catalyst": "Sentiment versus price divergence; Meta and Tesla earnings after the close"
+        "confidence": 0.52,
+        "reason": "Crowd is bearish (score 26) and leaning on puts while SPY holds the 768-771 range; weak edge, repeated 771 rejections cap it",
+        "catalyst": "Sentiment vs price divergence; Meta and Tesla earnings after the close"
       }
     ],
-    "whats_new": "SPY is about flat versus last hour at 770.68 (+0.55%), just under the 772 level, with VIX unchanged at 17.35 and fear and greed at 29. Stocktwits SPY sentiment is still bearish (26) and chatter is heavy with put buying. GOOG is weak (-2.9%) while NFLX, AT&T and CMG are down 4 to 5% and SMCI and SpaceX are up about 10 to 12%.",
+    "whats_new": "SPY cooled to +0.1% at about 769.8 (was +0.55% at 770.68) after repeated rejections near 771, with VIX flat at 17.35 and fear and greed 29. Stocktwits SPY sentiment is still bearish at 26 and chatter focuses on Iran headlines, the AI bubble warning and tonight's Meta and Tesla earnings. GOOG/GOOGL and NFLX stay weak while SMCI and SpaceX lead.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar; stocktwits trending; one web search (no useful results)"
+      "news": "stocklake calendar; stocktwits messages and trending; one web search (stale results)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.55,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": 0.1,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
@@ -111,13 +137,13 @@
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar; stocktwits trending; one web search (no useful results)"
+    "news": "stocklake calendar; stocktwits messages and trending; one web search (stale results)"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
