@@ -1,19 +1,18 @@
 {
   "date": "2026-10-21",
   "bias": "neutral",
-  "written_at": "2026-10-21T09:14:37-04:00",
-  "as_of": "2026-10-21T13:15:00Z",
+  "written_at": "2026-10-21T10:12:52-04:00",
+  "as_of": "2026-10-21T14:14:00Z",
   "readings": {
-    "as_of": "2026-10-21T13:15:00Z",
-    "spy_price": 771.11,
-    "spy_change_pct": 0.6,
+    "as_of": "2026-10-21T14:14:00Z",
+    "spy_price": 770.68,
+    "spy_change_pct": 0.55,
     "vix": 17.35,
-    "vix_change_pct": -1.9,
     "fear_greed": 29,
     "stocktwits": {
       "SPY": {
-        "score": 27,
-        "bullish_pct": 48.3
+        "score": 26,
+        "bullish_pct": 48.5
       }
     },
     "reddit": {
@@ -24,31 +23,33 @@
     "news": {
       "score": 0.1,
       "headlines": [
-        "UK CPI 3.5% y/y vs 3.1% prior; Canada CPI due 12:30 UTC today",
-        "Meta and Tesla (and IBM) report Q3 results after the close today",
-        "Stocktwits trending pre-market: NFLX -6.6%, T -6.6%, SMCI +11.8%, SPCX +8.1%",
-        "IWM +2.0%, QQQ +0.45%, TLT +1.1%, GLD -0.4%",
-        "Last week Nasdaq fell 4.5% and S&P 500 fell 2.0%; futures bounced Monday"
+        "UK CPI 3.5% y/y vs 3.1% prior",
+        "Meta, Tesla and IBM report Q3 after the close today",
+        "BlackRock's Fink says a slow AI buildout would spur inflation",
+        "Stocktwits trending: NFLX -3.8%, T -5.4%, CMG -4.5%, SMCI +10.5%, SPCX +11.6%, GOOG -2.9%",
+        "IWM +2.2%, QQQ +0.4%, TLT +1.2%, GLD -0.2%"
       ]
     },
     "rumors": [
       {
-        "text": "A wire post says JPMorgan raised its SpaceX price target from $240 to about $500",
+        "text": "Posters say AI-linked names (GOOGL and others) will dump back unless the broad market recovers",
         "source": "stocktwits",
         "tickers": [
-          "SPCX",
-          "JPM"
+          "GOOGL",
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "SPCX": "SpaceX",
-          "JPM": "JPMorgan Chase"
+          "GOOGL": "Alphabet",
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "If true it explains SpaceX strength pre-market; the source is a low-quality news blog and the figure is garbled"
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Opinion with no catalyst; GOOG is down about 2.9% so the AI group is lagging today"
       },
       {
-        "text": "Posters expect SPY to reject near 772 and fall back to about 759, while others call for 775-780 by the close",
+        "text": "Heavy retail put buying on SPY at 762-769 strikes for 0DTE and Oct 23 expiry",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -57,8 +58,8 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.15,
-        "why": "Two-sided chart talk with no catalyst; 772 is the level both camps watch"
+        "credibility": 0.3,
+        "why": "A crowded bearish lean against a green tape can squeeze higher, or signal fading momentum if SPY loses 769"
       }
     ],
     "names": {
@@ -71,31 +72,31 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.54,
-        "reason": "Tape is green with small caps leading and VIX easing, while crowd sentiment is still bearish (27); a crowded bearish lean can squeeze, but 772 is resistance",
+        "confidence": 0.53,
+        "reason": "Tape is green with small caps leading and VIX at 17, while retail is crowded into puts (sentiment 26); squeeze potential, but the AI group lags",
         "catalyst": "Sentiment versus price divergence; Meta and Tesla earnings after the close"
       }
     ],
-    "whats_new": "SPY rose to 771.11 (+0.6%) from 768.2 last hour, and VIX slipped to 17.35 with fear and greed at 29. Stocktwits SPY sentiment is still bearish (27) against a green tape, with small caps leading. NFLX and AT&T are down about 6.6% pre-market, and Meta and Tesla report after the close.",
+    "whats_new": "SPY is about flat versus last hour at 770.68 (+0.55%), just under the 772 level, with VIX unchanged at 17.35 and fear and greed at 29. Stocktwits SPY sentiment is still bearish (26) and chatter is heavy with put buying. GOOG is weak (-2.9%) while NFLX, AT&T and CMG are down 4 to 5% and SMCI and SpaceX are up about 10 to 12%.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar; stocktwits trending; one web search"
+      "news": "stocklake calendar; stocktwits trending; one web search (no useful results)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.6,
+      "value": 0.55,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -1.9,
+      "value": null,
       "vote": 0,
-      "why": "in the neutral band"
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -105,7 +106,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 27.0,
+      "value": 26.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
@@ -116,7 +117,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar; stocktwits trending; one web search"
+    "news": "stocklake calendar; stocktwits trending; one web search (no useful results)"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
