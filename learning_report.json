@@ -1,7 +1,7 @@
 {
-  "trained_at": "2026-10-20T16:10:25-04:00",
+  "trained_at": "2026-10-21T16:10:28-04:00",
   "mode": "shadow",
-  "closed_trades": 24,
+  "closed_trades": 25,
   "learnable_trades": 9,
   "min_trades_to_act": 30,
   "model": null,
@@ -61,9 +61,9 @@
       "active": false
     }
   ],
-  "trades": 24,
+  "trades": 25,
   "losses": 12,
-  "loss_rate": 0.5,
+  "loss_rate": 0.48,
   "mistakes": [
     {
       "tag": "flattened_red_at_close",
@@ -157,20 +157,31 @@
     {
       "tag": "exit_failed",
       "label": "Exit order failed",
-      "count": 6
+      "count": 7
     },
     {
       "tag": "no_market_data",
       "label": "No market data",
-      "count": 7
+      "count": 8
     },
     {
       "tag": "no_contract",
       "label": "No listed option contract found",
-      "count": 73
+      "count": 83
     }
   ],
   "recent": [
+    {
+      "symbol": "SPY261021P00766000",
+      "opened_at": "2026-10-21T10:00:36-04:00",
+      "closed_at": "2026-10-21T15:40:26-04:00",
+      "pnl": 31.0,
+      "result": "win",
+      "exit_reason": "flatten",
+      "mistakes": [],
+      "p_loss": null,
+      "tags": []
+    },
     {
       "symbol": "SPY261020P00765000",
       "opened_at": "2026-10-20T10:20:41-04:00",
