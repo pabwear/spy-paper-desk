@@ -1,19 +1,18 @@
 {
   "date": "2026-10-21",
   "bias": "neutral",
-  "written_at": "2026-10-21T12:07:23-04:00",
-  "as_of": "2026-10-21T16:10:00Z",
+  "written_at": "2026-10-21T13:06:49-04:00",
+  "as_of": "2026-10-21T17:08:00Z",
   "readings": {
-    "as_of": "2026-10-21T16:10:00Z",
-    "spy_price": 772.44,
-    "spy_change_pct": 0.44,
+    "as_of": "2026-10-21T17:08:00Z",
+    "spy_price": 773.16,
+    "spy_change_pct": 0.53,
     "vix": 17.09,
-    "vix_change_pct": -1.5,
     "fear_greed": 30,
     "stocktwits": {
       "SPY": {
-        "score": 23,
-        "bullish_pct": 48.6
+        "score": 19,
+        "bullish_pct": 49
       }
     },
     "reddit": {
@@ -26,26 +25,13 @@
       "headlines": [
         "UK CPI 3.5% y/y vs 3.1% prior",
         "Meta, Tesla and IBM report Q3 after the close today",
-        "QQQ +1.0%, IWM +0.4%, TLT flat, GLD +0.3%",
-        "Stocktwits trending: SPCX +10%, SMCI +9%, NFLX -4.9%, BABA -3.8%, GOOG -2.3%, GOOGL -2.2%"
+        "QQQ +1.2%, IWM +0.4%, TLT +0.15%, GLD +0.3%",
+        "Stocktwits trending: SPCX +9.5%, SMCI +10%, NFLX -4.9%, GOOG -2.0%, JD -4.0%, SOXX +2.3%"
       ]
     },
     "rumors": [
       {
-        "text": "Iran war resolution or peace announcement could come any moment (some posters sarcastically say 'the war is over')",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "A deal would drop oil and lift risk assets; still unconfirmed"
-      },
-      {
-        "text": "Meta earnings after the close will hit the market hard",
+        "text": "Meta earnings/capex after the close will hit the market hard",
         "source": "stocktwits",
         "tickers": [
           "META",
@@ -62,17 +48,30 @@
         "why": "Pure opinion; a capex shock could weigh on AI names tomorrow"
       },
       {
-        "text": "GOOGL is 2.4% below its 200-day average and is a better short than long",
+        "text": "Russia/Ukraine or Iran war settlement could come soon (posters hint at peace deals)",
         "source": "stocktwits",
         "tickers": [
-          "GOOGL"
+          "SPY"
         ],
         "names": {
-          "GOOGL": "Alphabet"
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.15,
+        "why": "A deal would lower oil and lift risk assets; unconfirmed"
+      },
+      {
+        "text": "SPY has been double-topping; losing 773.26 would trigger a drop",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "Technical view from one poster; GOOG/GOOGL are down about 2% today and could drag the index"
+        "why": "Technical view from one poster; rally is on thin volume per other posters"
       }
     ],
     "names": {
@@ -84,12 +83,12 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Crowd is very bearish (score 23) while SPY is up 0.44% and bounced about $5 off the lows; weak edge as it keeps drifting back toward the lows",
+        "confidence": 0.54,
+        "reason": "Crowd very bearish (score 19) while SPY is up 0.5% with QQQ +1.2%; contrarian edge is weak and the rally is called thin",
         "catalyst": "Sentiment vs price divergence; Meta and Tesla earnings after the close"
       }
     ],
-    "whats_new": "SPY rose to 772.44 (+0.44%, was +0.1% at 769.8) with VIX easing to 17.1 and fear and greed 30. Stocktwits SPY sentiment fell further to 23 even as price climbed, and QQQ is up 1%. GOOG/GOOGL and NFLX are weak while SpaceX and SMCI lead trending; Meta, Tesla and IBM earnings come after the close.",
+    "whats_new": "SPY extended to 773.16 (+0.53%, was 772.44) and QQQ to +1.2%, while VIX held near 17.1 and fear and greed stayed at 30. Stocktwits SPY sentiment dropped to 19 (extremely bearish) even as price rose, with posters calling the move thin-volume. SMCI and SOXX are strong, NFLX and GOOG weak; Meta, Tesla and IBM report after the close.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -100,15 +99,15 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.44,
+      "value": 0.53,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -1.5,
+      "value": null,
       "vote": 0,
-      "why": "in the neutral band"
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -118,7 +117,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 23.0,
+      "value": 19.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
