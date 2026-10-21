@@ -15,7 +15,7 @@ keep learning from it; these notes are the record.
 - ML shadow: 34 predictions, p 0.41–0.50, no would-be entry. Forward: 228 scored, Brier 0.252 vs ≈0.249 base rate.
 - Crypto: no orders; checks every 3–6 h, last 18:31 UTC. Anomaly unchanged (cash −$3,707.05). BTC $481 and ETH $474
   held, both 14% above their 200-day averages. SOL learning book in cash ($106.44 vs $106.73 seven days earlier).
-- Three small spread wins this week (+$69 together) have recovered about a fifth of Friday's −$386: the pattern the
+- Three small spread wins this week (≈ +$53 together, after the expired long legs) have recovered about a seventh of Friday's −$386: the pattern the
   real-price backtest describes. Still waiting for Roy on turning the spread book off and the $10k reset.
 
 ### Tue Oct 20 2026 — +$14.92 (equity $677.55; −$322.45 since the $1,000 start; week +$29.75)
