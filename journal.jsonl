@@ -3209,3 +3209,4 @@
 {"ts": "2026-10-20T16:50:22-04:00", "event": "account", "equity": 677.55, "cash": 677.55, "buying_power": 677.55, "position": {"symbol": "SPY261020P00760000", "asset_class": "us_option", "qty": 1.0, "avg_entry_price": 0.07, "current_price": 0.0, "market_value": 0.0, "unrealized_pl": -7.0, "unrealized_plpc": -1.0}}
 {"ts": "2026-10-21T09:00:33-04:00", "event": "account", "equity": 677.46, "cash": 677.46, "buying_power": 677.46, "position": null}
 {"ts": "2026-10-21T09:10:25-04:00", "event": "account", "equity": 677.46, "cash": 677.46, "buying_power": 677.46, "position": null}
+{"ts": "2026-10-21T09:14:37-04:00", "event": "pulse", "bias": "neutral", "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral.", "sources": {"market_pulse": "stocklake", "sentiment_flow": "stocktwits", "reddit": "unavailable (blocked)", "news": "stocklake calendar; stocktwits trending; one web search"}, "net_votes": -1}
