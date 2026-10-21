@@ -1,18 +1,18 @@
 {
   "date": "2026-10-21",
   "bias": "neutral",
-  "written_at": "2026-10-21T14:06:56-04:00",
-  "as_of": "2026-10-21T18:08:00Z",
+  "written_at": "2026-10-21T15:07:12-04:00",
+  "as_of": "2026-10-21T19:08:00Z",
   "readings": {
-    "as_of": "2026-10-21T18:08:00Z",
-    "spy_price": 773.95,
-    "spy_change_pct": 0.64,
+    "as_of": "2026-10-21T19:08:00Z",
+    "spy_price": 771.47,
+    "spy_change_pct": 0.32,
     "vix": 16.61,
     "fear_greed": 32,
     "stocktwits": {
       "SPY": {
-        "score": 21,
-        "bullish_pct": 49
+        "score": 19,
+        "bullish_pct": 50
       }
     },
     "reddit": {
@@ -25,59 +25,56 @@
       "headlines": [
         "UK CPI 3.5% y/y vs 3.1% prior",
         "Meta, Tesla and IBM report Q3 after the close today",
-        "QQQ +1.3%, IWM +0.45%, TLT +0.17%, GLD +0.38%",
-        "Stocktwits trending: SPCX +6.9%, ASST +15%, SKYD +9%, NFLX -4.5%, LRCX -1.1%, JD -3.7%"
+        "Canada CPI released 12:30 UTC today",
+        "QQQ +1.3%, IWM +0.55%, TLT +0.12%, GLD +0.44% at last pulse",
+        "Stocktwits trending: SPCX +6.7%, ASST +13.6%, SKYD +8.9%, TSLA +3.2%, UAL +4%, CMG -5.9%, JD -4%, LRCX -1.1%"
       ]
     },
     "rumors": [
       {
-        "text": "Bad Meta earnings tonight would send QQQ to about 710 tomorrow",
-        "source": "stocktwits",
-        "tickers": [
-          "META",
-          "QQQ",
-          "SPY"
-        ],
-        "names": {
-          "META": "Meta Platforms",
-          "QQQ": "Invesco QQQ Trust",
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Opinion only; a capex or guidance shock could hit AI and mega-cap names"
-      },
-      {
-        "text": "Posters claim high-risk rumors around Meta and Tesla reports and say the day's high is in as VIX bounces",
-        "source": "stocktwits",
-        "tickers": [
-          "TSLA",
-          "META",
-          "SPY"
-        ],
-        "names": {
-          "TSLA": "Tesla",
-          "META": "Meta Platforms",
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Unspecified rumors; if earnings disappoint, tomorrow's open could slip"
-      },
-      {
-        "text": "SPY 772 and QQQ 725 are floors for today; a double top near 774 caps the rally",
+        "text": "US consulate told to evacuate the Gulf; posters say the US is preparing for war and the Middle East is being bombed",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "QQQ"
+          "USO"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
+          "USO": "United States Oil Fund"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Unverified single posts; if true it would hit risk assets and lift oil and defense"
+      },
+      {
+        "text": "Bad Meta or Tesla earnings tonight would drag QQQ and the market lower tomorrow",
+        "source": "stocktwits",
+        "tickers": [
+          "META",
+          "TSLA",
+          "QQQ"
+        ],
+        "names": {
+          "META": "Meta Platforms",
+          "TSLA": "Tesla",
           "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "up",
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Opinion only; a capex or guidance shock could hit mega-cap tech and the index"
+      },
+      {
+        "text": "SPY has dropped back to its 200-day average and sellers are buying puts all day; 774-775 is the cap",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
         "credibility": 0.25,
-        "why": "Chart levels from retail posters; holding them keeps the dip-buy bid alive"
+        "why": "Retail chart read; losing it opens a slide into tomorrow's open"
       }
     ],
     "names": {
@@ -89,23 +86,23 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Crowd extremely bearish (score 21) while SPY is up 0.64% and VIX fell to 16.6; contrarian edge is weak and 774 resistance is close",
-        "catalyst": "Sentiment vs price divergence ahead of Meta and Tesla earnings after the close"
+        "confidence": 0.52,
+        "reason": "Crowd extremely bearish (score 19) while SPY is still green and VIX is only 16.6; contrarian edge is weak after the fade from 774",
+        "catalyst": "Sentiment vs price divergence ahead of Meta and Tesla earnings"
       }
     ],
-    "whats_new": "SPY edged up to 773.95 (+0.64%, was 773.16) and QQQ to +1.3%, while VIX eased to 16.6 and fear and greed ticked up to about 32. Stocktwits SPY sentiment stays extremely bearish at 21 with many put buyers, and Meta and Tesla earnings after the close dominate chatter. SpaceX, Strive and Skydance lead trending; Netflix and JD are weak.",
+    "whats_new": "SPY faded to 771.47 (+0.32%) from 773.95 an hour ago, while Stocktwits sentiment slipped further to 19, extremely bearish. New chatter of Gulf evacuation and war talk is unverified single posts. Meta and Tesla earnings after the close still dominate; Tesla is up 3% into the report.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar; stocktwits messages and trending; one web search (stale results, not used)"
+      "news": "stocklake calendar; stocktwits; one web search (stale, not used)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.64,
+      "value": 0.32,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -123,7 +120,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 21.0,
+      "value": 19.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
@@ -134,7 +131,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar; stocktwits messages and trending; one web search (stale results, not used)"
+    "news": "stocklake calendar; stocktwits; one web search (stale, not used)"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
