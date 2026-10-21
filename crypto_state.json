@@ -1,39 +1,39 @@
 {
-  "updated_at": "2026-10-20T22:14:53+00:00",
+  "updated_at": "2026-10-21T01:25:57+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": -2772.39,
+  "equity": -2775.45,
   "cash": -3707.05,
   "last_equity": -2794.627706193875,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 471.385353,
-      "unrealized_pl": 1.871218,
-      "current_price": 82979.174
+      "market_value": 470.675121,
+      "unrealized_pl": 1.160986,
+      "current_price": 82854.15
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 463.269862,
-      "unrealized_pl": -6.271857,
-      "current_price": 2459.7
+      "market_value": 460.926862,
+      "unrealized_pl": -8.614857,
+      "current_price": 2447.26
     }
   },
   "signals": {
     "BTC/USD": {
       "hold": true,
-      "close": 81835.4885,
-      "average": 72570.91,
+      "close": 82940.9935,
+      "average": 72650.81,
       "days": 419
     },
     "ETH/USD": {
       "hold": true,
-      "close": 2405.1295,
-      "average": 2149.32,
+      "close": 2446.809,
+      "average": 2151.28,
       "days": 419
     }
   },
@@ -106,6 +106,10 @@
     {
       "date": "2026-10-20",
       "equity": -2772.39
+    },
+    {
+      "date": "2026-10-21",
+      "equity": -2775.45
     }
   ],
   "equity_history": [
@@ -124,11 +128,11 @@
   ],
   "pnl_periods": {
     "as_of": "2026-10-20",
-    "equity": -2772.39,
-    "today": 22.24,
-    "week": -3761.11,
-    "month": -3772.39,
-    "all": -3772.39,
+    "equity": -2775.45,
+    "today": 19.18,
+    "week": -3764.17,
+    "month": -3775.45,
+    "all": -3775.45,
     "start_usd": 1000.0
   },
   "learning": {
@@ -138,8 +142,8 @@
     "stop_pct": 6,
     "enabled": true,
     "hold": false,
-    "close": 104.9415,
-    "close_7d_ago": 105.592,
+    "close": 106.4365,
+    "close_7d_ago": 106.7305,
     "position": null,
     "stop_price": null,
     "trades": 0,
