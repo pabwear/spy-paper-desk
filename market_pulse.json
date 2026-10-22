@@ -1,17 +1,17 @@
 {
   "date": "2026-10-22",
   "bias": "bearish",
-  "written_at": "2026-10-22T09:10:40-04:00",
-  "as_of": "2026-10-22T13:10:00Z",
+  "written_at": "2026-10-22T10:09:30-04:00",
+  "as_of": "2026-10-22T14:12:00Z",
   "readings": {
-    "as_of": "2026-10-22T13:10:00Z",
-    "spy_price": 766.02,
-    "spy_change_pct": -0.92,
-    "vix": 16.63,
-    "fear_greed": 32,
+    "as_of": "2026-10-22T14:12:00Z",
+    "spy_price": 766.62,
+    "spy_change_pct": -0.32,
+    "vix": 18.19,
+    "fear_greed": 30,
     "stocktwits": {
       "SPY": {
-        "score": 7,
+        "score": 8,
         "bullish_pct": 50
       }
     },
@@ -23,71 +23,71 @@
     "news": {
       "score": -0.3,
       "headlines": [
-        "Premarket movers on Stocktwits trending: META -2.4%, IBM -7.7%, TSLA -3.6%, LRCX -10.1%, NOK -7.9%, AAL -4.4%, LMT +5.0%, SPOT +7.0%, BHVN +36%",
-        "Meta, Tesla and IBM reported Q3 after the close Oct 21",
-        "Japan CPI due 23:30 UTC tonight; no major US data seen on today's calendar",
-        "Stocklake pulse is stale (Oct 21 close): QQQ -0.53%, TLT +1.14%, GLD -0.92%"
+        "Stocktwits posts cite CNBC: US reportedly weighs fresh Iran strikes after midterms; oil jumped overnight",
+        "Tesla Q3: profit fell, revenue flat; stock lower after the report. Meta -5.3% on earnings",
+        "Long-dated Treasury yields at one-month low as money moves to bonds (TLT +1.1%)",
+        "China CSI 300 reportedly entered a bear market; Alibaba hit by new Beijing e-commerce rules",
+        "Trending: META -5.3%, NOK -8.2%, IBM -3.2%, LRCX -8.4%, LMT +6.7%, BHVN +29%"
       ]
     },
     "rumors": [
       {
-        "text": "Retail posters say the Tesla capex plan is a problem for the AI trade and that selling is heavy before the open",
-        "source": "stocktwits",
+        "text": "US and Israel reportedly weigh fresh strikes on Iran, possibly after the midterms",
+        "source": "news",
         "tickers": [
-          "TSLA",
-          "QQQ",
-          "SPY"
+          "SPY",
+          "LMT"
         ],
         "names": {
-          "TSLA": "Tesla",
+          "SPY": "SPDR S&P 500 ETF",
+          "LMT": "Lockheed Martin"
+        },
+        "direction": "down",
+        "credibility": 0.4,
+        "why": "Higher oil and geopolitical risk pressure the index and lift defense names"
+      },
+      {
+        "text": "Posters say the SPY bounce off the open is a bull trap or dead cat bounce",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
+        "credibility": 0.2,
+        "why": "If the bounce fades, the 760 support area is retested"
+      },
+      {
+        "text": "Tesla results and SpaceX merger talk are dragging the index because of Tesla's weight",
+        "source": "stocktwits",
+        "tickers": [
+          "TSLA",
+          "SPY"
+        ],
+        "names": {
+          "TSLA": "Tesla"
+        },
+        "direction": "down",
         "credibility": 0.3,
-        "why": "If big tech capex worries spread, mega-cap tech and the index slide"
+        "why": "A heavy index weight falling adds drag on SPY"
       },
       {
-        "text": "Posters suspect someone knew about overnight Asia sell orders, pointing to odd AAPL strength yesterday; a real sell-off only comes when AAPL gets hit",
+        "text": "Diesel going through the roof; transport stocks are being pumped to prop the market",
         "source": "stocktwits",
         "tickers": [
-          "AAPL",
+          "CSX",
           "SPY"
         ],
         "names": {
-          "AAPL": "Apple",
-          "SPY": "SPDR S&P 500 ETF"
+          "CSX": "CSX Corp"
         },
         "direction": "down",
-        "credibility": 0.1,
-        "why": "Speculation about informed selling; no evidence, would mean more downside"
-      },
-      {
-        "text": "Iran-related war talk continues; defense name LMT is up about 5% premarket",
-        "source": "stocktwits",
-        "tickers": [
-          "LMT",
-          "SPY"
-        ],
-        "names": {
-          "LMT": "Lockheed Martin",
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "Geopolitical escalation would pressure the index and lift defense"
-      },
-      {
-        "text": "SPY 760 support breaking would end the uptrend that has held since June",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "A break of the trend could trigger fear and more selling"
+        "credibility": 0.2,
+        "why": "Rising fuel costs squeeze consumers and margins"
       }
     ],
     "names": {
@@ -100,22 +100,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Crowd extremely bearish (score 7) after a -0.9% premarket drop toward 760-765 support; contrarian bounce is a thin edge",
-        "catalyst": "Sentiment extreme vs support near 760-765 at the open"
+        "reason": "Crowd extremely bearish (score 8) yet SPY already recovered from -0.9% premarket to -0.3%; contrarian edge is thin",
+        "catalyst": "Sentiment extreme versus price holding above 760 support"
       }
     ],
-    "whats_new": "SPY fell to 766.02 premarket (-0.9%) from 771.47 at the last reading, and Stocktwits sentiment dropped to 7 (extremely bearish). Meta, Tesla, IBM and LRCX trade lower premarket after the earnings, and defense (LMT +5%) is bid on war talk. Gulf-evacuation chatter did not repeat.",
+    "whats_new": "SPY recovered to 766.62 (-0.3%) from -0.9% premarket, while Stocktwits sentiment stays extremely bearish (8). The Iran strike report and oil jump are now the main story; Meta, IBM, LRCX and Nokia fall on earnings and defense (LMT) is bid. VIX is up to 18.2 and fear and greed is about 30.",
     "sources": {
-      "market_pulse": "stocklake (vix and fear-greed stale from Oct 21)",
+      "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending and posts; stocklake calendar; web search found nothing current"
+      "news": "stocktwits posts and trending; stocklake calendar; web search found nothing current"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.92,
+      "value": -0.32,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -127,13 +127,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 32.0,
+      "value": 30.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 7.0,
+      "value": 8.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
@@ -141,10 +141,10 @@
   "net_votes": -3,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (vix and fear-greed stale from Oct 21)",
+    "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending and posts; stocklake calendar; web search found nothing current"
+    "news": "stocktwits posts and trending; stocklake calendar; web search found nothing current"
   },
   "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
