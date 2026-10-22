@@ -1,18 +1,18 @@
 {
   "date": "2026-10-22",
   "bias": "bearish",
-  "written_at": "2026-10-22T14:06:42-04:00",
-  "as_of": "2026-10-22T18:10:00Z",
+  "written_at": "2026-10-22T15:07:13-04:00",
+  "as_of": "2026-10-22T19:10:00Z",
   "readings": {
-    "as_of": "2026-10-22T18:10:00Z",
-    "spy_price": 763.72,
-    "spy_change_pct": -1.21,
+    "as_of": "2026-10-22T19:10:00Z",
+    "spy_price": 761.78,
+    "spy_change_pct": -1.46,
     "vix": 18.38,
     "fear_greed": 20,
     "stocktwits": {
       "SPY": {
         "score": 5,
-        "bullish_pct": 49.88
+        "bullish_pct": 49.48
       }
     },
     "reddit": {
@@ -23,58 +23,47 @@
     "news": {
       "score": -0.5,
       "headlines": [
-        "Stocktwits trending: MRNA -25.6%, SOXL -19.4%, NOK -13.8%, GEV -11.2%, SNDK -9.2%, SPCX -8.7%, META -7.6%",
-        "QQQ -2.6% vs IWM -0.2%: selloff concentrated in tech/semis; TLT +1.7%, GLD -2.2%",
-        "ABC News on X: Israel and US have drawn up plans to renew joint strikes on Iran in coming weeks, almost certainly after US midterms (per Israeli sources)"
+        "Stocktwits trending: MRNA -25%, SOXL -20.5%, NOK -15%, SPCX -8.8%, AMZN -5.1%, META -8%, INTC -8%, AMD -8.5%",
+        "QQQ -3.0% vs IWM -0.3%: selloff concentrated in tech/semis; TLT +2.0%, GLD -2.5%",
+        "Only minor foreign CPI data on the calendar; no major US release today"
       ]
     },
     "rumors": [
       {
-        "text": "ABC News reportedly cites two Israeli sources saying US-Israel plans to renew strikes on Iran are drawn up, likely after the US midterms",
+        "text": "Post citing unusual_whales/Goldman: hedge funds shorting stocks at near-record levels, short sales outpacing purchases about 5 to 1",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "GLD"
+          "QQQ",
+          "SOXX"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "GLD": "SPDR Gold Shares"
+          "QQQ": "Invesco QQQ Trust",
+          "SOXX": "iShares Semiconductor ETF"
         },
-        "direction": "down",
-        "credibility": 0.4,
-        "why": "Timing after midterms limits near-term impact, but it adds geopolitical risk premium later"
+        "direction": "up",
+        "credibility": 0.35,
+        "why": "Crowded shorts can fuel a squeeze bounce, but the link may be a re-shared older post"
       },
       {
-        "text": "Posters say funds are being liquidated: 'how many funds are getting liquidated today', 'liquidation mode' as META, SMH and QQQ drop",
+        "text": "Posters call the selloff the start of an AI bubble burst (compute, neocloud, datacenter, hyperscaler names)",
         "source": "stocktwits",
         "tickers": [
           "QQQ",
           "SMH",
-          "META",
-          "SOXL"
+          "AMD",
+          "META"
         ],
         "names": {
           "QQQ": "Invesco QQQ Trust",
           "SMH": "VanEck Semiconductor ETF",
-          "META": "Meta Platforms",
-          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares"
+          "AMD": "Advanced Micro Devices",
+          "META": "Meta Platforms"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "Forced deleveraging of crowded tech and chip longs could keep pressuring the Nasdaq"
-      },
-      {
-        "text": "Posters expect a snap-back: 'it goes back up and then bears say this makes no sense'",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
         "credibility": 0.25,
-        "why": "Extreme bearish crowd and extreme fear often precede a bounce, but this is opinion, not news"
+        "why": "If AI capex fears spread, tech and chip longs face further de-risking"
       }
     ],
     "names": {
@@ -87,23 +76,23 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Crowd extreme bearish (5), fear/greed ~20, VIX easing to 18.4 from 19.3 and IWM nearly flat, so damage is concentrated in tech; thin bounce edge while chips still fall",
-        "catalyst": "Contrarian sentiment extreme and bid in Treasuries"
+        "confidence": 0.52,
+        "reason": "Extreme fear (20), crowd score 5, VIX only 18.4 and IWM nearly flat, so damage is tech-concentrated; thin contrarian bounce edge, but chips still falling",
+        "catalyst": "Contrarian sentiment extreme and Treasury bid"
       }
     ],
-    "whats_new": "SPY is little changed at about 763.7 (-1.2%) with QQQ still -2.6%; VIX eased to 18.4 and fear/greed is about 20. The rout widened in the trending list (GEV -11%, NOK -14%, MRNA -26%, META -7.6%), and a new ABC-sourced Iran strike-plan post appeared, said to be timed after the midterms. Reddit was blocked again and no web report explains today's drop.",
+    "whats_new": "SPY slid a bit further to about 761.8 (-1.5%) and QQQ to -3.0%, with VIX flat at 18.4 and fear/greed about 20. Losses spread to AMZN, AMD and INTC (-5% to -8.5%). The older Iran strike-plan story did not resurface; new chatter is about record hedge fund shorts and an AI bubble burst. Reddit was blocked again and no web report explains the drop.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending and messages; web search found no Oct 22 reports; stocklake news feed needs Pro"
+      "news": "stocktwits trending and messages; web search found nothing for Oct 22; stocklake news feed needs Pro"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.21,
+      "value": -1.46,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -132,7 +121,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending and messages; web search found no Oct 22 reports; stocklake news feed needs Pro"
+    "news": "stocktwits trending and messages; web search found nothing for Oct 22; stocklake news feed needs Pro"
   },
   "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
