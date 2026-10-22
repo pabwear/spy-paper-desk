@@ -5,6 +5,25 @@ keep learning from it; these notes are the record.
 
 ## Daily log
 
+### Thu Oct 22 2026 — −$102.10 (equity $598.19; −$401.81 since the $1,000 start; week −$49.61)
+- SPY put spread 763/758: sold 10:05 for $38 (mid $0.39, natural $0.38; 0.57 × VIX, a little above the 0.5 assumed)
+  with SPY at $767.12. SPY fell to about $761.6 by 15:40, below the short strike; bought back at 15:40 as one order
+  → −$102 (short −$96, long −$6). Closed cleanly, nothing left open. Spread book: 11 trades, 8 won, ≈ −$391.
+- Options book: no trades (budget_too_small). Shares, SNDK: no trades.
+- Account size: $598 still covers the spread's ~$470 worst case; a full loss would leave ≈$130.
+- Price forecasts: direction 48% (1m), 64% (3m), 60% (5m), 33% (30m); "flat" leads. Loss model: shadow, 27 closed
+  trades, 9 learnable of 30.
+- ML shadow: 33 predictions, p 0.41–0.50, no would-be entry. Forward: 261 scored, Brier 0.252 vs ≈0.249 base rate.
+- Crypto: **the account anomaly is resolved.** Between 07:24 and 13:40 UTC cash went from −$3,707.05 back to
+  $58.59, its value before Oct 14; no desk order was involved (Alpaca-side correction). Equity now $966.22
+  (−$33.78 vs the $1,000 start). The day's and week's crypto P&L figures are distorted by the correction.
+- Crypto learning book: **first buy.** SOL turned up over 7 days ($106.86 vs $104.15), so it bought $45 of SOL at
+  13:40 UTC (0.4208 SOL at ≈$104.60; stop $98.32, 6% below). SOL only, $45: within its rules. Now ≈$43.59,
+  about −$0.42 before fees. BTC $461 and ETH $448 held, 16% and 15% above their 200-day averages. Last check
+  18:27 UTC.
+- Spread book this week: three small wins (≈ +$53) then −$102: again the backtest's shape. Still waiting for Roy
+  on turning it off and the $10k reset.
+
 ### Wed Oct 21 2026 — +$22.92 (equity $700.38; −$299.62 since the $1,000 start; week +$52.58)
 - SPY put spread 766/761: sold 10:00 for $25 (mid $0.26, natural $0.25; 0.53 × VIX, in line with 0.5) with SPY at
   $770.85. Short leg bought back 15:40 for $0.02 (+$31); the long 761 put had no bid (−$8, expires worthless; no
