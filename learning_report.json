@@ -1,7 +1,7 @@
 {
-  "trained_at": "2026-10-21T16:10:28-04:00",
+  "trained_at": "2026-10-22T16:10:29-04:00",
   "mode": "shadow",
-  "closed_trades": 25,
+  "closed_trades": 27,
   "learnable_trades": 9,
   "min_trades_to_act": 30,
   "model": null,
@@ -61,18 +61,18 @@
       "active": false
     }
   ],
-  "trades": 25,
-  "losses": 12,
-  "loss_rate": 0.48,
+  "trades": 27,
+  "losses": 14,
+  "loss_rate": 0.519,
   "mistakes": [
     {
       "tag": "flattened_red_at_close",
       "label": "Flattened at 16:00 for a loss",
-      "trades": 8,
-      "losses": 8,
+      "trades": 10,
+      "losses": 10,
       "loss_rate": 1.0,
-      "avg_pnl": -65.0,
-      "total_pnl": -520.0
+      "avg_pnl": -62.2,
+      "total_pnl": -622.0
     },
     {
       "tag": "late_entry_after_15",
@@ -140,11 +140,11 @@
     {
       "tag": "re_entry_after_loss",
       "label": "Second entry right after a loss",
-      "trades": 6,
-      "losses": 1,
-      "loss_rate": 0.167,
-      "avg_pnl": 24.74,
-      "total_pnl": 148.42
+      "trades": 7,
+      "losses": 2,
+      "loss_rate": 0.286,
+      "avg_pnl": 20.35,
+      "total_pnl": 142.42
     }
   ],
   "lessons": [],
@@ -167,10 +167,37 @@
     {
       "tag": "no_contract",
       "label": "No listed option contract found",
-      "count": 83
+      "count": 89
     }
   ],
   "recent": [
+    {
+      "symbol": "SPY261022P00758000",
+      "opened_at": "2026-10-22T10:05:48-04:00",
+      "closed_at": "2026-10-22T15:40:36-04:00",
+      "pnl": -6.0,
+      "result": "loss",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "flattened_red_at_close",
+        "re_entry_after_loss"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
+    {
+      "symbol": "SPY261022P00763000",
+      "opened_at": "2026-10-22T10:05:48-04:00",
+      "closed_at": "2026-10-22T15:40:36-04:00",
+      "pnl": -96.0,
+      "result": "loss",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "flattened_red_at_close"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
     {
       "symbol": "SPY261021P00766000",
       "opened_at": "2026-10-21T10:00:36-04:00",
