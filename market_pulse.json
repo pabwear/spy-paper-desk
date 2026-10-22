@@ -1,18 +1,18 @@
 {
   "date": "2026-10-22",
   "bias": "bearish",
-  "written_at": "2026-10-22T12:07:24-04:00",
-  "as_of": "2026-10-22T16:08:00Z",
+  "written_at": "2026-10-22T13:07:15-04:00",
+  "as_of": "2026-10-22T17:08:00Z",
   "readings": {
-    "as_of": "2026-10-22T16:08:00Z",
-    "spy_price": 763.09,
+    "as_of": "2026-10-22T17:08:00Z",
+    "spy_price": 763.15,
     "spy_change_pct": -1.29,
     "vix": 19.28,
     "fear_greed": 20,
     "stocktwits": {
       "SPY": {
         "score": 6,
-        "bullish_pct": 50.05
+        "bullish_pct": 49.88
       }
     },
     "reddit": {
@@ -23,61 +23,62 @@
     "news": {
       "score": -0.5,
       "headlines": [
-        "Trending: SOXL -17%, AMD -7.3%, META -6%, NOK -11%, CRWV -8.4%, QQQ -2.3%; LLY +3.2%",
-        "TLT +1.5% while GLD -2.1%; IWM only -0.3% so the selloff is concentrated in tech",
-        "Chip rout backdrop: SOX fell 11% in the week to Oct 16 on rate-hike fears (Sept CPI 3.7%) and AI-spend doubts"
+        "Stocktwits trending: MRNA -24%, SOXL -19%, SPCX -7%, NOK -13%, META -7%, AMD -7.8%, SNDK -8.6%, QQQ -2.7%; ADBE +5.6%",
+        "QQQ -2.6% vs IWM -0.3%: selloff concentrated in tech/semis; TLT +1.7%, GLD -2.3%",
+        "The Information reports a hacking group used AI agents from several labs to automate attacks on 400+ Latin American financial targets"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say a leveraged semiconductor unwind (SOXL) and AI-bubble worries are driving a broader tech dump",
+        "text": "Posters say SPY keeps testing 762 and a break opens 760 then 758",
         "source": "stocktwits",
         "tickers": [
-          "SOXL",
-          "QQQ",
           "SPY"
         ],
         "names": {
-          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
-          "QQQ": "Invesco QQQ Trust",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "Forced selling of crowded chip longs could deepen the Nasdaq drop and drag the index"
+        "why": "A break of the intraday low would extend the tech-led drop another 0.3-0.5%"
       },
       {
-        "text": "Posters say falling rates could push SPY back to green",
+        "text": "A post claims Israeli military officials see no reason to strike Iran before US elections",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "TLT"
+          "QQQ"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "up",
-        "credibility": 0.2,
-        "why": "Lower yields ease pressure on growth stocks and could stabilise the index"
+        "credibility": 0.25,
+        "why": "Lower geopolitical risk could ease some fear, but it is an unsourced one-line post"
       },
       {
-        "text": "Posters say SPY is primed for 750s next week",
+        "text": "Posters link the dump to AI-bubble worries and a leveraged semiconductor unwind (SOXL), same story as last hour",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "SOXL",
+          "AMD",
+          "QQQ"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
+          "AMD": "Advanced Micro Devices",
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "A further 1.5% leg down would extend the tech-led selloff"
+        "credibility": 0.3,
+        "why": "Forced selling of crowded chip longs could keep pressuring the Nasdaq"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "QQQ": "Invesco QQQ Trust"
+      "QQQ": "Invesco QQQ Trust",
+      "IWM": "iShares Russell 2000 ETF"
     },
     "plays": [
       {
@@ -85,16 +86,16 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Crowd at an extreme bearish 6 and fear/greed 20 with SPY -1.3%, but IWM is flat and VIX is only 19; bounce edge is thin while semis keep falling",
-        "catalyst": "Sentiment extreme and bid in Treasuries"
+        "reason": "Crowd at extreme bearish 6 and fear/greed 20, but SPY is only -1.3%, IWM nearly flat, VIX under 20; bounce edge is thin while semis keep falling",
+        "catalyst": "Contrarian sentiment extreme and bid in Treasuries"
       }
     ],
-    "whats_new": "SPY is about flat versus last hour at 763 (-1.3%) while fear and greed dropped from 30 to 20 and VIX rose to 19.3. The semis and AI rout continues (SOXL -17%, AMD -7%, META -6%) with money moving into Treasuries and out of gold, and small caps are barely down. Reddit was blocked and the same stories are being repeated, so little is new.",
+    "whats_new": "SPY is flat versus an hour ago at about 763 (-1.3%) with QQQ worsening to -2.6%; VIX 19.3 and fear/greed 20 are unchanged. Stocktwits trending now adds MRNA -24%, SNDK -8.6% and SPCX -7% to the chip rout, while ADBE +5.6% is a lone bright spot. Reddit was blocked again and no fresh macro catalyst was found.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending; web search found no Oct 22 reports, only Oct 16 week recap"
+      "news": "stocktwits trending and messages; web search found no Oct 22 reports; stocklake news feed needs Pro"
     }
   },
   "votes": [
@@ -129,7 +130,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending; web search found no Oct 22 reports, only Oct 16 week recap"
+    "news": "stocktwits trending and messages; web search found no Oct 22 reports; stocklake news feed needs Pro"
   },
   "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
