@@ -1,17 +1,17 @@
 {
   "date": "2026-10-22",
   "bias": "bearish",
-  "written_at": "2026-10-22T13:07:15-04:00",
-  "as_of": "2026-10-22T17:08:00Z",
+  "written_at": "2026-10-22T14:06:42-04:00",
+  "as_of": "2026-10-22T18:10:00Z",
   "readings": {
-    "as_of": "2026-10-22T17:08:00Z",
-    "spy_price": 763.15,
-    "spy_change_pct": -1.29,
-    "vix": 19.28,
+    "as_of": "2026-10-22T18:10:00Z",
+    "spy_price": 763.72,
+    "spy_change_pct": -1.21,
+    "vix": 18.38,
     "fear_greed": 20,
     "stocktwits": {
       "SPY": {
-        "score": 6,
+        "score": 5,
         "bullish_pct": 49.88
       }
     },
@@ -23,14 +23,48 @@
     "news": {
       "score": -0.5,
       "headlines": [
-        "Stocktwits trending: MRNA -24%, SOXL -19%, SPCX -7%, NOK -13%, META -7%, AMD -7.8%, SNDK -8.6%, QQQ -2.7%; ADBE +5.6%",
-        "QQQ -2.6% vs IWM -0.3%: selloff concentrated in tech/semis; TLT +1.7%, GLD -2.3%",
-        "The Information reports a hacking group used AI agents from several labs to automate attacks on 400+ Latin American financial targets"
+        "Stocktwits trending: MRNA -25.6%, SOXL -19.4%, NOK -13.8%, GEV -11.2%, SNDK -9.2%, SPCX -8.7%, META -7.6%",
+        "QQQ -2.6% vs IWM -0.2%: selloff concentrated in tech/semis; TLT +1.7%, GLD -2.2%",
+        "ABC News on X: Israel and US have drawn up plans to renew joint strikes on Iran in coming weeks, almost certainly after US midterms (per Israeli sources)"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say SPY keeps testing 762 and a break opens 760 then 758",
+        "text": "ABC News reportedly cites two Israeli sources saying US-Israel plans to renew strikes on Iran are drawn up, likely after the US midterms",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "GLD"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "GLD": "SPDR Gold Shares"
+        },
+        "direction": "down",
+        "credibility": 0.4,
+        "why": "Timing after midterms limits near-term impact, but it adds geopolitical risk premium later"
+      },
+      {
+        "text": "Posters say funds are being liquidated: 'how many funds are getting liquidated today', 'liquidation mode' as META, SMH and QQQ drop",
+        "source": "stocktwits",
+        "tickers": [
+          "QQQ",
+          "SMH",
+          "META",
+          "SOXL"
+        ],
+        "names": {
+          "QQQ": "Invesco QQQ Trust",
+          "SMH": "VanEck Semiconductor ETF",
+          "META": "Meta Platforms",
+          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Forced deleveraging of crowded tech and chip longs could keep pressuring the Nasdaq"
+      },
+      {
+        "text": "Posters expect a snap-back: 'it goes back up and then bears say this makes no sense'",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -38,41 +72,9 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "A break of the intraday low would extend the tech-led drop another 0.3-0.5%"
-      },
-      {
-        "text": "A post claims Israeli military officials see no reason to strike Iran before US elections",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
         "direction": "up",
         "credibility": 0.25,
-        "why": "Lower geopolitical risk could ease some fear, but it is an unsourced one-line post"
-      },
-      {
-        "text": "Posters link the dump to AI-bubble worries and a leveraged semiconductor unwind (SOXL), same story as last hour",
-        "source": "stocktwits",
-        "tickers": [
-          "SOXL",
-          "AMD",
-          "QQQ"
-        ],
-        "names": {
-          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
-          "AMD": "Advanced Micro Devices",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Forced selling of crowded chip longs could keep pressuring the Nasdaq"
+        "why": "Extreme bearish crowd and extreme fear often precede a bounce, but this is opinion, not news"
       }
     ],
     "names": {
@@ -85,12 +87,12 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Crowd at extreme bearish 6 and fear/greed 20, but SPY is only -1.3%, IWM nearly flat, VIX under 20; bounce edge is thin while semis keep falling",
+        "confidence": 0.53,
+        "reason": "Crowd extreme bearish (5), fear/greed ~20, VIX easing to 18.4 from 19.3 and IWM nearly flat, so damage is concentrated in tech; thin bounce edge while chips still fall",
         "catalyst": "Contrarian sentiment extreme and bid in Treasuries"
       }
     ],
-    "whats_new": "SPY is flat versus an hour ago at about 763 (-1.3%) with QQQ worsening to -2.6%; VIX 19.3 and fear/greed 20 are unchanged. Stocktwits trending now adds MRNA -24%, SNDK -8.6% and SPCX -7% to the chip rout, while ADBE +5.6% is a lone bright spot. Reddit was blocked again and no fresh macro catalyst was found.",
+    "whats_new": "SPY is little changed at about 763.7 (-1.2%) with QQQ still -2.6%; VIX eased to 18.4 and fear/greed is about 20. The rout widened in the trending list (GEV -11%, NOK -14%, MRNA -26%, META -7.6%), and a new ABC-sourced Iran strike-plan post appeared, said to be timed after the midterms. Reddit was blocked again and no web report explains today's drop.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -101,7 +103,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.29,
+      "value": -1.21,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -119,7 +121,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 6.0,
+      "value": 5.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
