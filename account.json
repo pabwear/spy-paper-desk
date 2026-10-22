@@ -3,8 +3,8 @@
   "account_name": "Paper 1000",
   "account_number": "PA36VOEO5PHB",
   "status": "ACTIVE",
-  "snapshot_at": "2026-10-22T14:00:36-04:00",
-  "equity": 619.24,
+  "snapshot_at": "2026-10-22T14:08:34-04:00",
+  "equity": 602.24,
   "cash": 738.24,
   "buying_power": 238.24,
   "options_buying_power": 238.24,
@@ -14,10 +14,10 @@
     "asset_class": "us_option",
     "qty": 1.0,
     "avg_entry_price": 0.08,
-    "current_price": 0.1,
-    "market_value": 10.0,
-    "unrealized_pl": 2.0,
-    "unrealized_plpc": 0.25
+    "current_price": 0.12,
+    "market_value": 12.0,
+    "unrealized_pl": 4.0,
+    "unrealized_plpc": 0.5
   },
   "positions": [
     {
@@ -25,20 +25,20 @@
       "asset_class": "us_option",
       "qty": 1.0,
       "avg_entry_price": 0.08,
-      "current_price": 0.1,
-      "market_value": 10.0,
-      "unrealized_pl": 2.0,
-      "unrealized_plpc": 0.25
+      "current_price": 0.12,
+      "market_value": 12.0,
+      "unrealized_pl": 4.0,
+      "unrealized_plpc": 0.5
     },
     {
       "symbol": "SPY261022P00763000",
       "asset_class": "us_option",
       "qty": -1.0,
       "avg_entry_price": 0.46,
-      "current_price": 1.29,
-      "market_value": -129.0,
-      "unrealized_pl": -83.0,
-      "unrealized_plpc": -1.80435
+      "current_price": 1.48,
+      "market_value": -148.0,
+      "unrealized_pl": -102.0,
+      "unrealized_plpc": -2.21739
     }
   ],
   "history": [
