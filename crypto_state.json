@@ -1,33 +1,33 @@
 {
-  "updated_at": "2026-10-22T18:27:00+00:00",
+  "updated_at": "2026-10-22T22:13:47+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 966.22,
+  "equity": 970.84,
   "cash": 14.47,
   "last_equity": 993.434549376997,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 460.554267,
-      "unrealized_pl": -8.959868,
-      "current_price": 81072.55
+      "market_value": 462.595395,
+      "unrealized_pl": -6.91874,
+      "current_price": 81431.855
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 447.600956,
-      "unrealized_pl": -21.940763,
-      "current_price": 2376.507
+      "market_value": 450.097268,
+      "unrealized_pl": -19.444451,
+      "current_price": 2389.761
     },
     "SOLUSD": {
       "qty": 0.420760616,
       "avg_entry_price": 104.595,
-      "market_value": 43.5908,
-      "unrealized_pl": -0.418657,
-      "current_price": 103.6
+      "market_value": 43.675373,
+      "unrealized_pl": -0.334084,
+      "current_price": 103.801
     }
   },
   "signals": {
@@ -132,7 +132,7 @@
     },
     {
       "date": "2026-10-22",
-      "equity": 966.22
+      "equity": 970.84
     }
   ],
   "equity_history": [
@@ -155,11 +155,11 @@
   ],
   "pnl_periods": {
     "as_of": "2026-10-22",
-    "equity": 966.22,
-    "today": -27.21,
-    "week": -22.5,
-    "month": -33.78,
-    "all": -33.78,
+    "equity": 970.84,
+    "today": -22.59,
+    "week": -17.88,
+    "month": -29.16,
+    "all": -29.16,
     "start_usd": 1000.0
   },
   "learning": {
@@ -174,16 +174,16 @@
     "position": {
       "qty": 0.420760616,
       "avg_entry_price": 104.595,
-      "market_value": 43.5908,
-      "unrealized_pl": -0.418657,
-      "current_price": 103.6
+      "market_value": 43.675373,
+      "unrealized_pl": -0.334084,
+      "current_price": 103.801
     },
     "stop_price": 98.3193,
     "trades": 0,
     "wins": 0,
     "closed_pnl": 0,
-    "open_pnl": -0.42,
-    "total_pnl": -0.42,
+    "open_pnl": -0.33,
+    "total_pnl": -0.33,
     "orders": [
       {
         "ts": "2026-10-22T13:40:58+00:00",
