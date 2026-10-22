@@ -1,26 +1,33 @@
 {
-  "updated_at": "2026-10-22T07:24:13+00:00",
+  "updated_at": "2026-10-22T13:40:58+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": -2783.08,
-  "cash": -3707.05,
-  "last_equity": -2773.74073303823,
+  "equity": 973.69,
+  "cash": 14.47,
+  "last_equity": 993.434549376997,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 467.234565,
-      "unrealized_pl": -2.27957,
-      "current_price": 82248.5
+      "market_value": 462.982511,
+      "unrealized_pl": -6.531624,
+      "current_price": 81500.0
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 456.73244,
-      "unrealized_pl": -12.809279,
-      "current_price": 2424.99
+      "market_value": 452.082226,
+      "unrealized_pl": -17.459493,
+      "current_price": 2400.3
+    },
+    "SOLUSD": {
+      "qty": 0.420760616,
+      "avg_entry_price": 104.595,
+      "market_value": 44.152936,
+      "unrealized_pl": 0.143479,
+      "current_price": 104.936
     }
   },
   "signals": {
@@ -37,8 +44,30 @@
       "days": 419
     }
   },
-  "last_orders": [],
+  "last_orders": [
+    {
+      "book": "learning",
+      "symbol": "SOL/USD",
+      "side": "buy",
+      "notional": 45.0,
+      "why": "mom7d_up",
+      "order_id": "bb92dd9b-b8b1-428d-b3b1-22cebb329385",
+      "status": "pending_new"
+    }
+  ],
   "orders": [
+    {
+      "ts": "2026-10-22T13:40:58+00:00",
+      "event": "order",
+      "book": "learning",
+      "symbol": "SOL/USD",
+      "side": "buy",
+      "notional": 45.0,
+      "why": "mom7d_up",
+      "order_id": "bb92dd9b-b8b1-428d-b3b1-22cebb329385",
+      "status": "pending_new",
+      "client_order_id": "crypto-learn-20261022-buy"
+    },
     {
       "ts": "2026-10-10T02:08:24+00:00",
       "event": "order",
@@ -113,7 +142,7 @@
     },
     {
       "date": "2026-10-22",
-      "equity": -2783.08
+      "equity": 973.69
     }
   ],
   "equity_history": [
@@ -128,15 +157,19 @@
     {
       "date": "2026-10-12",
       "equity": 988.72
+    },
+    {
+      "date": "2026-10-21",
+      "equity": 993.43
     }
   ],
   "pnl_periods": {
     "as_of": "2026-10-22",
-    "equity": -2783.08,
-    "today": -9.34,
-    "week": -3771.8,
-    "month": -3783.08,
-    "all": -3783.08,
+    "equity": 973.69,
+    "today": -19.74,
+    "week": -15.03,
+    "month": -26.31,
+    "all": -26.31,
     "start_usd": 1000.0
   },
   "learning": {
@@ -148,13 +181,32 @@
     "hold": true,
     "close": 106.8555,
     "close_7d_ago": 104.15,
-    "position": null,
-    "stop_price": null,
+    "position": {
+      "qty": 0.420760616,
+      "avg_entry_price": 104.595,
+      "market_value": 44.152936,
+      "unrealized_pl": 0.143479,
+      "current_price": 104.936
+    },
+    "stop_price": 98.3193,
     "trades": 0,
     "wins": 0,
     "closed_pnl": 0,
-    "open_pnl": 0.0,
-    "total_pnl": 0.0,
-    "orders": []
+    "open_pnl": 0.14,
+    "total_pnl": 0.14,
+    "orders": [
+      {
+        "ts": "2026-10-22T13:40:58+00:00",
+        "event": "order",
+        "book": "learning",
+        "symbol": "SOL/USD",
+        "side": "buy",
+        "notional": 45.0,
+        "why": "mom7d_up",
+        "order_id": "bb92dd9b-b8b1-428d-b3b1-22cebb329385",
+        "status": "pending_new",
+        "client_order_id": "crypto-learn-20261022-buy"
+      }
+    ]
   }
 }
