@@ -5,6 +5,39 @@ keep learning from it; these notes are the record.
 
 ## Daily log
 
+### Fri Oct 23 2026 — +$45.90 (equity $643.98; −$356.02 since the $1,000 start; week −$3.82)
+- SPY put spread 756/751: sold 10:00 for $45 (mid $0.48, natural $0.45) with SPY at $760.94, VIX 19. SPY stayed
+  above; bought back 15:40 as one order → +$46 (short +$63, long −$17). Nothing left open.
+- Options book: no trades. Shares, SNDK: no trades.
+- Price forecasts: direction 47% (1m), 55% (3m), 64% (5m), 61% (15m, 36 scored), 73% (30m, 15 scored); "flat" leads
+  except 15m. Loss model: shadow, 29 closed trades, 9 learnable of 30.
+- ML shadow: 34 predictions, p 0.39–0.48, no would-be entry. Forward: 294 scored, Brier 0.250 vs ≈0.249 base rate.
+- Crypto learning book: **first trade closed.** SOL's 7-day change turned down, so it sold at 01:22 UTC at ≈$104.10
+  (bought $104.60 Thursday) → about −$0.21 before fees. A rule exit, not the stop ($98.32, never reached). In cash
+  ($103.54 vs $105.33 seven days earlier). BTC $463 and ETH $453 held, 12% and 11% above their 200-day averages.
+  Account $973.64 (−$26.36 vs its $1,000 start). Checks every 3–6 h, last 18:12 UTC.
+- Bookkeeping gap found: the spread book's running total counts only legs that were bought or sold, so the three
+  long legs that expired worthless (Oct 19–21, −$23 together) are missing from it. Its true total is ≈ −$368, not
+  the −$345 shown. The account equity is correct. Not fixed yet (reporting only).
+
+### Week of Oct 19–23
+| Book | Trades | Won | Net (week) | Total since start | Backtest expectation (real prices) |
+|---|---|---|---|---|---|
+| SPY put spread | 5 | 4 | ≈ −$4 | 12 trades, 9 won, ≈ −$368 | wins 83% of days, ~$17 wins, ~1 day in 6 losing up to ~$490; ≈ −$18/day |
+| SPY options (learning) | 0 | — | $0 | 7 trades, 3 won, ≈ +$19 | ~49% won, about −$3.50 a trade |
+| SPY / SNDK shares | 0 | — | $0 | 2 trades, ≈ $0 | near break-even |
+| Crypto trend200 (BTC, ETH) | 0 | — | — | held since Oct 10, ≈ −$44 open before fees | ~8 trades a year; holds above the 200-day average |
+| Crypto learning (SOL mom7d) | 1 | 0 | ≈ −$0.21 | 1 trade, 0 won | ~31 a year, 29% won, small frequent losses, rare big wins |
+
+- Spread: four wins (+$122) and one loss (−$102) netted about zero, after Friday's −$386. Twelve days in, live
+  average ≈ −$31 a day vs −$18 expected; too few days to tell apart, same direction.
+- The options book could not trade all week: at ≈$600–700 one SPY call is over its budget. The account's size, not
+  the market, now decides whether two of the four books trade.
+- The crypto account's Alpaca cash error (Oct 14–22) corrected itself on Oct 22; its dollar results are readable again.
+- Rule worth testing: none new. The spread's fixes were tested before running on Oct 9 and all lost; more variants
+  on the same history would mostly find luck. Rules unchanged; still waiting for Roy on turning the spread book off
+  and the $10k reset.
+
 ### Thu Oct 22 2026 — −$102.10 (equity $598.19; −$401.81 since the $1,000 start; week −$49.61)
 - SPY put spread 763/758: sold 10:05 for $38 (mid $0.39, natural $0.38; 0.57 × VIX, a little above the 0.5 assumed)
   with SPY at $767.12. SPY fell to about $761.6 by 15:40, below the short strike; bought back at 15:40 as one order
