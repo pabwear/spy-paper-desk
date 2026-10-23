@@ -1,51 +1,72 @@
 {
-  "updated_at": "2026-10-22T22:13:47+00:00",
+  "updated_at": "2026-10-23T01:22:10+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 970.84,
+  "equity": 968.61,
   "cash": 14.47,
   "last_equity": 993.434549376997,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 462.595395,
-      "unrealized_pl": -6.91874,
-      "current_price": 81431.855
+      "market_value": 460.915336,
+      "unrealized_pl": -8.598799,
+      "current_price": 81136.11
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 450.097268,
-      "unrealized_pl": -19.444451,
-      "current_price": 2389.761
-    },
-    "SOLUSD": {
-      "qty": 0.420760616,
-      "avg_entry_price": 104.595,
-      "market_value": 43.675373,
-      "unrealized_pl": -0.334084,
-      "current_price": 103.801
+      "market_value": 449.426574,
+      "unrealized_pl": -20.115145,
+      "current_price": 2386.2
     }
   },
   "signals": {
     "BTC/USD": {
       "hold": true,
-      "close": 84024.295,
-      "average": 72734.42,
+      "close": 81309.94,
+      "average": 72795.92,
       "days": 419
     },
     "ETH/USD": {
       "hold": true,
-      "close": 2471.6815,
-      "average": 2153.31,
+      "close": 2386.295,
+      "average": 2154.7,
       "days": 419
     }
   },
-  "last_orders": [],
+  "last_orders": [
+    {
+      "book": "learning",
+      "symbol": "SOL/USD",
+      "side": "sell",
+      "qty": 0.420760616,
+      "why": "mom7d_down",
+      "entry": 104.595,
+      "price": 104.1,
+      "est_pnl": -0.21,
+      "order_id": "d63a8f50-217f-497e-88c9-4313d50a3071",
+      "status": "pending_new"
+    }
+  ],
   "orders": [
+    {
+      "ts": "2026-10-23T01:22:10+00:00",
+      "event": "order",
+      "book": "learning",
+      "symbol": "SOL/USD",
+      "side": "sell",
+      "qty": 0.420760616,
+      "why": "mom7d_down",
+      "entry": 104.595,
+      "price": 104.1,
+      "est_pnl": -0.21,
+      "order_id": "d63a8f50-217f-497e-88c9-4313d50a3071",
+      "status": "pending_new",
+      "client_order_id": "crypto-learn-20261023-sell"
+    },
     {
       "ts": "2026-10-22T13:40:58+00:00",
       "event": "order",
@@ -133,6 +154,10 @@
     {
       "date": "2026-10-22",
       "equity": 970.84
+    },
+    {
+      "date": "2026-10-23",
+      "equity": 968.61
     }
   ],
   "equity_history": [
@@ -155,11 +180,11 @@
   ],
   "pnl_periods": {
     "as_of": "2026-10-22",
-    "equity": 970.84,
-    "today": -22.59,
-    "week": -17.88,
-    "month": -29.16,
-    "all": -29.16,
+    "equity": 968.61,
+    "today": -24.82,
+    "week": -20.11,
+    "month": -31.39,
+    "all": -31.39,
     "start_usd": 1000.0
   },
   "learning": {
@@ -168,23 +193,32 @@
     "usd": 45,
     "stop_pct": 6,
     "enabled": true,
-    "hold": true,
-    "close": 106.8555,
-    "close_7d_ago": 104.15,
-    "position": {
-      "qty": 0.420760616,
-      "avg_entry_price": 104.595,
-      "market_value": 43.675373,
-      "unrealized_pl": -0.334084,
-      "current_price": 103.801
-    },
-    "stop_price": 98.3193,
-    "trades": 0,
+    "hold": false,
+    "close": 103.535,
+    "close_7d_ago": 105.325,
+    "position": null,
+    "stop_price": null,
+    "trades": 1,
     "wins": 0,
-    "closed_pnl": 0,
-    "open_pnl": -0.33,
-    "total_pnl": -0.33,
+    "closed_pnl": -0.21,
+    "open_pnl": 0.0,
+    "total_pnl": -0.21,
     "orders": [
+      {
+        "ts": "2026-10-23T01:22:10+00:00",
+        "event": "order",
+        "book": "learning",
+        "symbol": "SOL/USD",
+        "side": "sell",
+        "qty": 0.420760616,
+        "why": "mom7d_down",
+        "entry": 104.595,
+        "price": 104.1,
+        "est_pnl": -0.21,
+        "order_id": "d63a8f50-217f-497e-88c9-4313d50a3071",
+        "status": "pending_new",
+        "client_order_id": "crypto-learn-20261023-sell"
+      },
       {
         "ts": "2026-10-22T13:40:58+00:00",
         "event": "order",
