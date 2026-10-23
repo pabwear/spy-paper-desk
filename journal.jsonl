@@ -3827,3 +3827,4 @@
 {"ts": "2026-10-22T16:40:27-04:00", "event": "account", "equity": 598.19, "cash": 598.19, "buying_power": 598.19, "position": null}
 {"ts": "2026-10-22T16:50:26-04:00", "event": "account", "equity": 598.19, "cash": 598.19, "buying_power": 598.19, "position": null}
 {"ts": "2026-10-23T09:00:40-04:00", "event": "account", "equity": 598.08, "cash": 598.08, "buying_power": 598.08, "position": null}
+{"ts": "2026-10-23T09:07:08-04:00", "event": "pulse", "bias": "bearish", "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish.", "sources": {"market_pulse": "stocklake (Oct 22 close snapshot)", "sentiment_flow": "stocktwits", "reddit": "unavailable (blocked)", "news": "stocktwits messages and trending; one web search found Oct 20 context only; stocklake news feed needs Pro"}, "net_votes": -3}
