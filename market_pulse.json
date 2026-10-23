@@ -1,17 +1,17 @@
 {
   "date": "2026-10-23",
   "bias": "bearish",
-  "written_at": "2026-10-23T13:07:33-04:00",
-  "as_of": "2026-10-23T17:10:00Z",
+  "written_at": "2026-10-23T14:07:00-04:00",
+  "as_of": "2026-10-23T18:08:00Z",
   "readings": {
-    "as_of": "2026-10-23T17:10:00Z",
-    "spy_price": 762.48,
-    "spy_change_pct": -0.19,
-    "vix": 20.06,
-    "fear_greed": 21,
+    "as_of": "2026-10-23T18:08:00Z",
+    "spy_price": 760.32,
+    "spy_change_pct": -0.48,
+    "vix": 19.26,
+    "fear_greed": 20,
     "stocktwits": {
       "SPY": {
-        "score": 8,
+        "score": 6,
         "bullish_pct": 48
       }
     },
@@ -21,17 +21,32 @@
       "top": []
     },
     "news": {
-      "score": -0.2,
+      "score": -0.3,
       "headlines": [
-        "BE -12.2% (AI power names hit), AXP -4.2%, PANW +6.3%",
-        "CBS: US envoy says Iran war could last another year as oil keeps rising",
-        "QQQ +0.42%, IWM -0.19%, GLD -0.6%, TLT -0.26%",
+        "BE -12.2% (AI power names hit), AXP -3.8%",
+        "LMT +2.7% on Iran/war chatter",
+        "Oil reported near $103 by posters",
         "No major US data today; Fed decision due next week"
       ]
     },
     "rumors": [
       {
-        "text": "Stocktwits posters say Iran could retaliate on Saudi oil infrastructure and Hormuz/Red Sea shipping, sending WTI to $200",
+        "text": "Posters claim Trump said he will bomb Iran this weekend",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "LMT"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "LMT": "Lockheed Martin"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Weekend escalation would raise oil and weekend gap-down risk for equities, lifting defense names"
+      },
+      {
+        "text": "Posters say oil is around $103 and a longer Iran war keeps pushing it higher",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -42,8 +57,8 @@
           "USO": "United States Oil Fund"
         },
         "direction": "down",
-        "credibility": 0.1,
-        "why": "An oil supply shock would hit equities and lift oil"
+        "credibility": 0.3,
+        "why": "Higher oil pressures margins and inflation, weighing on equities"
       },
       {
         "text": "Posters expect another Fed rate hike at next week's FOMC",
@@ -59,6 +74,19 @@
         "direction": "down",
         "credibility": 0.3,
         "why": "A hike would pressure equities and long bonds"
+      },
+      {
+        "text": "Posters say dealers are short gamma around SPY 760 and 755 so a break could accelerate",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "Losing 760 could trigger hedging flows toward 755"
       }
     ],
     "names": {
@@ -66,19 +94,19 @@
       "QQQ": "Invesco QQQ Trust",
       "BE": "Bloom Energy",
       "AXP": "American Express",
-      "PANW": "Palo Alto Networks"
+      "LMT": "Lockheed Martin"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Crowd score 8 and fear/greed 21 are extreme while SPY is only -0.19% and QQQ is +0.42%",
-        "catalyst": "Contrarian sentiment extreme; sitting near VWAP support ~761"
+        "confidence": 0.5,
+        "reason": "Crowd score 6 and fear/greed 20 are extreme while SPY is only -0.5% and QQQ is flat to up; crowd is one-sided bearish",
+        "catalyst": "Contrarian extreme sentiment vs weekend-risk fade into the close"
       }
     ],
-    "whats_new": "SPY flat to slightly lower near 762.5 (-0.19%), QQQ still up. Crowd even more bearish (score 8) with Iran-war and Fed-hike chatter; BE and AXP slid, PANW jumped. Reddit blocked and web search found nothing dated today.",
+    "whats_new": "SPY slipped to 760.3 (-0.48%) from 762.5 last hour, now testing the 760 gamma level while QQQ holds flat. Crowd stays extremely bearish (score 6) with weekend Iran-bombing talk and oil near 103 from posters; LMT is up 2.7% and BE still down 12%. Reddit blocked and web search returned nothing dated today.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -89,9 +117,9 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.19,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": -0.48,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -101,18 +129,18 @@
     },
     {
       "reading": "fear_greed",
-      "value": 21.0,
+      "value": 20.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 8.0,
+      "value": 6.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": -3,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
@@ -120,5 +148,5 @@
     "reddit": "unavailable (blocked)",
     "news": "stocktwits trending and posts, stocklake calendar"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
