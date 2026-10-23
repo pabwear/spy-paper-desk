@@ -1,17 +1,17 @@
 {
   "date": "2026-10-23",
   "bias": "bearish",
-  "written_at": "2026-10-23T14:07:00-04:00",
-  "as_of": "2026-10-23T18:08:00Z",
+  "written_at": "2026-10-23T15:07:02-04:00",
+  "as_of": "2026-10-23T19:10:00Z",
   "readings": {
-    "as_of": "2026-10-23T18:08:00Z",
-    "spy_price": 760.32,
-    "spy_change_pct": -0.48,
+    "as_of": "2026-10-23T19:10:00Z",
+    "spy_price": 760.43,
+    "spy_change_pct": -0.46,
     "vix": 19.26,
     "fear_greed": 20,
     "stocktwits": {
       "SPY": {
-        "score": 6,
+        "score": 5,
         "bullish_pct": 48
       }
     },
@@ -23,30 +23,16 @@
     "news": {
       "score": -0.3,
       "headlines": [
-        "BE -12.2% (AI power names hit), AXP -3.8%",
-        "LMT +2.7% on Iran/war chatter",
-        "Oil reported near $103 by posters",
-        "No major US data today; Fed decision due next week"
+        "BE -11.5% leads trending (AI power names weak), CRDO -9%, SMCI -2.5%",
+        "T -7.2%, MGM -6%, TGT -3.6% among trending decliners",
+        "USO +4.1% to 169 and VG +8.7% as oil rises",
+        "QQQ +0.12% while SPY -0.46%, IWM -0.36%, GLD -0.7%",
+        "No major US data today; only minor foreign CPI prints"
       ]
     },
     "rumors": [
       {
-        "text": "Posters claim Trump said he will bomb Iran this weekend",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "LMT"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "LMT": "Lockheed Martin"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Weekend escalation would raise oil and weekend gap-down risk for equities, lifting defense names"
-      },
-      {
-        "text": "Posters say oil is around $103 and a longer Iran war keeps pushing it higher",
+        "text": "Posters say Trump is tweeting about an Iran attack",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -57,11 +43,24 @@
           "USO": "United States Oil Fund"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "Higher oil pressures margins and inflation, weighing on equities"
+        "credibility": 0.2,
+        "why": "Weekend escalation would lift oil and raise gap-down risk for equities"
       },
       {
-        "text": "Posters expect another Fed rate hike at next week's FOMC",
+        "text": "Posters say dealers are short gamma near SPY 760 so a break could accelerate",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "Losing 760 could trigger hedging flows toward 755"
+      },
+      {
+        "text": "Posters expect another Fed hike at next week's FOMC",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -74,39 +73,30 @@
         "direction": "down",
         "credibility": 0.3,
         "why": "A hike would pressure equities and long bonds"
-      },
-      {
-        "text": "Posters say dealers are short gamma around SPY 760 and 755 so a break could accelerate",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "Losing 760 could trigger hedging flows toward 755"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "BE": "Bloom Energy",
-      "AXP": "American Express",
-      "LMT": "Lockheed Martin"
+      "CRDO": "Credo Technology",
+      "T": "AT&T",
+      "MGM": "MGM Resorts",
+      "TGT": "Target",
+      "VG": "Venture Global",
+      "USO": "United States Oil Fund"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.5,
-        "reason": "Crowd score 6 and fear/greed 20 are extreme while SPY is only -0.5% and QQQ is flat to up; crowd is one-sided bearish",
-        "catalyst": "Contrarian extreme sentiment vs weekend-risk fade into the close"
+        "confidence": 0.52,
+        "reason": "Crowd score 5 and fear/greed 20 are extreme while SPY is only -0.46% and QQQ is green; many posters are positioned for a power-hour move around 760",
+        "catalyst": "Contrarian extreme sentiment vs weekend Iran headline risk into the close"
       }
     ],
-    "whats_new": "SPY slipped to 760.3 (-0.48%) from 762.5 last hour, now testing the 760 gamma level while QQQ holds flat. Crowd stays extremely bearish (score 6) with weekend Iran-bombing talk and oil near 103 from posters; LMT is up 2.7% and BE still down 12%. Reddit blocked and web search returned nothing dated today.",
+    "whats_new": "SPY is flat versus last hour at 760.4 (-0.46%) and still pinned on the 760 level while QQQ is slightly green. Crowd stays extremely bearish (score 5); oil-linked names rose (USO +4%) while AI power and networking names (BE, CRDO) sold off. Reddit was blocked and web search found nothing dated today.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -117,7 +107,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.48,
+      "value": -0.46,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -135,7 +125,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 6.0,
+      "value": 5.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
