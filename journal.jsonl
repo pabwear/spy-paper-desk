@@ -3826,3 +3826,4 @@
 {"ts": "2026-10-22T16:30:29-04:00", "event": "account", "equity": 598.19, "cash": 598.19, "buying_power": 598.19, "position": null}
 {"ts": "2026-10-22T16:40:27-04:00", "event": "account", "equity": 598.19, "cash": 598.19, "buying_power": 598.19, "position": null}
 {"ts": "2026-10-22T16:50:26-04:00", "event": "account", "equity": 598.19, "cash": 598.19, "buying_power": 598.19, "position": null}
+{"ts": "2026-10-23T09:00:40-04:00", "event": "account", "equity": 598.08, "cash": 598.08, "buying_power": 598.08, "position": null}
