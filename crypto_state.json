@@ -1,26 +1,26 @@
 {
-  "updated_at": "2026-10-23T01:22:10+00:00",
+  "updated_at": "2026-10-23T07:17:42+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 968.61,
-  "cash": 14.47,
+  "equity": 974.7,
+  "cash": 57.99,
   "last_equity": 993.434549376997,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 460.915336,
-      "unrealized_pl": -8.598799,
-      "current_price": 81136.11
+      "market_value": 464.118664,
+      "unrealized_pl": -5.395471,
+      "current_price": 81700.0
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 449.426574,
-      "unrealized_pl": -20.115145,
-      "current_price": 2386.2
+      "market_value": 452.592638,
+      "unrealized_pl": -16.949081,
+      "current_price": 2403.01
     }
   },
   "signals": {
@@ -37,20 +37,7 @@
       "days": 419
     }
   },
-  "last_orders": [
-    {
-      "book": "learning",
-      "symbol": "SOL/USD",
-      "side": "sell",
-      "qty": 0.420760616,
-      "why": "mom7d_down",
-      "entry": 104.595,
-      "price": 104.1,
-      "est_pnl": -0.21,
-      "order_id": "d63a8f50-217f-497e-88c9-4313d50a3071",
-      "status": "pending_new"
-    }
-  ],
+  "last_orders": [],
   "orders": [
     {
       "ts": "2026-10-23T01:22:10+00:00",
@@ -157,7 +144,7 @@
     },
     {
       "date": "2026-10-23",
-      "equity": 968.61
+      "equity": 974.7
     }
   ],
   "equity_history": [
@@ -179,12 +166,12 @@
     }
   ],
   "pnl_periods": {
-    "as_of": "2026-10-22",
-    "equity": 968.61,
-    "today": -24.82,
-    "week": -20.11,
-    "month": -31.39,
-    "all": -31.39,
+    "as_of": "2026-10-23",
+    "equity": 974.7,
+    "today": -18.73,
+    "week": -14.02,
+    "month": -25.3,
+    "all": -25.3,
     "start_usd": 1000.0
   },
   "learning": {
