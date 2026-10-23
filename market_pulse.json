@@ -1,18 +1,18 @@
 {
   "date": "2026-10-23",
   "bias": "bearish",
-  "written_at": "2026-10-23T09:07:08-04:00",
-  "as_of": "2026-10-23T13:10:00Z",
+  "written_at": "2026-10-23T10:13:47-04:00",
+  "as_of": "2026-10-23T14:20:00Z",
   "readings": {
-    "as_of": "2026-10-23T13:10:00Z",
-    "spy_price": 760.85,
-    "spy_change_pct": -1.58,
-    "vix": 18.92,
-    "fear_greed": 18,
+    "as_of": "2026-10-23T14:20:00Z",
+    "spy_price": 760.0,
+    "spy_change_pct": -0.52,
+    "vix": 19.71,
+    "fear_greed": 22,
     "stocktwits": {
       "SPY": {
         "score": 11,
-        "bullish_pct": 48.2
+        "bullish_pct": 48.0
       }
     },
     "reddit": {
@@ -21,49 +21,39 @@
       "top": []
     },
     "news": {
-      "score": -0.4,
+      "score": -0.3,
       "headlines": [
-        "Stocktwits premarket: BE -3.6%, CRDO -5.9%, MRNA -5.4%, DECK -8.5%, AXP -2.1%, RYCEY -4.5%; QQQ roughly -0.2%",
-        "Web report Oct 20: AI spending fears hit chips, Brent crude about $111, yields near multi-year highs",
-        "No major US data today; only Brazil IPCA-15 and minor CPI prints"
+        "AI/datacenter-power names sold hard: BE -11%, CRDO -9.6%, CLS -2.7%, DECK -4.8% (Stocktwits trending)",
+        "USO +3.1% intraday, oil bid again; gold GLD -2.7% at last close",
+        "No major US data today; UK retail sales weak (-0.4% m/m), Canada retail sales +1.2%"
       ]
     },
     "rumors": [
       {
-        "text": "Poster claims an Israeli attack happens Sunday or Monday and oil hits $130 next week",
+        "text": "Chatter that the AI power/infrastructure selloff (BE, CRDO) is a buyable dip with heavy accumulation, while others wait for a confirmed reversal",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "A Middle East escalation would spike oil and add to the selloff, but this is a single unverified post"
-      },
-      {
-        "text": "Chatter that the chip and AI datacenter selloff is not done: MU and NVDA fading from premarket highs, waiting for a confirmed reversal",
-        "source": "stocktwits",
-        "tickers": [
-          "MU",
+          "BE",
+          "CRDO",
           "NVDA",
-          "QQQ"
+          "MU"
         ],
         "names": {
-          "MU": "Micron Technology",
+          "BE": "Bloom Energy",
+          "CRDO": "Credo Technology",
           "NVDA": "NVIDIA",
-          "QQQ": "Invesco QQQ Trust"
+          "MU": "Micron Technology"
         },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "If chips keep sliding, QQQ and SPY lose their main support"
+        "direction": "up",
+        "credibility": 0.25,
+        "why": "If dip buyers are right, AI names bounce and lift QQQ and SPY; if not, chips keep dragging the index"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF"
+      "IWM": "iShares Russell 2000 ETF",
+      "USO": "United States Oil Fund"
     },
     "plays": [
       {
@@ -71,22 +61,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Extreme fear (18) and crowd score 11 while premarket losses are small (about -0.4%) and IWM held up; thin contrarian bounce, but chips and oil are still headwinds",
+        "reason": "Extreme fear (22) and crowd score 11 while SPY is only -0.5% and QQQ is flat on the day; choppy tape on a Friday, thin contrarian bounce",
         "catalyst": "Contrarian sentiment extreme; SPY 760 support"
       }
     ],
-    "whats_new": "Stocklake numbers are still the Oct 22 close (SPY 760.85, -1.58%, QQQ -3.1%); premarket posts suggest a small bounce attempt with SPY about -0.4%. Crowd sentiment is more bearish (score 11 vs 5 before is not lower, but tagged messages are 48% bullish). New chatter: an Israel attack and $130 oil story, and chips still fading. Reddit was blocked again.",
+    "whats_new": "SPY is trading near 760 (about -0.5%), so the -1.58% in the Stocklake snapshot is Thursday's close; QQQ has recovered to about flat intraday. Fear and greed ticked up to 22 and VIX is 19.7, but the crowd is still extremely bearish (score 11). AI power and chip names are the pain point (BE -11%, CRDO -9.6%) and oil is bid; Reddit was blocked again.",
     "sources": {
-      "market_pulse": "stocklake (Oct 22 close snapshot)",
+      "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits messages and trending; one web search found Oct 20 context only; stocklake news feed needs Pro"
+      "news": "stocktwits trending, stocklake calendar; web search returned nothing dated today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.58,
+      "value": -0.52,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -98,7 +88,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 18.0,
+      "value": 22.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -112,10 +102,10 @@
   "net_votes": -3,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (Oct 22 close snapshot)",
+    "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits messages and trending; one web search found Oct 20 context only; stocklake news feed needs Pro"
+    "news": "stocktwits trending, stocklake calendar; web search returned nothing dated today"
   },
   "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
