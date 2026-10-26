@@ -1,18 +1,17 @@
 {
   "date": "2026-10-26",
   "bias": "neutral",
-  "written_at": "2026-10-26T10:26:19-04:00",
-  "as_of": "2026-10-26T14:30:00Z",
+  "written_at": "2026-10-26T11:07:00-04:00",
+  "as_of": "2026-10-26T15:08:00Z",
   "readings": {
-    "as_of": "2026-10-26T14:30:00Z",
-    "spy_price": 763.64,
-    "spy_change_pct": 0.48,
+    "as_of": "2026-10-26T15:08:00Z",
+    "spy_price": 765.75,
+    "spy_change_pct": 0.76,
     "vix": 19.24,
-    "vix_change_pct": -4.8,
     "fear_greed": 27,
     "stocktwits": {
       "SPY": {
-        "score": 19,
+        "score": 20,
         "bullish_pct": 48
       }
     },
@@ -24,10 +23,9 @@
     "news": {
       "score": 0.1,
       "headlines": [
-        "Brazil-linked names crash premarket and into the open: XP -52%, NU -21%, EWZ -24%, MELI -11% (cause unconfirmed; posters cite a Brazil election result)",
-        "Posters say markets are rallying on Anthropic IPO/S-1 news",
-        "RDDT -5%, TSLA +6%, MRNA +1% on Stocktwits trending",
-        "No major US economic data today"
+        "Brazil-linked names still crushed: XP -52%, NU -19%, EWZ -22%, MELI -10% (cause unconfirmed; posters cite a Brazil election result)",
+        "TSLA +6%, RDDT -6%, CRWV +5% on Stocktwits trending",
+        "No major US economic data today; releases are minor non-US prints"
       ]
     },
     "rumors": [
@@ -48,25 +46,10 @@
         },
         "direction": "down",
         "credibility": 0.4,
-        "why": "Political risk repricing in Brazil would hit Brazil-exposed names; little direct effect on SPY"
+        "why": "Political risk repricing hits Brazil-exposed names; little direct effect on SPY"
       },
       {
-        "text": "Posters say the market is rallying on the Anthropic S-1 / IPO news, lifting AI-linked names",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "An AI IPO could support AI valuations, but the link to the index move is a poster guess"
-      },
-      {
-        "text": "Poster claims oil is about to spike and that call buyers are being baited",
+        "text": "Posters call today's SPY move a low-volume pump that will retest 760 this week; others expect a 769 gap fill",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -75,8 +58,8 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.1,
-        "why": "An oil spike would add to inflation and yield pressure on equities"
+        "credibility": 0.2,
+        "why": "If the rally fades, SPY would give back gains toward 760 support"
       }
     ],
     "names": {
@@ -89,11 +72,11 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.55,
-        "reason": "SPY up 0.5% with VIX falling while the crowd is extremely bearish (score 19); a crowded bearish bet leaves room for squeezes",
-        "catalyst": "Falling VIX, no major US data, AI/IPO chatter"
+        "reason": "SPY +0.76% with VIX near 19 while the crowd is extremely bearish (score 20) and posters expect a fade; crowded bearish bets leave room for squeezes",
+        "catalyst": "Falling VIX, no major US data, bearish positioning"
       }
     ],
-    "whats_new": "Stocklake pulse is live again: SPY 763.64 (+0.48%) versus 762.24 at the last read, VIX down to 19.24 from 20.2 and fear/greed up to 27 from 21. Crowd is still extremely bearish (score 19) even as price rises. The Brazil-linked selloff is now confirmed in trading, and posters tie the market lift to Anthropic IPO news.",
+    "whats_new": "SPY extended to 765.75 (+0.76%) from 763.64 at the last read, QQQ +1.0% and IWM +0.75%. VIX is steady near 19.2 and fear/greed is about 27. Crowd is still extremely bearish (score 20) and many posters call the rally a trap. Brazil-linked selloff persists with no confirmed cause.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -104,15 +87,15 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.48,
+      "value": 0.76,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -4.8,
+      "value": null,
       "vote": 0,
-      "why": "in the neutral band"
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -122,7 +105,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 19.0,
+      "value": 20.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
