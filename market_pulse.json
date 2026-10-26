@@ -1,17 +1,17 @@
 {
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "bias": "bearish",
-  "written_at": "2026-10-23T15:07:02-04:00",
-  "as_of": "2026-10-23T19:10:00Z",
+  "written_at": "2026-10-26T09:15:23-04:00",
+  "as_of": "2026-10-26T13:20:00Z",
   "readings": {
-    "as_of": "2026-10-23T19:10:00Z",
-    "spy_price": 760.43,
-    "spy_change_pct": -0.46,
-    "vix": 19.26,
-    "fear_greed": 20,
+    "as_of": "2026-10-26T13:20:00Z",
+    "spy_price": 762.24,
+    "spy_change_pct": -0.23,
+    "vix": 20.2,
+    "fear_greed": 21,
     "stocktwits": {
       "SPY": {
-        "score": 5,
+        "score": 18,
         "bullish_pct": 48
       }
     },
@@ -21,33 +21,18 @@
       "top": []
     },
     "news": {
-      "score": -0.3,
+      "score": -0.2,
       "headlines": [
-        "BE -11.5% leads trending (AI power names weak), CRDO -9%, SMCI -2.5%",
-        "T -7.2%, MGM -6%, TGT -3.6% among trending decliners",
-        "USO +4.1% to 169 and VG +8.7% as oil rises",
-        "QQQ +0.12% while SPY -0.46%, IWM -0.36%, GLD -0.7%",
-        "No major US data today; only minor foreign CPI prints"
+        "Premarket trending: NU -22%, XP -52%, EWZ -26%, MELI -14% (Brazil-linked names, cause not found)",
+        "MRNA -7%, CRWV -5%, META -1% premarket",
+        "Anthropic reported to have publicly filed its S-1 ahead of IPO",
+        "SPY premarket plan posts: ~762, support 760/755, resistance 763-765; net GEX negative",
+        "No major US data today; only minor foreign CPI and S.Korea GDP"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say Trump is tweeting about an Iran attack",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "USO"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "USO": "United States Oil Fund"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Weekend escalation would lift oil and raise gap-down risk for equities"
-      },
-      {
-        "text": "Posters say dealers are short gamma near SPY 760 so a break could accelerate",
+        "text": "Poster says Democrats taking control in the midterms means a 10% market haircut starting this week",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -56,60 +41,51 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.25,
-        "why": "Losing 760 could trigger hedging flows toward 755"
+        "credibility": 0.12,
+        "why": "Election-outcome fears could weigh on equities into early November"
       },
       {
-        "text": "Posters expect another Fed hike at next week's FOMC",
+        "text": "Posters say AI infrastructure trade is vulnerable and due for cooling as returns lag spending",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "TLT"
+          "QQQ"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "A hike would pressure equities and long bonds"
+        "credibility": 0.25,
+        "why": "AI leaders carry heavy index weight so a de-rating would drag SPY"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "BE": "Bloom Energy",
-      "CRDO": "Credo Technology",
-      "T": "AT&T",
-      "MGM": "MGM Resorts",
-      "TGT": "Target",
-      "VG": "Venture Global",
-      "USO": "United States Oil Fund"
+      "NU": "Nu Holdings",
+      "XP": "XP Inc",
+      "EWZ": "iShares MSCI Brazil ETF",
+      "MELI": "MercadoLibre",
+      "MRNA": "Moderna",
+      "CRWV": "CoreWeave",
+      "META": "Meta Platforms"
     },
-    "plays": [
-      {
-        "ticker": "SPY",
-        "direction": "up",
-        "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Crowd score 5 and fear/greed 20 are extreme while SPY is only -0.46% and QQQ is green; many posters are positioned for a power-hour move around 760",
-        "catalyst": "Contrarian extreme sentiment vs weekend Iran headline risk into the close"
-      }
-    ],
-    "whats_new": "SPY is flat versus last hour at 760.4 (-0.46%) and still pinned on the 760 level while QQQ is slightly green. Crowd stays extremely bearish (score 5); oil-linked names rose (USO +4%) while AI power and networking names (BE, CRDO) sold off. Reddit was blocked and web search found nothing dated today.",
+    "plays": [],
+    "whats_new": "Stocklake pulse is still Friday's snapshot (SPY 762.2, VIX 20.2, fear/greed 21), so SPY is about flat to slightly up versus Friday's 760.4 read. Crowd stays extremely bearish (score 18). New: Brazil-linked names (NU, XP, EWZ, MELI) are sharply lower premarket and the Anthropic S-1 filing is being chatted about; no clear SPY edge, so no play.",
     "sources": {
-      "market_pulse": "stocklake",
+      "market_pulse": "stocklake (stale, Fri close)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending and posts, stocklake calendar"
+      "news": "stocktwits trending and posts, web search found nothing dated today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.46,
-      "vote": -1,
-      "why": "\u2264 -0.3"
+      "value": -0.23,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
@@ -119,24 +95,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 20.0,
+      "value": 21.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 5.0,
+      "value": 18.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -3,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
+    "market_pulse": "stocklake (stale, Fri close)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending and posts, stocklake calendar"
+    "news": "stocktwits trending and posts, web search found nothing dated today"
   },
-  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
