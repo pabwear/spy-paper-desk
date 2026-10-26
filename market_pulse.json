@@ -1,17 +1,18 @@
 {
   "date": "2026-10-26",
-  "bias": "bearish",
-  "written_at": "2026-10-26T09:15:23-04:00",
-  "as_of": "2026-10-26T13:20:00Z",
+  "bias": "neutral",
+  "written_at": "2026-10-26T10:26:19-04:00",
+  "as_of": "2026-10-26T14:30:00Z",
   "readings": {
-    "as_of": "2026-10-26T13:20:00Z",
-    "spy_price": 762.24,
-    "spy_change_pct": -0.23,
-    "vix": 20.2,
-    "fear_greed": 21,
+    "as_of": "2026-10-26T14:30:00Z",
+    "spy_price": 763.64,
+    "spy_change_pct": 0.48,
+    "vix": 19.24,
+    "vix_change_pct": -4.8,
+    "fear_greed": 27,
     "stocktwits": {
       "SPY": {
-        "score": 18,
+        "score": 19,
         "bullish_pct": 48
       }
     },
@@ -21,31 +22,36 @@
       "top": []
     },
     "news": {
-      "score": -0.2,
+      "score": 0.1,
       "headlines": [
-        "Premarket trending: NU -22%, XP -52%, EWZ -26%, MELI -14% (Brazil-linked names, cause not found)",
-        "MRNA -7%, CRWV -5%, META -1% premarket",
-        "Anthropic reported to have publicly filed its S-1 ahead of IPO",
-        "SPY premarket plan posts: ~762, support 760/755, resistance 763-765; net GEX negative",
-        "No major US data today; only minor foreign CPI and S.Korea GDP"
+        "Brazil-linked names crash premarket and into the open: XP -52%, NU -21%, EWZ -24%, MELI -11% (cause unconfirmed; posters cite a Brazil election result)",
+        "Posters say markets are rallying on Anthropic IPO/S-1 news",
+        "RDDT -5%, TSLA +6%, MRNA +1% on Stocktwits trending",
+        "No major US economic data today"
       ]
     },
     "rumors": [
       {
-        "text": "Poster says Democrats taking control in the midterms means a 10% market haircut starting this week",
+        "text": "Posters link the Brazil-linked crash (NU, XP, EWZ, MELI) to a leftist election win in Brazil",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "EWZ",
+          "NU",
+          "XP",
+          "MELI"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "EWZ": "iShares MSCI Brazil ETF",
+          "NU": "Nu Holdings",
+          "XP": "XP Inc",
+          "MELI": "MercadoLibre"
         },
         "direction": "down",
-        "credibility": 0.12,
-        "why": "Election-outcome fears could weigh on equities into early November"
+        "credibility": 0.4,
+        "why": "Political risk repricing in Brazil would hit Brazil-exposed names; little direct effect on SPY"
       },
       {
-        "text": "Posters say AI infrastructure trade is vulnerable and due for cooling as returns lag spending",
+        "text": "Posters say the market is rallying on the Anthropic S-1 / IPO news, lifting AI-linked names",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -55,64 +61,79 @@
           "SPY": "SPDR S&P 500 ETF",
           "QQQ": "Invesco QQQ Trust"
         },
+        "direction": "up",
+        "credibility": 0.3,
+        "why": "An AI IPO could support AI valuations, but the link to the index move is a poster guess"
+      },
+      {
+        "text": "Poster claims oil is about to spike and that call buyers are being baited",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
         "direction": "down",
-        "credibility": 0.25,
-        "why": "AI leaders carry heavy index weight so a de-rating would drag SPY"
+        "credibility": 0.1,
+        "why": "An oil spike would add to inflation and yield pressure on equities"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "QQQ": "Invesco QQQ Trust",
-      "NU": "Nu Holdings",
-      "XP": "XP Inc",
-      "EWZ": "iShares MSCI Brazil ETF",
-      "MELI": "MercadoLibre",
-      "MRNA": "Moderna",
-      "CRWV": "CoreWeave",
-      "META": "Meta Platforms"
+      "QQQ": "Invesco QQQ Trust"
     },
-    "plays": [],
-    "whats_new": "Stocklake pulse is still Friday's snapshot (SPY 762.2, VIX 20.2, fear/greed 21), so SPY is about flat to slightly up versus Friday's 760.4 read. Crowd stays extremely bearish (score 18). New: Brazil-linked names (NU, XP, EWZ, MELI) are sharply lower premarket and the Anthropic S-1 filing is being chatted about; no clear SPY edge, so no play.",
+    "plays": [
+      {
+        "ticker": "SPY",
+        "direction": "up",
+        "horizon": "close",
+        "confidence": 0.55,
+        "reason": "SPY up 0.5% with VIX falling while the crowd is extremely bearish (score 19); a crowded bearish bet leaves room for squeezes",
+        "catalyst": "Falling VIX, no major US data, AI/IPO chatter"
+      }
+    ],
+    "whats_new": "Stocklake pulse is live again: SPY 763.64 (+0.48%) versus 762.24 at the last read, VIX down to 19.24 from 20.2 and fear/greed up to 27 from 21. Crowd is still extremely bearish (score 19) even as price rises. The Brazil-linked selloff is now confirmed in trading, and posters tie the market lift to Anthropic IPO news.",
     "sources": {
-      "market_pulse": "stocklake (stale, Fri close)",
+      "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending and posts, web search found nothing dated today"
+      "news": "stocktwits trending and posts; web search found nothing dated today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.23,
+      "value": 0.48,
+      "vote": 1,
+      "why": "\u2265 0.3"
+    },
+    {
+      "reading": "vix_change_pct",
+      "value": -4.8,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
-      "reading": "vix_change_pct",
-      "value": null,
-      "vote": 0,
-      "why": "missing"
-    },
-    {
       "reading": "fear_greed",
-      "value": 21.0,
+      "value": 27.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 18.0,
+      "value": 19.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (stale, Fri close)",
+    "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending and posts, web search found nothing dated today"
+    "news": "stocktwits trending and posts; web search found nothing dated today"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
