@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-26T14:20:44+00:00",
+  "updated_at": "2026-10-26T14:30:38+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -29,45 +29,45 @@
     "feature_version": 1
   },
   "data": {
-    "last_bar": "2026-10-26 10:19:00-04:00",
-    "age_minutes": 0.7,
+    "last_bar": "2026-10-26 10:29:00-04:00",
+    "age_minutes": 0.6,
     "source": "alpaca",
     "sessions": 14,
-    "missing_minutes": 166,
-    "price": 765.665
+    "missing_minutes": 156,
+    "price": 764.755
   },
   "features": {
-    "ret_1": 2.155,
-    "ret_5": 13.396,
-    "ret_15": 25.173,
-    "ret_30": 33.557,
-    "ret_open": 44.505,
+    "ret_1": -2.027,
+    "ret_5": -2.615,
+    "ret_15": 1.504,
+    "ret_30": 25.531,
+    "ret_open": 32.613,
     "gap": 31.995,
-    "rv_15": 4.314,
-    "rv_60": 5.473,
-    "rv_ratio": 0.788,
-    "atr_14": 5.285,
-    "range_x": 0.544,
-    "body": 0.795,
-    "upper_wick": 0.068,
-    "lower_wick": 0.136,
-    "vwap_dist": 29.987,
-    "dist_high": -0.196,
-    "dist_low": 52.051,
-    "rel_vol_15": 0.982,
-    "vol_accel": 0.731,
-    "tod": 0.126,
-    "tod_sin": 0.71,
-    "tod_cos": 0.704,
+    "rv_15": 2.994,
+    "rv_60": 5.143,
+    "rv_ratio": 0.582,
+    "atr_14": 3.918,
+    "range_x": 0.901,
+    "body": -0.463,
+    "upper_wick": 0.185,
+    "lower_wick": 0.352,
+    "vwap_dist": 12.95,
+    "dist_high": -13.394,
+    "dist_low": 40.159,
+    "rel_vol_15": 1.438,
+    "vol_accel": 1.851,
+    "tod": 0.151,
+    "tod_sin": 0.814,
+    "tod_cos": 0.581,
     "dow": 0.0,
     "stale": 0.0,
     "missing_30": 0.0
   },
   "prediction": {
     "ok": true,
-    "p": 0.5148,
+    "p": 0.4936,
     "ood": false,
-    "latency_ms": 1.06,
+    "latency_ms": 1.03,
     "threshold": 0.51,
     "expected_net_bps": 2.2891162996277643,
     "approved": false
@@ -75,16 +75,17 @@
   "decision": {
     "outcome": "NO_TRADE",
     "reasons": [
-      "model not approved (did not pass the walk-forward rules and the holdout)"
+      "model not approved (did not pass the walk-forward rules and the holdout)",
+      "p 0.494 below the entry threshold 0.51 (no-trade zone)"
     ],
-    "p": 0.5148,
+    "p": 0.4936,
     "threshold": 0.51,
     "risk": null,
     "qty": 0.0
   },
   "risk": {
     "ok": true,
-    "qty": 1.044,
+    "qty": 1.046,
     "passed": [
       "kill_switch_off",
       "not_live",
@@ -104,7 +105,7 @@
     ],
     "failed": []
   },
-  "stop_bps": 15.855,
+  "stop_bps": 11.754000000000001,
   "in_session": true,
   "execution": {
     "orders_allowed": false,
@@ -117,29 +118,15 @@
     "orders_sent": 0
   },
   "forward": {
-    "decisions": 297,
-    "scored": 294,
+    "decisions": 298,
+    "scored": 295,
     "signals": 1,
-    "brier": 0.2504,
-    "base_rate": 0.466,
+    "brier": 0.2505,
+    "base_rate": 0.4678,
     "signal_avg_net_bps": -7.45,
     "signal_win_rate": 0.0
   },
   "recent": [
-    {
-      "ts": "2026-10-23T18:00:44+00:00",
-      "bar_t": "2026-10-23 13:59:00-04:00",
-      "horizon": 15,
-      "p": 0.4528,
-      "threshold": 0.51,
-      "shadow_signal": false,
-      "outcome": "NO_TRADE",
-      "model": "tcn-5961b0695697",
-      "result": {
-        "net_bps": -2.38,
-        "up_net": 0
-      }
-    },
     {
       "ts": "2026-10-23T18:10:44+00:00",
       "bar_t": "2026-10-23 14:09:00-04:00",
@@ -274,7 +261,11 @@
       "threshold": 0.51,
       "shadow_signal": false,
       "outcome": "NO_TRADE",
-      "model": "tcn-5961b0695697"
+      "model": "tcn-5961b0695697",
+      "result": {
+        "net_bps": 8.03,
+        "up_net": 1
+      }
     },
     {
       "ts": "2026-10-26T14:20:44+00:00",
@@ -283,6 +274,16 @@
       "p": 0.5148,
       "threshold": 0.51,
       "shadow_signal": true,
+      "outcome": "NO_TRADE",
+      "model": "tcn-5961b0695697"
+    },
+    {
+      "ts": "2026-10-26T14:30:38+00:00",
+      "bar_t": "2026-10-26 10:29:00-04:00",
+      "horizon": 15,
+      "p": 0.4936,
+      "threshold": 0.51,
+      "shadow_signal": false,
       "outcome": "NO_TRADE",
       "model": "tcn-5961b0695697"
     }
