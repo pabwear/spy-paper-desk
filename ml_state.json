@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-26T20:40:29+00:00",
+  "updated_at": "2026-10-26T20:50:29+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -30,7 +30,7 @@
   },
   "data": {
     "last_bar": "2026-10-26 15:59:00-04:00",
-    "age_minutes": 40.5,
+    "age_minutes": 50.5,
     "source": "alpaca",
     "sessions": 14,
     "missing_minutes": 8,
@@ -75,7 +75,7 @@
   "decision": {
     "outcome": "UNAVAILABLE",
     "reasons": [
-      "data too old (40.5 min)"
+      "data too old (50.5 min)"
     ],
     "p": 0.4303,
     "threshold": 0.51,
