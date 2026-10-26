@@ -63,3 +63,4 @@ filled_at,order_id,symbol,asset,multiplier,role,side,qty,price,notional,position
 2026-10-23T15:40:34-04:00,eeccaf64-2150-42a5-8504-f5584271fa1d,SPY261023P00751000,option,100,exit,sell,1.0,0.01,1.0,0.0,0.0,-17.0,flatten,,,,,,,,
 2026-10-26T10:00:33-04:00,1fce52b5-d308-44b7-ad17-ea953e479259,SPY261026P00758000,option,100,entry,sell,1.0,0.28,28.0,-1.0,0.28,,,762.805,,,,,,,
 2026-10-26T10:00:33-04:00,9bc9c125-347e-4eaf-b48f-19a68ea544ef,SPY261026P00753000,option,100,entry,buy,1.0,0.07,7.0,1.0,0.07,,,762.805,,,,,,,
+2026-10-26T15:40:29-04:00,c43eeb9d-feb6-42a9-b761-56fd1af356c5,SPY261026P00758000,option,100,exit,buy,1.0,0.02,2.0,0.0,0.0,26.0,flatten,,,,,,,,
