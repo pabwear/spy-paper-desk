@@ -1,19 +1,18 @@
 {
   "date": "2026-10-26",
   "bias": "neutral",
-  "written_at": "2026-10-26T12:12:01-04:00",
-  "as_of": "2026-10-26T16:13:00Z",
+  "written_at": "2026-10-26T13:06:57-04:00",
+  "as_of": "2026-10-26T17:08:00Z",
   "readings": {
-    "as_of": "2026-10-26T16:13:00Z",
-    "spy_price": 766.0,
-    "spy_change_pct": 0.79,
+    "as_of": "2026-10-26T17:08:00Z",
+    "spy_price": 764.74,
+    "spy_change_pct": 0.63,
     "vix": 18.16,
-    "vix_change_pct": -5.6,
     "fear_greed": 29,
     "stocktwits": {
       "SPY": {
-        "score": 21,
-        "bullish_pct": 48
+        "score": 20,
+        "bullish_pct": 48.6
       }
     },
     "reddit": {
@@ -22,17 +21,17 @@
       "top": []
     },
     "news": {
-      "score": 0.05,
+      "score": 0,
       "headlines": [
-        "QQQ +1.3%, IWM +0.87%, TLT +0.37% as SPY pulls back from the high of day",
-        "Brazil-linked names still crushed: XP -48%, EWZ -22%, NU -19%",
-        "NFLX -3.5%, RDDT -5.6%, PYPL -3.7%, TSLA +6%, NBIS +2.5%, IREN +5.5% on Stocktwits trending",
-        "No major US economic data today; only minor non-US prints"
+        "QQQ +1.05%, IWM +0.69%, TLT +0.47% while SPY fades from the high of day",
+        "Brazil-linked names still crushed: XP -48%, EWZ -21%, NU -18.5%",
+        "NFLX -4.1%, PYPL -3.6%, RDDT -5.2% lead Stocktwits trending",
+        "No major US economic data today"
       ]
     },
     "rumors": [
       {
-        "text": "Posters tie the Brazil-linked crash (NU, XP, EWZ, MELI) to a leftist election win in Brazil",
+        "text": "Posters tie the Brazil-linked crash (NU, XP, EWZ) to a leftist election win in Brazil",
         "source": "stocktwits",
         "tickers": [
           "EWZ",
@@ -46,36 +45,10 @@
         },
         "direction": "down",
         "credibility": 0.4,
-        "why": "Political risk repricing hits Brazil-exposed names; little direct effect on SPY"
+        "why": "Political risk repricing hits Brazil-exposed names; little direct effect on SPY (not new)"
       },
       {
-        "text": "Poster says Microsoft is offering to buy out 60,000 employees as AI takes over",
-        "source": "stocktwits",
-        "tickers": [
-          "MSFT"
-        ],
-        "names": {
-          "MSFT": "Microsoft"
-        },
-        "direction": "up",
-        "credibility": 0.15,
-        "why": "If true, big cost cuts could lift margins but signal AI-driven job disruption"
-      },
-      {
-        "text": "Poster fears a surprise 25bp Fed hike Wednesday with oil near $112 and yields rising",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "A surprise hike would hit stocks; the poster admits markets priced no hike in Oct"
-      },
-      {
-        "text": "Posters say heavy SPY put open interest (755 strike Fri, 767 strike tomorrow) stalled the morning rally and signals big hedging",
+        "text": "Posters expect a rejection or a 'weak close' after SPY retested the 20-period average near 765.5 and the opening range high near 765.8",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -85,7 +58,20 @@
         },
         "direction": "down",
         "credibility": 0.25,
-        "why": "Large put positioning can pin or pull SPY toward those strikes"
+        "why": "Chart-based chatter; a failed retest could pull SPY toward 760"
+      },
+      {
+        "text": "Poster fears a surprise Fed hike on Wednesday with oil and yields rising (carried over from last hour)",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "A surprise hike would hit stocks; the poster admits none is priced"
       }
     ],
     "names": {
@@ -98,30 +84,30 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "VIX fell to 18.2, crowd is extremely bearish (21) while SPY holds +0.8%; support near 764.75 VWAP, but it is fading off the high",
+        "reason": "VIX 18.2 and falling, crowd extremely bearish (20) while SPY holds +0.6%; but it is fading off the high",
         "catalyst": "Falling VIX, no US data, crowded bearish positioning"
       }
     ],
-    "whats_new": "SPY edged up to 766 (+0.79%) from 765.75, QQQ +1.3%. VIX dropped to 18.2 from 19.2 and fear/greed rose slightly to 29. Crowd is still extremely bearish (21); new chatter about put hedging and a possible Fed hike, both low credibility. Brazil selloff story is unchanged.",
+    "whats_new": "SPY is 764.74 (+0.63%), a little below last hour's 766; QQQ +1.05%. VIX is flat near 18.2 and fear/greed is 29. The crowd is still extremely bearish (20) with talk of a weak close; the Brazil selloff and Fed-hike worry are unchanged.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts and trending; web search found nothing dated today"
+      "news": "stocktwits posts and trending; web search found nothing dated today; Stocklake news feed needs Pro"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.79,
+      "value": 0.63,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -5.6,
-      "vote": 1,
-      "why": "\u2264 -5.0"
+      "value": null,
+      "vote": 0,
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -131,18 +117,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 21.0,
+      "value": 20.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts and trending; web search found nothing dated today"
+    "news": "stocktwits posts and trending; web search found nothing dated today; Stocklake news feed needs Pro"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
