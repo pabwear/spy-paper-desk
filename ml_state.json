@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-26T19:30:37+00:00",
+  "updated_at": "2026-10-26T19:31:12+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -29,45 +29,45 @@
     "feature_version": 1
   },
   "data": {
-    "last_bar": "2026-10-26 15:29:00-04:00",
-    "age_minutes": 0.6,
+    "last_bar": "2026-10-26 15:30:00-04:00",
+    "age_minutes": 0.2,
     "source": "alpaca",
     "sessions": 14,
-    "missing_minutes": 38,
-    "price": 765.39
+    "missing_minutes": 37,
+    "price": 765.38
   },
   "features": {
-    "ret_1": 0.261,
-    "ret_5": -0.915,
+    "ret_1": -0.131,
+    "ret_5": -1.568,
     "ret_15": -0.261,
-    "ret_30": 3.92,
-    "ret_open": 40.912,
+    "ret_30": 10.719,
+    "ret_open": 40.782,
     "gap": 31.995,
     "rv_15": 1.316,
-    "rv_60": 1.568,
-    "rv_ratio": 0.84,
-    "atr_14": 1.806,
-    "range_x": 0.796,
-    "body": 0.909,
-    "upper_wick": 0.091,
-    "lower_wick": 0.0,
-    "vwap_dist": 3.37,
-    "dist_high": -30.526,
-    "dist_low": 48.459,
-    "rel_vol_15": 0.626,
-    "vol_accel": 0.519,
-    "tod": 0.921,
-    "tod_sin": -0.479,
-    "tod_cos": 0.878,
+    "rv_60": 1.553,
+    "rv_ratio": 0.847,
+    "atr_14": 1.871,
+    "range_x": 1.327,
+    "body": 0.158,
+    "upper_wick": 0.105,
+    "lower_wick": 0.737,
+    "vwap_dist": 3.234,
+    "dist_high": -30.657,
+    "dist_low": 48.328,
+    "rel_vol_15": 0.549,
+    "vol_accel": 0.62,
+    "tod": 0.923,
+    "tod_sin": -0.465,
+    "tod_cos": 0.885,
     "dow": 0.0,
     "stale": 0.0,
     "missing_30": 0.0
   },
   "prediction": {
     "ok": true,
-    "p": 0.431,
+    "p": 0.451,
     "ood": false,
-    "latency_ms": 1.03,
+    "latency_ms": 1.14,
     "threshold": 0.51,
     "expected_net_bps": 2.2891162996277643,
     "approved": false
@@ -76,22 +76,21 @@
     "outcome": "NO_TRADE",
     "reasons": [
       "model not approved (did not pass the walk-forward rules and the holdout)",
-      "p 0.431 below the entry threshold 0.51 (no-trade zone)"
+      "p 0.451 below the entry threshold 0.51 (no-trade zone)"
     ],
-    "p": 0.431,
+    "p": 0.451,
     "threshold": 0.51,
     "risk": null,
     "qty": 0.0
   },
   "risk": {
-    "ok": true,
-    "qty": 1.045,
+    "ok": false,
+    "qty": 0.0,
     "passed": [
       "kill_switch_off",
       "not_live",
       "long_only",
       "inputs_known",
-      "in_session",
       "data_fresh",
       "model_healthy",
       "positions_below_max",
@@ -100,13 +99,14 @@
       "loss_streak_ok",
       "cooldown_over",
       "spread_ok",
-      "stop_wide_enough",
-      "size_positive"
+      "stop_wide_enough"
     ],
-    "failed": []
+    "failed": [
+      "in_session"
+    ]
   },
   "stop_bps": 8.0,
-  "in_session": true,
+  "in_session": false,
   "execution": {
     "orders_allowed": false,
     "why_not": [
