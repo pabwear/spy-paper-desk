@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-26T13:30:38+00:00",
+  "updated_at": "2026-10-26T13:40:34+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -29,56 +29,24 @@
     "feature_version": 1
   },
   "data": {
-    "last_bar": "2026-10-23 15:59:00-04:00",
-    "age_minutes": 3930.6,
+    "last_bar": "2026-10-26 09:39:00-04:00",
+    "age_minutes": 0.6,
     "source": "alpaca",
-    "sessions": 13,
-    "missing_minutes": 6,
-    "price": 759.83
-  },
-  "features": {
-    "ret_1": -1.579,
-    "ret_5": -0.79,
-    "ret_15": -4.474,
-    "ret_30": -8.945,
-    "ret_open": -0.724,
-    "gap": -54.399,
-    "rv_15": 2.048,
-    "rv_60": 1.795,
-    "rv_ratio": 1.141,
-    "atr_14": 3.652,
-    "range_x": 2.523,
-    "body": -0.214,
-    "upper_wick": 0.4,
-    "lower_wick": 0.386,
-    "vwap_dist": -12.271,
-    "dist_high": -47.398,
-    "dist_low": 15.146,
-    "rel_vol_15": 0.716,
-    "vol_accel": 1.471,
-    "tod": 0.997,
-    "tod_sin": -0.016,
-    "tod_cos": 1.0,
-    "dow": 4.0,
-    "stale": 0.0,
-    "missing_30": 0.0
+    "sessions": 14,
+    "missing_minutes": 206,
+    "price": 763.665
   },
   "prediction": {
-    "ok": true,
-    "p": 0.4488,
-    "ood": false,
-    "latency_ms": 1.09,
-    "threshold": 0.51,
-    "expected_net_bps": 2.2891162996277643,
-    "approved": false
+    "ok": false,
+    "error": "RuntimeError: features incomplete for the latest minute"
   },
   "decision": {
     "outcome": "UNAVAILABLE",
     "reasons": [
-      "data too old (3930.6 min)"
+      "RuntimeError: features incomplete for the latest minute"
     ],
-    "p": 0.4488,
-    "threshold": 0.51,
+    "p": null,
+    "threshold": null,
     "risk": null,
     "qty": 0.0
   },
@@ -89,22 +57,22 @@
       "kill_switch_off",
       "not_live",
       "long_only",
-      "inputs_known",
-      "model_healthy",
+      "data_fresh",
       "positions_below_max",
       "orders_below_max",
       "daily_loss_ok",
       "loss_streak_ok",
       "cooldown_over",
-      "spread_ok",
-      "stop_wide_enough"
+      "spread_ok"
     ],
     "failed": [
+      "inputs_known",
       "in_session",
-      "data_fresh"
+      "model_healthy",
+      "stop_wide_enough"
     ]
   },
-  "stop_bps": 10.956,
+  "stop_bps": null,
   "in_session": false,
   "execution": {
     "orders_allowed": false,
