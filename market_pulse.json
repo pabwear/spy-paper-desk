@@ -1,17 +1,18 @@
 {
   "date": "2026-10-26",
   "bias": "neutral",
-  "written_at": "2026-10-26T11:07:00-04:00",
-  "as_of": "2026-10-26T15:08:00Z",
+  "written_at": "2026-10-26T12:12:01-04:00",
+  "as_of": "2026-10-26T16:13:00Z",
   "readings": {
-    "as_of": "2026-10-26T15:08:00Z",
-    "spy_price": 765.75,
-    "spy_change_pct": 0.76,
-    "vix": 19.24,
-    "fear_greed": 27,
+    "as_of": "2026-10-26T16:13:00Z",
+    "spy_price": 766.0,
+    "spy_change_pct": 0.79,
+    "vix": 18.16,
+    "vix_change_pct": -5.6,
+    "fear_greed": 29,
     "stocktwits": {
       "SPY": {
-        "score": 20,
+        "score": 21,
         "bullish_pct": 48
       }
     },
@@ -21,35 +22,47 @@
       "top": []
     },
     "news": {
-      "score": 0.1,
+      "score": 0.05,
       "headlines": [
-        "Brazil-linked names still crushed: XP -52%, NU -19%, EWZ -22%, MELI -10% (cause unconfirmed; posters cite a Brazil election result)",
-        "TSLA +6%, RDDT -6%, CRWV +5% on Stocktwits trending",
-        "No major US economic data today; releases are minor non-US prints"
+        "QQQ +1.3%, IWM +0.87%, TLT +0.37% as SPY pulls back from the high of day",
+        "Brazil-linked names still crushed: XP -48%, EWZ -22%, NU -19%",
+        "NFLX -3.5%, RDDT -5.6%, PYPL -3.7%, TSLA +6%, NBIS +2.5%, IREN +5.5% on Stocktwits trending",
+        "No major US economic data today; only minor non-US prints"
       ]
     },
     "rumors": [
       {
-        "text": "Posters link the Brazil-linked crash (NU, XP, EWZ, MELI) to a leftist election win in Brazil",
+        "text": "Posters tie the Brazil-linked crash (NU, XP, EWZ, MELI) to a leftist election win in Brazil",
         "source": "stocktwits",
         "tickers": [
           "EWZ",
           "NU",
-          "XP",
-          "MELI"
+          "XP"
         ],
         "names": {
           "EWZ": "iShares MSCI Brazil ETF",
           "NU": "Nu Holdings",
-          "XP": "XP Inc",
-          "MELI": "MercadoLibre"
+          "XP": "XP Inc"
         },
         "direction": "down",
         "credibility": 0.4,
         "why": "Political risk repricing hits Brazil-exposed names; little direct effect on SPY"
       },
       {
-        "text": "Posters call today's SPY move a low-volume pump that will retest 760 this week; others expect a 769 gap fill",
+        "text": "Poster says Microsoft is offering to buy out 60,000 employees as AI takes over",
+        "source": "stocktwits",
+        "tickers": [
+          "MSFT"
+        ],
+        "names": {
+          "MSFT": "Microsoft"
+        },
+        "direction": "up",
+        "credibility": 0.15,
+        "why": "If true, big cost cuts could lift margins but signal AI-driven job disruption"
+      },
+      {
+        "text": "Poster fears a surprise 25bp Fed hike Wednesday with oil near $112 and yields rising",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -58,8 +71,21 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "If the rally fades, SPY would give back gains toward 760 support"
+        "credibility": 0.1,
+        "why": "A surprise hike would hit stocks; the poster admits markets priced no hike in Oct"
+      },
+      {
+        "text": "Posters say heavy SPY put open interest (755 strike Fri, 767 strike tomorrow) stalled the morning rally and signals big hedging",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "Large put positioning can pin or pull SPY toward those strikes"
       }
     ],
     "names": {
@@ -71,52 +97,52 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.55,
-        "reason": "SPY +0.76% with VIX near 19 while the crowd is extremely bearish (score 20) and posters expect a fade; crowded bearish bets leave room for squeezes",
-        "catalyst": "Falling VIX, no major US data, bearish positioning"
+        "confidence": 0.52,
+        "reason": "VIX fell to 18.2, crowd is extremely bearish (21) while SPY holds +0.8%; support near 764.75 VWAP, but it is fading off the high",
+        "catalyst": "Falling VIX, no US data, crowded bearish positioning"
       }
     ],
-    "whats_new": "SPY extended to 765.75 (+0.76%) from 763.64 at the last read, QQQ +1.0% and IWM +0.75%. VIX is steady near 19.2 and fear/greed is about 27. Crowd is still extremely bearish (score 20) and many posters call the rally a trap. Brazil-linked selloff persists with no confirmed cause.",
+    "whats_new": "SPY edged up to 766 (+0.79%) from 765.75, QQQ +1.3%. VIX dropped to 18.2 from 19.2 and fear/greed rose slightly to 29. Crowd is still extremely bearish (21); new chatter about put hedging and a possible Fed hike, both low credibility. Brazil selloff story is unchanged.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending and posts; web search found nothing dated today"
+      "news": "stocktwits posts and trending; web search found nothing dated today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.76,
+      "value": 0.79,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": null,
-      "vote": 0,
-      "why": "missing"
+      "value": -5.6,
+      "vote": 1,
+      "why": "\u2264 -5.0"
     },
     {
       "reading": "fear_greed",
-      "value": 27.0,
+      "value": 29.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 20.0,
+      "value": 21.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending and posts; web search found nothing dated today"
+    "news": "stocktwits posts and trending; web search found nothing dated today"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
