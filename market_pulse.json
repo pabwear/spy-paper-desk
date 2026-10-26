@@ -1,18 +1,18 @@
 {
   "date": "2026-10-26",
   "bias": "neutral",
-  "written_at": "2026-10-26T14:08:10-04:00",
-  "as_of": "2026-10-26T18:09:00Z",
+  "written_at": "2026-10-26T15:07:21-04:00",
+  "as_of": "2026-10-26T19:10:00Z",
   "readings": {
-    "as_of": "2026-10-26T18:09:00Z",
-    "spy_price": 765.08,
-    "spy_change_pct": 0.67,
-    "vix": 18.16,
-    "fear_greed": 29,
+    "as_of": "2026-10-26T19:10:00Z",
+    "spy_price": 765.38,
+    "spy_change_pct": 0.71,
+    "vix": 18.17,
+    "fear_greed": 27,
     "stocktwits": {
       "SPY": {
         "score": 22,
-        "bullish_pct": 48.8
+        "bullish_pct": 49.1
       }
     },
     "reddit": {
@@ -23,50 +23,15 @@
     "news": {
       "score": 0,
       "headlines": [
-        "QQQ +1.16%, IWM +0.58%, TLT +0.47%, GLD +0.43% while SPY holds +0.67%",
-        "Brazil-linked names still crushed: XP -49%, EWZ -21%, NU -18%",
-        "NFLX -4.1%, PYPL -4.0%, RDDT -5.0%, AAPL -1.2% lead Stocktwits trending",
-        "Investors pivoting to risk-taking ahead of Mag7 earnings and a Fed decision (TalkMarkets)",
+        "QQQ +1.30%, IWM +0.57%, TLT +0.39%, GLD +0.36% while SPY holds +0.71%",
+        "Brazil-linked names still crushed: XP -49.5%, EWZ -20.6%",
+        "PYPL -4.4% and GOOG/GOOGL about -1% trend on Stocktwits; MSFT +1.4%",
         "No major US economic data today"
       ]
     },
     "rumors": [
       {
-        "text": "Poster claims Saudi Arabia must pull money out of US and European assets fast to fund/avoid sanctions amid Iran conflict, so more selling is coming",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ",
-          "DIA"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust",
-          "DIA": "SPDR Dow Jones Industrial Average ETF"
-        },
-        "direction": "down",
-        "credibility": 0.08,
-        "why": "Sovereign selling of US assets would pressure stocks; no evidence offered"
-      },
-      {
-        "text": "US Strategic Petroleum Reserve reportedly fell to 282.6M barrels, lowest since 1982 (shared from a live-news blog)",
-        "source": "other",
-        "tickers": [
-          "USO",
-          "BNO",
-          "SPY"
-        ],
-        "names": {
-          "USO": "United States Oil Fund",
-          "BNO": "United States Brent Oil Fund",
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Low reserves limit the US ability to cap oil spikes, adding to inflation and rate worries"
-      },
-      {
-        "text": "Posters speculate the US may strike Iran or that Israel's election tomorrow shifts geopolitical risk",
+        "text": "Poster says an Anthropic IPO will suck liquidity out of stocks and a big correction is coming",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -78,35 +43,20 @@
         },
         "direction": "down",
         "credibility": 0.1,
-        "why": "Military escalation would lift oil and hit risk assets"
-      },
-      {
-        "text": "Posters say AI spending and circular Nvidia investments (SpaceX, Meta, OpenAI, Anthropic buying GPUs back from Nvidia) will drag the market down",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA",
-          "SPY"
-        ],
-        "names": {
-          "NVDA": "NVIDIA",
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "AI capex worries have driven recent selloffs; opinion, not new fact"
+        "why": "A large IPO could draw cash from other stocks; no timing or evidence offered"
       },
       {
         "text": "Posters tie the Brazil-linked crash (NU, XP, EWZ) to a leftist election win in Brazil (not new)",
         "source": "stocktwits",
         "tickers": [
           "EWZ",
-          "NU",
-          "XP"
+          "XP",
+          "NU"
         ],
         "names": {
           "EWZ": "iShares MSCI Brazil ETF",
-          "NU": "Nu Holdings",
-          "XP": "XP Inc"
+          "XP": "XP Inc",
+          "NU": "Nu Holdings"
         },
         "direction": "down",
         "credibility": 0.4,
@@ -122,12 +72,12 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.54,
-        "reason": "SPY +0.67% with QQQ +1.2% and VIX ~18 while the crowd is extremely bearish (score 22); contrarian lean",
-        "catalyst": "No US data today, bearish crowd positioning, risk-on tilt ahead of Mag7 earnings and the Fed"
+        "confidence": 0.53,
+        "reason": "SPY +0.7% with QQQ +1.3% and VIX ~18 while crowd sentiment is extremely bearish (22); mild contrarian lean",
+        "catalyst": "No US data today; bearish crowd positioning; Mag7 earnings and Fed ahead"
       }
     ],
-    "whats_new": "SPY is 765.08 (+0.67%), roughly unchanged from last hour, with QQQ up to +1.16%. VIX is flat at 18.16 and fear/greed 29. Crowd still extremely bearish (22); new chatter is Saudi selling, Iran and Israel-election risk and a record-low SPR claim, all low credibility.",
+    "whats_new": "SPY is 765.38 (+0.71%), little changed from last hour, QQQ strengthened to +1.30%. VIX flat near 18.2 and fear/greed eased to about 27. Crowd still extremely bearish (22); the only new chatter is an Anthropic IPO liquidity worry, low credibility.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -138,7 +88,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.67,
+      "value": 0.71,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -150,7 +100,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 29.0,
+      "value": 27.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
