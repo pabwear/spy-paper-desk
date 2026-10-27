@@ -1,36 +1,36 @@
 {
   "date": "2026-10-27",
   "bias": "neutral",
-  "written_at": "2026-10-27T14:07:46-04:00",
-  "as_of": "2026-10-27T18:10:00Z",
+  "written_at": "2026-10-27T15:07:26-04:00",
+  "as_of": "2026-10-27T19:10:00Z",
   "readings": {
-    "as_of": "2026-10-27T18:10:00Z",
-    "spy_price": 769.89,
-    "spy_change_pct": 0.59,
-    "vix": 17.64,
+    "as_of": "2026-10-27T19:10:00Z",
+    "spy_price": 769.26,
+    "spy_change_pct": 0.51,
+    "vix": 17.72,
     "fear_greed": 33,
     "stocktwits": {
       "SPY": {
-        "score": 37,
-        "bullish_pct": 50.67
+        "score": 36,
+        "bullish_pct": 50.23
       }
-    },
-    "news": {
-      "score": 0.1,
-      "headlines": [
-        "SPY +0.59%, QQQ +1.27%, IWM +1.09%, GLD +1.24% (16:10 UTC snapshot); breadth neutral",
-        "Stocktwits trending: BA -9.6% (Boeing Q3 results were scheduled Oct 27), INOD -26.6%, SOFI +13.3%, CBRS +9.9%, RKLB +8.3%",
-        "Only scheduled event: BoC rate decision Oct 28 13:45 UTC; no US data today"
-      ]
     },
     "reddit": {
       "score": 0,
       "posts": 0,
       "top": []
     },
+    "news": {
+      "score": 0.1,
+      "headlines": [
+        "SPY +0.51%, QQQ +1.18%, IWM +1.08%, GLD +1.04%, TLT -0.11% (18:10 UTC snapshot); breadth neutral",
+        "Stocktwits trending: BA -10.0%, INOD -25.8%, SOFI +14.2%, BETR +21.1%, INFQ +12.2%, CBRS +10.6%",
+        "Only scheduled event: BoC rate decision Oct 28 13:45 UTC; no US data today"
+      ]
+    },
     "rumors": [
       {
-        "text": "Post says US Treasury just bought back $6B of its own debt, bullish for markets",
+        "text": "Posters say SPY heads to 800 tomorrow while others call a hard rejection and a drop from here",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -41,24 +41,11 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "up",
-        "credibility": 0.2,
-        "why": "Buybacks are routine debt management; unverified and unlikely to move equities much"
+        "credibility": 0.1,
+        "why": "Retail price-target chatter with no catalyst; shows two-sided positioning, not information"
       },
       {
-        "text": "Options-flow posts claim $28M of unusual put buying on Boeing",
-        "source": "stocktwits",
-        "tickers": [
-          "BA"
-        ],
-        "names": {
-          "BA": "Boeing"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Promotional post with unverified flow; BA already down about 10% so it may be old news"
-      },
-      {
-        "text": "Posters say MSFT and GE Vernova report Oct 28 with options pricing about 5.3% and 7.9% moves",
+        "text": "Posters expect MSFT and GE Vernova to report Oct 28 with large implied moves",
         "source": "stocktwits",
         "tickers": [
           "MSFT",
@@ -72,22 +59,20 @@
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "Big mega-cap earnings could swing SPY and QQQ; date and implied moves from promotional posts, unconfirmed"
+        "why": "Mega-cap earnings could swing SPY and QQQ; date unconfirmed in my sources"
       },
       {
-        "text": "Some posters expect deep red tomorrow and are buying 0DTE puts near 769 while others chase calls",
+        "text": "Boeing drop of about 10% is being attributed to its Q3 results today",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "QQQ"
+          "BA"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
+          "BA": "Boeing"
         },
         "direction": "down",
-        "credibility": 0.15,
-        "why": "Two-sided retail positioning; puts imploding on quick V-reversals suggests dip buyers are in control for now"
+        "credibility": 0.4,
+        "why": "Cause not confirmed by a news source I could read; a large Dow weight dragging on the index"
       }
     ],
     "names": {
@@ -96,9 +81,8 @@
       "INOD": "Innodata",
       "SOFI": "SoFi Technologies",
       "CBRS": "Cerebras Systems",
-      "RKLB": "Rocket Lab USA",
-      "MSFT": "Microsoft",
-      "GEV": "GE Vernova"
+      "BETR": "Better Home & Finance",
+      "INFQ": "Infleqtion"
     },
     "plays": [
       {
@@ -106,22 +90,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.54,
-        "reason": "Tech-led tape holding gains, sharp dip buying with puts imploding, and crowd sentiment still bearish (score 37, fear/greed 33)",
-        "catalyst": "Contrarian fear positioning vs firm tape; MSFT and GEV earnings Oct 28 are the next risk"
+        "reason": "Tech-led gains holding into the final hour, crowd sentiment still bearish (score 36, fear/greed 33) while price is above rising VWAP",
+        "catalyst": "Contrarian fear vs firm tape; MSFT/GEV earnings Oct 28 are the next risk"
       }
     ],
-    "whats_new": "SPY is 769.9 (+0.59%), up slightly from 769.3 last hour, VIX flat at 17.6 and fear/greed 33. Stocktwits SPY score is still 37 (50.7% bullish) with posts split between chasing calls and buying 0DTE puts around 769. Boeing is down about 9.6% and Innodata about 26.6%, causes unconfirmed (Boeing had Q3 earnings scheduled today); Reddit was blocked again and Stocklake news is Pro-only.",
+    "whats_new": "SPY is 769.3 (+0.51%), essentially flat versus last hour's 769.9, with VIX 17.7 and fear/greed 33 unchanged. Stocktwits SPY score is 36 (50.2% bullish), still split between 800 targets and rejection calls. Trending names now include BETR, INFQ and SOFI up sharply while BA and INOD stay deeply red; Reddit blocked and web search returned no dated news.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts and trending, one web search with no dated results"
+      "news": "stocktwits posts and trending; web search had no dated results"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.59,
+      "value": 0.51,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -139,7 +123,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 37.0,
+      "value": 36.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
@@ -150,7 +134,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts and trending, one web search with no dated results"
+    "news": "stocktwits posts and trending; web search had no dated results"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
