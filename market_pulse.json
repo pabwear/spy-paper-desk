@@ -1,18 +1,18 @@
 {
   "date": "2026-10-27",
   "bias": "neutral",
-  "written_at": "2026-10-27T12:10:54-04:00",
-  "as_of": "2026-10-27T16:10:00Z",
+  "written_at": "2026-10-27T13:08:56-04:00",
+  "as_of": "2026-10-27T17:10:00Z",
   "readings": {
-    "as_of": "2026-10-27T16:10:00Z",
-    "spy_price": 770.34,
-    "spy_change_pct": 0.65,
-    "vix": 17.88,
-    "fear_greed": 32,
+    "as_of": "2026-10-27T17:10:00Z",
+    "spy_price": 769.34,
+    "spy_change_pct": 0.52,
+    "vix": 17.64,
+    "fear_greed": 33,
     "stocktwits": {
       "SPY": {
         "score": 37,
-        "bullish_pct": 50.01
+        "bullish_pct": 50.83
       }
     },
     "reddit": {
@@ -21,16 +21,17 @@
       "top": []
     },
     "news": {
-      "score": 0,
+      "score": 0.1,
       "headlines": [
-        "SPY +0.65%, QQQ +1.28%, IWM +0.97% at 14:10 UTC snapshot; GLD +1.21%; breadth neutral",
-        "Stocktwits trending: BA -9.7%, INOD -26%, SOFI +15.7%, RCL +8%, TSLA +3.7%, PYPL +1.9%",
-        "Only scheduled event found: BoC rate decision Oct 28 13:45 UTC; no US data today"
+        "SPY +0.52%, QQQ +1.22%, IWM +0.94%, GLD +1.17% (16:10 UTC snapshot); breadth neutral",
+        "Cerebras (CBRS) and Oracle announce plan to offer Cerebras fast inference on Oracle Cloud from 2027; CBRS +9.8%, ORCL +4%",
+        "Stocktwits trending: BA -9.6%, INOD -26.9%, SOFI +14.8%, RKLB +9.3%, USAR +13.2%, SOXS -10.6%",
+        "Only scheduled event: BoC rate decision Oct 28 13:45 UTC; no US data today"
       ]
     },
     "rumors": [
       {
-        "text": "Poster claims China's STAR 50 tech index is down 40% since June and that Reuters reported China's AI bubble has burst",
+        "text": "Poster claims Treasuries are at 5.3%+ and the Fed is still hiking or threatening to hike, so the tech rally cannot last",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -41,11 +42,11 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.35,
-        "why": "An AI-bubble scare abroad could hit US tech if it spreads, though US tech is rallying today"
+        "credibility": 0.1,
+        "why": "If rates were rising again, high-multiple tech would be pressured; TLT is only -0.13% today and the claim is unverified"
       },
       {
-        "text": "Posters say the market is rallying as if it already knows tomorrow's rate decision and the celebration started early",
+        "text": "Posters say the market is rallying early ahead of tomorrow's rate decision (the only one on the calendar is the Bank of Canada)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -56,29 +57,32 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "up",
-        "credibility": 0.25,
+        "credibility": 0.2,
         "why": "If the decision is benign the run could extend; if not, the early rally could reverse"
       },
       {
-        "text": "Posters hope for good news from Israel to extend the rally",
+        "text": "Posters ask why the VIX is bidding while SPY rises and talk of oil going higher",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "SPY",
+          "USO"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "SPY": "SPDR S&P 500 ETF",
+          "USO": "United States Oil Fund"
         },
-        "direction": "up",
+        "direction": "down",
         "credibility": 0.2,
-        "why": "De-escalation headlines would ease oil and risk premia"
+        "why": "A rising VIX alongside a rally can signal hedging demand; higher oil would add inflation worries"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "BA": "Boeing",
+      "CBRS": "Cerebras Systems",
+      "ORCL": "Oracle",
       "SOFI": "SoFi Technologies",
-      "INOD": "Innodata",
-      "RCL": "Royal Caribbean Group"
+      "INOD": "Innodata"
     },
     "plays": [
       {
@@ -86,22 +90,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Tape is firm with tech leading and sentiment still weak (score 37, fear/greed 32), but SPY already rose about 4 hours straight into the 770 level",
-        "catalyst": "Pre-decision drift; fear-level positioning vs extended intraday run"
+        "reason": "Tech-led tape is firm and crowd sentiment is still weak (score 37, fear/greed 33), but SPY is extended intraday near 769-770 and several posters pile into 0DTE calls",
+        "catalyst": "Fear-level positioning vs extended intraday run; AI-infrastructure news lifting tech"
       }
     ],
-    "whats_new": "SPY rose to 770.34 (+0.65%) from 767.39, with QQQ now +1.28% and gold +1.2%. VIX is flat near 17.9 and fear/greed is unchanged at 32; Stocktwits SPY score is 37 (was 35). Boeing is down about 10% and SoFi up about 16% on Stocktwits trending; I could not confirm causes. Chatter is now more bullish and notes the 770 level was reached; Reddit was blocked and web search found nothing dated today.",
+    "whats_new": "SPY is about 769.3 (+0.52%), slightly below the last reading of 770.3, with VIX a touch lower at 17.6 and fear/greed 33. Stocktwits SPY score is 37 (bullish 50.8%) and chatter is bullish and about 0DTE calls; Oracle and Cerebras news is lifting AI names. Boeing is down about 10% and Innodata down 27% on trending, causes unconfirmed; Reddit was blocked and web search returned only old articles.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending and posts; web search found nothing dated today"
+      "news": "stocktwits posts and trending; stocklake news is Pro-only; web search returned nothing dated today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.65,
+      "value": 0.52,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -113,7 +117,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 32.0,
+      "value": 33.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -130,7 +134,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending and posts; web search found nothing dated today"
+    "news": "stocktwits posts and trending; stocklake news is Pro-only; web search returned nothing dated today"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
