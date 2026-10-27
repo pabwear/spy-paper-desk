@@ -1,52 +1,36 @@
 {
   "date": "2026-10-27",
   "bias": "neutral",
-  "written_at": "2026-10-27T13:08:56-04:00",
-  "as_of": "2026-10-27T17:10:00Z",
+  "written_at": "2026-10-27T14:07:46-04:00",
+  "as_of": "2026-10-27T18:10:00Z",
   "readings": {
-    "as_of": "2026-10-27T17:10:00Z",
-    "spy_price": 769.34,
-    "spy_change_pct": 0.52,
+    "as_of": "2026-10-27T18:10:00Z",
+    "spy_price": 769.89,
+    "spy_change_pct": 0.59,
     "vix": 17.64,
     "fear_greed": 33,
     "stocktwits": {
       "SPY": {
         "score": 37,
-        "bullish_pct": 50.83
+        "bullish_pct": 50.67
       }
+    },
+    "news": {
+      "score": 0.1,
+      "headlines": [
+        "SPY +0.59%, QQQ +1.27%, IWM +1.09%, GLD +1.24% (16:10 UTC snapshot); breadth neutral",
+        "Stocktwits trending: BA -9.6% (Boeing Q3 results were scheduled Oct 27), INOD -26.6%, SOFI +13.3%, CBRS +9.9%, RKLB +8.3%",
+        "Only scheduled event: BoC rate decision Oct 28 13:45 UTC; no US data today"
+      ]
     },
     "reddit": {
       "score": 0,
       "posts": 0,
       "top": []
     },
-    "news": {
-      "score": 0.1,
-      "headlines": [
-        "SPY +0.52%, QQQ +1.22%, IWM +0.94%, GLD +1.17% (16:10 UTC snapshot); breadth neutral",
-        "Cerebras (CBRS) and Oracle announce plan to offer Cerebras fast inference on Oracle Cloud from 2027; CBRS +9.8%, ORCL +4%",
-        "Stocktwits trending: BA -9.6%, INOD -26.9%, SOFI +14.8%, RKLB +9.3%, USAR +13.2%, SOXS -10.6%",
-        "Only scheduled event: BoC rate decision Oct 28 13:45 UTC; no US data today"
-      ]
-    },
     "rumors": [
       {
-        "text": "Poster claims Treasuries are at 5.3%+ and the Fed is still hiking or threatening to hike, so the tech rally cannot last",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "If rates were rising again, high-multiple tech would be pressured; TLT is only -0.13% today and the claim is unverified"
-      },
-      {
-        "text": "Posters say the market is rallying early ahead of tomorrow's rate decision (the only one on the calendar is the Bank of Canada)",
+        "text": "Post says US Treasury just bought back $6B of its own debt, bullish for markets",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -58,54 +42,86 @@
         },
         "direction": "up",
         "credibility": 0.2,
-        "why": "If the decision is benign the run could extend; if not, the early rally could reverse"
+        "why": "Buybacks are routine debt management; unverified and unlikely to move equities much"
       },
       {
-        "text": "Posters ask why the VIX is bidding while SPY rises and talk of oil going higher",
+        "text": "Options-flow posts claim $28M of unusual put buying on Boeing",
+        "source": "stocktwits",
+        "tickers": [
+          "BA"
+        ],
+        "names": {
+          "BA": "Boeing"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Promotional post with unverified flow; BA already down about 10% so it may be old news"
+      },
+      {
+        "text": "Posters say MSFT and GE Vernova report Oct 28 with options pricing about 5.3% and 7.9% moves",
+        "source": "stocktwits",
+        "tickers": [
+          "MSFT",
+          "GEV",
+          "SPY"
+        ],
+        "names": {
+          "MSFT": "Microsoft",
+          "GEV": "GE Vernova",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Big mega-cap earnings could swing SPY and QQQ; date and implied moves from promotional posts, unconfirmed"
+      },
+      {
+        "text": "Some posters expect deep red tomorrow and are buying 0DTE puts near 769 while others chase calls",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "USO"
+          "QQQ"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "USO": "United States Oil Fund"
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "A rising VIX alongside a rally can signal hedging demand; higher oil would add inflation worries"
+        "credibility": 0.15,
+        "why": "Two-sided retail positioning; puts imploding on quick V-reversals suggests dip buyers are in control for now"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "BA": "Boeing",
-      "CBRS": "Cerebras Systems",
-      "ORCL": "Oracle",
+      "INOD": "Innodata",
       "SOFI": "SoFi Technologies",
-      "INOD": "Innodata"
+      "CBRS": "Cerebras Systems",
+      "RKLB": "Rocket Lab USA",
+      "MSFT": "Microsoft",
+      "GEV": "GE Vernova"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Tech-led tape is firm and crowd sentiment is still weak (score 37, fear/greed 33), but SPY is extended intraday near 769-770 and several posters pile into 0DTE calls",
-        "catalyst": "Fear-level positioning vs extended intraday run; AI-infrastructure news lifting tech"
+        "confidence": 0.54,
+        "reason": "Tech-led tape holding gains, sharp dip buying with puts imploding, and crowd sentiment still bearish (score 37, fear/greed 33)",
+        "catalyst": "Contrarian fear positioning vs firm tape; MSFT and GEV earnings Oct 28 are the next risk"
       }
     ],
-    "whats_new": "SPY is about 769.3 (+0.52%), slightly below the last reading of 770.3, with VIX a touch lower at 17.6 and fear/greed 33. Stocktwits SPY score is 37 (bullish 50.8%) and chatter is bullish and about 0DTE calls; Oracle and Cerebras news is lifting AI names. Boeing is down about 10% and Innodata down 27% on trending, causes unconfirmed; Reddit was blocked and web search returned only old articles.",
+    "whats_new": "SPY is 769.9 (+0.59%), up slightly from 769.3 last hour, VIX flat at 17.6 and fear/greed 33. Stocktwits SPY score is still 37 (50.7% bullish) with posts split between chasing calls and buying 0DTE puts around 769. Boeing is down about 9.6% and Innodata about 26.6%, causes unconfirmed (Boeing had Q3 earnings scheduled today); Reddit was blocked again and Stocklake news is Pro-only.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts and trending; stocklake news is Pro-only; web search returned nothing dated today"
+      "news": "stocktwits posts and trending, one web search with no dated results"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.52,
+      "value": 0.59,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -134,7 +150,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts and trending; stocklake news is Pro-only; web search returned nothing dated today"
+    "news": "stocktwits posts and trending, one web search with no dated results"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
