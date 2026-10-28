@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-28T20:20:23+00:00",
+  "updated_at": "2026-10-28T20:30:37+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -30,7 +30,7 @@
   },
   "data": {
     "last_bar": "2026-10-28 15:59:00-04:00",
-    "age_minutes": 20.4,
+    "age_minutes": 30.6,
     "source": "alpaca",
     "sessions": 14,
     "missing_minutes": 9,
@@ -67,7 +67,7 @@
     "ok": true,
     "p": 0.4397,
     "ood": false,
-    "latency_ms": 0.66,
+    "latency_ms": 1.14,
     "threshold": 0.51,
     "expected_net_bps": 2.2891162996277643,
     "approved": false
@@ -75,7 +75,7 @@
   "decision": {
     "outcome": "UNAVAILABLE",
     "reasons": [
-      "data too old (20.4 min)"
+      "data too old (30.6 min)"
     ],
     "p": 0.4397,
     "threshold": 0.51,
