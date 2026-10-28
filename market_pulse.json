@@ -1,18 +1,18 @@
 {
   "date": "2026-10-28",
   "bias": "neutral",
-  "written_at": "2026-10-28T13:08:04-04:00",
-  "as_of": "2026-10-28T17:10:00Z",
+  "written_at": "2026-10-28T14:12:36-04:00",
+  "as_of": "2026-10-28T18:12:00Z",
   "readings": {
-    "as_of": "2026-10-28T17:10:00Z",
-    "spy_price": 771.29,
-    "spy_change_pct": 0.21,
-    "vix": 17.23,
+    "as_of": "2026-10-28T18:12:00Z",
+    "spy_price": 771.38,
+    "spy_change_pct": 0.22,
+    "vix": 17.36,
     "fear_greed": 35,
     "stocktwits": {
       "SPY": {
-        "score": 47,
-        "bullish_pct": 50.7
+        "score": 48,
+        "bullish_pct": 51.2
       }
     },
     "reddit": {
@@ -21,17 +21,60 @@
       "top": []
     },
     "news": {
-      "score": 0,
+      "score": -0.1,
       "headlines": [
-        "SPY 771.29 (+0.21%), QQQ +0.14%, IWM -0.02%; VIX 17.23, fear/greed 35 (fear), breadth 91% neutral; TLT -0.42%, GLD -0.53%",
+        "SPY 771.38 (+0.22%), QQQ +0.20%, IWM +0.11%; VIX 17.36, fear/greed 35 (fear); TLT -0.23%, GLD -0.55%",
+        "Posters say the Fed left rates unchanged; Warsh press conference still to come",
         "BoC raised rate to 2.5% from 2.25%",
-        "Stocktwits trending: SLS -18%, WEN +15%, SKHY +14%, ENPH -17%, GMAB +29%, VRT +14%, NOW -3%, MSFT -0.8%",
-        "Upcoming: FOMC decision today per posters; MSFT/GOOG earnings after close per posters; US GDP advance Oct 29 12:30 UTC"
+        "Stocktwits trending: CBRS -11%, SLS -17%, WEN +15%, ENPH -17%, GMAB +32%, BSX -3%, SKHY +13%, NOW -3%",
+        "Past Warsh Fed days (Jun 17, Jul 29) saw selloffs after hawkish pressers",
+        "Upcoming: US GDP advance Oct 29 12:30 UTC"
       ]
     },
     "rumors": [
       {
-        "text": "Posters expect the Fed under Warsh to hold and debate whether a hike is coming, hoping he waits rather than raises",
+        "text": "Posters expect a 1% sell-down after the Warsh press conference today or tomorrow when PCE data lands",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "A hawkish presser has hit stocks on earlier Warsh Fed days"
+      },
+      {
+        "text": "Posters say the Fed shows no concern about inflation and bonds are about to launch",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "TLT"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "TLT": "iShares 20+ Year Treasury Bond ETF"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "A bond selloff would pressure equity valuations"
+      },
+      {
+        "text": "Posters talk up the Anthropic IPO as a market stimulus",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.15,
+        "why": "A big AI listing could lift risk appetite; single unverified post"
+      },
+      {
+        "text": "Posters cite oil at $200 a barrel and a collapsing dollar this year",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -42,84 +85,41 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "A hawkish surprise would pressure equities; posts are unverified chatter"
-      },
-      {
-        "text": "Posters say an Iran headline today is a reasonable-sounding cover before a next wave of attacks",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Renewed geopolitical escalation would hit risk assets; single unverified post"
-      },
-      {
-        "text": "Posters say the dollar index and bond yields are falling back, improving risk appetite",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "TLT"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
-        },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "Lower yields and a weaker dollar support equities (TLT data shows -0.42% though, so mixed)"
-      },
-      {
-        "text": "Posters talk up memory/AI-infrastructure names after SKHY and VRT jumped about 14%",
-        "source": "stocktwits",
-        "tickers": [
-          "SKHY",
-          "VRT"
-        ],
-        "names": {
-          "SKHY": "SK Hynix ADR",
-          "VRT": "Vertiv Holdings"
-        },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "AI hardware strength could keep lifting the tech-heavy index"
+        "credibility": 0.05,
+        "why": "An oil shock and dollar flight would hit equities; fringe claim"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
+      "CBRS": "Cerebras Systems",
       "SKHY": "SK Hynix ADR",
-      "VRT": "Vertiv Holdings",
       "ENPH": "Enphase Energy",
       "WEN": "Wendy's",
       "NOW": "ServiceNow",
-      "MSFT": "Microsoft"
+      "BSX": "Boston Scientific"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
+        "direction": "down",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Steady drift up near highs while fear/greed is in fear and the crowd is neutral; thin edge with event risk",
-        "catalyst": "FOMC decision; MSFT/GOOG earnings after close"
+        "confidence": 0.54,
+        "reason": "Fed held but market has no bid, volume is thin, and the last two Warsh Fed days sold off after the press conference",
+        "catalyst": "Warsh press conference; US GDP and PCE data next"
       }
     ],
-    "whats_new": "SPY is flat versus last hour at 771.29 (+0.21%), VIX slipped to 17.23 and fear/greed holds near 35. Stocktwits SPY sentiment is still neutral (47). Chatter is about the Fed decision, Iran headlines and falling dollar/yields, while AI-hardware names (SKHY, VRT) lead trending and ENPH, SLS fall.",
+    "whats_new": "The Fed held rates (per posters) and SPY sits flat at 771.38 with VIX 17.36 and fear/greed near 35. The Warsh press conference is the next catalyst; crowd tone turned a little more cautious, with SPY sentiment 48. Trending names shifted to CBRS, SLS and ENPH down, GMAB, SKHY and WEN up.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts and trending; web search returned only old articles; Stocklake news is Pro-only"
+      "news": "stocktwits posts and trending; web search (older Warsh Fed coverage); Stocklake news is Pro-only"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.21,
+      "value": 0.22,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -137,7 +137,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 47.0,
+      "value": 48.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -148,7 +148,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts and trending; web search returned only old articles; Stocklake news is Pro-only"
+    "news": "stocktwits posts and trending; web search (older Warsh Fed coverage); Stocklake news is Pro-only"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
