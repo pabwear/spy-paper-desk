@@ -1,18 +1,18 @@
 {
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "bias": "neutral",
-  "written_at": "2026-10-27T15:07:26-04:00",
-  "as_of": "2026-10-27T19:10:00Z",
+  "written_at": "2026-10-28T09:23:48-04:00",
+  "as_of": "2026-10-28T13:25:00Z",
   "readings": {
-    "as_of": "2026-10-27T19:10:00Z",
-    "spy_price": 769.26,
-    "spy_change_pct": 0.51,
-    "vix": 17.72,
+    "as_of": "2026-10-28T13:25:00Z",
+    "spy_price": 771.23,
+    "spy_change_pct": 0.2,
+    "vix": 17.63,
     "fear_greed": 33,
     "stocktwits": {
       "SPY": {
-        "score": 36,
-        "bullish_pct": 50.23
+        "score": 47,
+        "bullish_pct": 50.5
       }
     },
     "reddit": {
@@ -21,80 +21,101 @@
       "top": []
     },
     "news": {
-      "score": 0.1,
+      "score": 0,
       "headlines": [
-        "SPY +0.51%, QQQ +1.18%, IWM +1.08%, GLD +1.04%, TLT -0.11% (18:10 UTC snapshot); breadth neutral",
-        "Stocktwits trending: BA -10.0%, INOD -25.8%, SOFI +14.2%, BETR +21.1%, INFQ +12.2%, CBRS +10.6%",
-        "Only scheduled event: BoC rate decision Oct 28 13:45 UTC; no US data today"
+        "SPY pre-market 771.2 (+0.2%), prior close 771.5; VIX 17.6, fear/greed 33 (fear), breadth neutral",
+        "Stocktwits trending pre-market: VRT +16.8%, WEN +15.8%, ENPH -21.8%, BSX -8.7%, HOOD -6.6%, SKHY +7.0%",
+        "Scheduled: BoC rate decision 13:45 UTC; US GDP advance Oct 29 12:30 UTC; posters say FOMC decision at 2pm ET"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say SPY heads to 800 tomorrow while others call a hard rejection and a drop from here",
+        "text": "Posters say today's Fed meeting is a hold but the Fed signals one more hike is needed within about 3 months",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "QQQ"
+          "TLT"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
+          "TLT": "iShares 20+ Year Treasury Bond ETF"
         },
-        "direction": "up",
-        "credibility": 0.1,
-        "why": "Retail price-target chatter with no catalyst; shows two-sided positioning, not information"
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "A hawkish tilt at the 2pm ET Fed statement would pressure rate-sensitive stocks; unverified and not from a news source"
       },
       {
-        "text": "Posters expect MSFT and GE Vernova to report Oct 28 with large implied moves",
+        "text": "Posters warn a restart of war with Iran could push WTI above 130 with the strategic reserve at a 40 year low",
         "source": "stocktwits",
         "tickers": [
-          "MSFT",
-          "GEV",
           "SPY"
         ],
         "names": {
-          "MSFT": "Microsoft",
-          "GEV": "GE Vernova",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "Mega-cap earnings could swing SPY and QQQ; date unconfirmed in my sources"
+        "credibility": 0.15,
+        "why": "An oil spike would hit risk assets; single-poster claim without a source"
       },
       {
-        "text": "Boeing drop of about 10% is being attributed to its Q3 results today",
+        "text": "Posters say today is the start of the midterm-year drawdown and retail will get run over after the Fed",
         "source": "stocktwits",
         "tickers": [
-          "BA"
+          "SPY"
         ],
         "names": {
-          "BA": "Boeing"
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "Seasonal and contrarian talk; one poster's call"
+      },
+      {
+        "text": "Posters say Vertiv is up about 17% pre-market on an earnings or guidance beat",
+        "source": "stocktwits",
+        "tickers": [
+          "VRT"
+        ],
+        "names": {
+          "VRT": "Vertiv Holdings"
+        },
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "Move is real in trending data but the cause is not confirmed; AI power and cooling names may follow"
+      },
+      {
+        "text": "Enphase down about 22% pre-market, with posters pointing to earnings or guidance",
+        "source": "stocktwits",
+        "tickers": [
+          "ENPH"
+        ],
+        "names": {
+          "ENPH": "Enphase Energy"
         },
         "direction": "down",
         "credibility": 0.4,
-        "why": "Cause not confirmed by a news source I could read; a large Dow weight dragging on the index"
+        "why": "Solar weakness could spill into clean energy names; cause unconfirmed"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "BA": "Boeing",
-      "INOD": "Innodata",
-      "SOFI": "SoFi Technologies",
-      "CBRS": "Cerebras Systems",
-      "BETR": "Better Home & Finance",
-      "INFQ": "Infleqtion"
+      "VRT": "Vertiv Holdings",
+      "ENPH": "Enphase Energy",
+      "BSX": "Boston Scientific",
+      "HOOD": "Robinhood Markets",
+      "WEN": "Wendy's"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
-        "horizon": "close",
-        "confidence": 0.54,
-        "reason": "Tech-led gains holding into the final hour, crowd sentiment still bearish (score 36, fear/greed 33) while price is above rising VWAP",
-        "catalyst": "Contrarian fear vs firm tape; MSFT/GEV earnings Oct 28 are the next risk"
+        "horizon": "1d",
+        "confidence": 0.52,
+        "reason": "Fear/greed 33 with the tape near highs and a mild positive pre-market; midterm-year Oct/Nov seasonality has been positive",
+        "catalyst": "Fed statement 2pm ET is a two-way risk; edge is thin"
       }
     ],
-    "whats_new": "SPY is 769.3 (+0.51%), essentially flat versus last hour's 769.9, with VIX 17.7 and fear/greed 33 unchanged. Stocktwits SPY score is 36 (50.2% bullish), still split between 800 targets and rejection calls. Trending names now include BETR, INFQ and SOFI up sharply while BA and INOD stay deeply red; Reddit blocked and web search returned no dated news.",
+    "whats_new": "SPY is 771.2 pre-market, flat versus yesterday's close of 771.5, and VIX 17.6 and fear/greed 33 are unchanged. Stocktwits SPY sentiment improved to a score of 47 (50.5% bullish) from 36, and chatter now centers on today's Fed decision at 2pm ET. Pre-market movers are VRT up and ENPH, BSX and HOOD sharply down on apparent earnings reactions; Reddit was blocked and web search returned no dated news.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -105,9 +126,9 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.51,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": 0.2,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
@@ -123,9 +144,9 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 36.0,
-      "vote": -1,
-      "why": "\u2264 40.0"
+      "value": 47.0,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
   "net_votes": -1,

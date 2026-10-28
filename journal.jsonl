@@ -4760,3 +4760,4 @@
 {"ts": "2026-10-28T09:00:29-04:00", "event": "account", "equity": 677.53, "cash": 677.53, "buying_power": 677.53, "position": null}
 {"ts": "2026-10-28T09:10:30-04:00", "event": "account", "equity": 677.53, "cash": 677.53, "buying_power": 677.53, "position": null}
 {"ts": "2026-10-28T09:20:30-04:00", "event": "account", "equity": 677.53, "cash": 677.53, "buying_power": 677.53, "position": null}
+{"ts": "2026-10-28T09:23:48-04:00", "event": "pulse", "bias": "neutral", "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral.", "sources": {"market_pulse": "stocklake", "sentiment_flow": "stocktwits", "reddit": "unavailable (blocked)", "news": "stocktwits posts and trending; web search had no dated results"}, "net_votes": -1}
