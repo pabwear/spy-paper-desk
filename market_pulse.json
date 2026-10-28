@@ -1,18 +1,18 @@
 {
   "date": "2026-10-28",
   "bias": "neutral",
-  "written_at": "2026-10-28T12:09:15-04:00",
-  "as_of": "2026-10-28T16:15:00Z",
+  "written_at": "2026-10-28T13:08:04-04:00",
+  "as_of": "2026-10-28T17:10:00Z",
   "readings": {
-    "as_of": "2026-10-28T16:15:00Z",
-    "spy_price": 771.44,
-    "spy_change_pct": 0.23,
-    "vix": 17.4,
+    "as_of": "2026-10-28T17:10:00Z",
+    "spy_price": 771.29,
+    "spy_change_pct": 0.21,
+    "vix": 17.23,
     "fear_greed": 35,
     "stocktwits": {
       "SPY": {
-        "score": 48,
-        "bullish_pct": 50.6
+        "score": 47,
+        "bullish_pct": 50.7
       }
     },
     "reddit": {
@@ -23,85 +23,70 @@
     "news": {
       "score": 0,
       "headlines": [
-        "SPY 771.44 (+0.23%), QQQ +0.13%, IWM -0.02%; VIX 17.4, fear/greed 35 (fear), breadth 91% neutral",
+        "SPY 771.29 (+0.21%), QQQ +0.14%, IWM -0.02%; VIX 17.23, fear/greed 35 (fear), breadth 91% neutral; TLT -0.42%, GLD -0.53%",
         "BoC raised rate to 2.5% from 2.25%",
-        "Stocktwits trending: SLS -18%, WEN +15%, SKHY +13%, ENPH -16%, GMAB +30%, VRT +13%, META -0.9%",
-        "Upcoming: FOMC 2pm ET per posters; GOOG/MSFT earnings after close per posters; US GDP advance Oct 29 12:30 UTC"
+        "Stocktwits trending: SLS -18%, WEN +15%, SKHY +14%, ENPH -17%, GMAB +29%, VRT +14%, NOW -3%, MSFT -0.8%",
+        "Upcoming: FOMC decision today per posters; MSFT/GOOG earnings after close per posters; US GDP advance Oct 29 12:30 UTC"
       ]
     },
     "rumors": [
       {
-        "text": "Posters expect no cut at the FOMC today, with some talking about a possible rate hike in December after the election",
+        "text": "Posters expect the Fed under Warsh to hold and debate whether a hike is coming, hoping he waits rather than raises",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "QQQ",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "A hawkish surprise would pressure equities; posts are unverified chatter"
+      },
+      {
+        "text": "Posters say an Iran headline today is a reasonable-sounding cover before a next wave of attacks",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Renewed geopolitical escalation would hit risk assets; single unverified post"
+      },
+      {
+        "text": "Posters say the dollar index and bond yields are falling back, improving risk appetite",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
           "TLT"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust",
           "TLT": "iShares 20+ Year Treasury Bond ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "A hawkish Fed tilt would pressure equities and long bonds; single unverified poster"
-      },
-      {
-        "text": "Posters say SPY options premiums are elevated and a big move one way is coming",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.25,
-        "why": "Two-way event risk from FOMC and GOOG/MSFT earnings; direction unknown"
-      },
-      {
-        "text": "Posters target SPY 772-775 into the close or end of week",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
         "credibility": 0.3,
-        "why": "Chart talk; small extension of the current drift higher"
+        "why": "Lower yields and a weaker dollar support equities (TLT data shows -0.42% though, so mixed)"
       },
       {
-        "text": "Posters say SK Hynix and memory names (MU, WDC) have big upside after SKHY jumped about 13%",
+        "text": "Posters talk up memory/AI-infrastructure names after SKHY and VRT jumped about 14%",
         "source": "stocktwits",
         "tickers": [
           "SKHY",
-          "MU",
-          "WDC"
+          "VRT"
         ],
         "names": {
           "SKHY": "SK Hynix ADR",
-          "MU": "Micron Technology",
-          "WDC": "Western Digital"
+          "VRT": "Vertiv Holdings"
         },
         "direction": "up",
         "credibility": 0.3,
-        "why": "Memory strength could lift semiconductors and the tech-heavy index"
-      },
-      {
-        "text": "One poster claims oil is at 103 and the yen has weakened back to 158.3, calling the macro backdrop fragile",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "High oil and a carry-trade unwind would hit risk assets; unverified single doom post"
+        "why": "AI hardware strength could keep lifting the tech-heavy index"
       }
     ],
     "names": {
@@ -109,7 +94,9 @@
       "SKHY": "SK Hynix ADR",
       "VRT": "Vertiv Holdings",
       "ENPH": "Enphase Energy",
-      "WEN": "Wendy's"
+      "WEN": "Wendy's",
+      "NOW": "ServiceNow",
+      "MSFT": "Microsoft"
     },
     "plays": [
       {
@@ -117,11 +104,11 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "SPY drifting up near highs while fear/greed sits in fear and crowd is neutral; thin edge",
-        "catalyst": "FOMC 2pm ET; GOOG and MSFT earnings after close"
+        "reason": "Steady drift up near highs while fear/greed is in fear and the crowd is neutral; thin edge with event risk",
+        "catalyst": "FOMC decision; MSFT/GOOG earnings after close"
       }
     ],
-    "whats_new": "SPY edged up to 771.44 (+0.23%) from 770.15, VIX unchanged at 17.4 and fear/greed about 35. Stocktwits SPY sentiment is still neutral at 48; chatter now centers on elevated option premiums, a no-cut FOMC and possible December hike talk. Memory names (SKHY +13%) and VRT lead trending while ENPH and SLS fall.",
+    "whats_new": "SPY is flat versus last hour at 771.29 (+0.21%), VIX slipped to 17.23 and fear/greed holds near 35. Stocktwits SPY sentiment is still neutral (47). Chatter is about the Fed decision, Iran headlines and falling dollar/yields, while AI-hardware names (SKHY, VRT) lead trending and ENPH, SLS fall.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -132,7 +119,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.23,
+      "value": 0.21,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -150,7 +137,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 48.0,
+      "value": 47.0,
       "vote": 0,
       "why": "in the neutral band"
     }
