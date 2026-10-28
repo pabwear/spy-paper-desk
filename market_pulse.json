@@ -1,18 +1,18 @@
 {
   "date": "2026-10-28",
   "bias": "neutral",
-  "written_at": "2026-10-28T14:12:36-04:00",
-  "as_of": "2026-10-28T18:12:00Z",
+  "written_at": "2026-10-28T15:06:51-04:00",
+  "as_of": "2026-10-28T19:08:00Z",
   "readings": {
-    "as_of": "2026-10-28T18:12:00Z",
-    "spy_price": 771.38,
-    "spy_change_pct": 0.22,
+    "as_of": "2026-10-28T19:08:00Z",
+    "spy_price": 772.93,
+    "spy_change_pct": 0.42,
     "vix": 17.36,
     "fear_greed": 35,
     "stocktwits": {
       "SPY": {
-        "score": 48,
-        "bullish_pct": 51.2
+        "score": 47,
+        "bullish_pct": 51.0
       }
     },
     "reddit": {
@@ -23,17 +23,17 @@
     "news": {
       "score": -0.1,
       "headlines": [
-        "SPY 771.38 (+0.22%), QQQ +0.20%, IWM +0.11%; VIX 17.36, fear/greed 35 (fear); TLT -0.23%, GLD -0.55%",
-        "Posters say the Fed left rates unchanged; Warsh press conference still to come",
+        "SPY 772.93 (+0.42%), QQQ +0.63%, IWM +0.04%; VIX 17.36, fear/greed 35 (fear); TLT -0.45%, GLD +0.07%",
+        "Fed held at 3.75-4.00%; Cook and Hammack dissented in favor of a hike (per posters)",
+        "Warsh says economic growth has strengthened, Q3 advance appears even faster (per posters)",
         "BoC raised rate to 2.5% from 2.25%",
-        "Stocktwits trending: CBRS -11%, SLS -17%, WEN +15%, ENPH -17%, GMAB +32%, BSX -3%, SKHY +13%, NOW -3%",
-        "Past Warsh Fed days (Jun 17, Jul 29) saw selloffs after hawkish pressers",
+        "Stocktwits trending: ORCL +12%, CBRS -8%, SLS -15%, WEN +14%, NOW -4%, BSX -4%",
         "Upcoming: US GDP advance Oct 29 12:30 UTC"
       ]
     },
     "rumors": [
       {
-        "text": "Posters expect a 1% sell-down after the Warsh press conference today or tomorrow when PCE data lands",
+        "text": "Posters say 87% of the time the market reverses the day after a Fed-day move",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -42,11 +42,11 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.25,
-        "why": "A hawkish presser has hit stocks on earlier Warsh Fed days"
+        "credibility": 0.2,
+        "why": "Unverified stat; if today ends up, a reversal lower tomorrow"
       },
       {
-        "text": "Posters say the Fed shows no concern about inflation and bonds are about to launch",
+        "text": "Posters say the Fed dissents for a hike and strong growth talk point to more tightening ahead",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -57,71 +57,57 @@
           "TLT": "iShares 20+ Year Treasury Bond ETF"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "A bond selloff would pressure equity valuations"
+        "credibility": 0.35,
+        "why": "Hawkish tilt would pressure equity valuations and long bonds"
       },
       {
-        "text": "Posters talk up the Anthropic IPO as a market stimulus",
+        "text": "Posters wonder if Google insiders know something, pointing to GOOG strength",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "GOOG"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "GOOG": "Alphabet"
         },
         "direction": "up",
-        "credibility": 0.15,
-        "why": "A big AI listing could lift risk appetite; single unverified post"
-      },
-      {
-        "text": "Posters cite oil at $200 a barrel and a collapsing dollar this year",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.05,
-        "why": "An oil shock and dollar flight would hit equities; fringe claim"
+        "credibility": 0.1,
+        "why": "Single vague post; no named catalyst"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
+      "ORCL": "Oracle",
       "CBRS": "Cerebras Systems",
-      "SKHY": "SK Hynix ADR",
-      "ENPH": "Enphase Energy",
       "WEN": "Wendy's",
       "NOW": "ServiceNow",
-      "BSX": "Boston Scientific"
+      "BSX": "Boston Scientific",
+      "GOOG": "Alphabet",
+      "TLT": "iShares 20+ Year Treasury Bond ETF"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
-        "horizon": "close",
-        "confidence": 0.54,
-        "reason": "Fed held but market has no bid, volume is thin, and the last two Warsh Fed days sold off after the press conference",
-        "catalyst": "Warsh press conference; US GDP and PCE data next"
+        "horizon": "1d",
+        "confidence": 0.53,
+        "reason": "Hawkish dissents and strong growth talk, GDP due tomorrow, SPY drifting up on thin conviction with fear/greed at 35",
+        "catalyst": "US GDP advance Oct 29 12:30 UTC"
       }
     ],
-    "whats_new": "The Fed held rates (per posters) and SPY sits flat at 771.38 with VIX 17.36 and fear/greed near 35. The Warsh press conference is the next catalyst; crowd tone turned a little more cautious, with SPY sentiment 48. Trending names shifted to CBRS, SLS and ENPH down, GMAB, SKHY and WEN up.",
+    "whats_new": "The Fed held at 3.75-4.00% with two dissents for a hike, and Warsh said growth has strengthened; SPY firmed to 772.93 (+0.42%) with VIX unchanged at 17.36. Oracle is the big mover (+12%) while crowd SPY sentiment stays neutral at 47. US GDP is the next catalyst.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts and trending; web search (older Warsh Fed coverage); Stocklake news is Pro-only"
+      "news": "stocktwits posts and trending; web search returned nothing current; Stocklake news is Pro-only"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.22,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 0.42,
+      "vote": 1,
+      "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -137,18 +123,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 48.0,
+      "value": 47.0,
       "vote": 0,
       "why": "in the neutral band"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts and trending; web search (older Warsh Fed coverage); Stocklake news is Pro-only"
+    "news": "stocktwits posts and trending; web search returned nothing current; Stocklake news is Pro-only"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
