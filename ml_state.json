@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-28T20:00:32+00:00",
+  "updated_at": "2026-10-28T20:10:34+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -30,7 +30,7 @@
   },
   "data": {
     "last_bar": "2026-10-28 15:59:00-04:00",
-    "age_minutes": 0.5,
+    "age_minutes": 10.6,
     "source": "alpaca",
     "sessions": 14,
     "missing_minutes": 9,
@@ -73,10 +73,9 @@
     "approved": false
   },
   "decision": {
-    "outcome": "NO_TRADE",
+    "outcome": "UNAVAILABLE",
     "reasons": [
-      "model not approved (did not pass the walk-forward rules and the holdout)",
-      "p 0.440 below the entry threshold 0.51 (no-trade zone)"
+      "data too old (10.6 min)"
     ],
     "p": 0.4397,
     "threshold": 0.51,
@@ -91,7 +90,6 @@
       "not_live",
       "long_only",
       "inputs_known",
-      "data_fresh",
       "model_healthy",
       "positions_below_max",
       "orders_below_max",
@@ -102,7 +100,8 @@
       "stop_wide_enough"
     ],
     "failed": [
-      "in_session"
+      "in_session",
+      "data_fresh"
     ]
   },
   "stop_bps": 15.498000000000001,

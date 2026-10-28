@@ -1,7 +1,7 @@
 {
-  "trained_at": "2026-10-27T16:10:32-04:00",
+  "trained_at": "2026-10-28T16:10:27-04:00",
   "mode": "shadow",
-  "closed_trades": 31,
+  "closed_trades": 33,
   "learnable_trades": 9,
   "min_trades_to_act": 30,
   "model": null,
@@ -61,18 +61,18 @@
       "active": false
     }
   ],
-  "trades": 31,
-  "losses": 15,
-  "loss_rate": 0.484,
+  "trades": 33,
+  "losses": 16,
+  "loss_rate": 0.485,
   "mistakes": [
     {
       "tag": "flattened_red_at_close",
       "label": "Flattened at 16:00 for a loss",
-      "trades": 11,
-      "losses": 11,
+      "trades": 12,
+      "losses": 12,
       "loss_rate": 1.0,
-      "avg_pnl": -58.09,
-      "total_pnl": -639.0
+      "avg_pnl": -55.17,
+      "total_pnl": -662.0
     },
     {
       "tag": "late_entry_after_15",
@@ -162,15 +162,39 @@
     {
       "tag": "no_market_data",
       "label": "No market data",
-      "count": 11
+      "count": 12
     },
     {
       "tag": "no_contract",
       "label": "No listed option contract found",
-      "count": 113
+      "count": 141
     }
   ],
   "recent": [
+    {
+      "symbol": "SPY261028P00761000",
+      "opened_at": "2026-10-28T10:00:37-04:00",
+      "closed_at": "2026-10-28T15:40:26-04:00",
+      "pnl": -23.0,
+      "result": "loss",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "flattened_red_at_close"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
+    {
+      "symbol": "SPY261028P00766000",
+      "opened_at": "2026-10-28T10:00:37-04:00",
+      "closed_at": "2026-10-28T15:40:26-04:00",
+      "pnl": 77.0,
+      "result": "win",
+      "exit_reason": "flatten",
+      "mistakes": [],
+      "p_loss": null,
+      "tags": []
+    },
     {
       "symbol": "SPY261027P00761000",
       "opened_at": "2026-10-27T10:00:38-04:00",
@@ -561,30 +585,6 @@
         "order_blocks",
         "volume"
       ]
-    },
-    {
-      "symbol": "SPY261008P00766000",
-      "opened_at": "2026-10-08T10:00:35-04:00",
-      "closed_at": "2026-10-08T15:40:26-04:00",
-      "pnl": -3.0,
-      "result": "loss",
-      "exit_reason": "flatten",
-      "mistakes": [
-        "flattened_red_at_close"
-      ],
-      "p_loss": null,
-      "tags": []
-    },
-    {
-      "symbol": "SPY261008P00771000",
-      "opened_at": "2026-10-08T10:00:35-04:00",
-      "closed_at": "2026-10-08T15:40:26-04:00",
-      "pnl": 12.0,
-      "result": "win",
-      "exit_reason": "flatten",
-      "mistakes": [],
-      "p_loss": null,
-      "tags": []
     }
   ]
 }
