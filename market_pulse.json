@@ -1,14 +1,14 @@
 {
   "date": "2026-10-28",
   "bias": "neutral",
-  "written_at": "2026-10-28T10:09:15-04:00",
-  "as_of": "2026-10-28T14:10:00Z",
+  "written_at": "2026-10-28T11:13:00-04:00",
+  "as_of": "2026-10-28T15:15:00Z",
   "readings": {
-    "as_of": "2026-10-28T14:10:00Z",
-    "spy_price": 770.45,
-    "spy_change_pct": 0.1,
-    "vix": 17.63,
-    "fear_greed": 33,
+    "as_of": "2026-10-28T15:15:00Z",
+    "spy_price": 770.15,
+    "spy_change_pct": 0.06,
+    "vix": 17.4,
+    "fear_greed": 35,
     "stocktwits": {
       "SPY": {
         "score": 48,
@@ -23,31 +23,70 @@
     "news": {
       "score": 0,
       "headlines": [
-        "SPY ~770.5 (+0.1%); VIX 17.6, fear/greed 33 (fear), breadth neutral (90% neutral RSI)",
-        "Stocktwits trending: WEN +15%, SKHY +11%, VRT +13%, ENPH -15%, BSX -8%, GEV -4%, TSLA -2%",
-        "Scheduled: BoC rate decision 13:45 UTC; FOMC decision 2pm ET per posters; GOOG and MSFT earnings after close per posters; US GDP advance Oct 29 12:30 UTC"
+        "SPY ~770.2 (+0.06%), QQQ -0.02%, IWM -0.07%; VIX 17.4, fear/greed 35 (fear), breadth 91% neutral",
+        "BoC raised rate to 2.5% from 2.25% today",
+        "Stocktwits trending: VRT +13%, SKHY +12%, WEN +14%, ENPH -16%, GEV -2.5%, NFLX -1.3%, UBER -1.3%",
+        "Upcoming: FOMC 2pm ET per posters; GOOG/MSFT earnings after close per posters; US GDP advance Oct 29 12:30 UTC"
       ]
     },
     "rumors": [
       {
-        "text": "Posters quote a Goldman Sachs view of just one more Fed hike versus three priced by markets, a limited tightening cycle that could support stocks",
+        "text": "Posters say SPY is stuck in a tight range until the 2pm ET FOMC; some watch prior-day high 771.14 as the break level",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "QQQ",
-          "IWM"
+          "SPY"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust",
-          "IWM": "iShares Russell 2000 ETF"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.35,
-        "why": "If the Fed echoes fewer hikes than priced, rate-sensitive stocks could rally; quote is unverified"
+        "credibility": 0.3,
+        "why": "A break above 771.14 could trigger momentum buying, but it is chart talk, not news"
       },
       {
-        "text": "Posters say GOOG and MSFT report earnings after the close and option premiums (IV) are very high ahead of the Fed",
+        "text": "One poster claims Democrats will bring heavy regulation and investigations on data centers and AI after the midterms",
+        "source": "stocktwits",
+        "tickers": [
+          "QQQ",
+          "SPY"
+        ],
+        "names": {
+          "QQQ": "Invesco QQQ Trust",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Regulation risk for AI and data-center names would weigh on the tech-heavy index; single unverified poster"
+      },
+      {
+        "text": "One poster claims the market will be tanked after the midterms to force rate cuts",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.05,
+        "why": "Unsupported political theory; low credibility"
+      },
+      {
+        "text": "Posters say META is a falling knife but tempting to buy",
+        "source": "stocktwits",
+        "tickers": [
+          "META",
+          "SPY"
+        ],
+        "names": {
+          "META": "Meta Platforms"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "Suggests META is weak into big-tech earnings; no reason given"
+      },
+      {
+        "text": "Posters still call GOOG and MSFT earnings after close plus the Fed a big two-way risk (carried over from last hour)",
         "source": "stocktwits",
         "tickers": [
           "GOOG",
@@ -56,53 +95,19 @@
         ],
         "names": {
           "GOOG": "Alphabet",
-          "MSFT": "Microsoft",
-          "SPY": "SPDR S&P 500 ETF"
+          "MSFT": "Microsoft"
         },
         "direction": "up",
         "credibility": 0.4,
-        "why": "Big-tech earnings plus the Fed make a large two-way move possible later today; direction unknown"
-      },
-      {
-        "text": "Posters say memory names MU, SKHY and SNDK are cheap because AI demand for memory is only beginning",
-        "source": "stocktwits",
-        "tickers": [
-          "MU",
-          "SKHY",
-          "SNDK"
-        ],
-        "names": {
-          "MU": "Micron Technology",
-          "SKHY": "SK Hynix ADR",
-          "SNDK": "Sandisk"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "Single-poster opinion; SKHY is up about 11% today, so part of the move is already in"
-      },
-      {
-        "text": "Posters still expect a hawkish Fed hold with one more hike signaled (carried over from last hour)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "TLT"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
-        },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "A hawkish statement would pressure rate-sensitive stocks; chatter is now split, with some calling the FOMC a non-event"
+        "why": "Large two-way move possible later; direction unknown"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "VRT": "Vertiv Holdings",
-      "ENPH": "Enphase Energy",
-      "BSX": "Boston Scientific",
-      "WEN": "Wendy's",
       "SKHY": "SK Hynix ADR",
+      "ENPH": "Enphase Energy",
+      "WEN": "Wendy's",
       "GEV": "GE Vernova"
     },
     "plays": [
@@ -111,22 +116,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Fear/greed 33 with the tape near highs, crowd neutral at 48, and chatter shifting toward FOMC as a non-event",
-        "catalyst": "FOMC 2pm ET plus GOOG and MSFT earnings after close; edge is thin"
+        "reason": "Fear/greed in fear with SPY pinned near highs, crowd neutral at 48; thin edge",
+        "catalyst": "FOMC 2pm ET; GOOG and MSFT earnings after close"
       }
     ],
-    "whats_new": "SPY is about flat at 770.5 (+0.1%), VIX 17.6 and fear/greed 33 are unchanged. Stocktwits SPY sentiment is steady near neutral (48), and chatter has moved from fearing a hawkish Fed to calling it a non-event, with a Goldman one-more-hike view being quoted. Reddit was blocked and web search returned no dated results.",
+    "whats_new": "SPY is flat again (770.2, +0.06%), VIX slipped to 17.4 and fear/greed edged up to 35. Stocktwits SPY sentiment is unchanged at 48; chatter is about a tight range until the 2pm FOMC, with a new unverified AI-regulation worry. BoC hiked to 2.5% today. Reddit was blocked and web search returned only old articles.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts and trending; web search had no dated results; Stocklake news is Pro-only"
+      "news": "stocktwits posts and trending; web search returned only old articles; Stocklake news is Pro-only"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.1,
+      "value": 0.06,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -138,7 +143,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 33.0,
+      "value": 35.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -155,7 +160,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts and trending; web search had no dated results; Stocklake news is Pro-only"
+    "news": "stocktwits posts and trending; web search returned only old articles; Stocklake news is Pro-only"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
