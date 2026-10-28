@@ -1,17 +1,17 @@
 {
   "date": "2026-10-28",
   "bias": "neutral",
-  "written_at": "2026-10-28T09:23:48-04:00",
-  "as_of": "2026-10-28T13:25:00Z",
+  "written_at": "2026-10-28T10:09:15-04:00",
+  "as_of": "2026-10-28T14:10:00Z",
   "readings": {
-    "as_of": "2026-10-28T13:25:00Z",
-    "spy_price": 771.23,
-    "spy_change_pct": 0.2,
+    "as_of": "2026-10-28T14:10:00Z",
+    "spy_price": 770.45,
+    "spy_change_pct": 0.1,
     "vix": 17.63,
     "fear_greed": 33,
     "stocktwits": {
       "SPY": {
-        "score": 47,
+        "score": 48,
         "bullish_pct": 50.5
       }
     },
@@ -23,14 +23,65 @@
     "news": {
       "score": 0,
       "headlines": [
-        "SPY pre-market 771.2 (+0.2%), prior close 771.5; VIX 17.6, fear/greed 33 (fear), breadth neutral",
-        "Stocktwits trending pre-market: VRT +16.8%, WEN +15.8%, ENPH -21.8%, BSX -8.7%, HOOD -6.6%, SKHY +7.0%",
-        "Scheduled: BoC rate decision 13:45 UTC; US GDP advance Oct 29 12:30 UTC; posters say FOMC decision at 2pm ET"
+        "SPY ~770.5 (+0.1%); VIX 17.6, fear/greed 33 (fear), breadth neutral (90% neutral RSI)",
+        "Stocktwits trending: WEN +15%, SKHY +11%, VRT +13%, ENPH -15%, BSX -8%, GEV -4%, TSLA -2%",
+        "Scheduled: BoC rate decision 13:45 UTC; FOMC decision 2pm ET per posters; GOOG and MSFT earnings after close per posters; US GDP advance Oct 29 12:30 UTC"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say today's Fed meeting is a hold but the Fed signals one more hike is needed within about 3 months",
+        "text": "Posters quote a Goldman Sachs view of just one more Fed hike versus three priced by markets, a limited tightening cycle that could support stocks",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ",
+          "IWM"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust",
+          "IWM": "iShares Russell 2000 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.35,
+        "why": "If the Fed echoes fewer hikes than priced, rate-sensitive stocks could rally; quote is unverified"
+      },
+      {
+        "text": "Posters say GOOG and MSFT report earnings after the close and option premiums (IV) are very high ahead of the Fed",
+        "source": "stocktwits",
+        "tickers": [
+          "GOOG",
+          "MSFT",
+          "SPY"
+        ],
+        "names": {
+          "GOOG": "Alphabet",
+          "MSFT": "Microsoft",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "Big-tech earnings plus the Fed make a large two-way move possible later today; direction unknown"
+      },
+      {
+        "text": "Posters say memory names MU, SKHY and SNDK are cheap because AI demand for memory is only beginning",
+        "source": "stocktwits",
+        "tickers": [
+          "MU",
+          "SKHY",
+          "SNDK"
+        ],
+        "names": {
+          "MU": "Micron Technology",
+          "SKHY": "SK Hynix ADR",
+          "SNDK": "Sandisk"
+        },
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "Single-poster opinion; SKHY is up about 11% today, so part of the move is already in"
+      },
+      {
+        "text": "Posters still expect a hawkish Fed hold with one more hike signaled (carried over from last hour)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -42,59 +93,7 @@
         },
         "direction": "down",
         "credibility": 0.25,
-        "why": "A hawkish tilt at the 2pm ET Fed statement would pressure rate-sensitive stocks; unverified and not from a news source"
-      },
-      {
-        "text": "Posters warn a restart of war with Iran could push WTI above 130 with the strategic reserve at a 40 year low",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "An oil spike would hit risk assets; single-poster claim without a source"
-      },
-      {
-        "text": "Posters say today is the start of the midterm-year drawdown and retail will get run over after the Fed",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "Seasonal and contrarian talk; one poster's call"
-      },
-      {
-        "text": "Posters say Vertiv is up about 17% pre-market on an earnings or guidance beat",
-        "source": "stocktwits",
-        "tickers": [
-          "VRT"
-        ],
-        "names": {
-          "VRT": "Vertiv Holdings"
-        },
-        "direction": "up",
-        "credibility": 0.4,
-        "why": "Move is real in trending data but the cause is not confirmed; AI power and cooling names may follow"
-      },
-      {
-        "text": "Enphase down about 22% pre-market, with posters pointing to earnings or guidance",
-        "source": "stocktwits",
-        "tickers": [
-          "ENPH"
-        ],
-        "names": {
-          "ENPH": "Enphase Energy"
-        },
-        "direction": "down",
-        "credibility": 0.4,
-        "why": "Solar weakness could spill into clean energy names; cause unconfirmed"
+        "why": "A hawkish statement would pressure rate-sensitive stocks; chatter is now split, with some calling the FOMC a non-event"
       }
     ],
     "names": {
@@ -102,31 +101,32 @@
       "VRT": "Vertiv Holdings",
       "ENPH": "Enphase Energy",
       "BSX": "Boston Scientific",
-      "HOOD": "Robinhood Markets",
-      "WEN": "Wendy's"
+      "WEN": "Wendy's",
+      "SKHY": "SK Hynix ADR",
+      "GEV": "GE Vernova"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
-        "horizon": "1d",
+        "horizon": "close",
         "confidence": 0.52,
-        "reason": "Fear/greed 33 with the tape near highs and a mild positive pre-market; midterm-year Oct/Nov seasonality has been positive",
-        "catalyst": "Fed statement 2pm ET is a two-way risk; edge is thin"
+        "reason": "Fear/greed 33 with the tape near highs, crowd neutral at 48, and chatter shifting toward FOMC as a non-event",
+        "catalyst": "FOMC 2pm ET plus GOOG and MSFT earnings after close; edge is thin"
       }
     ],
-    "whats_new": "SPY is 771.2 pre-market, flat versus yesterday's close of 771.5, and VIX 17.6 and fear/greed 33 are unchanged. Stocktwits SPY sentiment improved to a score of 47 (50.5% bullish) from 36, and chatter now centers on today's Fed decision at 2pm ET. Pre-market movers are VRT up and ENPH, BSX and HOOD sharply down on apparent earnings reactions; Reddit was blocked and web search returned no dated news.",
+    "whats_new": "SPY is about flat at 770.5 (+0.1%), VIX 17.6 and fear/greed 33 are unchanged. Stocktwits SPY sentiment is steady near neutral (48), and chatter has moved from fearing a hawkish Fed to calling it a non-event, with a Goldman one-more-hike view being quoted. Reddit was blocked and web search returned no dated results.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts and trending; web search had no dated results"
+      "news": "stocktwits posts and trending; web search had no dated results; Stocklake news is Pro-only"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.2,
+      "value": 0.1,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -144,7 +144,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 47.0,
+      "value": 48.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -155,7 +155,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts and trending; web search had no dated results"
+    "news": "stocktwits posts and trending; web search had no dated results; Stocklake news is Pro-only"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
