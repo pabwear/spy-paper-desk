@@ -1,50 +1,50 @@
 {
   "date": "2026-10-29",
-  "bias": "bearish",
-  "written_at": "2026-10-29T13:20:24-04:00",
-  "as_of": "2026-10-29T13:20:24-04:00",
+  "bias": "neutral",
+  "written_at": "2026-10-29T14:00:34-04:00",
+  "as_of": "2026-10-29T14:00:34-04:00",
   "readings": {
-    "as_of": "2026-10-29T13:20:24-04:00",
+    "as_of": "2026-10-29T14:00:34-04:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 768.48,
-    "spy_change_pct": -0.492,
+    "spy_price": 767.29,
+    "spy_change_pct": -0.646,
     "stocktwits": {
       "SPY": {
-        "score": 25.0,
-        "bullish_pct": 25.0
+        "score": 60.0,
+        "bullish_pct": 60.0
       }
     },
     "news": {
       "headlines": [
+        "AbbVie Stock: What 10 Years of Growth and Dividends Did for $1,000",
         "Vertiv Staged a Small Comeback After Cratering for 6 Months: This Wall Street Team Predicts 76% Gains From Here",
         "SoFi\u2019s Recent 13% Upward Burst Means Execution Is Now a Must",
         "The Fed Is Cutting Back on Rate Votes for the First Time Since 1981",
         "Norwegian Surges 11% as Earnings Beat Lifts Full-Year Outlook; Royal Caribbean Rises 3%, Carnival Edges Higher",
         "Exchange-Traded Funds Lower, Equity Futures Mixed Pre-Bell Thursday Amid Disappointing Alphabet Results",
         "The Economy Could Be Growing Too Fast for Warsh",
-        "ServiceNow Tumbles 19% as Slower Contract Growth Overshadows Raised AI Target; Salesforce Slides 6%, Workday Drops 5%",
         "Now We Know What The Gigawatt Supercycle Actually Means for GE Vernova",
         "The Cloud Titans: Microsoft\u2019s Copilot Backlog Challenges Amazon\u2019s Data Center Re-Acceleration"
       ]
     },
-    "vix": 16.26,
-    "vix_change_pct": -3.84
+    "vix": 16.6,
+    "vix_change_pct": -1.83
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.492,
+      "value": -0.646,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -3.84,
+      "value": -1.83,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -56,17 +56,17 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 25.0,
-      "vote": -1,
-      "why": "\u2264 40.0"
+      "value": 60.0,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
