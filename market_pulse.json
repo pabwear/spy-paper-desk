@@ -1,18 +1,18 @@
 {
-  "date": "2026-10-28",
+  "date": "2026-10-29",
   "bias": "neutral",
-  "written_at": "2026-10-28T15:06:51-04:00",
-  "as_of": "2026-10-28T19:08:00Z",
+  "written_at": "2026-10-29T09:11:43-04:00",
+  "as_of": "2026-10-29T13:15:00Z",
   "readings": {
-    "as_of": "2026-10-28T19:08:00Z",
-    "spy_price": 772.93,
-    "spy_change_pct": 0.42,
-    "vix": 17.36,
-    "fear_greed": 35,
+    "as_of": "2026-10-29T13:15:00Z",
+    "spy_price": 770.07,
+    "spy_change_pct": -0.29,
+    "vix": 17.06,
+    "fear_greed": 36,
     "stocktwits": {
       "SPY": {
-        "score": 47,
-        "bullish_pct": 51.0
+        "score": 60,
+        "bullish_pct": 50.9
       }
     },
     "reddit": {
@@ -21,19 +21,48 @@
       "top": []
     },
     "news": {
-      "score": -0.1,
+      "score": -0.2,
       "headlines": [
-        "SPY 772.93 (+0.42%), QQQ +0.63%, IWM +0.04%; VIX 17.36, fear/greed 35 (fear); TLT -0.45%, GLD +0.07%",
-        "Fed held at 3.75-4.00%; Cook and Hammack dissented in favor of a hike (per posters)",
-        "Warsh says economic growth has strengthened, Q3 advance appears even faster (per posters)",
-        "BoC raised rate to 2.5% from 2.25%",
-        "Stocktwits trending: ORCL +12%, CBRS -8%, SLS -15%, WEN +14%, NOW -4%, BSX -4%",
-        "Upcoming: US GDP advance Oct 29 12:30 UTC"
+        "US Q3 GDP advance reported at 3.4% vs 3.2% forecast, up from 2.2% (per posters)",
+        "Sept PCE +0.5% m/m, 3.6% y/y; core 3.1% y/y, in line (per posters)",
+        "Jobless claims 194k vs 199k expected (per posters)",
+        "Premarket movers: GOOGL -11.5%, GOOG -11.7%, CAT -12%, NOW -19.5%, FTNT -26%, MRVL -11%, MSFT +2.8%, NCLH +11%, LLY +4%",
+        "Stocklake close Oct 28: SPY 769.55 (-0.36%), QQQ -1.18%, IWM +0.28%, TLT +0.25%, GLD -1.39%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say 87% of the time the market reverses the day after a Fed-day move",
+        "text": "Posters say Treasury Secretary Bessent said AI neocloud debt is not problematic at all, read as a government backstop",
+        "source": "stocktwits",
+        "tickers": [
+          "CRWV",
+          "QQQ"
+        ],
+        "names": {
+          "CRWV": "CoreWeave",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "Would ease credit worries around AI buildout debt and support neocloud and tech names"
+      },
+      {
+        "text": "Posters say stronger GDP plus elevated PCE raises odds of further Fed rate hikes",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "down",
+        "credibility": 0.35,
+        "why": "More tightening would pressure equity valuations, especially rate-sensitive growth"
+      },
+      {
+        "text": "Posters say big options put stacking over the next 20 trading days could squeeze if markets do not pay out",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -41,60 +70,34 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Unverified stat; if today ends up, a reversal lower tomorrow"
-      },
-      {
-        "text": "Posters say the Fed dissents for a hike and strong growth talk point to more tightening ahead",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "TLT"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
-        },
-        "direction": "down",
-        "credibility": 0.35,
-        "why": "Hawkish tilt would pressure equity valuations and long bonds"
-      },
-      {
-        "text": "Posters wonder if Google insiders know something, pointing to GOOG strength",
-        "source": "stocktwits",
-        "tickers": [
-          "GOOG"
-        ],
-        "names": {
-          "GOOG": "Alphabet"
-        },
         "direction": "up",
-        "credibility": 0.1,
-        "why": "Single vague post; no named catalyst"
+        "credibility": 0.15,
+        "why": "Crowded one-sided hedging can fuel a squeeze if the feared events do not happen"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "ORCL": "Oracle",
-      "CBRS": "Cerebras Systems",
-      "WEN": "Wendy's",
+      "GOOGL": "Alphabet",
+      "CAT": "Caterpillar",
       "NOW": "ServiceNow",
-      "BSX": "Boston Scientific",
-      "GOOG": "Alphabet",
-      "TLT": "iShares 20+ Year Treasury Bond ETF"
+      "FTNT": "Fortinet",
+      "MRVL": "Marvell Technology",
+      "MSFT": "Microsoft",
+      "NCLH": "Norwegian Cruise Line",
+      "LLY": "Eli Lilly",
+      "CRWV": "CoreWeave"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
-        "horizon": "1d",
-        "confidence": 0.53,
-        "reason": "Hawkish dissents and strong growth talk, GDP due tomorrow, SPY drifting up on thin conviction with fear/greed at 35",
-        "catalyst": "US GDP advance Oct 29 12:30 UTC"
+        "horizon": "close",
+        "confidence": 0.54,
+        "reason": "Premarket drops in Alphabet, Caterpillar and others weigh on the index while strong GDP feeds hike fears; offset by MSFT strength",
+        "catalyst": "GDP beat and mega-cap premarket moves"
       }
     ],
-    "whats_new": "The Fed held at 3.75-4.00% with two dissents for a hike, and Warsh said growth has strengthened; SPY firmed to 772.93 (+0.42%) with VIX unchanged at 17.36. Oracle is the big mover (+12%) while crowd SPY sentiment stays neutral at 47. US GDP is the next catalyst.",
+    "whats_new": "GDP came in hot (3.4% vs 3.2%) and big names gapped in premarket, led by Alphabet and Caterpillar down about 11-12% with MSFT up 2.8%. SPY is near flat at 770.07 after closing -0.36% yesterday; crowd sentiment improved to 60 from 47 while VIX eased to 17.06.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -105,9 +108,9 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.42,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": -0.29,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
@@ -117,15 +120,15 @@
     },
     {
       "reading": "fear_greed",
-      "value": 35.0,
+      "value": 36.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 47.0,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 60.0,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
   "net_votes": 0,
