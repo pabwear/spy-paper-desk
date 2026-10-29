@@ -1,123 +1,72 @@
 {
   "date": "2026-10-29",
-  "bias": "neutral",
-  "written_at": "2026-10-29T12:10:12-04:00",
-  "as_of": "2026-10-29T16:12:00Z",
+  "bias": "bearish",
+  "written_at": "2026-10-29T13:20:24-04:00",
+  "as_of": "2026-10-29T13:20:24-04:00",
   "readings": {
-    "as_of": "2026-10-29T16:12:00Z",
-    "spy_price": 769.23,
-    "spy_change_pct": -0.4,
-    "vix": 16.93,
-    "fear_greed": 34,
+    "as_of": "2026-10-29T13:20:24-04:00",
+    "source": "desk_feeds",
+    "sources": {
+      "sentiment_flow": "stocktwits public stream",
+      "news": "yahoo finance rss",
+      "vix": "yfinance"
+    },
+    "spy_price": 768.48,
+    "spy_change_pct": -0.492,
     "stocktwits": {
       "SPY": {
-        "score": 62,
-        "bullish_pct": 50.9
+        "score": 25.0,
+        "bullish_pct": 25.0
       }
-    },
-    "reddit": {
-      "score": 0,
-      "posts": 0,
-      "top": []
     },
     "news": {
-      "score": -0.2,
       "headlines": [
-        "US Q3 GDP advance 3.4% vs 2.2% prior",
-        "Alphabet about -11.8%, ServiceNow about -25%, Microsoft -1.3% (Stocktwits trending)",
-        "QQQ -1.28% while IWM +1.17%: rotation from mega-cap tech into small caps",
-        "TLT +0.41%, GLD -1.29%",
-        "Iovance -35.8%, Carvana +15.7%, Norwegian Cruise Line +13.3%, Teladoc +24%"
+        "Vertiv Staged a Small Comeback After Cratering for 6 Months: This Wall Street Team Predicts 76% Gains From Here",
+        "SoFi\u2019s Recent 13% Upward Burst Means Execution Is Now a Must",
+        "The Fed Is Cutting Back on Rate Votes for the First Time Since 1981",
+        "Norwegian Surges 11% as Earnings Beat Lifts Full-Year Outlook; Royal Caribbean Rises 3%, Carnival Edges Higher",
+        "Exchange-Traded Funds Lower, Equity Futures Mixed Pre-Bell Thursday Amid Disappointing Alphabet Results",
+        "The Economy Could Be Growing Too Fast for Warsh",
+        "ServiceNow Tumbles 19% as Slower Contract Growth Overshadows Raised AI Target; Salesforce Slides 6%, Workday Drops 5%",
+        "Now We Know What The Gigawatt Supercycle Actually Means for GE Vernova",
+        "The Cloud Titans: Microsoft\u2019s Copilot Backlog Challenges Amazon\u2019s Data Center Re-Acceleration"
       ]
     },
-    "rumors": [
-      {
-        "text": "Posters claim the 10-year Treasury yield is at 5%",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Yields near 5% would pressure equity valuations; unverified single post, and TLT is up today"
-      },
-      {
-        "text": "Posters say strong GDP raises odds of further Fed rate hikes",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "More tightening would pressure growth valuations; repeated from earlier hours"
-      }
-    ],
-    "names": {
-      "SPY": "SPDR S&P 500 ETF",
-      "GOOGL": "Alphabet",
-      "NOW": "ServiceNow",
-      "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF"
-    },
-    "plays": [
-      {
-        "ticker": "SPY",
-        "direction": "up",
-        "horizon": "close",
-        "confidence": 0.53,
-        "reason": "SPY recovered from -0.58% to -0.40% and QQQ from -1.67% to -1.28% as Alphabet bounced off its low; small-cap strength cushions the index",
-        "catalyst": "Mega-cap tech stabilizing after the GDP-day selloff"
-      }
-    ],
-    "whats_new": "SPY is up slightly from the last reading at 769.23 (-0.40%) with QQQ's loss narrowing to -1.28% as Alphabet bounced off its low, while IWM rose to +1.17%. VIX is unchanged near 16.9 and fear and greed is about 34; Stocktwits SPY sentiment edged up to 62 with chatter turning to a push over 771.",
-    "sources": {
-      "market_pulse": "stocklake",
-      "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending and stocklake; web search found nothing current; Stocklake news is Pro-only"
-    }
+    "vix": 16.26,
+    "vix_change_pct": -3.84
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.4,
+      "value": -0.492,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
+      "value": -3.84,
+      "vote": 0,
+      "why": "in the neutral band"
+    },
+    {
+      "reading": "fear_greed",
       "value": null,
       "vote": 0,
       "why": "missing"
     },
     {
-      "reading": "fear_greed",
-      "value": 34.0,
-      "vote": -1,
-      "why": "\u2264 45.0"
-    },
-    {
       "reading": "stocktwits_spy_score",
-      "value": 62.0,
-      "vote": 1,
-      "why": "\u2265 60.0"
+      "value": 25.0,
+      "vote": -1,
+      "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
-    "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending and stocklake; web search found nothing current; Stocklake news is Pro-only"
+    "sentiment_flow": "stocktwits public stream",
+    "news": "yahoo finance rss",
+    "vix": "yfinance"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
