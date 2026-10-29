@@ -1,33 +1,33 @@
 {
   "date": "2026-10-29",
   "bias": "neutral",
-  "written_at": "2026-10-29T14:07:01-04:00",
-  "as_of": "2026-10-29T18:10:00Z",
+  "written_at": "2026-10-29T15:07:16-04:00",
+  "as_of": "2026-10-29T19:08:00Z",
   "readings": {
-    "as_of": "2026-10-29T18:10:00Z",
-    "spy_price": 767.83,
-    "spy_change_pct": -0.58,
-    "vix": 16.41,
-    "fear_greed": 36,
+    "as_of": "2026-10-29T19:08:00Z",
+    "spy_price": 766.99,
+    "spy_change_pct": -0.69,
+    "vix": 16.26,
+    "fear_greed": 34,
     "stocktwits": {
       "SPY": {
         "score": 61,
-        "bullish_pct": 51.5
+        "bullish_pct": 51.6
       }
     },
     "news": {
       "score": -0.2,
       "headlines": [
-        "Alphabet shares drop ~13% after results despite cloud revenue doubling; capex guide $195-205B",
-        "ServiceNow down ~27% on the day",
-        "US Q3 GDP advance 3.4% vs 2.2% prior; GDP deflator 2.2%",
+        "Alphabet down ~13% after results; capex guide $195-205B",
+        "ServiceNow down ~27%",
+        "US Q3 GDP advance 3.4% vs 2.2% prior; deflator 2.2%",
         "Amazon reports after the close",
-        "QQQ -1.6%, IWM +0.85%, gold -1.5%"
+        "QQQ -1.8%, IWM +0.6%, gold -1.7%, TLT +0.4%"
       ]
     },
     "rumors": [
       {
-        "text": "Amazon after-hours results will bring bad news that drags SPY toward 761",
+        "text": "SPY will drop hard after hours on Amazon results",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -42,38 +42,52 @@
         "why": "A weak AMZN print after Alphabet's drop could extend the megacap tech selloff."
       },
       {
-        "text": "Strait of Hormuz has been closed by a war, a risk for oil and defense names",
+        "text": "Alphabet is under the SEC Rule 201 short-sale restriction after its drop",
         "source": "stocktwits",
         "tickers": [
-          "USO",
-          "LMT"
+          "GOOGL"
         ],
         "names": {
-          "USO": "United States Oil Fund",
-          "LMT": "Lockheed Martin"
+          "GOOGL": "Alphabet"
         },
-        "direction": "up",
-        "credibility": 0.15,
-        "why": "A supply disruption would lift oil and defense stocks and pressure the broad market."
+        "direction": "down",
+        "credibility": 0.5,
+        "why": "A circuit breaker after a 10%+ fall limits shorting and shows heavy selling pressure."
+      },
+      {
+        "text": "The market rotation into value and small caps is a shell game, as at the Y2K top",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "IWM"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "IWM": "iShares Russell 2000 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "If true, the small-cap bid would fade and the index would follow tech lower."
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "QQQ": "Invesco QQQ Trust"
+      "QQQ": "Invesco QQQ Trust",
+      "IWM": "iShares Russell 2000 ETF"
     },
     "plays": [],
-    "whats_new": "SPY is down about 0.6% (767.83), weighed by megacap tech: Alphabet fell about 13% and ServiceNow about 27%, while small caps rose. Fear & greed is 36 (fear) and VIX 16.4 is slightly lower. Amazon reports after the close and is the next catalyst; the strong GDP print is already out.",
+    "whats_new": "SPY is slightly weaker at 766.99 (-0.69%) than the last reading, with QQQ down 1.8% as Alphabet and ServiceNow keep sliding while small caps hold gains. Fear & greed eased to 34 and VIX to 16.3; the crowd is split about 52/48 and chatter is bouncing toward 769. Amazon after the close is still the main catalyst and the old Hormuz rumor did not resurface.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake, stocktwits trending"
+      "news": "stocklake calendar, stocktwits trending"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.58,
+      "value": -0.69,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -85,7 +99,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 36.0,
+      "value": 34.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -102,7 +116,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake, stocktwits trending"
+    "news": "stocklake calendar, stocktwits trending"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
