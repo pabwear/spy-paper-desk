@@ -1,18 +1,18 @@
 {
   "date": "2026-10-29",
-  "bias": "neutral",
-  "written_at": "2026-10-29T09:11:43-04:00",
-  "as_of": "2026-10-29T13:15:00Z",
+  "bias": "bearish",
+  "written_at": "2026-10-29T10:18:41-04:00",
+  "as_of": "2026-10-29T14:20:00Z",
   "readings": {
-    "as_of": "2026-10-29T13:15:00Z",
-    "spy_price": 770.07,
-    "spy_change_pct": -0.29,
-    "vix": 17.06,
-    "fear_greed": 36,
+    "as_of": "2026-10-29T14:20:00Z",
+    "spy_price": 767.89,
+    "spy_change_pct": -0.57,
+    "vix": 16.93,
+    "fear_greed": 35,
     "stocktwits": {
       "SPY": {
-        "score": 60,
-        "bullish_pct": 50.9
+        "score": 59,
+        "bullish_pct": 50.6
       }
     },
     "reddit": {
@@ -21,33 +21,18 @@
       "top": []
     },
     "news": {
-      "score": -0.2,
+      "score": -0.3,
       "headlines": [
-        "US Q3 GDP advance reported at 3.4% vs 3.2% forecast, up from 2.2% (per posters)",
-        "Sept PCE +0.5% m/m, 3.6% y/y; core 3.1% y/y, in line (per posters)",
-        "Jobless claims 194k vs 199k expected (per posters)",
-        "Premarket movers: GOOGL -11.5%, GOOG -11.7%, CAT -12%, NOW -19.5%, FTNT -26%, MRVL -11%, MSFT +2.8%, NCLH +11%, LLY +4%",
-        "Stocklake close Oct 28: SPY 769.55 (-0.36%), QQQ -1.18%, IWM +0.28%, TLT +0.25%, GLD -1.39%"
+        "US Q3 GDP advance 3.4% vs 2.2% prior",
+        "Alphabet down about 12% in early trade, ServiceNow about -24%, Caterpillar about -7.5%, Amazon -3.2% (Stocktwits trending)",
+        "Lilly +7.9%, Viking Therapeutics +8.7%, Lumentum +3.3%",
+        "QQQ -1.58% while IWM +1.02%: rotation out of mega-cap tech into small caps",
+        "TLT +0.53%, GLD -1.28%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say Treasury Secretary Bessent said AI neocloud debt is not problematic at all, read as a government backstop",
-        "source": "stocktwits",
-        "tickers": [
-          "CRWV",
-          "QQQ"
-        ],
-        "names": {
-          "CRWV": "CoreWeave",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "up",
-        "credibility": 0.4,
-        "why": "Would ease credit worries around AI buildout debt and support neocloud and tech names"
-      },
-      {
-        "text": "Posters say stronger GDP plus elevated PCE raises odds of further Fed rate hikes",
+        "text": "Posters say strong GDP plus elevated inflation raises odds of further Fed rate hikes",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -58,11 +43,11 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.35,
-        "why": "More tightening would pressure equity valuations, especially rate-sensitive growth"
+        "credibility": 0.3,
+        "why": "More tightening would pressure valuations, especially growth; already shared last hour"
       },
       {
-        "text": "Posters say big options put stacking over the next 20 trading days could squeeze if markets do not pay out",
+        "text": "Posters say a big holder is accumulating SPY at support near 767",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -72,45 +57,42 @@
         },
         "direction": "up",
         "credibility": 0.15,
-        "why": "Crowded one-sided hedging can fuel a squeeze if the feared events do not happen"
+        "why": "Dip buying at support could hold the index despite mega-cap weakness"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "GOOGL": "Alphabet",
-      "CAT": "Caterpillar",
       "NOW": "ServiceNow",
-      "FTNT": "Fortinet",
-      "MRVL": "Marvell Technology",
-      "MSFT": "Microsoft",
-      "NCLH": "Norwegian Cruise Line",
+      "CAT": "Caterpillar",
+      "AMZN": "Amazon",
       "LLY": "Eli Lilly",
-      "CRWV": "CoreWeave"
+      "QQQ": "Invesco QQQ Trust"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.54,
-        "reason": "Premarket drops in Alphabet, Caterpillar and others weigh on the index while strong GDP feeds hike fears; offset by MSFT strength",
-        "catalyst": "GDP beat and mega-cap premarket moves"
+        "confidence": 0.53,
+        "reason": "QQQ -1.6% on heavy Alphabet and ServiceNow selling; small-cap rotation only partly offsets; crowd is bullish (59) against a falling price",
+        "catalyst": "Mega-cap tech selloff after hot GDP"
       }
     ],
-    "whats_new": "GDP came in hot (3.4% vs 3.2%) and big names gapped in premarket, led by Alphabet and Caterpillar down about 11-12% with MSFT up 2.8%. SPY is near flat at 770.07 after closing -0.36% yesterday; crowd sentiment improved to 60 from 47 while VIX eased to 17.06.",
+    "whats_new": "SPY slipped to 767.89 (-0.57%) from 770.07 an hour ago as the mega-cap selloff deepened: Alphabet about -12%, ServiceNow about -24%, QQQ -1.58%, while IWM rose 1%. VIX eased slightly to 16.93 and fear and greed dropped to 35; crowd sentiment held near 59.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits posts and trending; web search returned nothing current; Stocklake news is Pro-only"
+      "news": "stocktwits trending and stocklake; web search found nothing current; Stocklake news is Pro-only"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.29,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": -0.57,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -120,24 +102,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 36.0,
+      "value": 35.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 60.0,
-      "vote": 1,
-      "why": "\u2265 60.0"
+      "value": 59.0,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits posts and trending; web search returned nothing current; Stocklake news is Pro-only"
+    "news": "stocktwits trending and stocklake; web search found nothing current; Stocklake news is Pro-only"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
