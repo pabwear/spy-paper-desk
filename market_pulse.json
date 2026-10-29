@@ -1,18 +1,18 @@
 {
   "date": "2026-10-29",
-  "bias": "bearish",
-  "written_at": "2026-10-29T10:18:41-04:00",
-  "as_of": "2026-10-29T14:20:00Z",
+  "bias": "neutral",
+  "written_at": "2026-10-29T11:16:03-04:00",
+  "as_of": "2026-10-29T15:15:00Z",
   "readings": {
-    "as_of": "2026-10-29T14:20:00Z",
-    "spy_price": 767.89,
-    "spy_change_pct": -0.57,
+    "as_of": "2026-10-29T15:15:00Z",
+    "spy_price": 767.83,
+    "spy_change_pct": -0.58,
     "vix": 16.93,
-    "fear_greed": 35,
+    "fear_greed": 34,
     "stocktwits": {
       "SPY": {
-        "score": 59,
-        "bullish_pct": 50.6
+        "score": 60,
+        "bullish_pct": 50.9
       }
     },
     "reddit": {
@@ -24,15 +24,15 @@
       "score": -0.3,
       "headlines": [
         "US Q3 GDP advance 3.4% vs 2.2% prior",
-        "Alphabet down about 12% in early trade, ServiceNow about -24%, Caterpillar about -7.5%, Amazon -3.2% (Stocktwits trending)",
-        "Lilly +7.9%, Viking Therapeutics +8.7%, Lumentum +3.3%",
-        "QQQ -1.58% while IWM +1.02%: rotation out of mega-cap tech into small caps",
-        "TLT +0.53%, GLD -1.28%"
+        "Alphabet about -12%, ServiceNow about -25%, Fortinet about -22% (Stocktwits trending)",
+        "QQQ -1.67% while IWM +0.97%: rotation out of mega-cap tech into small caps",
+        "TLT +0.75%, GLD -1.1%",
+        "Carvana +14.7%, Norwegian Cruise Line +13.8%, Iovance -35%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say strong GDP plus elevated inflation raises odds of further Fed rate hikes",
+        "text": "Posters say strong GDP raises odds of further Fed rate hikes",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -44,42 +44,44 @@
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "More tightening would pressure valuations, especially growth; already shared last hour"
+        "why": "More tightening would pressure growth valuations; repeated from last hour"
       },
       {
-        "text": "Posters say a big holder is accumulating SPY at support near 767",
+        "text": "Posters expect SPY to chop near 769-770 under a call wall, with a sharp VIX spike and break of the low of day to follow",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "up",
-        "credibility": 0.15,
-        "why": "Dip buying at support could hold the index despite mega-cap weakness"
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Compressed VIX and thin depth could mean a sharp move lower if support fails"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "GOOGL": "Alphabet",
       "NOW": "ServiceNow",
-      "CAT": "Caterpillar",
-      "AMZN": "Amazon",
-      "LLY": "Eli Lilly",
-      "QQQ": "Invesco QQQ Trust"
+      "FTNT": "Fortinet",
+      "QQQ": "Invesco QQQ Trust",
+      "CVNA": "Carvana",
+      "NCLH": "Norwegian Cruise Line"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "QQQ -1.6% on heavy Alphabet and ServiceNow selling; small-cap rotation only partly offsets; crowd is bullish (59) against a falling price",
+        "confidence": 0.52,
+        "reason": "QQQ -1.7% on mega-cap tech selloff; small-cap rotation and dip buying cushion SPY, so edge is thin",
         "catalyst": "Mega-cap tech selloff after hot GDP"
       }
     ],
-    "whats_new": "SPY slipped to 767.89 (-0.57%) from 770.07 an hour ago as the mega-cap selloff deepened: Alphabet about -12%, ServiceNow about -24%, QQQ -1.58%, while IWM rose 1%. VIX eased slightly to 16.93 and fear and greed dropped to 35; crowd sentiment held near 59.",
+    "whats_new": "SPY is flat versus an hour ago at 767.83 (-0.58%) as the Alphabet and ServiceNow selloff holds, with Fortinet (-22%) added to the casualties and QQQ at -1.67% against IWM +0.97%. VIX is unchanged near 16.9 and fear and greed is about 34; Stocktwits SPY sentiment is 60 and chatter is about chop around 769-770.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -90,7 +92,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.57,
+      "value": -0.58,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -102,18 +104,18 @@
     },
     {
       "reading": "fear_greed",
-      "value": 35.0,
+      "value": 34.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 59.0,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 60.0,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
@@ -121,5 +123,5 @@
     "reddit": "unavailable (blocked)",
     "news": "stocktwits trending and stocklake; web search found nothing current; Stocklake news is Pro-only"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
