@@ -1,18 +1,18 @@
 {
   "date": "2026-10-30",
   "bias": "bearish",
-  "written_at": "2026-10-30T14:07:06-04:00",
-  "as_of": "2026-10-30T18:08:00Z",
+  "written_at": "2026-10-30T15:06:41-04:00",
+  "as_of": "2026-10-30T19:08:00Z",
   "readings": {
-    "as_of": "2026-10-30T18:08:00Z",
-    "spy_price": 753.62,
-    "spy_change_pct": -2.05,
-    "vix": 19.49,
-    "fear_greed": 26,
+    "as_of": "2026-10-30T19:08:00Z",
+    "spy_price": 751.51,
+    "spy_change_pct": -2.32,
+    "vix": 21.06,
+    "fear_greed": 24,
     "stocktwits": {
       "SPY": {
-        "score": 59,
-        "bullish_pct": 49.1
+        "score": 58,
+        "bullish_pct": 48.8
       }
     },
     "reddit": {
@@ -24,15 +24,15 @@
       "score": -0.55,
       "headlines": [
         "INTC about -31% after earnings, top trending on Stocktwits",
-        "RDDT -31%, SNDK -15%, AMD -12%, NVDA -5.2%, SOXL -29%, SOXX -9.7%",
-        "QQQ -3.97%, IWM -2.0%, SPY -2.05%, GLD -3.5%, TLT flat",
+        "SOXL -29.8%, SOXX -9.9%, AMD -12.7%, SNDK -15.5%, RDDT -30%, APP -10.7%, NVDA -5.2%",
+        "QQQ -4.2%, IWM -2.4%, SPY -2.3%, GLD -3.5%, TLT +0.2%",
         "US GDP advance 3.4% (prev 2.2%) released Oct 29",
         "German CPI 2.8% y/y vs 3.3% prior"
       ]
     },
     "rumors": [
       {
-        "text": "Monday could bring a big gap down (April 9th-type move) as weekend risk builds; traders are adding SPY puts into next week",
+        "text": "Weekend risk is high after today's selloff; some traders are shorting any pop at 754-755 and hesitate to hold weekend calls",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -43,8 +43,8 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.15,
-        "why": "Unsupported speculation and a crowded put bet; if true, a gap lower Monday."
+        "credibility": 0.2,
+        "why": "Crowded short bias into the weekend; a gap lower Monday if risk builds."
       },
       {
         "text": "Intel's post-earnings plunge is spreading into semis and growth, an AI-bubble unwind",
@@ -67,41 +67,51 @@
         },
         "direction": "down",
         "credibility": 0.4,
-        "why": "Price action confirms the weakness but the cause is crowd inference; more chip de-risking would weigh on the index."
+        "why": "Price action confirms the weakness, cause is crowd inference; more chip de-risking would weigh on the index."
       },
       {
-        "text": "No safe haven today: gold down about 3.5%, stocks down and bonds flat, pointing to forced selling or deleveraging; chatter also cites high capex, bond yields and rate worries",
+        "text": "A Stocktwits poster claims the Financial Times and markets doubt Anthropic can repay its debt",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Unverified; if true, it would feed AI-debt worries across tech."
+      },
+      {
+        "text": "Only a peace deal would push SPY above 755 into the close",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "GLD",
-          "TLT"
+          "QQQ"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "GLD": "SPDR Gold Shares",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
+          "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Prices fit the story but the cause is unverified; forced liquidation could extend the selloff."
+        "direction": "up",
+        "credibility": 0.1,
+        "why": "Single-poster speculation; a geopolitical headline would squeeze shorts."
       }
     ],
     "names": {
-      "SPY": "SPDR S&P 500 ETF",
-      "QQQ": "Invesco QQQ Trust"
+      "SPY": "SPDR S&P 500 ETF"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Tech-led washout with fear/greed at 26 and a split crowd; a late bounce is plausible, but the trend is down into the weekend and conviction is low.",
-        "catalyst": "Dip-buying after earnings-driven tech selloff"
+        "confidence": 0.53,
+        "reason": "Extreme fear (24), SPY near the day low of 750.4 with semis bouncing late and a short-leaning crowd; a small relief move into the close is slightly more likely than not.",
+        "catalyst": "Late-day semis bounce and short covering"
       }
     ],
-    "whats_new": "SPY slid further to about -2.05% (753.62) from -1.55% at the last reading, and QQQ fell to about -4%. Semis deepened their losses (SOXX -9.7%) and gold dropped 3.5% while bonds stayed flat. Stocktwits SPY score is 59 (was 60) with the crowd still split, and chatter now centers on a Monday gap-down and put buying.",
+    "whats_new": "SPY slipped to -2.32% (751.51) from -2.05% and QQQ fell to -4.2%. VIX rose to 21.06 from 19.49 and fear and greed dropped to extreme fear (24). Stocktwits SPY score is steady at 58 with the crowd split, and chatter now shows late semis bounce talk and short-the-pop positioning.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -112,7 +122,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -2.05,
+      "value": -2.32,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -124,13 +134,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 26.0,
+      "value": 24.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 59.0,
+      "value": 58.0,
       "vote": 0,
       "why": "in the neutral band"
     }
