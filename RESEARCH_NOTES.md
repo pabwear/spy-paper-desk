@@ -26,7 +26,7 @@ keep learning from it; these notes are the record.
 | SPY put spread | 5 | 4 | ≈ −$159 | 17 trades, 13 won, ≈ −$527 | wins 83% of days, ~$17 wins, ~1 day in 6 losing up to ~$490; ≈ −$18/day |
 | SPY options (learning) | 0 | — | $0 | 7 trades, 3 won, ≈ +$19 | ~49% won, about −$3.50 a trade |
 | SPY / SNDK shares | 0 | — | $0 | 2 trades, ≈ $0 | near break-even |
-| Crypto trend200 (BTC, ETH) | 0 | — | ≈ −$42 | held since Oct 10, ≈ −$102 open before fees | ~8 trades a year; holds above the 200-day average, gives back gains in drops |
+| Crypto trend200 (BTC, ETH) | 0 | — | ≈ −$57 | held since Oct 10, ≈ −$102 open before fees | ~8 trades a year; holds above the 200-day average, gives back gains in drops |
 | Crypto learning (SOL mom7d) | 0 | — | $0 | 1 trade, 0 won, ≈ −$0.21 | ~31 a year, 29% won, small frequent losses, rare big wins |
 
 - Spread: four wins this week (+$125 after expired legs), then one −$273. Three weeks in: won 76% of days (backtest
