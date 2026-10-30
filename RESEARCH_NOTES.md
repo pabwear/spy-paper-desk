@@ -5,6 +5,20 @@ keep learning from it; these notes are the record.
 
 ## Daily log
 
+### Thu Oct 29 2026 — +$25.90 (equity $757.22; −$242.78 since the $1,000 start; week +$113.35)
+(Review written Fri Oct 30 morning: the scheduled Thursday review reached this session late.)
+- SPY put spread 764/759: sold 10:00 for $33 (mid $0.34, natural $0.33; 0.59 × VIX, a little above 0.5) with SPY at
+  $768.71. SPY stayed above; bought back 15:40 as one order → +$26 (short +$34, long −$8). Nothing left open.
+  Spread book (expired legs included): 16 trades, 13 won, ≈ −$254.
+- Options book, shares, SNDK: no trades.
+- Price forecasts: direction 53% (1m), 40% (3m), 40% (5m), 40% (30m); "flat" leads. Loss model: shadow, 35 closed
+  trades, 9 learnable of 30.
+- ML shadow: 34 predictions, p 0.41–0.50, no would-be entry. Forward: 428 scored, Brier 0.251 vs ≈0.249 base rate.
+- Crypto (as of Fri 08:25 UTC): no orders. At Thursday's review time the last check was 16:49 UTC, ≈3½ h old.
+  Account $920.99 (−$79.01 vs its $1,000 start). BTC $443 and ETH $420 still held, but only 6% and 4% above their
+  200-day averages (13–14% a week earlier): a close below the average would trigger the trend rule's sell. SOL
+  learning book in cash ($95.42 vs $103.54 seven days earlier); 1 trade so far, about −$0.21 before fees.
+
 ### Wed Oct 28 2026 — +$53.90 (equity $731.43; −$268.57 since the $1,000 start; week +$87.56)
 - SPY put spread 766/761: sold 10:00 for $65 (mid $0.66, natural $0.65) with SPY at $770.53, VIX 17.5. Priced at
   0.75 × the VIX, the first day well above the 0.5 assumed (richer credit, so more risk was being priced in that
