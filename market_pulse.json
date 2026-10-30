@@ -1,18 +1,18 @@
 {
   "date": "2026-10-30",
   "bias": "neutral",
-  "written_at": "2026-10-30T11:10:00-04:00",
-  "as_of": "2026-10-30T15:10:00Z",
+  "written_at": "2026-10-30T12:07:06-04:00",
+  "as_of": "2026-10-30T16:10:00Z",
   "readings": {
-    "as_of": "2026-10-30T15:10:00Z",
-    "spy_price": 759.37,
-    "spy_change_pct": -1.3,
+    "as_of": "2026-10-30T16:10:00Z",
+    "spy_price": 757.47,
+    "spy_change_pct": -1.55,
     "vix": 18.9,
     "fear_greed": 29,
     "stocktwits": {
       "SPY": {
-        "score": 63,
-        "bullish_pct": 50.2
+        "score": 62,
+        "bullish_pct": 49.7
       }
     },
     "reddit": {
@@ -23,12 +23,13 @@
     "news": {
       "score": -0.5,
       "headlines": [
-        "INTC -28% after earnings, most-watched name on Stocktwits",
-        "AMZN -1.7%, recovered from deep premarket drop",
-        "QQQ -2.7%, RDDT -27%, COIN -12.6%, SNDK -9.9%",
-        "GLD -2.6%",
+        "INTC -29.7% after earnings, top trending on Stocktwits",
+        "RDDT -29%, RBLX -20%, SNDK -12%, AAOI -15.6%, SOXL -25%",
+        "QQQ -3.1%, IWM -1.7%, GLD -3.1%",
+        "AMZN -2.1%, recovered from deep premarket drop",
         "German CPI 2.8% y/y vs 3.3% prior",
-        "Chicago PMI (prev 58.8) was due 13:45 UTC"
+        "US GDP advance 3.4% (prev 2.2%) released Oct 29",
+        "Report of ~$1.4B bitcoin moved by Binance hacker (coindesk link on Stocktwits)"
       ]
     },
     "rumors": [
@@ -45,7 +46,36 @@
         },
         "direction": "down",
         "credibility": 0.1,
-        "why": "Election-linked political speculation; if a sweep scared markets it could pressure tech and AI names, but it is a vague single-user claim."
+        "why": "Vague single-user political speculation; no evidence."
+      },
+      {
+        "text": "Tech/AI is a crowded bubble trade and the window to sell shrinks quickly, risking panic",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ",
+          "MAGS"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Opinion on concentration; if true, further tech de-risking would drag the index, though one poster notes volume is not at panic levels."
+      },
+      {
+        "text": "Binance was hit by a hack via one compromised devops laptop, with roughly $6B stolen",
+        "source": "stocktwits",
+        "tickers": [
+          "MSTR"
+        ],
+        "names": {
+          "MSTR": "Strategy"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "A large crypto theft could add to the crypto-linked stock selloff; the figure is an unverified poster claim."
       }
     ],
     "names": {
@@ -54,8 +84,9 @@
       "INTC": "Intel",
       "AMZN": "Amazon",
       "RDDT": "Reddit",
-      "COIN": "Coinbase",
+      "RBLX": "Roblox",
       "SNDK": "Sandisk",
+      "SOXL": "Direxion Daily Semiconductor Bull 3X",
       "GLD": "SPDR Gold Shares"
     },
     "plays": [
@@ -64,22 +95,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Fear and greed at 29 and a one-sided tech-led drop; traders watch 757-760 as support and the crowd is split about 50/50.",
-        "catalyst": "Dip-buying after tech earnings selloff"
+        "reason": "Tech-led washout with fear/greed at 29 and a 50/50 crowd; some bounce likely but trend is down and volume is not panic-level.",
+        "catalyst": "Dip-buying after earnings-driven tech selloff"
       }
     ],
-    "whats_new": "SPY slipped a little further to about -1.3% (759.37) and VIX rose to 18.9 from 17.0, with fear and greed down to 29. Stocktwits SPY score eased to 63 from 66, still about 50/50 bullish. Intel, Reddit and crypto-linked names remain the heavy losers, and chatter is now about the Nov 3 midterms.",
+    "whats_new": "SPY fell further to about -1.55% (757.47) from -1.3%, and QQQ is now -3.1%. VIX is steady near 18.9 and fear and greed is 29. Stocktwits SPY score is 62 (was 63), still split about 50/50. The selloff widened into semis and growth names, and chatter shifted to the AI-bubble worry and a Binance hack.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocktwits trending, stocklake calendar; web search returned stale results"
+      "news": "stocktwits trending and messages, stocklake calendar; web search returned stale results"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.3,
+      "value": -1.55,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -97,7 +128,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 63.0,
+      "value": 62.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
@@ -108,7 +139,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocktwits trending, stocklake calendar; web search returned stale results"
+    "news": "stocktwits trending and messages, stocklake calendar; web search returned stale results"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
