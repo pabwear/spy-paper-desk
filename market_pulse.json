@@ -1,18 +1,18 @@
 {
   "date": "2026-10-30",
-  "bias": "neutral",
-  "written_at": "2026-10-30T13:07:30-04:00",
-  "as_of": "2026-10-30T17:10:00Z",
+  "bias": "bearish",
+  "written_at": "2026-10-30T14:07:06-04:00",
+  "as_of": "2026-10-30T18:08:00Z",
   "readings": {
-    "as_of": "2026-10-30T17:10:00Z",
-    "spy_price": 757.41,
-    "spy_change_pct": -1.55,
+    "as_of": "2026-10-30T18:08:00Z",
+    "spy_price": 753.62,
+    "spy_change_pct": -2.05,
     "vix": 19.49,
     "fear_greed": 26,
     "stocktwits": {
       "SPY": {
-        "score": 60,
-        "bullish_pct": 49.4
+        "score": 59,
+        "bullish_pct": 49.1
       }
     },
     "reddit": {
@@ -21,49 +21,39 @@
       "top": []
     },
     "news": {
-      "score": -0.5,
+      "score": -0.55,
       "headlines": [
-        "INTC about -30% after earnings, top trending on Stocktwits",
-        "RDDT -29.8%, SNDK -13%, AMD -11.7%, NVDA -4.6%, SOXL -27.7%",
-        "QQQ -3.25%, IWM -1.69%, SPY -1.55%, GLD -3.0%, TLT flat",
+        "INTC about -31% after earnings, top trending on Stocktwits",
+        "RDDT -31%, SNDK -15%, AMD -12%, NVDA -5.2%, SOXL -29%, SOXX -9.7%",
+        "QQQ -3.97%, IWM -2.0%, SPY -2.05%, GLD -3.5%, TLT flat",
         "US GDP advance 3.4% (prev 2.2%) released Oct 29",
         "German CPI 2.8% y/y vs 3.3% prior"
       ]
     },
     "rumors": [
       {
-        "text": "Weekend geopolitical risk (military action) could hit markets on Monday; any recovery today is just liquidity for Monday",
+        "text": "Monday could bring a big gap down (April 9th-type move) as weekend risk builds; traders are adding SPY puts into next week",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.1,
-        "why": "Single-poster speculation with no evidence; if true, a gap down on Monday."
+        "credibility": 0.15,
+        "why": "Unsupported speculation and a crowded put bet; if true, a gap lower Monday."
       },
       {
-        "text": "Earlier 'talks are going good' headlines pumped the market and are now being fully unwound",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Vague claim about earlier optimism fading; if true the selloff has more room."
-      },
-      {
-        "text": "Selloff is tech and semis led (post-earnings Intel plunge spreading to chips and growth) with AI-bubble worries",
+        "text": "Intel's post-earnings plunge is spreading into semis and growth, an AI-bubble unwind",
         "source": "stocktwits",
         "tickers": [
           "INTC",
           "AMD",
           "NVDA",
+          "SNDK",
           "SOXL",
           "QQQ"
         ],
@@ -71,12 +61,30 @@
           "INTC": "Intel",
           "AMD": "Advanced Micro Devices",
           "NVDA": "NVIDIA",
+          "SNDK": "Sandisk",
           "SOXL": "Direxion Daily Semiconductor Bull 3X",
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
         "credibility": 0.4,
-        "why": "Price action confirms the weakness, but the cause is crowd inference; more chip de-risking would weigh on the index."
+        "why": "Price action confirms the weakness but the cause is crowd inference; more chip de-risking would weigh on the index."
+      },
+      {
+        "text": "No safe haven today: gold down about 3.5%, stocks down and bonds flat, pointing to forced selling or deleveraging; chatter also cites high capex, bond yields and rate worries",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "GLD",
+          "TLT"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "GLD": "SPDR Gold Shares",
+          "TLT": "iShares 20+ Year Treasury Bond ETF"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Prices fit the story but the cause is unverified; forced liquidation could extend the selloff."
       }
     ],
     "names": {
@@ -89,11 +97,11 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Tech-led washout with fear/greed at 26 and a 50/50 crowd; intraday bounce plausible, but trend is down and the weekend risk limits conviction.",
+        "reason": "Tech-led washout with fear/greed at 26 and a split crowd; a late bounce is plausible, but the trend is down into the weekend and conviction is low.",
         "catalyst": "Dip-buying after earnings-driven tech selloff"
       }
     ],
-    "whats_new": "SPY is flat at about -1.55% (757.41) versus the last reading, while QQQ weakened to -3.25%. VIX rose to 19.5 and fear and greed slipped to 26. Stocktwits SPY score is 60 (was 62), still split about 50/50, and chatter turned to weekend risk and the fading of earlier optimism.",
+    "whats_new": "SPY slid further to about -2.05% (753.62) from -1.55% at the last reading, and QQQ fell to about -4%. Semis deepened their losses (SOXX -9.7%) and gold dropped 3.5% while bonds stayed flat. Stocktwits SPY score is 59 (was 60) with the crowd still split, and chatter now centers on a Monday gap-down and put buying.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -104,7 +112,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.55,
+      "value": -2.05,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -122,12 +130,12 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 60.0,
-      "vote": 1,
-      "why": "\u2265 60.0"
+      "value": 59.0,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": -1,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
@@ -135,5 +143,5 @@
     "reddit": "unavailable (blocked)",
     "news": "stocktwits trending and messages, stocklake calendar; web search returned stale results"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
