@@ -1,18 +1,18 @@
 {
   "date": "2026-10-30",
   "bias": "neutral",
-  "written_at": "2026-10-30T09:12:47-04:00",
-  "as_of": "2026-10-30T13:15:00Z",
+  "written_at": "2026-10-30T10:11:09-04:00",
+  "as_of": "2026-10-30T14:12:00Z",
   "readings": {
-    "as_of": "2026-10-30T13:15:00Z",
-    "spy_price": 761.46,
-    "spy_change_pct": -1.03,
+    "as_of": "2026-10-30T14:12:00Z",
+    "spy_price": 760.41,
+    "spy_change_pct": -1.16,
     "vix": 17.01,
     "fear_greed": 34,
     "stocktwits": {
       "SPY": {
-        "score": 67,
-        "bullish_pct": 50.2
+        "score": 66,
+        "bullish_pct": 50.3
       }
     },
     "reddit": {
@@ -23,34 +23,16 @@
     "news": {
       "score": -0.5,
       "headlines": [
-        "Premarket: INTC -26%, AMZN -7%, SNDK -9%, RDDT -24%, SOXL -21%, QQQ -2.7%, AAPL -1.2%",
-        "US Q3 GDP advance 3.4% vs 2.2% prior; deflator 2.2%",
-        "Gold -1.7% and silver -5% premarket",
-        "Germany/Canada GDP and euro area data due today"
+        "INTC -28.5% after earnings, most-watched name on Stocktwits",
+        "AMZN -2.4% after being down ~7% premarket",
+        "QQQ -2.6%, MSTR -9%, COIN -12%, RDDT -24%, SNDK -8%, SLV -5.8%",
+        "US Q3 GDP advance 3.4% vs 2.2% prior",
+        "Chicago PMI (prev 58.8) due 13:45 UTC; German CPI and Canada GDP today"
       ]
     },
     "rumors": [
       {
-        "text": "Don't buy and hold AMZN/AVGO/MRVL/GOOGL before an Anthropic IPO",
-        "source": "stocktwits",
-        "tickers": [
-          "AMZN",
-          "GOOGL",
-          "AVGO",
-          "MRVL"
-        ],
-        "names": {
-          "AMZN": "Amazon",
-          "GOOGL": "Alphabet",
-          "AVGO": "Broadcom",
-          "MRVL": "Marvell"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "If an Anthropic IPO pulls money out of megacap AI names, those stocks could stay under pressure."
-      },
-      {
-        "text": "SPY dips to about 757 then bounces when Trump tweets that the Iran war is over",
+        "text": "A market crash is coming before the elections",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -58,9 +40,9 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
+        "direction": "down",
         "credibility": 0.1,
-        "why": "A surprise de-escalation headline would trigger a quick relief rally from the 100-day average near 758.7."
+        "why": "If true, an election-linked selloff would push the whole market lower, but it is a vague single-user claim."
       }
     ],
     "names": {
@@ -74,14 +56,14 @@
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.55,
-        "reason": "Premarket tech/semis rout (QQQ -2.7%, INTC -26%, AMZN -7%) points to a gap down, though the 100-day SMA near 758.7 may hold.",
-        "catalyst": "Intel and Amazon earnings reaction"
+        "confidence": 0.52,
+        "reason": "Tech-led selloff (QQQ -2.6%) with traders watching whether 760 holds; chatter calls it a slow bleed.",
+        "catalyst": "Intel/Amazon earnings fallout and the 760 level"
       }
     ],
-    "whats_new": "Amazon and Intel reported and both are sharply lower premarket (AMZN -7%, INTC -26%), dragging semis (SOXL -21%) and QQQ -2.7%, a bigger tech selloff than the last reading. SPY last close was 761.46 (-1.03%) with VIX 17 and fear & greed 34; the crowd is split 50/50 and chatter focuses on the 100-day SMA near 758.7. The Amazon-after-close catalyst from last hour has played out negatively.",
+    "whats_new": "Amazon's drop has shrunk from about -7% premarket to about -2.4%, while Intel is still down roughly 28% and crypto-linked stocks and silver are sharply lower. Stocktwits SPY sentiment is still split around 50/50 (score 66 vs 67 last hour). Traders say most of the move came in extended hours and are watching 760.",
     "sources": {
-      "market_pulse": "stocklake (prior close; premarket SPY not available)",
+      "market_pulse": "stocklake (SPY/VIX/F&G from prior close snapshot)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
       "news": "stocktwits trending, stocklake calendar; web search returned stale results"
@@ -90,7 +72,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.03,
+      "value": -1.16,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -108,7 +90,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 67.0,
+      "value": 66.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
@@ -116,7 +98,7 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (prior close; premarket SPY not available)",
+    "market_pulse": "stocklake (SPY/VIX/F&G from prior close snapshot)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
     "news": "stocktwits trending, stocklake calendar; web search returned stale results"
