@@ -1,18 +1,18 @@
 {
   "date": "2026-10-30",
   "bias": "neutral",
-  "written_at": "2026-10-30T10:11:09-04:00",
-  "as_of": "2026-10-30T14:12:00Z",
+  "written_at": "2026-10-30T11:10:00-04:00",
+  "as_of": "2026-10-30T15:10:00Z",
   "readings": {
-    "as_of": "2026-10-30T14:12:00Z",
-    "spy_price": 760.41,
-    "spy_change_pct": -1.16,
-    "vix": 17.01,
-    "fear_greed": 34,
+    "as_of": "2026-10-30T15:10:00Z",
+    "spy_price": 759.37,
+    "spy_change_pct": -1.3,
+    "vix": 18.9,
+    "fear_greed": 29,
     "stocktwits": {
       "SPY": {
-        "score": 66,
-        "bullish_pct": 50.3
+        "score": 63,
+        "bullish_pct": 50.2
       }
     },
     "reddit": {
@@ -23,47 +23,54 @@
     "news": {
       "score": -0.5,
       "headlines": [
-        "INTC -28.5% after earnings, most-watched name on Stocktwits",
-        "AMZN -2.4% after being down ~7% premarket",
-        "QQQ -2.6%, MSTR -9%, COIN -12%, RDDT -24%, SNDK -8%, SLV -5.8%",
-        "US Q3 GDP advance 3.4% vs 2.2% prior",
-        "Chicago PMI (prev 58.8) due 13:45 UTC; German CPI and Canada GDP today"
+        "INTC -28% after earnings, most-watched name on Stocktwits",
+        "AMZN -1.7%, recovered from deep premarket drop",
+        "QQQ -2.7%, RDDT -27%, COIN -12.6%, SNDK -9.9%",
+        "GLD -2.6%",
+        "German CPI 2.8% y/y vs 3.3% prior",
+        "Chicago PMI (prev 58.8) was due 13:45 UTC"
       ]
     },
     "rumors": [
       {
-        "text": "A market crash is coming before the elections",
+        "text": "A market crash right before the Nov 3 midterms will hurt Republicans and trigger a Democratic sweep",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
         "credibility": 0.1,
-        "why": "If true, an election-linked selloff would push the whole market lower, but it is a vague single-user claim."
+        "why": "Election-linked political speculation; if a sweep scared markets it could pressure tech and AI names, but it is a vague single-user claim."
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "INTC": "Intel",
-      "AMZN": "Amazon"
+      "AMZN": "Amazon",
+      "RDDT": "Reddit",
+      "COIN": "Coinbase",
+      "SNDK": "Sandisk",
+      "GLD": "SPDR Gold Shares"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "down",
+        "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Tech-led selloff (QQQ -2.6%) with traders watching whether 760 holds; chatter calls it a slow bleed.",
-        "catalyst": "Intel/Amazon earnings fallout and the 760 level"
+        "reason": "Fear and greed at 29 and a one-sided tech-led drop; traders watch 757-760 as support and the crowd is split about 50/50.",
+        "catalyst": "Dip-buying after tech earnings selloff"
       }
     ],
-    "whats_new": "Amazon's drop has shrunk from about -7% premarket to about -2.4%, while Intel is still down roughly 28% and crypto-linked stocks and silver are sharply lower. Stocktwits SPY sentiment is still split around 50/50 (score 66 vs 67 last hour). Traders say most of the move came in extended hours and are watching 760.",
+    "whats_new": "SPY slipped a little further to about -1.3% (759.37) and VIX rose to 18.9 from 17.0, with fear and greed down to 29. Stocktwits SPY score eased to 63 from 66, still about 50/50 bullish. Intel, Reddit and crypto-linked names remain the heavy losers, and chatter is now about the Nov 3 midterms.",
     "sources": {
-      "market_pulse": "stocklake (SPY/VIX/F&G from prior close snapshot)",
+      "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
       "news": "stocktwits trending, stocklake calendar; web search returned stale results"
@@ -72,7 +79,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.16,
+      "value": -1.3,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -84,13 +91,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 34.0,
+      "value": 29.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 66.0,
+      "value": 63.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
@@ -98,7 +105,7 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (SPY/VIX/F&G from prior close snapshot)",
+    "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
     "news": "stocktwits trending, stocklake calendar; web search returned stale results"
