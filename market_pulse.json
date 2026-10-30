@@ -1,93 +1,96 @@
 {
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "bias": "neutral",
-  "written_at": "2026-10-29T15:07:16-04:00",
-  "as_of": "2026-10-29T19:08:00Z",
+  "written_at": "2026-10-30T09:12:47-04:00",
+  "as_of": "2026-10-30T13:15:00Z",
   "readings": {
-    "as_of": "2026-10-29T19:08:00Z",
-    "spy_price": 766.99,
-    "spy_change_pct": -0.69,
-    "vix": 16.26,
+    "as_of": "2026-10-30T13:15:00Z",
+    "spy_price": 761.46,
+    "spy_change_pct": -1.03,
+    "vix": 17.01,
     "fear_greed": 34,
     "stocktwits": {
       "SPY": {
-        "score": 61,
-        "bullish_pct": 51.6
+        "score": 67,
+        "bullish_pct": 50.2
       }
     },
+    "reddit": {
+      "score": 0,
+      "posts": 0,
+      "top": []
+    },
     "news": {
-      "score": -0.2,
+      "score": -0.5,
       "headlines": [
-        "Alphabet down ~13% after results; capex guide $195-205B",
-        "ServiceNow down ~27%",
+        "Premarket: INTC -26%, AMZN -7%, SNDK -9%, RDDT -24%, SOXL -21%, QQQ -2.7%, AAPL -1.2%",
         "US Q3 GDP advance 3.4% vs 2.2% prior; deflator 2.2%",
-        "Amazon reports after the close",
-        "QQQ -1.8%, IWM +0.6%, gold -1.7%, TLT +0.4%"
+        "Gold -1.7% and silver -5% premarket",
+        "Germany/Canada GDP and euro area data due today"
       ]
     },
     "rumors": [
       {
-        "text": "SPY will drop hard after hours on Amazon results",
+        "text": "Don't buy and hold AMZN/AVGO/MRVL/GOOGL before an Anthropic IPO",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "AMZN"
+          "AMZN",
+          "GOOGL",
+          "AVGO",
+          "MRVL"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "AMZN": "Amazon"
+          "AMZN": "Amazon",
+          "GOOGL": "Alphabet",
+          "AVGO": "Broadcom",
+          "MRVL": "Marvell"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "A weak AMZN print after Alphabet's drop could extend the megacap tech selloff."
+        "credibility": 0.15,
+        "why": "If an Anthropic IPO pulls money out of megacap AI names, those stocks could stay under pressure."
       },
       {
-        "text": "Alphabet is under the SEC Rule 201 short-sale restriction after its drop",
+        "text": "SPY dips to about 757 then bounces when Trump tweets that the Iran war is over",
         "source": "stocktwits",
         "tickers": [
-          "GOOGL"
+          "SPY"
         ],
         "names": {
-          "GOOGL": "Alphabet"
+          "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "down",
-        "credibility": 0.5,
-        "why": "A circuit breaker after a 10%+ fall limits shorting and shows heavy selling pressure."
-      },
-      {
-        "text": "The market rotation into value and small caps is a shell game, as at the Y2K top",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "IWM"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "IWM": "iShares Russell 2000 ETF"
-        },
-        "direction": "down",
+        "direction": "up",
         "credibility": 0.1,
-        "why": "If true, the small-cap bid would fade and the index would follow tech lower."
+        "why": "A surprise de-escalation headline would trigger a quick relief rally from the 100-day average near 758.7."
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF"
+      "INTC": "Intel",
+      "AMZN": "Amazon"
     },
-    "plays": [],
-    "whats_new": "SPY is slightly weaker at 766.99 (-0.69%) than the last reading, with QQQ down 1.8% as Alphabet and ServiceNow keep sliding while small caps hold gains. Fear & greed eased to 34 and VIX to 16.3; the crowd is split about 52/48 and chatter is bouncing toward 769. Amazon after the close is still the main catalyst and the old Hormuz rumor did not resurface.",
+    "plays": [
+      {
+        "ticker": "SPY",
+        "direction": "down",
+        "horizon": "close",
+        "confidence": 0.55,
+        "reason": "Premarket tech/semis rout (QQQ -2.7%, INTC -26%, AMZN -7%) points to a gap down, though the 100-day SMA near 758.7 may hold.",
+        "catalyst": "Intel and Amazon earnings reaction"
+      }
+    ],
+    "whats_new": "Amazon and Intel reported and both are sharply lower premarket (AMZN -7%, INTC -26%), dragging semis (SOXL -21%) and QQQ -2.7%, a bigger tech selloff than the last reading. SPY last close was 761.46 (-1.03%) with VIX 17 and fear & greed 34; the crowd is split 50/50 and chatter focuses on the 100-day SMA near 758.7. The Amazon-after-close catalyst from last hour has played out negatively.",
     "sources": {
-      "market_pulse": "stocklake",
+      "market_pulse": "stocklake (prior close; premarket SPY not available)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (blocked)",
-      "news": "stocklake calendar, stocktwits trending"
+      "news": "stocktwits trending, stocklake calendar; web search returned stale results"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.69,
+      "value": -1.03,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -105,7 +108,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 61.0,
+      "value": 67.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
@@ -113,10 +116,10 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
+    "market_pulse": "stocklake (prior close; premarket SPY not available)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (blocked)",
-    "news": "stocklake calendar, stocktwits trending"
+    "news": "stocktwits trending, stocklake calendar; web search returned stale results"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
