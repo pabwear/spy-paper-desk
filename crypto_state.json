@@ -1,39 +1,39 @@
 {
-  "updated_at": "2026-11-01T20:24:14+00:00",
+  "updated_at": "2026-11-02T00:29:30+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 923.69,
+  "equity": 929.42,
   "cash": 57.99,
   "last_equity": 918.5765060396,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 440.917275,
-      "unrealized_pl": -28.59686,
-      "current_price": 77615.8
+      "market_value": 443.192138,
+      "unrealized_pl": -26.321997,
+      "current_price": 78016.25
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 424.779872,
-      "unrealized_pl": -44.761847,
-      "current_price": 2255.34
+      "market_value": 428.237869,
+      "unrealized_pl": -41.30385,
+      "current_price": 2273.7
     }
   },
   "signals": {
     "BTC/USD": {
       "hold": true,
-      "close": 77442.505,
-      "average": 73132.45,
+      "close": 78233.257,
+      "average": 73149.39,
       "days": 419
     },
     "ETH/USD": {
       "hold": true,
-      "close": 2252.8925,
-      "average": 2158.14,
+      "close": 2272.3225,
+      "average": 2157.7,
       "days": 419
     }
   },
@@ -181,6 +181,10 @@
     {
       "date": "2026-11-01",
       "equity": 923.69
+    },
+    {
+      "date": "2026-11-02",
+      "equity": 929.42
     }
   ],
   "equity_history": [
@@ -231,11 +235,11 @@
   ],
   "pnl_periods": {
     "as_of": "2026-11-01",
-    "equity": 923.69,
-    "today": 5.11,
-    "week": -41.38,
-    "month": 5.11,
-    "all": -76.31,
+    "equity": 929.42,
+    "today": 10.84,
+    "week": -35.65,
+    "month": 10.84,
+    "all": -70.58,
     "start_usd": 1000.0
   },
   "learning": {
@@ -245,8 +249,8 @@
     "stop_pct": 6,
     "enabled": true,
     "hold": false,
-    "close": 95.3154,
-    "close_7d_ago": 102.248,
+    "close": 94.409,
+    "close_7d_ago": 101.245,
     "position": null,
     "stop_price": null,
     "trades": 1,
