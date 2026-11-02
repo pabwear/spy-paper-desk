@@ -1,18 +1,18 @@
 {
   "date": "2026-11-02",
   "bias": "neutral",
-  "written_at": "2026-11-02T14:30:38-05:00",
-  "as_of": "2026-11-02T14:30:38-05:00",
+  "written_at": "2026-11-02T15:10:23-05:00",
+  "as_of": "2026-11-02T15:10:23-05:00",
   "readings": {
-    "as_of": "2026-11-02T14:30:38-05:00",
+    "as_of": "2026-11-02T15:10:23-05:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 755.39,
-    "spy_change_pct": -0.044,
+    "spy_price": 755.3,
+    "spy_change_pct": -0.056,
     "stocktwits": {
       "SPY": {
         "score": 50.0,
@@ -27,27 +27,27 @@
         "ETFs Are Net Sellers of Meta Platforms (META) on Thursday",
         "ETFs Are Net Sellers of Micron Technology (MU) on Oct. 29",
         "ETF Activity: QQQ Leads $2.24 Billion Exit on Oct. 29",
-        "Stocktwits Pharma Pulse: Biotech Beats The Broader Market \u2014 Novo, Pfizer And Moderna Earnings Up Next",
+        "IDEXX Soars 20.2% on Earnings Beat: What It Means for Your S&P 500 Index Fund",
         "Ed Yardeni's Midterms Prediction: Democratic Sweep Could Be a 'Cold Shower' for Stock Market",
         "Only 37% of Wall Street\u2019s Money Managers Think AI Will Pay Off Within 2 Years \u2014 Half Are Still Bullish",
         "AI Stocks Slide: Are Tech ETFs Worth Watching?"
       ]
     },
-    "vix": 20.32,
-    "vix_change_pct": 4.63
+    "vix": 21.22,
+    "vix_change_pct": 9.27
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.044,
+      "value": -0.056,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 4.63,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 9.27,
+      "vote": -1,
+      "why": "\u2265 5.0"
     },
     {
       "reading": "fear_greed",
@@ -62,12 +62,12 @@
       "why": "in the neutral band"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "sentiment_flow": "stocktwits public stream",
     "news": "yahoo finance rss",
     "vix": "yfinance"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
