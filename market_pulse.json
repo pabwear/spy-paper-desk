@@ -1,22 +1,22 @@
 {
   "date": "2026-11-02",
   "bias": "neutral",
-  "written_at": "2026-11-02T14:00:35-05:00",
-  "as_of": "2026-11-02T14:00:35-05:00",
+  "written_at": "2026-11-02T14:30:38-05:00",
+  "as_of": "2026-11-02T14:30:38-05:00",
   "readings": {
-    "as_of": "2026-11-02T14:00:35-05:00",
+    "as_of": "2026-11-02T14:30:38-05:00",
     "source": "desk_feeds",
     "sources": {
       "sentiment_flow": "stocktwits public stream",
       "news": "yahoo finance rss",
       "vix": "yfinance"
     },
-    "spy_price": 757.09,
-    "spy_change_pct": 0.181,
+    "spy_price": 755.39,
+    "spy_change_pct": -0.044,
     "stocktwits": {
       "SPY": {
-        "score": 42.9,
-        "bullish_pct": 42.9
+        "score": 50.0,
+        "bullish_pct": 50.0
       }
     },
     "news": {
@@ -33,19 +33,19 @@
         "AI Stocks Slide: Are Tech ETFs Worth Watching?"
       ]
     },
-    "vix": 20.04,
-    "vix_change_pct": 3.19
+    "vix": 20.32,
+    "vix_change_pct": 4.63
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.181,
+      "value": -0.044,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": 3.19,
+      "value": 4.63,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -57,7 +57,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 42.9,
+      "value": 50.0,
       "vote": 0,
       "why": "in the neutral band"
     }
