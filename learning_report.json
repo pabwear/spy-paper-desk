@@ -1,7 +1,7 @@
 {
-  "trained_at": "2026-10-30T16:10:29-04:00",
+  "trained_at": "2026-11-02T16:10:24-05:00",
   "mode": "shadow",
-  "closed_trades": 37,
+  "closed_trades": 39,
   "learnable_trades": 9,
   "min_trades_to_act": 30,
   "model": null,
@@ -61,18 +61,18 @@
       "active": false
     }
   ],
-  "trades": 37,
-  "losses": 18,
-  "loss_rate": 0.486,
+  "trades": 39,
+  "losses": 19,
+  "loss_rate": 0.487,
   "mistakes": [
     {
       "tag": "flattened_red_at_close",
       "label": "Flattened at 16:00 for a loss",
-      "trades": 14,
-      "losses": 14,
+      "trades": 15,
+      "losses": 15,
       "loss_rate": 1.0,
-      "avg_pnl": -68.64,
-      "total_pnl": -961.0
+      "avg_pnl": -81.73,
+      "total_pnl": -1226.0
     },
     {
       "tag": "late_entry_after_15",
@@ -140,11 +140,11 @@
     {
       "tag": "re_entry_after_loss",
       "label": "Second entry right after a loss",
-      "trades": 8,
+      "trades": 9,
       "losses": 2,
-      "loss_rate": 0.25,
-      "avg_pnl": 20.05,
-      "total_pnl": 160.42
+      "loss_rate": 0.222,
+      "avg_pnl": 21.16,
+      "total_pnl": 190.42
     }
   ],
   "lessons": [],
@@ -167,10 +167,36 @@
     {
       "tag": "no_contract",
       "label": "No listed option contract found",
-      "count": 162
+      "count": 172
     }
   ],
   "recent": [
+    {
+      "symbol": "SPY261102P00750000",
+      "opened_at": "2026-11-02T10:00:39-05:00",
+      "closed_at": "2026-11-02T15:40:29-05:00",
+      "pnl": 30.0,
+      "result": "win",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "re_entry_after_loss"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
+    {
+      "symbol": "SPY261102P00755000",
+      "opened_at": "2026-11-02T10:00:39-05:00",
+      "closed_at": "2026-11-02T15:40:29-05:00",
+      "pnl": -265.0,
+      "result": "loss",
+      "exit_reason": "flatten",
+      "mistakes": [
+        "flattened_red_at_close"
+      ],
+      "p_loss": null,
+      "tags": []
+    },
     {
       "symbol": "SPY261030P00752000",
       "opened_at": "2026-10-30T10:00:38-04:00",
@@ -541,41 +567,6 @@
       "mistakes": [],
       "p_loss": null,
       "tags": []
-    },
-    {
-      "symbol": "SPY261020C00778000",
-      "opened_at": "2026-10-12T11:20:27-04:00",
-      "closed_at": "2026-10-12T11:50:30-04:00",
-      "pnl": 17.0,
-      "result": "win",
-      "exit_reason": "time",
-      "mistakes": [
-        "outside_box_entry",
-        "rsi_near_50",
-        "re_entry_after_loss"
-      ],
-      "p_loss": null,
-      "tags": [
-        "structure",
-        "order_blocks",
-        "vwap"
-      ]
-    },
-    {
-      "symbol": "SPY261022C00779000",
-      "opened_at": "2026-10-12T10:00:35-04:00",
-      "closed_at": "2026-10-12T10:30:38-04:00",
-      "pnl": -42.0,
-      "result": "loss",
-      "exit_reason": "time",
-      "mistakes": [
-        "outside_box_entry"
-      ],
-      "p_loss": null,
-      "tags": [
-        "rsi",
-        "vwap"
-      ]
     }
   ]
 }
