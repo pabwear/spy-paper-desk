@@ -1,39 +1,39 @@
 {
-  "updated_at": "2026-11-02T18:06:58+00:00",
+  "updated_at": "2026-11-03T00:54:16+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 921.26,
+  "equity": 919.78,
   "cash": 57.99,
   "last_equity": 918.5765060396,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 438.365816,
-      "unrealized_pl": -31.148319,
-      "current_price": 77166.66
+      "market_value": 437.25167,
+      "unrealized_pl": -32.262465,
+      "current_price": 76970.534
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 424.902296,
-      "unrealized_pl": -44.639423,
-      "current_price": 2255.99
+      "market_value": 424.543312,
+      "unrealized_pl": -44.998407,
+      "current_price": 2254.084
     }
   },
   "signals": {
     "BTC/USD": {
       "hold": true,
-      "close": 78233.257,
-      "average": 73149.39,
+      "close": 76676.23,
+      "average": 73156.95,
       "days": 419
     },
     "ETH/USD": {
       "hold": true,
-      "close": 2272.3225,
-      "average": 2157.7,
+      "close": 2249.7,
+      "average": 2157.21,
       "days": 419
     }
   },
@@ -185,6 +185,10 @@
     {
       "date": "2026-11-02",
       "equity": 921.26
+    },
+    {
+      "date": "2026-11-03",
+      "equity": 919.78
     }
   ],
   "equity_history": [
@@ -235,11 +239,11 @@
   ],
   "pnl_periods": {
     "as_of": "2026-11-02",
-    "equity": 921.26,
-    "today": 2.68,
-    "week": 2.68,
-    "month": 2.68,
-    "all": -78.74,
+    "equity": 919.78,
+    "today": 1.2,
+    "week": 1.2,
+    "month": 1.2,
+    "all": -80.22,
     "start_usd": 1000.0
   },
   "learning": {
@@ -249,8 +253,8 @@
     "stop_pct": 6,
     "enabled": true,
     "hold": false,
-    "close": 94.409,
-    "close_7d_ago": 101.245,
+    "close": 91.83775,
+    "close_7d_ago": 100.755,
     "position": null,
     "stop_price": null,
     "trades": 1,
