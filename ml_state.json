@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-03T14:40:35+00:00",
+  "updated_at": "2026-11-03T14:50:42+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -29,12 +29,12 @@
     "feature_version": 1
   },
   "data": {
-    "last_bar": "2026-11-03 09:39:00-05:00",
-    "age_minutes": 0.6,
+    "last_bar": "2026-11-03 09:49:00-05:00",
+    "age_minutes": 0.7,
     "source": "alpaca",
     "sessions": 14,
-    "missing_minutes": 206,
-    "price": 753.715
+    "missing_minutes": 196,
+    "price": 754.03
   },
   "prediction": {
     "ok": false,
