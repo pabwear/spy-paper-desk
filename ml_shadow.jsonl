@@ -520,5 +520,6 @@
 {"ts": "2026-11-03T19:00:42+00:00", "bar_t": "2026-11-03 13:59:00-05:00", "horizon": 15, "p": 0.4363, "threshold": 0.51, "shadow_signal": false, "outcome": "NO_TRADE", "model": "tcn-5961b0695697", "result": {"net_bps": -11.85, "up_net": 0}}
 {"ts": "2026-11-03T19:11:08+00:00", "bar_t": "2026-11-03 14:10:00-05:00", "horizon": 15, "p": 0.4344, "threshold": 0.51, "shadow_signal": false, "outcome": "NO_TRADE", "model": "tcn-5961b0695697", "result": {"net_bps": -0.01, "up_net": 0}}
 {"ts": "2026-11-03T19:21:07+00:00", "bar_t": "2026-11-03 14:20:00-05:00", "horizon": 15, "p": 0.4296, "threshold": 0.51, "shadow_signal": false, "outcome": "NO_TRADE", "model": "tcn-5961b0695697", "result": {"net_bps": -13.84, "up_net": 0}}
-{"ts": "2026-11-03T19:30:49+00:00", "bar_t": "2026-11-03 14:29:00-05:00", "horizon": 15, "p": 0.4395, "threshold": 0.51, "shadow_signal": false, "outcome": "NO_TRADE", "model": "tcn-5961b0695697"}
+{"ts": "2026-11-03T19:30:49+00:00", "bar_t": "2026-11-03 14:29:00-05:00", "horizon": 15, "p": 0.4395, "threshold": 0.51, "shadow_signal": false, "outcome": "NO_TRADE", "model": "tcn-5961b0695697", "result": {"net_bps": -2.79, "up_net": 0}}
 {"ts": "2026-11-03T19:41:09+00:00", "bar_t": "2026-11-03 14:40:00-05:00", "horizon": 15, "p": 0.4545, "threshold": 0.51, "shadow_signal": false, "outcome": "NO_TRADE", "model": "tcn-5961b0695697"}
+{"ts": "2026-11-03T19:51:10+00:00", "bar_t": "2026-11-03 14:50:00-05:00", "horizon": 15, "p": 0.4281, "threshold": 0.51, "shadow_signal": false, "outcome": "NO_TRADE", "model": "tcn-5961b0695697"}
