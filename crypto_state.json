@@ -1,26 +1,26 @@
 {
-  "updated_at": "2026-11-03T00:54:16+00:00",
+  "updated_at": "2026-11-03T07:45:51+00:00",
   "account_number": "PA34EVDSIJ4G",
   "rule": "trend200",
   "per_symbol_usd": 480,
   "start_usd": 1000,
-  "equity": 919.78,
+  "equity": 918.59,
   "cash": 57.99,
   "last_equity": 918.5765060396,
   "positions": {
     "BTCUSD": {
       "qty": 0.005680767,
       "avg_entry_price": 82649.778701057,
-      "market_value": 437.25167,
-      "unrealized_pl": -32.262465,
-      "current_price": 76970.534
+      "market_value": 435.792599,
+      "unrealized_pl": -33.721536,
+      "current_price": 76713.69
     },
     "ETHUSD": {
       "qty": 0.188344051,
       "avg_entry_price": 2493.0,
-      "market_value": 424.543312,
-      "unrealized_pl": -44.998407,
-      "current_price": 2254.084
+      "market_value": 424.803227,
+      "unrealized_pl": -44.738492,
+      "current_price": 2255.464
     }
   },
   "signals": {
@@ -188,7 +188,7 @@
     },
     {
       "date": "2026-11-03",
-      "equity": 919.78
+      "equity": 918.59
     }
   ],
   "equity_history": [
@@ -238,12 +238,12 @@
     }
   ],
   "pnl_periods": {
-    "as_of": "2026-11-02",
-    "equity": 919.78,
-    "today": 1.2,
-    "week": 1.2,
-    "month": 1.2,
-    "all": -80.22,
+    "as_of": "2026-11-03",
+    "equity": 918.59,
+    "today": 0.01,
+    "week": 0.01,
+    "month": 0.01,
+    "all": -81.41,
     "start_usd": 1000.0
   },
   "learning": {
