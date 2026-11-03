@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02T21:50:26+00:00",
+  "updated_at": "2026-11-03T14:00:46+00:00",
   "mode": "shadow",
   "symbol": "SPY",
   "kill_switch": {
@@ -30,9 +30,9 @@
   },
   "data": {
     "last_bar": "2026-11-02 15:59:00-05:00",
-    "age_minutes": 50.4,
+    "age_minutes": 1020.8,
     "source": "alpaca",
-    "sessions": 14,
+    "sessions": 13,
     "missing_minutes": 6,
     "price": 752.04
   },
@@ -67,7 +67,7 @@
     "ok": true,
     "p": 0.5088,
     "ood": false,
-    "latency_ms": 0.79,
+    "latency_ms": 1.07,
     "threshold": 0.51,
     "expected_net_bps": 2.2891162996277643,
     "approved": false
@@ -75,7 +75,7 @@
   "decision": {
     "outcome": "UNAVAILABLE",
     "reasons": [
-      "data too old (50.4 min)"
+      "data too old (1020.8 min)"
     ],
     "p": 0.5088,
     "threshold": 0.51,
