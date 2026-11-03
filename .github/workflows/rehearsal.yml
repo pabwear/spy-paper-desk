@@ -18,6 +18,7 @@ permissions:
 
 jobs:
   run:
+    if: false  # PAUSED 2026-11-03: Roy said "Pause this. Don't build." then "Everything". Delete this line to resume.
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

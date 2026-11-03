@@ -5,6 +5,16 @@ keep learning from it; these notes are the record.
 
 ## Daily log
 
+### Nov 2–3 2026 — desks PAUSED (equity $248.69; −$751.31 since the $1,000 start)
+- Mon Nov 2: SPY put spread 755/750 lost −$235 (short −$265, long +$30). Tue Nov 3: no trade (worst case no longer
+  affordable). Spread book (expired legs included): 18 trades, 13 won, ≈ −$762.
+- Crypto (Nov 3 16:02 UTC): $931.03 (−$68.97 vs its $1,000 start); BTC $441 and ETH $433 held, 5% and 4% above their
+  200-day averages; SOL learning book in cash (1 trade, ≈ −$0.21).
+- **Paused Nov 3 at Roy's request** ("Pause this. Don't build." → "Everything"): the desk, crypto and weekly
+  rehearsal workflows are switched off (`if: false` on each job), so no paper orders and no state updates; the
+  daily review routine is disabled. Nothing open on the SPY account; BTC and ETH stay held, unmanaged, while paused.
+  To resume: delete the `if: false` lines and re-enable the routine.
+
 ### Fri Oct 30 2026 — −$273.10 (equity $484.01; −$515.99 since the $1,000 start; week −$159.86)
 - SPY put spread 757/752: sold 10:00 for $34 (mid $0.37, natural $0.34; 0.56 × VIX, in line with 0.5) with SPY at
   $761.19. SPY fell below the short strike; bought back 15:40 as one order → −$273 (short −$291, long +$18). Nothing
