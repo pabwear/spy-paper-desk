@@ -1,18 +1,18 @@
 {
   "date": "2026-11-04",
   "bias": "neutral",
-  "written_at": "2026-11-04T11:08:12-05:00",
-  "as_of": "2026-11-04T16:10:00Z",
+  "written_at": "2026-11-04T12:06:40-05:00",
+  "as_of": "2026-11-04T17:08:00Z",
   "readings": {
-    "as_of": "2026-11-04T16:10:00Z",
-    "spy_price": 764.77,
-    "spy_change_pct": 1.38,
-    "vix": 18.17,
-    "fear_greed": 22,
+    "as_of": "2026-11-04T17:08:00Z",
+    "spy_price": 768.62,
+    "spy_change_pct": 1.89,
+    "vix": 17.37,
+    "fear_greed": 28,
     "stocktwits": {
       "SPY": {
-        "score": 39,
-        "bullish_pct": 44.5
+        "score": 38,
+        "bullish_pct": 44.6
       }
     },
     "reddit": {
@@ -21,16 +21,16 @@
       "top": []
     },
     "news": {
-      "score": 0,
+      "score": 0.1,
       "headlines": [
-        "Stocktwits trending: DJT -15%, CIFR -21%, VST -15%, SNDK -9%, MU -7%, SMCI -5%, AAPL +6%",
-        "ADP employment 86 vs 90 prior; ISM services (prior 54.9) due 15:00 UTC",
-        "Gold ETF GLD +3.3% while SPY +1.4%"
+        "Stocktwits trending: DJT -12%, CIFR -21%, VST -13%, IREN -11%, SNDK -8%, MU -6%, AAPL +6.6%, UBER +7.6%",
+        "ADP employment 86 vs 90 prior; ISM services 54.5 vs 54.9 prior",
+        "Gold ETF GLD +3.7% and QQQ +1.6% while SPY +1.9%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say the SPY gap will fill / flash crash to 750 today",
+        "text": "Posters say SPY was rejected at 769 and a bull trap/dip toward 760 follows",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -40,39 +40,52 @@
         },
         "direction": "down",
         "credibility": 0.2,
-        "why": "If the gap fades the bearish crowd is right; repeated, not new"
+        "why": "If the 769 high holds as the day high, the gap may partly fade; repeated chatter"
       },
       {
-        "text": "Poster claims Tom Lee called a bottom on the AI stock selloff",
+        "text": "Poster says Apple quarter was weak and the +6% jump is a bull trap",
+        "source": "stocktwits",
+        "tickers": [
+          "AAPL"
+        ],
+        "names": {
+          "AAPL": "Apple"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "A fade in AAPL would weigh on SPY given its weight"
+      },
+      {
+        "text": "Poster says local data-center bans will hit AI capex and the economy",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "QQQ"
+          "QQQ",
+          "VST"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "A bottom call could support dip buying in AI names; secondhand and unverified"
-      },
-      {
-        "text": "Poster says PLTR 'Security Forge' will take out CRWD and PANW",
-        "source": "stocktwits",
-        "tickers": [
-          "PLTR",
-          "CRWD",
-          "PANW"
-        ],
-        "names": {
-          "PLTR": "Palantir",
-          "CRWD": "CrowdStrike",
-          "PANW": "Palo Alto Networks"
+          "QQQ": "Invesco QQQ Trust",
+          "VST": "Vistra"
         },
         "direction": "down",
         "credibility": 0.1,
-        "why": "Would hurt cybersecurity incumbents; single hype post"
+        "why": "Would hurt AI and power names; single unverified post, fits the power-stock selloff"
+      },
+      {
+        "text": "Poster claims over $1 trillion was added to the market after the election results",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "DJT"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "DJT": "Trump Media & Technology Group"
+        },
+        "direction": "up",
+        "credibility": 0.3,
+        "why": "Election-driven rally would explain broad gains and the DJT drop; political, unverified"
       }
     ],
     "names": {
@@ -83,23 +96,23 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Crowd bearish (39) and calling a gap fill while SPY holds +1.4% and VIX is 18; mild contrarian lean",
-        "catalyst": "ISM services at 15:00 UTC already out; gap hold into close"
+        "confidence": 0.53,
+        "reason": "Crowd bearish (38) against a +1.9% day with VIX 17; mild contrarian lean, but price sits at the 769 high",
+        "catalyst": "Gap holding into the close"
       }
     ],
-    "whats_new": "SPY eased to about 764.8 (+1.38%) from 767.5 an hour ago while Stocktwits stays bearish (39). Memory, storage and power names (MU, SNDK, VST, SMCI) and crypto miners are sharply lower while AAPL jumps about 6%. Fear and greed is in extreme fear (22) with VIX near 18.",
+    "whats_new": "SPY rose to about 768.6 (+1.89%) from 764.8 an hour ago, near the day high, while Stocktwits stays bearish (38). Fear and greed improved to 28 and VIX slipped to 17.4; ISM services came in at 54.5. Memory, power and crypto-miner names stay sharply lower while AAPL and UBER jump.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocktwits trending; Stocklake news feed needed re-auth; web search returned only old results"
+      "news": "stocktwits trending; economic calendar; web search returned only old results"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.38,
+      "value": 1.89,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -111,13 +124,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 22.0,
+      "value": 28.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 39.0,
+      "value": 38.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
@@ -128,7 +141,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocktwits trending; Stocklake news feed needed re-auth; web search returned only old results"
+    "news": "stocktwits trending; economic calendar; web search returned only old results"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
