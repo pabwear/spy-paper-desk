@@ -1,18 +1,16 @@
 {
   "date": "2026-11-04",
   "bias": "neutral",
-  "written_at": "2026-11-04T09:08:47-05:00",
-  "as_of": "2026-11-04T14:10:00Z",
+  "written_at": "2026-11-04T10:08:29-05:00",
+  "as_of": "2026-11-04T15:08:00Z",
   "readings": {
-    "as_of": "2026-11-04T14:10:00Z",
-    "spy_price": 763.19,
-    "spy_change_pct": 1.17,
-    "vix": 20.4,
-    "fear_greed": 19,
+    "as_of": "2026-11-04T15:08:00Z",
+    "spy_price": 767.53,
+    "spy_change_pct": 1.75,
     "stocktwits": {
       "SPY": {
-        "score": 37,
-        "bullish_pct": 44.2
+        "score": 39,
+        "bullish_pct": 44.3
       }
     },
     "reddit": {
@@ -23,42 +21,29 @@
     "news": {
       "score": 0.1,
       "headlines": [
-        "SPY indicated about +1.2% in premarket after Election Day; Stocklake pulse: IWM +1.9%, QQQ +0.4%, gold GLD +3.2%",
-        "Stocktwits trending premarket: DJT -11.3%, SPCX -6.8%, RIOT +12.3%, NVO +5.4%, AMD flat",
-        "Today: ADP jobs 13:15 UTC, ISM services 15:00 UTC (prior 54.9)"
+        "Stocktwits trending: DUOL +31%, RIOT +14%, FSLR +12%, HUT -15%, DJT -10%, AMD +3%, QCOM +4%",
+        "Posters cite Dan Ives saying a Democratic sweep is a 'seismic shift' for the AI buildout, with ~10% of planned US data centers 'will not happen'",
+        "ISM services (prior 54.9) due 15:00 UTC"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say election night went the Democrats' way (a 'blue wave') and that bulls are providing exit liquidity for a fade",
+        "text": "Dan Ives reportedly says about 10% of planned US data centers 'will not happen' after a Democratic sweep",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "QQQ"
+          "QQQ",
+          "CRWV"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "If the premarket gap is sold into, the bearish crowd is right; results are unconfirmed by this reader"
-      },
-      {
-        "text": "Posters expect DJT to fall hard on the election outcome (premarket -11%)",
-        "source": "stocktwits",
-        "tickers": [
-          "DJT"
-        ],
-        "names": {
-          "DJT": "Trump Media & Technology Group"
+          "QQQ": "Invesco QQQ Trust",
+          "CRWV": "CoreWeave"
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "Political-sentiment stock trading on the vote; cause of the move not confirmed"
+        "why": "Less AI capex would weigh on AI infrastructure names; relayed secondhand by a poster"
       },
       {
-        "text": "Poster says tech is flat while SPY gaps up, and premarket looks misleading",
+        "text": "Posters call the SPY gap a bull trap and liquidity grab and expect a flush",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -70,7 +55,22 @@
         },
         "direction": "down",
         "credibility": 0.2,
-        "why": "A gap led by small caps rather than tech may be less durable"
+        "why": "If the gap fades, the bearish crowd is right; repeated from last hour, not new"
+      },
+      {
+        "text": "Poster says Democratic wins mean more AI scrutiny and so more demand for cybersecurity firms",
+        "source": "stocktwits",
+        "tickers": [
+          "CRWD",
+          "BB"
+        ],
+        "names": {
+          "CRWD": "CrowdStrike",
+          "BB": "BlackBerry"
+        },
+        "direction": "up",
+        "credibility": 0.15,
+        "why": "Speculative policy-theme trade from a single poster"
       }
     ],
     "names": {
@@ -80,24 +80,24 @@
       {
         "ticker": "SPY",
         "direction": "up",
-        "horizon": "1d",
+        "horizon": "close",
         "confidence": 0.52,
-        "reason": "Extreme fear (19) and bearish crowd (37) lean contrarian, but the gap is already large so edge is thin",
-        "catalyst": "Election clarity, ISM services at 15:00 UTC"
+        "reason": "Crowd is bearish (39) and calling a bull trap while price holds +1.7%; contrarian lean but the gap is large",
+        "catalyst": "ISM services at 15:00 UTC"
       }
     ],
-    "whats_new": "SPY gapped up to about 763.2 (+1.2%) premarket from 753.9 yesterday, after the election; the crowd stays bearish (Stocktwits 37, up from 32) and fear and greed is still about 19. Small caps lead (IWM +1.9%), tech is flat, and DJT and SPCX are sharply lower. ADP and ISM services are due today.",
+    "whats_new": "SPY extended to about 767.5 (+1.75%) from 763 an hour earlier, yet Stocktwits stays bearish (39, about 44% bullish) with many posters calling a bull trap. New talk is about a Democratic sweep hitting the AI data-center buildout; crypto miners and DUOL, FSLR are big movers while HUT and DJT fall.",
     "sources": {
-      "market_pulse": "stocklake (snapshot Nov 3 close) and stocktwits quote",
+      "market_pulse": "stocktwits quote (Stocklake unavailable)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocktwits trending and Stocklake calendar; web search returned only old results"
+      "news": "stocktwits trending and posts; web search returned only old results"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.17,
+      "value": 1.75,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -109,24 +109,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 19.0,
-      "vote": -1,
-      "why": "\u2264 45.0"
+      "value": null,
+      "vote": 0,
+      "why": "missing"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 37.0,
+      "value": 39.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (snapshot Nov 3 close) and stocktwits quote",
+    "market_pulse": "stocktwits quote (Stocklake unavailable)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocktwits trending and Stocklake calendar; web search returned only old results"
+    "news": "stocktwits trending and posts; web search returned only old results"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
