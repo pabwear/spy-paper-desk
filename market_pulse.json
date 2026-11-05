@@ -1,12 +1,12 @@
 {
   "date": "2026-11-05",
   "bias": "bearish",
-  "written_at": "2026-11-05T12:07:04-05:00",
-  "as_of": "2026-11-05T17:08:00Z",
+  "written_at": "2026-11-05T13:06:38-05:00",
+  "as_of": "2026-11-05T18:08:00Z",
   "readings": {
-    "as_of": "2026-11-05T17:08:00Z",
-    "spy_price": 739.78,
-    "spy_change_pct": -3.53,
+    "as_of": "2026-11-05T18:08:00Z",
+    "spy_price": 735.12,
+    "spy_change_pct": -4.13,
     "vix": 24.3,
     "fear_greed": 21,
     "stocktwits": {
@@ -21,17 +21,17 @@
       "top": []
     },
     "news": {
-      "score": -0.6,
+      "score": -0.65,
       "headlines": [
-        "Chip/AI rout continues: QQQ -5.4%, NVDA -7.6%, MU -13.8%, AMD -15.2%, SNDK -18.2%, SOXL -32% (Stocktwits trending)",
-        "SPY ~740 (-3.5%), RSI ~38; QQQ RSI ~29; extreme fear 21; VIX 24.3 (Stocklake)",
-        "Gold +1.3%, TLT +0.4% as money rotates to safety",
-        "US nonfarm payrolls due tomorrow 13:30 UTC (prior 29); Mexico rate decision 19:00 UTC today"
+        "Chip/AI rout deepens: NVDA -9%, AMD -16%, MU -15%, SOXL -34.5%, QQQ -6.0%, DIA -3.2% (Stocktwits trending)",
+        "SPY 735 (-4.1%), IWM -4.1%, QQQ RSI ~29, SPY RSI ~38; extreme fear 21; breadth 6.9% oversold (Stocklake)",
+        "Gold +0.9%, TLT +0.4% as money rotates to safety",
+        "US nonfarm payrolls tomorrow 13:30 UTC (prior 29, unemployment prior 4.2); Mexico rate decision 19:00 UTC today; ADP yesterday 86 vs 90"
       ]
     },
     "rumors": [
       {
-        "text": "Posters blame the Democratic midterm result for expected limits on the AI buildout and say the selloff will continue",
+        "text": "Posters blame the Democratic midterm result for expected limits on the AI buildout",
         "source": "stocktwits",
         "tickers": [
           "QQQ",
@@ -44,26 +44,11 @@
           "NVDA": "NVIDIA"
         },
         "direction": "down",
-        "credibility": 0.25,
+        "credibility": 0.2,
         "why": "If policy fears persist, AI-heavy index weights keep dragging SPY and QQQ"
       },
       {
-        "text": "Posters expect market-wide circuit breakers before the close",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "SPY would need roughly -7% for the first halt; the claim signals panic more than fact"
-      },
-      {
-        "text": "Posters expect an overnight dump to take out stops near 725, then a recovery above 735-740",
+        "text": "Poster claims insiders must know an attack is coming tonight",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -71,24 +56,54 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.15,
-        "why": "A stop-run then rebound would mean a quick bounce after a flush"
+        "direction": "down",
+        "credibility": 0.05,
+        "why": "Unfounded geopolitical claim; if true it would trigger a risk-off gap"
       },
       {
-        "text": "Some posters say NVDA's lowest RSI in two years means it is time to buy",
+        "text": "Posters say it may be the worst one-day drop since 1987 and talk of a 7% circuit breaker at 713",
         "source": "stocktwits",
         "tickers": [
-          "NVDA",
+          "SPY",
+          "QQQ",
+          "IWM"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust",
+          "IWM": "iShares Russell 2000 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "Panic framing; a halt needs about -7%, roughly 3% further down"
+      },
+      {
+        "text": "Posters say the drop is just AI uncertainty and data-center fears and will pass",
+        "source": "stocktwits",
+        "tickers": [
+          "QQQ",
           "SPY"
         ],
         "names": {
-          "NVDA": "NVIDIA",
+          "QQQ": "Invesco QQQ Trust",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
         "credibility": 0.2,
-        "why": "Oversold dip-buying could lift chips and the index"
+        "why": "If it is sector-specific, a rebound in chips would lift the index"
+      },
+      {
+        "text": "Poster notes put buyers: a $3M bearish premium on SPY 706 puts for Nov 20",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Large put buying suggests hedging or bets on a further leg down"
       }
     ],
     "names": {
@@ -100,7 +115,7 @@
         "direction": "up",
         "horizon": "1d",
         "confidence": 0.55,
-        "reason": "-3.5% day, extreme fear 21, SPY RSI ~38 and QQQ RSI ~29 often give a partial bounce; payrolls tomorrow is a risk",
+        "reason": "-4.1% day, extreme fear 21, SPY RSI ~38 and QQQ RSI ~29 often give a partial bounce; payrolls tomorrow is a risk",
         "catalyst": "Oversold bounce vs payrolls 13:30 UTC tomorrow"
       },
       {
@@ -108,11 +123,11 @@
         "direction": "down",
         "horizon": "1h",
         "confidence": 0.5,
-        "reason": "Momentum still negative but price has bounced off the 737 low, so a coin flip",
+        "reason": "Price still making lows near 735 with no clear reversal; coin flip",
         "catalyst": "Possible forced selling into the close"
       }
     ],
-    "whats_new": "SPY is about -3.5% (prior reading -3.6%), roughly flat since last hour and off the 737 low. Stocklake VIX is 24.3 and fear and greed 21 (extreme fear), a deeper fear read than last hour. Stocktwits SPY sentiment is 30 (was 28); chatter is circuit-breaker panic and midterm blame. Reddit blocked; web search had nothing current.",
+    "whats_new": "SPY is about -4.1%, deeper than last hour's -3.5% and near the day's 734 low. Chip losses widened (NVDA -9%, AMD -16%, SOXL -34.5%); fear and greed 21 and VIX 24.3 unchanged. Stocktwits SPY sentiment still 30; chatter now includes 1987 comparisons and a large SPY put purchase. Reddit blocked; web search found no same-day coverage.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -123,7 +138,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -3.53,
+      "value": -4.13,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
