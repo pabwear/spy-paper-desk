@@ -1,18 +1,18 @@
 {
   "date": "2026-11-05",
   "bias": "bearish",
-  "written_at": "2026-11-05T10:07:18-05:00",
-  "as_of": "2026-11-05T15:10:00Z",
+  "written_at": "2026-11-05T11:06:52-05:00",
+  "as_of": "2026-11-05T16:08:00Z",
   "readings": {
-    "as_of": "2026-11-05T15:10:00Z",
-    "spy_price": 758.01,
-    "spy_change_pct": -1.15,
+    "as_of": "2026-11-05T16:08:00Z",
+    "spy_price": 739.4,
+    "spy_change_pct": -3.58,
     "vix": 16.76,
     "fear_greed": 35,
     "stocktwits": {
       "SPY": {
-        "score": 33,
-        "bullish_pct": 45.3
+        "score": 28,
+        "bullish_pct": 44.8
       }
     },
     "reddit": {
@@ -21,16 +21,17 @@
       "top": []
     },
     "news": {
-      "score": -0.5,
+      "score": -0.6,
       "headlines": [
-        "Chip rout deepens: NVDA -5.5%, AMD -12%, MU -10.5%, SNDK -14%, SOXL -22.7%, QQQ -3.8% on Stocktwits trending",
-        "Tech bulls divided: Tom Lee expects a 20% tech rally after the midterms, Dan Ives warns of more downside (Stocktwits news)",
-        "US nonfarm payrolls due tomorrow 13:30 UTC (prior 29); ADP 86 vs 90 and ISM services 54.5 vs 54.9 came out yesterday"
+        "Chip and AI rout deepens: NVDA -8.8%, AMD -16.4%, MU -16.3%, SNDK -20.7%, NBIS -19%, SOXL -35%, QQQ -6% on Stocktwits trending",
+        "SPY near 739 (-3.6%), QQQ -6%, IWM -2.3% per Stocklake",
+        "US nonfarm payrolls due tomorrow 13:30 UTC (prior 29); ADP 86 vs 90 and ISM services 54.5 vs 54.9 came out yesterday",
+        "Mexico rate decision 19:00 UTC today"
       ]
     },
     "rumors": [
       {
-        "text": "Posters blame the Democratic midterm win for expected limits on the AI buildout and say the AI trade will keep cracking",
+        "text": "Posters blame the Democratic midterm result for expected limits on the AI buildout and say the AI trade will keep cracking",
         "source": "stocktwits",
         "tickers": [
           "QQQ",
@@ -47,34 +48,51 @@
         "why": "If policy fears persist, AI-heavy index weights keep dragging SPY and QQQ"
       },
       {
-        "text": "Tom Lee reportedly expects a 20% tech rally, saying a divided Washington reduces pressure on the Fed",
+        "text": "Bloomberg reportedly says the high-volume selloff looks like algos offloading",
         "source": "stocktwits",
         "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Mechanical selling can overshoot and reverse, but can also feed on itself"
+      },
+      {
+        "text": "Posters warn of end-of-day margin calls from leveraged funds long semis",
+        "source": "stocktwits",
+        "tickers": [
+          "SMH",
           "QQQ",
           "SPY"
         ],
         "names": {
+          "SMH": "VanEck Semiconductor ETF",
           "QQQ": "Invesco QQQ Trust",
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "A dip-buying narrative from a followed strategist could support a bounce, but it is a forecast not a fact"
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "Forced liquidation into the close could extend the drop"
       },
       {
-        "text": "Dan Ives warns of more downside in tech, though other reports say he downplays the selloff",
+        "text": "Some posters call for a violent rebound and say not to sell the lows",
         "source": "stocktwits",
         "tickers": [
-          "MU",
-          "NVDA"
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "MU": "Micron Technology",
-          "NVDA": "NVIDIA"
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "down",
+        "direction": "up",
         "credibility": 0.2,
-        "why": "Conflicting accounts; if he did turn cautious it could extend the chip drop"
+        "why": "Dip-buying and capitulation could trigger a bounce"
       }
     ],
     "names": {
@@ -83,25 +101,33 @@
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
-        "horizon": "close",
+        "direction": "down",
+        "horizon": "1h",
         "confidence": 0.52,
-        "reason": "Crowd is bearish and capitulating, QQQ 5-min RSI near 4, SPY down 1.15% so a partial bounce into payrolls is plausible",
-        "catalyst": "Oversold chip bounce vs tomorrow's payrolls"
+        "reason": "Selloff is accelerating with talk of forced selling into the close; momentum still negative",
+        "catalyst": "Possible margin-call liquidation into the close"
+      },
+      {
+        "ticker": "SPY",
+        "direction": "up",
+        "horizon": "1d",
+        "confidence": 0.55,
+        "reason": "A -3.6% day with SPY RSI near 38 and QQQ RSI near 29 often sees a partial bounce, though payrolls is a risk",
+        "catalyst": "Oversold bounce vs payrolls tomorrow 13:30 UTC"
       }
     ],
-    "whats_new": "The chip selloff has turned into a broad slide: SPY is -1.15% and QQQ about -2.9% to -3.8%, versus SPY +0.14% last reading. Fear and greed rose to about 35 and VIX is steady near 17, while Stocktwits SPY sentiment dropped to 33. Reddit was blocked.",
+    "whats_new": "The slide worsened sharply since the last reading: SPY is about -3.6% (was -1.15%) and QQQ about -6%, with chip names down 9-20%. Stocktwits SPY sentiment fell to 28 from 33 and talk now centers on forced selling into the close. Reddit was blocked and web search found no same-day coverage.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocktwits trending and posts; stocklake economic calendar; one web search (stale)"
+      "news": "stocktwits trending and posts; stocklake economic calendar; web search returned nothing current"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.15,
+      "value": -3.58,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -119,7 +145,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 33.0,
+      "value": 28.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
@@ -130,7 +156,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocktwits trending and posts; stocklake economic calendar; one web search (stale)"
+    "news": "stocktwits trending and posts; stocklake economic calendar; web search returned nothing current"
   },
   "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
