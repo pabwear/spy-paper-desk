@@ -1,17 +1,17 @@
 {
   "date": "2026-11-05",
   "bias": "bearish",
-  "written_at": "2026-11-05T09:07:31-05:00",
-  "as_of": "2026-11-05T14:10:00Z",
+  "written_at": "2026-11-05T10:07:18-05:00",
+  "as_of": "2026-11-05T15:10:00Z",
   "readings": {
-    "as_of": "2026-11-05T14:10:00Z",
-    "spy_price": 767.85,
-    "spy_change_pct": 0.14,
-    "vix": 16.95,
-    "fear_greed": 28,
+    "as_of": "2026-11-05T15:10:00Z",
+    "spy_price": 758.01,
+    "spy_change_pct": -1.15,
+    "vix": 16.76,
+    "fear_greed": 35,
     "stocktwits": {
       "SPY": {
-        "score": 38,
+        "score": 33,
         "bullish_pct": 45.3
       }
     },
@@ -21,31 +21,16 @@
       "top": []
     },
     "news": {
-      "score": -0.3,
+      "score": -0.5,
       "headlines": [
-        "Stocktwits trending premarket: SOXL -12.5%, QCOM -12.2%, ARM -7.7%, SNDK -6.6%, MU -5.1%, NVDA -1.5%; CELH +5.9%",
-        "Posters say a Democratic election win is a headwind for AI/tech names and the AI trade is cracking",
+        "Chip rout deepens: NVDA -5.5%, AMD -12%, MU -10.5%, SNDK -14%, SOXL -22.7%, QQQ -3.8% on Stocktwits trending",
+        "Tech bulls divided: Tom Lee expects a 20% tech rally after the midterms, Dan Ives warns of more downside (Stocktwits news)",
         "US nonfarm payrolls due tomorrow 13:30 UTC (prior 29); ADP 86 vs 90 and ISM services 54.5 vs 54.9 came out yesterday"
       ]
     },
     "rumors": [
       {
-        "text": "Posters claim Dan Ives turned bearish on chips, feeding a semiconductor selloff",
-        "source": "stocktwits",
-        "tickers": [
-          "MU",
-          "SOXL"
-        ],
-        "names": {
-          "MU": "Micron Technology",
-          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares"
-        },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "Unverified; if a well-followed analyst cut chip views it could extend the premarket chip drop"
-      },
-      {
-        "text": "Posters blame a Democratic election win for expected limits on AI buildout and say the AI trade will crash",
+        "text": "Posters blame the Democratic midterm win for expected limits on the AI buildout and say the AI trade will keep cracking",
         "source": "stocktwits",
         "tickers": [
           "QQQ",
@@ -59,7 +44,37 @@
         },
         "direction": "down",
         "credibility": 0.25,
-        "why": "If policy fears persist, AI-heavy index weights could drag SPY and QQQ"
+        "why": "If policy fears persist, AI-heavy index weights keep dragging SPY and QQQ"
+      },
+      {
+        "text": "Tom Lee reportedly expects a 20% tech rally, saying a divided Washington reduces pressure on the Fed",
+        "source": "stocktwits",
+        "tickers": [
+          "QQQ",
+          "SPY"
+        ],
+        "names": {
+          "QQQ": "Invesco QQQ Trust",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.3,
+        "why": "A dip-buying narrative from a followed strategist could support a bounce, but it is a forecast not a fact"
+      },
+      {
+        "text": "Dan Ives warns of more downside in tech, though other reports say he downplays the selloff",
+        "source": "stocktwits",
+        "tickers": [
+          "MU",
+          "NVDA"
+        ],
+        "names": {
+          "MU": "Micron Technology",
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Conflicting accounts; if he did turn cautious it could extend the chip drop"
       }
     ],
     "names": {
@@ -68,27 +83,27 @@
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "down",
+        "direction": "up",
         "horizon": "close",
-        "confidence": 0.56,
-        "reason": "Chip names down sharply premarket (SOXL -12%, QCOM -12%, MU -5%) and QQQ lagged yesterday; heavy AI weights in SPY",
-        "catalyst": "Semiconductor selloff ahead of tomorrow's payrolls"
+        "confidence": 0.52,
+        "reason": "Crowd is bearish and capitulating, QQQ 5-min RSI near 4, SPY down 1.15% so a partial bounce into payrolls is plausible",
+        "catalyst": "Oversold chip bounce vs tomorrow's payrolls"
       }
     ],
-    "whats_new": "Premarket chips are sliding hard (SOXL -12%, QCOM -12%, ARM -8%) after yesterday's weak QQQ close, a new leg versus the last reading. Stocktwits SPY sentiment ticked up to 38 but stays bearish; fear and greed is steady near 28 and VIX about 17. Reddit was blocked and web search found no fresh news.",
+    "whats_new": "The chip selloff has turned into a broad slide: SPY is -1.15% and QQQ about -2.9% to -3.8%, versus SPY +0.14% last reading. Fear and greed rose to about 35 and VIX is steady near 17, while Stocktwits SPY sentiment dropped to 33. Reddit was blocked.",
     "sources": {
-      "market_pulse": "stocklake (as of 2026-11-04 close)",
+      "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocktwits trending and posts; stocklake economic calendar; web search returned only old results"
+      "news": "stocktwits trending and posts; stocklake economic calendar; one web search (stale)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.14,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": -1.15,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -98,24 +113,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 28.0,
+      "value": 35.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 38.0,
+      "value": 33.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": -3,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (as of 2026-11-04 close)",
+    "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocktwits trending and posts; stocklake economic calendar; web search returned only old results"
+    "news": "stocktwits trending and posts; stocklake economic calendar; one web search (stale)"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
