@@ -1,18 +1,18 @@
 {
   "date": "2026-11-06",
   "bias": "neutral",
-  "written_at": "2026-11-06T09:08:49-05:00",
-  "as_of": "2026-11-06T14:10:00Z",
+  "written_at": "2026-11-06T10:11:16-05:00",
+  "as_of": "2026-11-06T15:12:00Z",
   "readings": {
-    "as_of": "2026-11-06T14:10:00Z",
-    "spy_price": 734.19,
-    "spy_change_pct": 0.16,
-    "vix": 26.43,
-    "fear_greed": 21,
+    "as_of": "2026-11-06T15:12:00Z",
+    "spy_price": 739.05,
+    "spy_change_pct": 0.83,
+    "vix": 26.36,
+    "fear_greed": 20,
     "stocktwits": {
       "SPY": {
-        "score": 44,
-        "bullish_pct": 43.7
+        "score": 49,
+        "bullish_pct": 43.8
       }
     },
     "reddit": {
@@ -21,17 +21,17 @@
       "top": []
     },
     "news": {
-      "score": -0.1,
+      "score": 0.1,
       "headlines": [
-        "Stocktwits posters cite an October US payrolls print of +165k vs 59k expected and unemployment 4.1% (not confirmed by web search)",
-        "Poster-cited Dec Fed hike odds: 98% last week, 79% before the jobs report, 75% now (unverified)",
-        "Stocklake: fear and greed 21 (extreme fear), VIX 26.4, QQQ RSI ~27, SPY RSI ~33 as of yesterday's close",
-        "Trending premarket: DKNG -26%, ASTS, WULF +13%, OKLO +10%, HIMS +8% (reasons not confirmed)"
+        "Stocklake: US Non-Farm Payrolls 165k vs 29k previous (released 13:30 UTC)",
+        "Stocklake: fear and greed 20 (extreme fear), VIX 26.4, SPY RSI 33.5, QQQ RSI 26.9",
+        "QQQ +1.96%, IWM +0.49%, gold GLD -1.17% on the session",
+        "Stocktwits trending: DKNG -27%, MU +8%, NVDA +6%, OKLO +18%, IREN +19%, ABNB +9%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say the jobs data is fake because gold, oil and yields are not reacting; jobs tied to a bursting AI bubble",
+        "text": "Posters say SPY is near 742-747 intraday and call it bulls vs bears, with some expecting 747 and others another 2% drop",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -40,11 +40,24 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.1,
-        "why": "If the data were doubted broadly, the rally on good numbers would fade"
+        "credibility": 0.2,
+        "why": "Crowd doubts that the bounce will hold, so a fade is possible if buyers tire"
       },
       {
-        "text": "Poster hints at war this weekend",
+        "text": "A poster says SMCI is a screaming buy with a short squeeze imminent at about 4x earnings",
+        "source": "stocktwits",
+        "tickers": [
+          "SMCI"
+        ],
+        "names": {
+          "SMCI": "Super Micro Computer"
+        },
+        "direction": "up",
+        "credibility": 0.1,
+        "why": "A squeeze would lift SMCI, but this is one promotional post"
+      },
+      {
+        "text": "Posters say the market is a house of cards and to trade it, not own it",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -55,34 +68,8 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.05,
-        "why": "Weekend geopolitical risk would encourage de-risking into the close"
-      },
-      {
-        "text": "Posters say Democrats oppose AI and datacenters, a policy risk for AI names",
-        "source": "stocktwits",
-        "tickers": [
-          "QQQ"
-        ],
-        "names": {
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
         "credibility": 0.15,
-        "why": "Regulation talk could add pressure to an already weak AI group"
-      },
-      {
-        "text": "Posters say yesterday's put buying will expire worthless and the market will be run higher",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.25,
-        "why": "A crowded bearish bet can squeeze higher if put hedges unwind"
+        "why": "Widespread distrust of the rally can cap upside and sharpen reversals"
       }
     ],
     "names": {
@@ -95,24 +82,24 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.55,
-        "reason": "Extreme fear, oversold QQQ, falling rate-hike odds after payrolls; crowd leans bearish, which can fuel a squeeze, but SPY has not rallied on the good data",
-        "catalyst": "Payrolls reaction and unwinding of put hedges"
+        "reason": "Extreme fear and oversold RSI with a rebound under way and a crowd that distrusts it, which can feed a squeeze",
+        "catalyst": "Payrolls reaction and unwinding of bearish hedges into the close"
       }
     ],
-    "whats_new": "Payrolls came out at 13:30 UTC; posters say it beat (165k vs 59k, unverified) and hike odds fell. SPY is flat near 734 versus the -3.9% selloff last hour, with Stocktwits sentiment up to 44 from 34 and posts turning choppy rather than panicked. Reddit blocked and web search found no coverage of the payrolls print.",
+    "whats_new": "SPY has risen to about 739 (+0.83%) from 734 (+0.16%) last hour, led by QQQ +2% and chip names like MU and NVDA. Stocklake confirms payrolls at 165k vs 29k previous. Stocktwits sentiment edged up to 49 from 44 but posters stay skeptical and choppy. Reddit was blocked and web search found no same-day coverage.",
     "sources": {
-      "market_pulse": "stocklake (last snapshot Nov 5 close; SPY price from stocktwits)",
+      "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocktwits posts and trending; stocklake economic calendar; stocklake news feed needed re-login"
+      "news": "stocklake calendar and pulse; stocktwits trending; news feed needed re-login; web search found nothing same-day"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.16,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 0.83,
+      "vote": 1,
+      "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -122,24 +109,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 21.0,
+      "value": 20.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 44.0,
+      "value": 49.0,
       "vote": 0,
       "why": "in the neutral band"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (last snapshot Nov 5 close; SPY price from stocktwits)",
+    "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocktwits posts and trending; stocklake economic calendar; stocklake news feed needed re-login"
+    "news": "stocklake calendar and pulse; stocktwits trending; news feed needed re-login; web search found nothing same-day"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
