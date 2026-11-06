@@ -1,18 +1,18 @@
 {
   "date": "2026-11-06",
   "bias": "neutral",
-  "written_at": "2026-11-06T10:11:16-05:00",
-  "as_of": "2026-11-06T15:12:00Z",
+  "written_at": "2026-11-06T11:10:21-05:00",
+  "as_of": "2026-11-06T16:10:00Z",
   "readings": {
-    "as_of": "2026-11-06T15:12:00Z",
-    "spy_price": 739.05,
-    "spy_change_pct": 0.83,
+    "as_of": "2026-11-06T16:10:00Z",
+    "spy_price": 739.28,
+    "spy_change_pct": 0.86,
     "vix": 26.36,
     "fear_greed": 20,
     "stocktwits": {
       "SPY": {
-        "score": 49,
-        "bullish_pct": 43.8
+        "score": 45,
+        "bullish_pct": 44.2
       }
     },
     "reddit": {
@@ -24,40 +24,14 @@
       "score": 0.1,
       "headlines": [
         "Stocklake: US Non-Farm Payrolls 165k vs 29k previous (released 13:30 UTC)",
-        "Stocklake: fear and greed 20 (extreme fear), VIX 26.4, SPY RSI 33.5, QQQ RSI 26.9",
-        "QQQ +1.96%, IWM +0.49%, gold GLD -1.17% on the session",
-        "Stocktwits trending: DKNG -27%, MU +8%, NVDA +6%, OKLO +18%, IREN +19%, ABNB +9%"
+        "Fear and greed 20 (extreme fear), VIX 26.4, SPY RSI 37, QQQ RSI 32",
+        "QQQ +1.85%, IWM +0.57%, gold GLD -1.0%, TLT +0.17%",
+        "Stocktwits trending: DKNG -28%, OKLO +18%, FLY +23%, AXON -17%, MRNA +6%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say SPY is near 742-747 intraday and call it bulls vs bears, with some expecting 747 and others another 2% drop",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Crowd doubts that the bounce will hold, so a fade is possible if buyers tire"
-      },
-      {
-        "text": "A poster says SMCI is a screaming buy with a short squeeze imminent at about 4x earnings",
-        "source": "stocktwits",
-        "tickers": [
-          "SMCI"
-        ],
-        "names": {
-          "SMCI": "Super Micro Computer"
-        },
-        "direction": "up",
-        "credibility": 0.1,
-        "why": "A squeeze would lift SMCI, but this is one promotional post"
-      },
-      {
-        "text": "Posters say the market is a house of cards and to trade it, not own it",
+        "text": "Posters wonder if SPY and QQQ get a peace-deal pump over the weekend",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -67,9 +41,37 @@
           "SPY": "SPDR S&P 500 ETF",
           "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "down",
+        "direction": "up",
         "credibility": 0.15,
-        "why": "Widespread distrust of the rally can cap upside and sharpen reversals"
+        "why": "A war-ending deal would lift risk appetite, but this is speculation with no source"
+      },
+      {
+        "text": "Posters call the bounce a dead cat or a bull trap above a bear flag and expect a fade",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "If buyers tire after the payrolls bounce, SPY could give back gains into the close"
+      },
+      {
+        "text": "Posters say options hedges were loaded after yesterday, so a violent move is unlikely and the market may grind sideways to kill premiums",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "up",
+        "credibility": 0.25,
+        "why": "Heavy hedging can fuel a squeeze higher if hedges are unwound"
       }
     ],
     "names": {
@@ -81,23 +83,23 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.55,
-        "reason": "Extreme fear and oversold RSI with a rebound under way and a crowd that distrusts it, which can feed a squeeze",
-        "catalyst": "Payrolls reaction and unwinding of bearish hedges into the close"
+        "confidence": 0.54,
+        "reason": "Extreme fear, oversold-leaning RSI and a crowd that distrusts the bounce, with payrolls well above prior",
+        "catalyst": "Payrolls reaction and unwinding of hedges into the close"
       }
     ],
-    "whats_new": "SPY has risen to about 739 (+0.83%) from 734 (+0.16%) last hour, led by QQQ +2% and chip names like MU and NVDA. Stocklake confirms payrolls at 165k vs 29k previous. Stocktwits sentiment edged up to 49 from 44 but posters stay skeptical and choppy. Reddit was blocked and web search found no same-day coverage.",
+    "whats_new": "SPY edged up to about 739.3 (+0.86%) from 739.05 last hour, with QQQ near +1.9%. Stocktwits SPY sentiment slipped to 45 from 49 and posters lean skeptical, calling dead cat or bull trap. Reddit was blocked and web search found no same-day coverage.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake calendar and pulse; stocktwits trending; news feed needed re-login; web search found nothing same-day"
+      "news": "stocklake calendar and pulse; stocktwits trending; web search found nothing same-day"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.83,
+      "value": 0.86,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -115,7 +117,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 49.0,
+      "value": 45.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -126,7 +128,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake calendar and pulse; stocktwits trending; news feed needed re-login; web search found nothing same-day"
+    "news": "stocklake calendar and pulse; stocktwits trending; web search found nothing same-day"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
