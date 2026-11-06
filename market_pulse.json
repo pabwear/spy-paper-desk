@@ -1,19 +1,18 @@
 {
   "date": "2026-11-06",
   "bias": "neutral",
-  "written_at": "2026-11-06T12:06:37-05:00",
-  "as_of": "2026-11-06T17:10:00Z",
+  "written_at": "2026-11-06T13:06:33-05:00",
+  "as_of": "2026-11-06T18:08:00Z",
   "readings": {
-    "as_of": "2026-11-06T17:10:00Z",
-    "spy_price": 740.28,
-    "spy_change_pct": 0.99,
+    "as_of": "2026-11-06T18:08:00Z",
+    "spy_price": 737.07,
+    "spy_change_pct": 0.56,
     "vix": 24.14,
-    "vix_change_pct": -8.4,
     "fear_greed": 24,
     "stocktwits": {
       "SPY": {
-        "score": 43,
-        "bullish_pct": 44.3
+        "score": 37,
+        "bullish_pct": 44.5
       }
     },
     "reddit": {
@@ -25,44 +24,29 @@
       "score": 0.1,
       "headlines": [
         "US Non-Farm Payrolls 165k vs 29k previous; unemployment 4.1% vs 4.2%",
-        "QQQ +2.09%, IWM +1.09%, SPY +0.99%, gold GLD -0.74%, TLT +0.16%",
+        "QQQ +1.49%, IWM +0.77%, SPY +0.56%, GLD -0.91%, TLT +0.38% (16:10Z snapshot)",
         "Fear and greed 24 (extreme fear); SPY RSI 37, QQQ RSI 32; 8% of stocks oversold",
-        "Stocktwits trending: DKNG -27%, FLY +29%, APP +8%, AXON -18%, CELH +7%"
+        "Stocktwits trending: ORCL -1.8%, DKNG -24%, FLY +29%, IONQ +16%, AXON -18%, APP +9.5%"
       ]
     },
     "rumors": [
       {
-        "text": "A poster says a Fitch, Moody's or S&P downgrade of US debt seems a surety",
+        "text": "Posters say Democrats plan a flood of AI bills when they take control of Congress",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "A US rating downgrade would hit bonds and stocks, but this is one unsourced opinion"
-      },
-      {
-        "text": "Posters say Democrats are preparing congressional investigations of big tech CEOs, citing a Fox News report on a 182-page blueprint, and say chip makers are left off the list",
-        "source": "stocktwits",
-        "tickers": [
-          "META",
           "QQQ",
-          "NVDA"
+          "MSFT"
         ],
         "names": {
-          "META": "Meta Platforms",
           "QQQ": "Invesco QQQ Trust",
-          "NVDA": "NVIDIA"
+          "MSFT": "Microsoft"
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "Investigations would add political risk for big tech, though a blueprint is not an actual probe"
+        "why": "AI regulation would add political risk for big tech, though no bill exists yet"
       },
       {
-        "text": "Posters call the bounce a bull trap and say SPY cannot pass 740; others call it a buy-the-dip with decent support",
+        "text": "Posters call the bounce a bull trap and warn a gravestone doji today could send SPY below 730 on Monday",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -72,43 +56,47 @@
         },
         "direction": "down",
         "credibility": 0.2,
-        "why": "Failure at 740 resistance could fade the payrolls rally into the close"
+        "why": "Failure near 740 could fade the payrolls rally into the close"
+      },
+      {
+        "text": "A poster says Trump may escalate against Iran next week so the bounce will not last",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "A geopolitical shock would lift volatility, but this is one unsourced opinion"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust"
     },
-    "plays": [
-      {
-        "ticker": "SPY",
-        "direction": "up",
-        "horizon": "close",
-        "confidence": 0.54,
-        "reason": "Extreme fear, oversold-leaning RSI, VIX falling and a crowd that distrusts the bounce, after strong payrolls",
-        "catalyst": "Payrolls follow-through and fading volatility into the close"
-      }
-    ],
-    "whats_new": "SPY rose to about 740.3 (+0.99%) from 739.3 and QQQ is now +2.1%. VIX fell to 24.1 from 26.4 while Stocktwits SPY sentiment slipped to 43 (bearish) from 45; posters say SPY cannot pass 740. Reddit was blocked and web search found nothing same-day; the peace-deal rumor from last hour was not repeated.",
+    "plays": [],
+    "whats_new": "SPY gains look to be fading: the latest Stocklake snapshot shows +0.56% (737.1) versus +0.99% (740.3) last hour, and Stocktwits SPY sentiment slipped to 37 (bearish) from 43, with many posters calling a bull trap. VIX is steady near 24.1 and fear and greed is 24. The AI-regulation and Iran chatter are new; the debt-downgrade rumor was not repeated.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake calendar and pulse; stocktwits trending and messages; web search found nothing same-day (news feed needs re-auth)"
+      "news": "stocklake calendar and pulse; stocktwits trending and messages; web search found nothing same-day"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.99,
+      "value": 0.56,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -8.4,
-      "vote": 1,
-      "why": "\u2264 -5.0"
+      "value": null,
+      "vote": 0,
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -118,18 +106,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 43.0,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 37.0,
+      "vote": -1,
+      "why": "\u2264 40.0"
     }
   ],
-  "net_votes": 1,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake calendar and pulse; stocktwits trending and messages; web search found nothing same-day (news feed needs re-auth)"
+    "news": "stocklake calendar and pulse; stocktwits trending and messages; web search found nothing same-day"
   },
-  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
