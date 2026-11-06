@@ -1,18 +1,18 @@
 {
   "date": "2026-11-06",
   "bias": "neutral",
-  "written_at": "2026-11-06T13:06:33-05:00",
-  "as_of": "2026-11-06T18:08:00Z",
+  "written_at": "2026-11-06T14:06:33-05:00",
+  "as_of": "2026-11-06T19:08:00Z",
   "readings": {
-    "as_of": "2026-11-06T18:08:00Z",
-    "spy_price": 737.07,
-    "spy_change_pct": 0.56,
-    "vix": 24.14,
-    "fear_greed": 24,
+    "as_of": "2026-11-06T19:08:00Z",
+    "spy_price": 738.97,
+    "spy_change_pct": 0.81,
+    "vix": 24.22,
+    "fear_greed": 23,
     "stocktwits": {
       "SPY": {
-        "score": 37,
-        "bullish_pct": 44.5
+        "score": 35,
+        "bullish_pct": 44.7
       }
     },
     "reddit": {
@@ -21,32 +21,63 @@
       "top": []
     },
     "news": {
-      "score": 0.1,
+      "score": 0.0,
       "headlines": [
         "US Non-Farm Payrolls 165k vs 29k previous; unemployment 4.1% vs 4.2%",
-        "QQQ +1.49%, IWM +0.77%, SPY +0.56%, GLD -0.91%, TLT +0.38% (16:10Z snapshot)",
-        "Fear and greed 24 (extreme fear); SPY RSI 37, QQQ RSI 32; 8% of stocks oversold",
-        "Stocktwits trending: ORCL -1.8%, DKNG -24%, FLY +29%, IONQ +16%, AXON -18%, APP +9.5%"
+        "QQQ +1.87%, IWM +1.17%, SPY +0.81%, GLD -0.48%, TLT +0.20% (18:10Z snapshot)",
+        "Fear and greed 23 (extreme fear); SPY RSI 37, QQQ RSI 32; 8.3% of stocks oversold",
+        "Stocktwits trending: AVGO, DKNG -24%, FLY +32%, ORCL, SNDK, IONQ +18%, AXON -16%, NET +11%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say Democrats plan a flood of AI bills when they take control of Congress",
+        "text": "Posters are sharing an Axios report that the US military is finalizing preparations for all-out war in Iran after Trump met security advisers",
         "source": "stocktwits",
         "tickers": [
-          "QQQ",
-          "MSFT"
+          "SPY",
+          "USO"
         ],
         "names": {
-          "QQQ": "Invesco QQQ Trust",
-          "MSFT": "Microsoft"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "AI regulation would add political risk for big tech, though no bill exists yet"
+        "credibility": 0.35,
+        "why": "Escalation over the weekend could lift oil and volatility and hit stocks Monday; report not verified here"
       },
       {
-        "text": "Posters call the bounce a bull trap and warn a gravestone doji today could send SPY below 730 on Monday",
+        "text": "A poster says Trump could announce a plan to reopen the Strait of Hormuz this weekend, sending crude down 10% and stocks up 3-5%",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "up",
+        "credibility": 0.1,
+        "why": "A de-escalation and oil drop would be a strong relief rally, but this is one speculative post"
+      },
+      {
+        "text": "Posters quote Jefferies saying Thursday's selloff was reactionary, not a fundamental reset, so AI demand for compute and power is intact",
+        "source": "stocktwits",
+        "tickers": [
+          "SOXX",
+          "QQQ",
+          "SPY"
+        ],
+        "names": {
+          "SOXX": "iShares Semiconductor ETF",
+          "QQQ": "Invesco QQQ Trust",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "If the AI selloff was forced deleveraging, chip and tech names could keep recovering"
+      },
+      {
+        "text": "Posters keep calling the bounce a bull trap with lower highs all day and are buying next-week SPY 730 puts",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -56,28 +87,24 @@
         },
         "direction": "down",
         "credibility": 0.2,
-        "why": "Failure near 740 could fade the payrolls rally into the close"
-      },
-      {
-        "text": "A poster says Trump may escalate against Iran next week so the bounce will not last",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "A geopolitical shock would lift volatility, but this is one unsourced opinion"
+        "why": "A fade into the close or a weekend headline could push SPY back toward 730"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust"
     },
-    "plays": [],
-    "whats_new": "SPY gains look to be fading: the latest Stocklake snapshot shows +0.56% (737.1) versus +0.99% (740.3) last hour, and Stocktwits SPY sentiment slipped to 37 (bearish) from 43, with many posters calling a bull trap. VIX is steady near 24.1 and fear and greed is 24. The AI-regulation and Iran chatter are new; the debt-downgrade rumor was not repeated.",
+    "plays": [
+      {
+        "ticker": "SPY",
+        "direction": "down",
+        "horizon": "1d",
+        "confidence": 0.52,
+        "reason": "Crowd is bearish and the bounce is stalling under lower highs, with Iran escalation headlines circulating before the weekend",
+        "catalyst": "Weekend Iran headlines and next week's CPI"
+      }
+    ],
+    "whats_new": "SPY firmed to +0.81% (738.97) from +0.56% last hour and QQQ is up 1.87%, yet Stocktwits SPY sentiment slipped to 35 (bearish) from 37 as posters call a bull trap. VIX is steady near 24.2 and fear and greed is 23. New chatter: an Axios-sourced Iran war-prep report, a Hormuz reopening hope, and a Jefferies note calling the AI selloff reactionary.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
@@ -88,7 +115,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.56,
+      "value": 0.81,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -100,13 +127,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 24.0,
+      "value": 23.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 37.0,
+      "value": 35.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
