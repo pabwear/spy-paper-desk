@@ -1,18 +1,18 @@
 {
-  "date": "2026-11-05",
-  "bias": "bearish",
-  "written_at": "2026-11-05T15:06:26-05:00",
-  "as_of": "2026-11-05T20:06:00Z",
+  "date": "2026-11-06",
+  "bias": "neutral",
+  "written_at": "2026-11-06T09:08:49-05:00",
+  "as_of": "2026-11-06T14:10:00Z",
   "readings": {
-    "as_of": "2026-11-05T20:06:00Z",
-    "spy_price": 737.3,
-    "spy_change_pct": -3.85,
-    "vix": 23.84,
-    "fear_greed": 20,
+    "as_of": "2026-11-06T14:10:00Z",
+    "spy_price": 734.19,
+    "spy_change_pct": 0.16,
+    "vix": 26.43,
+    "fear_greed": 21,
     "stocktwits": {
       "SPY": {
-        "score": 34,
-        "bullish_pct": 43.4
+        "score": 44,
+        "bullish_pct": 43.7
       }
     },
     "reddit": {
@@ -21,86 +21,98 @@
       "top": []
     },
     "news": {
-      "score": -0.6,
+      "score": -0.1,
       "headlines": [
-        "AI/chip rout continues: NVDA -8.2%, MU -14.3%, AMD -14.5%, SNDK -18.5%, TSLA -11%, QQQ -5.5% (Stocktwits trending)",
-        "SPY 737 (-3.9%) off the 734 low, bouncing slightly; Stocklake fear and greed 20 (extreme fear); 6.9% of stocks oversold, QQQ RSI ~28",
-        "Gold +1.1%, TLT +0.4% as money rotates to safety",
-        "US nonfarm payrolls tomorrow 13:30 UTC (prior 29, unemployment prior 4.2); Mexico rate decision 19:00 UTC today"
+        "Stocktwits posters cite an October US payrolls print of +165k vs 59k expected and unemployment 4.1% (not confirmed by web search)",
+        "Poster-cited Dec Fed hike odds: 98% last week, 79% before the jobs report, 75% now (unverified)",
+        "Stocklake: fear and greed 21 (extreme fear), VIX 26.4, QQQ RSI ~27, SPY RSI ~33 as of yesterday's close",
+        "Trending premarket: DKNG -26%, ASTS, WULF +13%, OKLO +10%, HIMS +8% (reasons not confirmed)"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say the selloff is forced selling by over-leveraged institutions holding AI names",
+        "text": "Posters say the jobs data is fake because gold, oil and yields are not reacting; jobs tied to a bursting AI bubble",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "If the data were doubted broadly, the rally on good numbers would fade"
+      },
+      {
+        "text": "Poster hints at war this weekend",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "QQQ",
-          "NVDA"
+          "QQQ"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust",
-          "NVDA": "NVIDIA"
-        },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "Forced liquidation could overshoot, then reverse"
-      },
-      {
-        "text": "Posters say SPY is being driven into the 200-day average and a break could extend the fall",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Breaking a key moving average can trigger more technical selling"
-      },
-      {
-        "text": "A poster claims Marco Rubio is to resign",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
         "credibility": 0.05,
-        "why": "Single unverified post; if true would add political uncertainty"
+        "why": "Weekend geopolitical risk would encourage de-risking into the close"
+      },
+      {
+        "text": "Posters say Democrats oppose AI and datacenters, a policy risk for AI names",
+        "source": "stocktwits",
+        "tickers": [
+          "QQQ"
+        ],
+        "names": {
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Regulation talk could add pressure to an already weak AI group"
+      },
+      {
+        "text": "Posters say yesterday's put buying will expire worthless and the market will be run higher",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.25,
+        "why": "A crowded bearish bet can squeeze higher if put hedges unwind"
       }
     ],
     "names": {
-      "SPY": "SPDR S&P 500 ETF"
+      "SPY": "SPDR S&P 500 ETF",
+      "QQQ": "Invesco QQQ Trust"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
-        "horizon": "1d",
+        "horizon": "close",
         "confidence": 0.55,
-        "reason": "Down about 4% in one day, extreme fear 20, QQQ RSI under 30 and some bounce off the low; oversold bounces are common but payrolls tomorrow is a risk",
-        "catalyst": "Oversold bounce vs payrolls 13:30 UTC tomorrow"
+        "reason": "Extreme fear, oversold QQQ, falling rate-hike odds after payrolls; crowd leans bearish, which can fuel a squeeze, but SPY has not rallied on the good data",
+        "catalyst": "Payrolls reaction and unwinding of put hedges"
       }
     ],
-    "whats_new": "SPY recovered slightly to about -3.9% from -4.2% last hour, off the 734 low; chip losses eased a little (NVDA -8%, MU -14%, AMD -14.5%). Fear and greed still 20 and Stocktwits SPY sentiment 34 (up from 29). Chatter now centers on forced institutional selling and the 200-day average; Reddit blocked and web search found no same-day coverage.",
+    "whats_new": "Payrolls came out at 13:30 UTC; posters say it beat (165k vs 59k, unverified) and hike odds fell. SPY is flat near 734 versus the -3.9% selloff last hour, with Stocktwits sentiment up to 44 from 34 and posts turning choppy rather than panicked. Reddit blocked and web search found no coverage of the payrolls print.",
     "sources": {
-      "market_pulse": "stocklake",
+      "market_pulse": "stocklake (last snapshot Nov 5 close; SPY price from stocktwits)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocktwits trending and posts; stocklake economic calendar; web search found nothing current; stocklake news feed needed re-login"
+      "news": "stocktwits posts and trending; stocklake economic calendar; stocklake news feed needed re-login"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -3.85,
-      "vote": -1,
-      "why": "\u2264 -0.3"
+      "value": 0.16,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
@@ -110,24 +122,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 20.0,
+      "value": 21.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 34.0,
-      "vote": -1,
-      "why": "\u2264 40.0"
+      "value": 44.0,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": -3,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
+    "market_pulse": "stocklake (last snapshot Nov 5 close; SPY price from stocktwits)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocktwits trending and posts; stocklake economic calendar; web search found nothing current; stocklake news feed needed re-login"
+    "news": "stocktwits posts and trending; stocklake economic calendar; stocklake news feed needed re-login"
   },
-  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
