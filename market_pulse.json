@@ -1,18 +1,17 @@
 {
-  "date": "2026-11-06",
+  "date": "2026-11-09",
   "bias": "neutral",
-  "written_at": "2026-11-06T15:06:46-05:00",
-  "as_of": "2026-11-06T20:08:00Z",
+  "written_at": "2026-11-09T09:10:24-05:00",
+  "as_of": "2026-11-09T14:12:00Z",
   "readings": {
-    "as_of": "2026-11-06T20:08:00Z",
-    "spy_price": 737.9,
-    "spy_change_pct": 0.67,
-    "vix": 24.22,
+    "as_of": "2026-11-09T14:12:00Z",
+    "spy_price": 742.07,
+    "vix": 24.79,
     "fear_greed": 23,
     "stocktwits": {
       "SPY": {
-        "score": 36,
-        "bullish_pct": 45.0
+        "score": 47,
+        "bullish_pct": 44.6
       }
     },
     "reddit": {
@@ -21,62 +20,66 @@
       "top": []
     },
     "news": {
-      "score": 0.1,
+      "score": -0.1,
       "headlines": [
-        "US Non-Farm Payrolls 165k vs 29k previous; unemployment 4.1% vs 4.2%",
-        "QQQ +1.83%, IWM +1.17%, SPY +0.67%, GLD -0.81% (18:10Z snapshot)",
-        "Fear and greed 23 (extreme fear); SPY RSI 37, QQQ RSI 32; 8.3% of stocks oversold",
-        "Stocktwits trending: FLY +35%, KRMN +35%, LUNR +22%, IONQ +21%, DKNG -22%, AXON -17%, APP +11%"
+        "NVDA about -5.9% premarket (175.62 vs 186.64 close), Stocktwits #1 trending",
+        "US CPI (headline and core) due Tuesday Nov 10 13:30Z; prior CPI YY 3.7%, core YY 2.6%",
+        "China CPI released overnight",
+        "Stocktwits trending also: TTD +8.8%, NRG +6.5%, CEG +3.3%, IBRX -12.8% premarket",
+        "Last stocklake pulse (Fri close): SPY +0.92%, QQQ +0.91%, IWM +1.48%, fear and greed 23.5"
       ]
     },
     "rumors": [
       {
-        "text": "Posters expect SPY to be pinned near the close and say options positioning is holding the index; one expects an after-hours drop back to 733",
+        "text": "Posters tie NVDA's premarket drop to a leaked personal scandal story involving its CEO and a Trump response; details are unclear and unverified",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "NVDA",
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "NVDA": "NVIDIA",
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "A fade after the close or a weekend headline could take SPY back toward 730"
+        "credibility": 0.15,
+        "why": "If real, a heavyweight like NVDA falling could drag QQQ and SPY at the open"
       },
       {
-        "text": "Some posters are holding SPY puts and SOXS over the weekend, calling for a red open Monday",
+        "text": "Posters say an Anthropic investor road show starts tomorrow and some are positioning in semis (SOXL, SOXS)",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "SOXS"
+          "SOXX"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "SOXX": "iShares Semiconductor ETF"
         },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Crowded weekend put bets could be right if news hits, or squeezed if the bounce holds"
+        "direction": "up",
+        "credibility": 0.25,
+        "why": "AI capital-raising headlines could lift AI and chip demand sentiment"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "QQQ": "Invesco QQQ Trust"
+      "NVDA": "NVIDIA"
     },
     "plays": [],
-    "whats_new": "SPY eased to +0.67% (737.9) from +0.81% last hour as the close nears, while QQQ held near +1.8%. Stocktwits SPY sentiment is steady at 36 (bearish) with fear and greed at 23, so the crowd stays bearish into a bounce. No new Iran or Hormuz news seen this hour; those earlier rumors are not repeated.",
+    "whats_new": "New week: NVDA is down about 6% premarket and is the top Stocktwits trend, which is the main change since Friday's bounce. SPY Stocktwits sentiment improved to 47 (neutral) from 36, with posters split between a 760 rally and puts below 741. US CPI is due Tuesday, so the desk has a catalyst ahead; market numbers are Friday's close because Stocklake has not refreshed.",
     "sources": {
-      "market_pulse": "stocklake",
+      "market_pulse": "stocklake (Friday close snapshot)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake pulse and calendar (news feed needed sign-in); stocktwits trending and messages; web search found nothing same-day"
+      "news": "stocklake calendar, stocktwits trending; news feed needed sign-in; web search found nothing same-day"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.67,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": null,
+      "vote": 0,
+      "why": "missing"
     },
     {
       "reading": "vix_change_pct",
@@ -92,18 +95,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 36.0,
-      "vote": -1,
-      "why": "\u2264 40.0"
+      "value": 47.0,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
+    "market_pulse": "stocklake (Friday close snapshot)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake pulse and calendar (news feed needed sign-in); stocktwits trending and messages; web search found nothing same-day"
+    "news": "stocklake calendar, stocktwits trending; news feed needed sign-in; web search found nothing same-day"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
