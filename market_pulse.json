@@ -1,18 +1,18 @@
 {
   "date": "2026-11-09",
   "bias": "neutral",
-  "written_at": "2026-11-09T13:07:08-05:00",
-  "as_of": "2026-11-09T18:08:00Z",
+  "written_at": "2026-11-09T14:06:40-05:00",
+  "as_of": "2026-11-09T19:08:00Z",
   "readings": {
-    "as_of": "2026-11-09T18:08:00Z",
-    "spy_price": 752.72,
+    "as_of": "2026-11-09T19:08:00Z",
+    "spy_price": 752.73,
     "spy_change_pct": 2.37,
-    "vix": 21.04,
+    "vix": 20.53,
     "fear_greed": 32,
     "stocktwits": {
       "SPY": {
         "score": 50,
-        "bullish_pct": 45.3
+        "bullish_pct": 45.8
       }
     },
     "reddit": {
@@ -21,28 +21,32 @@
     "news": {
       "score": 0.05,
       "headlines": [
-        "SPY +2.4%, QQQ +3.2%, IWM +2.9%; VIX 21.0, fear and greed 32 (fear)",
+        "SPY +2.4%, QQQ +3.3%, IWM +3.2%; VIX 20.5, fear and greed 32 (fear)",
         "US CPI (headline and core) due Tue Nov 10 13:30Z; prior CPI YY 3.7%, core YY 2.6%",
         "China CPI YY 0.7 vs 0.9 prior; Mexico inflation hotter than prior",
-        "Stocktwits trending: NVDA -5.3%, AMD +12%, TTD +17%, ASTS +14%, IONQ +9%, HIMS -11%"
+        "Stocktwits trending: NVDA -5.4%, AMD +13%, TTD +17%, QXO +20%, HIMS -11%"
       ]
     },
     "rumors": [
       {
-        "text": "Poster cites WSJ saying Boeing will cut 5% of white-collar jobs to lift margins; unconfirmed here",
+        "text": "Stocktwits posters talk about Nvidia CEO Jensen Huang possibly stepping down or resigning; no source given",
         "source": "stocktwits",
         "tickers": [
-          "BA"
+          "NVDA",
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "BA": "Boeing"
+          "NVDA": "NVIDIA",
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "up",
-        "credibility": 0.4,
-        "why": "If true, lower costs and better margins for Boeing"
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "If true, a leadership shock for the AI leader would hit NVDA and weigh on Nasdaq"
       },
       {
-        "text": "Posters call the bounce a low-volume squeeze that will not last, with a round trip expected tomorrow",
+        "text": "Posters say the bounce is thin and will retest 750; others chase calls into the close",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -55,19 +59,6 @@
         "direction": "down",
         "credibility": 0.25,
         "why": "If true, the rally fades into CPI"
-      },
-      {
-        "text": "Some posters expect a gap up tomorrow and are buying 760 0DTE calls at the highs",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "Crowded call buying near highs could add fuel or mark a top"
       }
     ],
     "names": {
@@ -79,16 +70,16 @@
         "direction": "down",
         "horizon": "1d",
         "confidence": 0.52,
-        "reason": "After a +2.4% bounce with fear still elevated and thin-volume talk, a hot CPI could fade the move",
+        "reason": "After a +2.4% bounce with fear still elevated and call chasing, a hot CPI could fade the move",
         "catalyst": "US CPI Nov 10 13:30Z"
       }
     ],
-    "whats_new": "SPY rose to +2.37% (752.72) from +2.13% and QQQ to +3.2%; VIX steady near 21 and fear and greed flat at 32. NVDA still about -5% while AMD gained about +12%. Crowd is split (SPY score 50) and CPI tomorrow remains the key catalyst.",
+    "whats_new": "SPY steady near 752.7 (+2.37%) with VIX easing to 20.5 and fear and greed still 32. NVDA is down about 5.4% with chatter about Jensen Huang leaving (unverified) while AMD gained about 13%. CPI tomorrow remains the key catalyst.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake calendar, stocktwits trending; web search found nothing same-day"
+      "news": "stocklake calendar and stocktwits trending; Stocklake news feed needed sign-in; web search found nothing same-day"
     }
   },
   "votes": [
@@ -123,7 +114,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake calendar, stocktwits trending; web search found nothing same-day"
+    "news": "stocklake calendar and stocktwits trending; Stocklake news feed needed sign-in; web search found nothing same-day"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
