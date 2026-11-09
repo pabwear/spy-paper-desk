@@ -1,53 +1,48 @@
 {
   "date": "2026-11-09",
   "bias": "neutral",
-  "written_at": "2026-11-09T12:07:08-05:00",
-  "as_of": "2026-11-09T17:08:00Z",
+  "written_at": "2026-11-09T13:07:08-05:00",
+  "as_of": "2026-11-09T18:08:00Z",
   "readings": {
-    "as_of": "2026-11-09T17:08:00Z",
-    "spy_price": 750.92,
-    "spy_change_pct": 2.13,
+    "as_of": "2026-11-09T18:08:00Z",
+    "spy_price": 752.72,
+    "spy_change_pct": 2.37,
     "vix": 21.04,
     "fear_greed": 32,
     "stocktwits": {
       "SPY": {
-        "score": 49,
-        "bullish_pct": 45.0
+        "score": 50,
+        "bullish_pct": 45.3
       }
     },
     "reddit": {
-      "score": 0,
-      "posts": 0,
       "top": []
     },
     "news": {
-      "score": 0.1,
+      "score": 0.05,
       "headlines": [
-        "SPY +2.1%, QQQ +3.1%, IWM +2.8% at midday; VIX eased to 21.0, fear and greed up to fear (32)",
+        "SPY +2.4%, QQQ +3.2%, IWM +2.9%; VIX 21.0, fear and greed 32 (fear)",
         "US CPI (headline and core) due Tue Nov 10 13:30Z; prior CPI YY 3.7%, core YY 2.6%",
-        "AMD +11% and NVDA -5% among Stocktwits top trending",
-        "Stocktwits trending: IONQ +9.6%, TTD +16%, HIMS -7%, FRVO +24%",
-        "China CPI YY 0.7 vs 0.9 prior"
+        "China CPI YY 0.7 vs 0.9 prior; Mexico inflation hotter than prior",
+        "Stocktwits trending: NVDA -5.3%, AMD +12%, TTD +17%, ASTS +14%, IONQ +9%, HIMS -11%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say a personal scandal story about NVIDIA's CEO is behind the stock's drop last week and today; unverified",
+        "text": "Poster cites WSJ saying Boeing will cut 5% of white-collar jobs to lift margins; unconfirmed here",
         "source": "stocktwits",
         "tickers": [
-          "NVDA",
-          "QQQ"
+          "BA"
         ],
         "names": {
-          "NVDA": "NVIDIA",
-          "QQQ": "Invesco QQQ Trust"
+          "BA": "Boeing"
         },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "If real, a heavyweight falling could weigh on QQQ and SPY"
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "If true, lower costs and better margins for Boeing"
       },
       {
-        "text": "Posters call the rally a short squeeze and say it is already fading ('not holding', 'exhausted'), with 0DTE put spreads suggested at the highs",
+        "text": "Posters call the bounce a low-volume squeeze that will not last, with a round trip expected tomorrow",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -59,10 +54,10 @@
         },
         "direction": "down",
         "credibility": 0.25,
-        "why": "If true, the bounce is a squeeze that could fade into CPI"
+        "why": "If true, the rally fades into CPI"
       },
       {
-        "text": "Posters expect tomorrow's CPI to run hot, some trimming after the bounce",
+        "text": "Some posters expect a gap up tomorrow and are buying 760 0DTE calls at the highs",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -70,9 +65,9 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "A hot print could reverse the rally"
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "Crowded call buying near highs could add fuel or mark a top"
       }
     ],
     "names": {
@@ -83,23 +78,23 @@
         "ticker": "SPY",
         "direction": "down",
         "horizon": "1d",
-        "confidence": 0.53,
-        "reason": "After a +2.1% squeeze with fear still elevated, a hot CPI could fade the move",
+        "confidence": 0.52,
+        "reason": "After a +2.4% bounce with fear still elevated and thin-volume talk, a hot CPI could fade the move",
         "catalyst": "US CPI Nov 10 13:30Z"
       }
     ],
-    "whats_new": "SPY eased slightly to +2.13% (750.92) from +2.22%, VIX fell to 21.0 and fear and greed rose to 32 from 24. NVDA recovered a bit to about -5.1% while AMD jumped about +11%. Crowd still split (SPY score 49), CPI tomorrow remains the key catalyst.",
+    "whats_new": "SPY rose to +2.37% (752.72) from +2.13% and QQQ to +3.2%; VIX steady near 21 and fear and greed flat at 32. NVDA still about -5% while AMD gained about +12%. Crowd is split (SPY score 50) and CPI tomorrow remains the key catalyst.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake calendar (news feed needed re-login), stocktwits trending; web search found nothing same-day"
+      "news": "stocklake calendar, stocktwits trending; web search found nothing same-day"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 2.13,
+      "value": 2.37,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -117,7 +112,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 49.0,
+      "value": 50.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -128,7 +123,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake calendar (news feed needed re-login), stocktwits trending; web search found nothing same-day"
+    "news": "stocklake calendar, stocktwits trending; web search found nothing same-day"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
