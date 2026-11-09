@@ -1,18 +1,18 @@
 {
   "date": "2026-11-09",
   "bias": "neutral",
-  "written_at": "2026-11-09T14:06:40-05:00",
-  "as_of": "2026-11-09T19:08:00Z",
+  "written_at": "2026-11-09T15:06:52-05:00",
+  "as_of": "2026-11-09T20:08:00Z",
   "readings": {
-    "as_of": "2026-11-09T19:08:00Z",
-    "spy_price": 752.73,
-    "spy_change_pct": 2.37,
+    "as_of": "2026-11-09T20:08:00Z",
+    "spy_price": 753.91,
+    "spy_change_pct": 2.53,
     "vix": 20.53,
     "fear_greed": 32,
     "stocktwits": {
       "SPY": {
         "score": 50,
-        "bullish_pct": 45.8
+        "bullish_pct": 45.9
       }
     },
     "reddit": {
@@ -21,44 +21,57 @@
     "news": {
       "score": 0.05,
       "headlines": [
-        "SPY +2.4%, QQQ +3.3%, IWM +3.2%; VIX 20.5, fear and greed 32 (fear)",
+        "SPY +2.5%, QQQ +3.5%, IWM +3.4%; VIX 20.5, fear and greed 32 (fear)",
         "US CPI (headline and core) due Tue Nov 10 13:30Z; prior CPI YY 3.7%, core YY 2.6%",
-        "China CPI YY 0.7 vs 0.9 prior; Mexico inflation hotter than prior",
-        "Stocktwits trending: NVDA -5.4%, AMD +13%, TTD +17%, QXO +20%, HIMS -11%"
+        "China CPI YY 0.7 vs 0.9 prior",
+        "Stocktwits trending: NVDA -5.1%, AMD +13.5%, TTD +17%, HIMS -9%, IWM +3.5%"
       ]
     },
     "rumors": [
       {
-        "text": "Stocktwits posters talk about Nvidia CEO Jensen Huang possibly stepping down or resigning; no source given",
+        "text": "Some Stocktwits posters say the US CPI print is leaked, so the rally should hold into the close; no source given",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.1,
+        "why": "If true, today's gap-up would reflect a benign CPI and hold; if false, the move is exposed to a hot print"
+      },
+      {
+        "text": "Stocktwits posters keep talking about trouble at Nvidia (CEO leaving, trade-secret scandal); no source given",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
-          "SPY",
           "QQQ"
         ],
         "names": {
           "NVDA": "NVIDIA",
-          "SPY": "SPDR S&P 500 ETF",
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
         "credibility": 0.15,
-        "why": "If true, a leadership shock for the AI leader would hit NVDA and weigh on Nasdaq"
+        "why": "If true, a leadership shock at the AI leader would weigh on NVDA and Nasdaq; NVDA is already down about 5%"
       },
       {
-        "text": "Posters say the bounce is thin and will retest 750; others chase calls into the close",
+        "text": "Posters say US and Israel want a Middle East deal and oil heads lower, helping airlines",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "QQQ"
+          "USO",
+          "JETS",
+          "SPY"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
+          "USO": "United States Oil Fund",
+          "JETS": "U.S. Global Jets ETF",
+          "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "down",
-        "credibility": 0.25,
-        "why": "If true, the rally fades into CPI"
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "If true, lower oil eases inflation worries and lifts travel and the broad market"
       }
     ],
     "names": {
@@ -69,23 +82,23 @@
         "ticker": "SPY",
         "direction": "down",
         "horizon": "1d",
-        "confidence": 0.52,
-        "reason": "After a +2.4% bounce with fear still elevated and call chasing, a hot CPI could fade the move",
+        "confidence": 0.54,
+        "reason": "After a +2.5% gap-up with fear still at 32, crowd chasing calls into the close and CPI next, a fade is a bit more likely than not",
         "catalyst": "US CPI Nov 10 13:30Z"
       }
     ],
-    "whats_new": "SPY steady near 752.7 (+2.37%) with VIX easing to 20.5 and fear and greed still 32. NVDA is down about 5.4% with chatter about Jensen Huang leaving (unverified) while AMD gained about 13%. CPI tomorrow remains the key catalyst.",
+    "whats_new": "SPY edged up to 753.9 (+2.5%) with VIX flat near 20.5 and fear and greed still about 32. Crowd mood is split (score 50) with more call-chasing into the close and talk that CPI is leaked (unverified). NVDA is still weak while AMD rips; CPI tomorrow remains the key catalyst.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake calendar and stocktwits trending; Stocklake news feed needed sign-in; web search found nothing same-day"
+      "news": "stocklake calendar and stocktwits trending; web search returned nothing dated today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 2.37,
+      "value": 2.53,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -114,7 +127,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake calendar and stocktwits trending; Stocklake news feed needed sign-in; web search found nothing same-day"
+    "news": "stocklake calendar and stocktwits trending; web search returned nothing dated today"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
