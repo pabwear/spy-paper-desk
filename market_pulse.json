@@ -1,18 +1,18 @@
 {
   "date": "2026-11-10",
   "bias": "bearish",
-  "written_at": "2026-11-10T10:08:29-05:00",
-  "as_of": "2026-11-10T15:08:00Z",
+  "written_at": "2026-11-10T11:07:57-05:00",
+  "as_of": "2026-11-10T16:08:00Z",
   "readings": {
-    "as_of": "2026-11-10T15:08:00Z",
-    "spy_price": 749.33,
-    "spy_change_pct": -0.45,
+    "as_of": "2026-11-10T16:08:00Z",
+    "spy_price": 748.04,
+    "spy_change_pct": -0.62,
     "vix": 20.94,
     "fear_greed": 31,
     "stocktwits": {
       "SPY": {
-        "score": 57,
-        "bullish_pct": 47.2
+        "score": 58,
+        "bullish_pct": 47.35
       }
     },
     "reddit": {
@@ -20,16 +20,61 @@
       "top": []
     },
     "news": {
-      "score": -0.1,
+      "score": -0.15,
       "headlines": [
-        "US Oct CPI m/m 0.4% vs 0.6% prior; core CPI m/m 0.3%, unchanged (released 13:30Z)",
-        "At 14:09Z: SPY -0.45%, QQQ -0.95%, IWM -0.91%, TLT -1.15%, GLD -2.53%",
-        "Stocktwits trending: HIMS -11%, TTD -2%, NVDA -2.8%, APPS -35%, MARA +13%, TTWO +5%"
+        "US Oct CPI m/m 0.4% vs 0.6% prior; core 0.3% unchanged (13:30Z)",
+        "14:09Z: SPY -0.62%, QQQ -0.67%, IWM -1.25%, TLT -1.37%, GLD -2.5%",
+        "Stocktwits trending: NVDA -5.2%, HIMS -15.6%, APPS -34.7%, MARA +9.8%, TTWO +7.4%, SENS +19%"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say a Fed hike is coming and CPI came in hotter than 0.3, yet the market is not selling off",
+        "text": "Posters say equities are being sacrificed to save the bond market (TLT -1.4% today)",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ",
+          "TLT"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust",
+          "TLT": "iShares 20+ Year Treasury Bond ETF"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "If rates keep rising, equity multiples compress"
+      },
+      {
+        "text": "Posters say NVDA shareholders may be asked to give Elon 70% voting rights and another trillion-dollar pay package",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA",
+          "TSLA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA",
+          "TSLA": "Tesla"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "Governance shock would weigh on NVDA; unsourced and likely garbled"
+      },
+      {
+        "text": "Posters say institutions are laddering NVDA shorts toward 165 to close the March 30 gap",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "NVDA near 169 is down 5%; further weakness would drag SPY and QQQ"
+      },
+      {
+        "text": "Posters say CPI is running hot even though headline cooled to 0.4% from 0.6%",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -38,76 +83,26 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "If a hike is priced in, rate-sensitive stocks and long bonds face pressure"
-      },
-      {
-        "text": "Posters say last week's selloff was driven by regulation fears and the Iran war has no end in sight",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
         "credibility": 0.25,
-        "why": "Unresolved geopolitical or regulatory risk could cap rallies"
-      },
-      {
-        "text": "Posters say NVDA is a buy after a CEO controversy and a possible mega buyback",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA"
-        ],
-        "names": {
-          "NVDA": "NVIDIA"
-        },
-        "direction": "up",
-        "credibility": 0.1,
-        "why": "A buyback would support the stock, but posters give no confirmation"
-      },
-      {
-        "text": "Posters say Boeing defense contracts will reach trillions of dollars and push BA to $185-220",
-        "source": "stocktwits",
-        "tickers": [
-          "BA"
-        ],
-        "names": {
-          "BA": "Boeing"
-        },
-        "direction": "up",
-        "credibility": 0.1,
-        "why": "Huge contract wins would lift BA, but the claim is unsourced"
+        "why": "Sticky core 0.3% keeps rate-hike fears alive"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF"
     },
-    "plays": [
-      {
-        "ticker": "SPY",
-        "direction": "up",
-        "horizon": "1h",
-        "confidence": 0.52,
-        "reason": "Chatter says SPY recovered from the open and bears are scarce; CPI headline cooled to 0.4% from 0.6%. Price at 15:07 not verified",
-        "catalyst": "Cleveland Fed CPI 15:00Z and the dip-buying tone"
-      }
-    ],
-    "whats_new": "CPI is now confirmed: headline 0.4% m/m (down from 0.6%), core 0.3% (unchanged). SPY was -0.45% at 14:09Z, and crowd posts since suggest it has clawed back toward flat. Stocktwits SPY score is 57 with 47% bullish; the earlier 50bps hike chatter is now less prominent.",
+    "plays": [],
+    "whats_new": "SPY is near 748, still down on the day with a double-bottom bounce and VWAP near 749 as the line to watch. NVDA has fallen about 5% and is the main drag; TLT and gold also sold off hard. Crowd tone is split (score 58, 47% bullish), and the Cleveland Fed CPI print at 15:00Z has passed. Price is from the 14:09Z Stocklake snapshot, with chat quoting about 747.8 at 16:06Z.",
     "sources": {
       "market_pulse": "stocklake (14:09Z snapshot)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake calendar; web search returned nothing dated today"
+      "news": "stocklake calendar; news feed needed re-auth; web search had nothing dated today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.45,
+      "value": -0.62,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -125,7 +120,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 57.0,
+      "value": 58.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -136,7 +131,7 @@
     "market_pulse": "stocklake (14:09Z snapshot)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake calendar; web search returned nothing dated today"
+    "news": "stocklake calendar; news feed needed re-auth; web search had nothing dated today"
   },
   "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
