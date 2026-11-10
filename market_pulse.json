@@ -1,35 +1,50 @@
 {
-  "date": "2026-11-09",
-  "bias": "neutral",
-  "written_at": "2026-11-09T15:06:52-05:00",
-  "as_of": "2026-11-09T20:08:00Z",
+  "date": "2026-11-10",
+  "bias": "bearish",
+  "written_at": "2026-11-10T09:09:02-05:00",
+  "as_of": "2026-11-10T14:10:00Z",
   "readings": {
-    "as_of": "2026-11-09T20:08:00Z",
-    "spy_price": 753.91,
-    "spy_change_pct": 2.53,
-    "vix": 20.53,
-    "fear_greed": 32,
+    "as_of": "2026-11-10T14:10:00Z",
+    "spy_price": 748.46,
+    "spy_change_pct": -0.56,
+    "vix": 20.26,
+    "fear_greed": 31,
     "stocktwits": {
       "SPY": {
-        "score": 50,
-        "bullish_pct": 45.9
+        "score": 56,
+        "bullish_pct": 47.5
       }
     },
     "reddit": {
+      "posts": 0,
       "top": []
     },
     "news": {
-      "score": 0.05,
+      "score": -0.15,
       "headlines": [
-        "SPY +2.5%, QQQ +3.5%, IWM +3.4%; VIX 20.5, fear and greed 32 (fear)",
-        "US CPI (headline and core) due Tue Nov 10 13:30Z; prior CPI YY 3.7%, core YY 2.6%",
-        "China CPI YY 0.7 vs 0.9 prior",
-        "Stocktwits trending: NVDA -5.1%, AMD +13.5%, TTD +17%, HIMS -9%, IWM +3.5%"
+        "SPY about -0.6% premarket after yesterday's +2.5% close; VIX about 20 (last snapshot)",
+        "US CPI and core CPI were due 13:30Z today; I could not confirm the actual print",
+        "Stocktwits trending: TTD -6.8%, QBTS -6.2%, NVDA -1.4%, TTWO +3.9% premarket"
       ]
     },
     "rumors": [
       {
-        "text": "Some Stocktwits posters say the US CPI print is leaked, so the rally should hold into the close; no source given",
+        "text": "Posters say a 50bps Fed hike in December is now possible after a spike in bond yields; others expect only 25bps",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "TLT"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "TLT": "iShares 20+ Year Treasury Bond ETF"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "If true, a faster hiking path would pressure equities and long bonds"
+      },
+      {
+        "text": "Posters claim the market is being held up by a plunge protection team or intervention",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -38,40 +53,21 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.1,
-        "why": "If true, today's gap-up would reflect a benign CPI and hold; if false, the move is exposed to a hot print"
+        "credibility": 0.05,
+        "why": "If true, dips would be bought; no evidence given"
       },
       {
-        "text": "Stocktwits posters keep talking about trouble at Nvidia (CEO leaving, trade-secret scandal); no source given",
+        "text": "Posters say oil is dropping hard, so November CPI could print negative",
         "source": "stocktwits",
         "tickers": [
-          "NVDA",
-          "QQQ"
-        ],
-        "names": {
-          "NVDA": "NVIDIA",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "If true, a leadership shock at the AI leader would weigh on NVDA and Nasdaq; NVDA is already down about 5%"
-      },
-      {
-        "text": "Posters say US and Israel want a Middle East deal and oil heads lower, helping airlines",
-        "source": "stocktwits",
-        "tickers": [
-          "USO",
-          "JETS",
           "SPY"
         ],
         "names": {
-          "USO": "United States Oil Fund",
-          "JETS": "U.S. Global Jets ETF",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
         "credibility": 0.2,
-        "why": "If true, lower oil eases inflation worries and lifts travel and the broad market"
+        "why": "If true, lower inflation would ease hike fears and support stocks"
       }
     ],
     "names": {
@@ -81,26 +77,26 @@
       {
         "ticker": "SPY",
         "direction": "down",
-        "horizon": "1d",
-        "confidence": 0.54,
-        "reason": "After a +2.5% gap-up with fear still at 32, crowd chasing calls into the close and CPI next, a fade is a bit more likely than not",
-        "catalyst": "US CPI Nov 10 13:30Z"
+        "horizon": "close",
+        "confidence": 0.52,
+        "reason": "Premarket weak after a +2.5% gap-up, crowd chatter of a bond-yield spike and bigger hike odds; but CPI result unverified",
+        "catalyst": "US CPI reaction at the open"
       }
     ],
-    "whats_new": "SPY edged up to 753.9 (+2.5%) with VIX flat near 20.5 and fear and greed still about 32. Crowd mood is split (score 50) with more call-chasing into the close and talk that CPI is leaked (unverified). NVDA is still weak while AMD rips; CPI tomorrow remains the key catalyst.",
+    "whats_new": "SPY flipped from +2.5% yesterday to about -0.6% premarket, with VIX near 20 and fear and greed about 31. Crowd chatter has moved from CPI-leak talk to worry over bond yields and a possible 50bps December hike; the CPI print itself could not be confirmed. Stocktwits SPY sentiment edged up to 56.",
     "sources": {
-      "market_pulse": "stocklake",
+      "market_pulse": "stocklake (snapshot Nov 9 close; sign-in expired mid-run)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake calendar and stocktwits trending; web search returned nothing dated today"
+      "news": "stocktwits; web search returned nothing dated today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 2.53,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": -0.56,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -110,24 +106,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 32.0,
+      "value": 31.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 50.0,
+      "value": 56.0,
       "vote": 0,
       "why": "in the neutral band"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
+    "market_pulse": "stocklake (snapshot Nov 9 close; sign-in expired mid-run)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake calendar and stocktwits trending; web search returned nothing dated today"
+    "news": "stocktwits; web search returned nothing dated today"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
