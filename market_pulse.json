@@ -1,50 +1,59 @@
 {
   "date": "2026-11-10",
   "bias": "bearish",
-  "written_at": "2026-11-10T12:07:40-05:00",
-  "as_of": "2026-11-10T17:08:00Z",
+  "written_at": "2026-11-10T13:06:59-05:00",
+  "as_of": "2026-11-10T18:07:00Z",
   "readings": {
-    "as_of": "2026-11-10T17:08:00Z",
-    "spy_price": 746.6,
+    "as_of": "2026-11-10T18:07:00Z",
+    "spy_price": 746.56,
     "spy_change_pct": -0.81,
     "vix": 20.23,
     "fear_greed": 34,
     "stocktwits": {
       "SPY": {
-        "score": 57,
-        "bullish_pct": 47.29
+        "score": 56,
+        "bullish_pct": 47.21
       }
     },
-    "reddit": {
-      "posts": 0,
-      "top": []
-    },
     "news": {
-      "score": -0.2,
+      "score": -0.3,
       "headlines": [
         "US Oct CPI m/m 0.4% vs 0.6% prior; core 0.3% unchanged (13:30Z)",
-        "16:10Z: SPY -0.70%, QQQ -1.09%, IWM -1.32%, TLT -1.63%, GLD -2.94%; breadth 4.2% oversold / 7% overbought",
-        "Stocktwits trending: NVDA -6.6% (rank 1, chatter extremely high), HIMS -18%, APPS -35%, UPST -11%, TTWO +7.5%, MARA +6.2%, ZETA +6.6%, SENS +16%; AMD faded from ~536 to ~508"
+        "Investing.com: Microsoft stock falls as Anthropic takes aim at Excel and workplace software; MSFT -2.5% to ~531, sharp leg down around 17:50Z",
+        "Stocktwits trending: NVDA -6.1% (~167.8, rank 1), HIMS -19%, MSFT -2.5%, APPS -35%, IREN -9.6%, GLD -3.0%, RKLB +2%, ZETA +7.2%, TTD +4.2%",
+        "Stocklake 16:10Z: QQQ -1.64%, IWM -1.08%, TLT -1.57%, GLD -2.94%; breadth 4.2% oversold / 7% overbought",
+        "Web report (citing WSJ): Anthropic aims to list on Nasdaq as ANT the week of Nov 16"
       ]
     },
     "rumors": [
       {
-        "text": "NVDA posters hint at a scandal story (talk of 'jailtime', a 'honeypot' getting info, and 'if Jensen goes'); details unclear",
+        "text": "Anthropic is set to release Microsoft Office-like products that go after Excel and workplace software",
         "source": "stocktwits",
         "tickers": [
-          "NVDA",
-          "SPY"
+          "MSFT"
         ],
         "names": {
-          "NVDA": "NVIDIA",
-          "SPY": "SPDR S&P 500 ETF"
+          "MSFT": "Microsoft"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "A leadership or legal shock at NVDA would keep dragging QQQ and SPY"
+        "credibility": 0.55,
+        "why": "A credible Office rival would pressure MSFT's core productivity revenue and weigh on QQQ/SPY"
       },
       {
-        "text": "Posters say NVDA will rally within 36 hours and earnings next week will be huge",
+        "text": "Posters claim Anthropic and OpenAI will ship a Windows replacement next",
+        "source": "stocktwits",
+        "tickers": [
+          "MSFT"
+        ],
+        "names": {
+          "MSFT": "Microsoft"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "Would threaten MSFT's OS franchise; pure speculation"
+      },
+      {
+        "text": "NVDA dip buyers say load up and wait for the pop (carried over from last hour)",
         "source": "stocktwits",
         "tickers": [
           "NVDA"
@@ -54,43 +63,29 @@
         },
         "direction": "up",
         "credibility": 0.15,
-        "why": "Dip-buying into earnings could lift NVDA; earnings date unverified"
+        "why": "An NVDA rebound would lift QQQ and SPY"
       },
       {
-        "text": "Posters say 'every green pop gets knocked down' and AAPL/NVDA are being propped to save the index",
+        "text": "Posters say AI-infrastructure names (NBIS, CRWV, IREN) are being dragged by the broad tech selloff and could fall further if CRWV breaks",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "AAPL"
+          "NBIS",
+          "CRWV",
+          "IREN"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "AAPL": "Apple"
+          "IREN": "IREN Limited"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "If mega-cap support fails, SPY loses its floor"
-      },
-      {
-        "text": "Posters say equities are being sold as bonds slide (TLT -1.6%), carried over from last hour",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "TLT"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Rising yields compress equity multiples"
+        "credibility": 0.25,
+        "why": "Signals AI-trade de-risking spreading beyond NVDA"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "NVDA": "NVIDIA"
+      "NVDA": "NVIDIA",
+      "MSFT": "Microsoft"
     },
     "plays": [
       {
@@ -98,16 +93,16 @@
         "direction": "down",
         "horizon": "close",
         "confidence": 0.55,
-        "reason": "SPY slipped from 748 to ~746.6 with failed bounces, NVDA still making lows, bonds and gold also sold",
-        "catalyst": "NVDA-led tech weakness; posters eye puts under 746"
+        "reason": "SPY stuck near 746.5 with failed bounces; a second megacap (MSFT) just broke down on AI-competition news while NVDA stays near lows",
+        "catalyst": "MSFT/NVDA-led tech weakness; Anthropic Office-rival headline"
       }
     ],
-    "whats_new": "SPY drifted lower from ~748 to ~746.6 (-0.8%) and NVDA deepened its drop to -6.6% (~166.8), now with extremely high chatter but an extremely bullish Stocktwits score (93): crowd is buying a dip price hasn't confirmed. Fear & greed edged up to 34 and VIX eased to 20.2 despite the lower price. Vague NVDA scandal hints are new; the bond-selling rumor is carried over.",
+    "whats_new": "SPY is flat versus last hour (~746.6, -0.8%), but MSFT newly broke down ~2.5% to ~531 around 17:50Z on a report that Anthropic is targeting Excel and workplace software, adding a second megacap drag beside NVDA (-6.1%, slight bounce from lows). Stocktwits SPY sentiment is unchanged (56, 47% bullish); the vague NVDA scandal hints from last hour did not recur.",
     "sources": {
-      "market_pulse": "stocklake (16:10Z snapshot) + stocktwits price 17:07Z",
+      "market_pulse": "stocklake (16:10Z snapshot; vix and fear_greed unchanged) + stocktwits price 18:06Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake calendar; news feed needs re-auth; web search had nothing dated today"
+      "reddit": "unavailable (fetch blocked; web search found nothing dated today)",
+      "news": "stocklake calendar; stocklake news feed needs re-auth; stocktwits-linked investing.com headline; web search"
     }
   },
   "votes": [
@@ -131,7 +126,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 57.0,
+      "value": 56.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -139,10 +134,10 @@
   "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (16:10Z snapshot) + stocktwits price 17:07Z",
+    "market_pulse": "stocklake (16:10Z snapshot; vix and fear_greed unchanged) + stocktwits price 18:06Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake calendar; news feed needs re-auth; web search had nothing dated today"
+    "reddit": "unavailable (fetch blocked; web search found nothing dated today)",
+    "news": "stocklake calendar; stocklake news feed needs re-auth; stocktwits-linked investing.com headline; web search"
   },
   "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
