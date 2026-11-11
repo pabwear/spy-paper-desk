@@ -1,103 +1,109 @@
 {
   "date": "2026-11-11",
   "bias": "neutral",
-  "written_at": "2026-11-11T12:07:17-05:00",
-  "as_of": "2026-11-11T17:07:00Z",
+  "written_at": "2026-11-11T13:07:12-05:00",
+  "as_of": "2026-11-11T18:07:00Z",
   "readings": {
-    "as_of": "2026-11-11T17:07:00Z",
-    "spy_price": 760.19,
-    "spy_change_pct": 1.37,
+    "as_of": "2026-11-11T18:07:00Z",
+    "spy_price": 760.64,
+    "spy_change_pct": 1.43,
     "vix": 17.95,
     "fear_greed": 37.5,
     "stocktwits": {
       "SPY": {
         "score": 64,
-        "bullish_pct": 48.87
+        "bullish_pct": 49.05
       }
     },
     "news": {
       "score": 0.3,
       "headlines": [
-        "12:07 ET: SPY 760.19 (+1.37%), new session high above 758; QQQ +2.6%, IWM +0.8% (Stocklake 16:09Z)",
-        "Semis surging: SOXS (3x inverse) -22% and trending #10",
-        "CRWV +25% to ~61, trending #1; MSFT -2.4% to ~520, trending #3",
-        "VIX 17.95 (from 18.35 last hour); Fear & Greed 37.5 'fear'; GLD -0.8%, TLT -0.1%",
-        "Veterans Day: bond market closed, no US data; UK GDP prelim Thu 07:00 UTC"
+        "13:06 ET: SPY 760.64 (+1.43%), just under Stocklake's 761.34 (+1.52%) delayed print; QQQ +2.9%, IWM +1.1%",
+        "Neoclouds lead: CRWV +25.6% to 61.20 (trending #4), NBIS +18.4% to 158.71 (trending #10)",
+        "Breadth calm: 6.8% of universe overbought, 3.4% oversold; VIX 17.95 and Fear & Greed 37.5 'fear' (snapshot 16:03Z, unchanged)",
+        "BBC: Russia-Ukraine talks in Abu Dhabi end without breakthrough; US envoys due to meet Putin and Zelensky Thursday",
+        "Veterans Day: bond market closed, no US data today; UK GDP prelim Thu 07:00 UTC; US CPI Tue was 0.4% m/m, core 0.3%"
       ]
     },
     "rumors": [
       {
-        "text": "MSFT selloff blamed on Anthropic AI news from yesterday hurting Microsoft (details unspecified)",
+        "text": "Crowded shorts are being forced to cover after yesterday's after-hours move; 'even the most ardent shorts admit they were wrong'",
         "source": "stocktwits",
         "tickers": [
-          "MSFT"
-        ],
-        "names": {
-          "MSFT": "Microsoft"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Megacap drag on SPY if competitive worry persists; carried over from last hour, not new"
-      },
-      {
-        "text": "Rotation out of MSFT/software into chips and neoclouds",
-        "source": "stocktwits",
-        "tickers": [
-          "MSFT",
+          "SPY",
+          "QQQ",
           "CRWV"
         ],
         "names": {
-          "MSFT": "Microsoft",
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust",
           "CRWV": "CoreWeave"
         },
         "direction": "up",
-        "credibility": 0.4,
-        "why": "Rotation, not de-risking, keeps the index bid; price action (semis up, MSFT down) is consistent"
+        "credibility": 0.35,
+        "why": "Short-covering fuels sharp rallies but fades once covering ends; supports today's move, not necessarily follow-through"
       },
       {
-        "text": "Poster claims a chip reseller ('Megaspeed') diverted NVIDIA chips to North Korea",
+        "text": "Rally is on 'putrid volume' for a pump day",
         "source": "stocktwits",
         "tickers": [
-          "NVDA"
+          "SPY"
         ],
         "names": {
-          "NVDA": "NVIDIA"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.1,
-        "why": "Export-control headline risk for NVDA if anything like it were confirmed; single unsourced post"
+        "credibility": 0.3,
+        "why": "Thin bond-holiday volume would make the gain less trustworthy and prone to a late fade"
+      },
+      {
+        "text": "Rotation out of MSFT/software into chips and neoclouds (carried over from last hour)",
+        "source": "stocktwits",
+        "tickers": [
+          "MSFT",
+          "CRWV",
+          "NBIS"
+        ],
+        "names": {
+          "MSFT": "Microsoft",
+          "CRWV": "CoreWeave",
+          "NBIS": "Nebius Group"
+        },
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "Rotation rather than de-risking keeps the index bid; not new this hour"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "MSFT": "Microsoft",
+      "IWM": "iShares Russell 2000 ETF",
       "CRWV": "CoreWeave",
-      "NVDA": "NVIDIA",
-      "SOXS": "Direxion Daily Semiconductor Bear 3X ETF"
+      "NBIS": "Nebius Group",
+      "MSFT": "Microsoft"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.55,
-        "reason": "Trend day: new highs at +1.37% led by semis, VIX easing; crowd only ~49% bullish by tagged posts so not fully crowded",
-        "catalyst": "Semiconductor/AI-infra momentum in a thin bond-holiday session; risk is euphoric 'pump' chatter and midday consolidation"
+        "confidence": 0.54,
+        "reason": "Trend day holding near highs (+1.43%), QQQ +2.9% leadership, VIX calm; crowd only ~49% bullish by tagged posts",
+        "catalyst": "AI-infra/neocloud momentum plus short covering; risks are thin holiday volume and an afternoon fade"
       }
     ],
-    "whats_new": "SPY extended to 760.19 (+1.37%) from 758.25, so last hour's close-up play is tracking. Semis are the engine (SOXS -22%, QQQ +2.6%) while MSFT holds -2.4%; VIX eased to 17.95 and Fear & Greed ticked up to 37.5. Stocktwits chatter shifted to euphoric 'pump' posts; MSFT/Anthropic rumor is stale carryover.",
+    "whats_new": "SPY is flat-to-slightly-higher versus last hour (760.64 vs 760.19), consolidating just under the session high, so the close-up play is still on track. Neoclouds widened the lead (CRWV +25.6%, NBIS now trending +18%) and Stocktwits chatter shifted to a short-covering story plus complaints about thin volume. VIX and Fear & Greed snapshots did not refresh; the MSFT/Anthropic rumor is stale and dropped.",
     "sources": {
-      "market_pulse": "stocklake (16:09Z) + stocktwits price 17:06Z",
+      "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 16:03Z) + stocktwits price 18:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake economic calendar; stocktwits pulse/trending; one web search (no dated coverage of today); stocklake news feed needed re-auth"
+      "news": "stocklake economic calendar; stocktwits posts (BBC link); one web search found no dated coverage of today; stocklake news feed needs re-auth"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.37,
+      "value": 1.43,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -123,10 +129,10 @@
   "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (16:09Z) + stocktwits price 17:06Z",
+    "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 16:03Z) + stocktwits price 18:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake economic calendar; stocktwits pulse/trending; one web search (no dated coverage of today); stocklake news feed needed re-auth"
+    "news": "stocklake economic calendar; stocktwits posts (BBC link); one web search found no dated coverage of today; stocklake news feed needs re-auth"
   },
   "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
