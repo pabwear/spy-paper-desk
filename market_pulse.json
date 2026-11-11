@@ -1,50 +1,60 @@
 {
   "date": "2026-11-11",
   "bias": "neutral",
-  "written_at": "2026-11-11T13:07:12-05:00",
-  "as_of": "2026-11-11T18:07:00Z",
+  "written_at": "2026-11-11T14:07:40-05:00",
+  "as_of": "2026-11-11T19:08:00Z",
   "readings": {
-    "as_of": "2026-11-11T18:07:00Z",
-    "spy_price": 760.64,
-    "spy_change_pct": 1.43,
-    "vix": 17.95,
-    "fear_greed": 37.5,
+    "as_of": "2026-11-11T19:08:00Z",
+    "spy_price": 761.21,
+    "spy_change_pct": 1.51,
+    "vix": 17.85,
+    "fear_greed": 37.9,
     "stocktwits": {
       "SPY": {
         "score": 64,
-        "bullish_pct": 49.05
+        "bullish_pct": 49.29
       }
     },
     "news": {
       "score": 0.3,
       "headlines": [
-        "13:06 ET: SPY 760.64 (+1.43%), just under Stocklake's 761.34 (+1.52%) delayed print; QQQ +2.9%, IWM +1.1%",
-        "Neoclouds lead: CRWV +25.6% to 61.20 (trending #4), NBIS +18.4% to 158.71 (trending #10)",
-        "Breadth calm: 6.8% of universe overbought, 3.4% oversold; VIX 17.95 and Fear & Greed 37.5 'fear' (snapshot 16:03Z, unchanged)",
-        "BBC: Russia-Ukraine talks in Abu Dhabi end without breakthrough; US envoys due to meet Putin and Zelensky Thursday",
-        "Veterans Day: bond market closed, no US data today; UK GDP prelim Thu 07:00 UTC; US CPI Tue was 0.4% m/m, core 0.3%"
+        "14:07 ET: SPY 761.21 (+1.51%) on Stocktwits; Stocklake delayed print 762.35 (+1.66%); QQQ +3.05%, IWM +1.04%, GLD -1.0%, TLT flat",
+        "Chips lead: AMD +9.5% to 564 (trending #3, Stocktwits sentiment 87 'extremely bullish'); MU 2x ETF MUU +27%, NVDL +8.8%, NBIS +17.4%",
+        "Breadth calm: 6.8% overbought, 3.4% oversold; VIX 17.85, Fear & Greed 37.9 'fear' (snapshot 18:03Z)",
+        "Veterans Day: bond market closed, no US data today; UK GDP prelim Thu 07:00 UTC; US CPI Tue 0.4% m/m, core 0.3%"
       ]
     },
     "rumors": [
       {
-        "text": "Crowded shorts are being forced to cover after yesterday's after-hours move; 'even the most ardent shorts admit they were wrong'",
+        "text": "AMD up almost 50% in 4 days 'on little news' - posters call the move unjustified",
+        "source": "stocktwits",
+        "tickers": [
+          "AMD"
+        ],
+        "names": {
+          "AMD": "Advanced Micro Devices"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "If the run lacks a fundamental catalyst, a crowded long in AMD could unwind and drag QQQ/SPY"
+      },
+      {
+        "text": "Put holders were squeezed out; SPY rally is a short/put squeeze",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "QQQ",
-          "CRWV"
+          "QQQ"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust",
-          "CRWV": "CoreWeave"
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "up",
         "credibility": 0.35,
-        "why": "Short-covering fuels sharp rallies but fades once covering ends; supports today's move, not necessarily follow-through"
+        "why": "Squeeze-driven gains can extend into close but often lack follow-through next day (continuation of last hour's short-covering story)"
       },
       {
-        "text": "Rally is on 'putrid volume' for a pump day",
+        "text": "Rally lacks volume confirmation; some expect a pullback to VWAP",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -54,33 +64,16 @@
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "Thin bond-holiday volume would make the gain less trustworthy and prone to a late fade"
-      },
-      {
-        "text": "Rotation out of MSFT/software into chips and neoclouds (carried over from last hour)",
-        "source": "stocktwits",
-        "tickers": [
-          "MSFT",
-          "CRWV",
-          "NBIS"
-        ],
-        "names": {
-          "MSFT": "Microsoft",
-          "CRWV": "CoreWeave",
-          "NBIS": "Nebius Group"
-        },
-        "direction": "up",
-        "credibility": 0.4,
-        "why": "Rotation rather than de-risking keeps the index bid; not new this hour"
+        "why": "Thin holiday volume makes a late fade toward VWAP plausible (repeat of last hour's thin-volume complaint)"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
-      "CRWV": "CoreWeave",
+      "AMD": "Advanced Micro Devices",
       "NBIS": "Nebius Group",
-      "MSFT": "Microsoft"
+      "NVDA": "NVIDIA"
     },
     "plays": [
       {
@@ -88,22 +81,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.54,
-        "reason": "Trend day holding near highs (+1.43%), QQQ +2.9% leadership, VIX calm; crowd only ~49% bullish by tagged posts",
-        "catalyst": "AI-infra/neocloud momentum plus short covering; risks are thin holiday volume and an afternoon fade"
+        "reason": "SPY made a new session high (+1.51% vs +1.43% last hour) with QQQ +3% chip leadership and calm VIX; crowd still only ~49% bullish by tagged posts",
+        "catalyst": "Semis/AI momentum and put squeeze into power hour; risks are thin holiday volume and a VWAP fade"
       }
     ],
-    "whats_new": "SPY is flat-to-slightly-higher versus last hour (760.64 vs 760.19), consolidating just under the session high, so the close-up play is still on track. Neoclouds widened the lead (CRWV +25.6%, NBIS now trending +18%) and Stocktwits chatter shifted to a short-covering story plus complaints about thin volume. VIX and Fear & Greed snapshots did not refresh; the MSFT/Anthropic rumor is stale and dropped.",
+    "whats_new": "SPY pushed to a new session high (761.21, +1.51%) from 760.64 last hour, and QQQ widened to +3.05%, so the close-up play is still on track. Leadership shifted toward semis: AMD +9.5% is now trending #3 with extremely bullish chatter, while CRWV fell out of the trending list. VIX ticked down to 17.85 and Fear & Greed edged to 37.9; new skeptical chatter says AMD's ~50% 4-day run has little news behind it.",
     "sources": {
-      "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 16:03Z) + stocktwits price 18:06Z",
+      "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 18:03Z) + stocktwits price 19:07Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake economic calendar; stocktwits posts (BBC link); one web search found no dated coverage of today; stocklake news feed needs re-auth"
+      "news": "stocklake economic calendar; stocktwits posts; one web search found no dated coverage of today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.43,
+      "value": 1.51,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -115,7 +108,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 37.5,
+      "value": 37.9,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -129,10 +122,10 @@
   "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 16:03Z) + stocktwits price 18:06Z",
+    "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 18:03Z) + stocktwits price 19:07Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake economic calendar; stocktwits posts (BBC link); one web search found no dated coverage of today; stocklake news feed needs re-auth"
+    "news": "stocklake economic calendar; stocktwits posts; one web search found no dated coverage of today"
   },
   "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
