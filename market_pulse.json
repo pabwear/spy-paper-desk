@@ -1,60 +1,46 @@
 {
   "date": "2026-11-11",
   "bias": "neutral",
-  "written_at": "2026-11-11T14:07:40-05:00",
-  "as_of": "2026-11-11T19:08:00Z",
+  "written_at": "2026-11-11T15:06:50-05:00",
+  "as_of": "2026-11-11T20:08:00Z",
   "readings": {
-    "as_of": "2026-11-11T19:08:00Z",
-    "spy_price": 761.21,
-    "spy_change_pct": 1.51,
+    "as_of": "2026-11-11T20:08:00Z",
+    "spy_price": 760.25,
+    "spy_change_pct": 1.38,
     "vix": 17.85,
     "fear_greed": 37.9,
     "stocktwits": {
       "SPY": {
         "score": 64,
-        "bullish_pct": 49.29
+        "bullish_pct": 49.58
       }
     },
     "news": {
-      "score": 0.3,
+      "score": 0.1,
       "headlines": [
-        "14:07 ET: SPY 761.21 (+1.51%) on Stocktwits; Stocklake delayed print 762.35 (+1.66%); QQQ +3.05%, IWM +1.04%, GLD -1.0%, TLT flat",
-        "Chips lead: AMD +9.5% to 564 (trending #3, Stocktwits sentiment 87 'extremely bullish'); MU 2x ETF MUU +27%, NVDL +8.8%, NBIS +17.4%",
-        "Breadth calm: 6.8% overbought, 3.4% oversold; VIX 17.85, Fear & Greed 37.9 'fear' (snapshot 18:03Z)",
-        "Veterans Day: bond market closed, no US data today; UK GDP prelim Thu 07:00 UTC; US CPI Tue 0.4% m/m, core 0.3%"
+        "15:06 ET: SPY 760.25 (+1.38%) on Stocktwits, off the 761.21 high from last hour; Stocklake delayed print 760.47 (+1.41%), QQQ +2.6%, IWM +0.87%, GLD -1.08%, TLT +0.06%",
+        "Chips cooling from highs: AMD 556 (+7.9%) vs intraday high 567.6; AMAT +6.5% trending #9",
+        "SPY Stocktwits message volume HIGH (62); crowd split 49.6% bull / 50.4% bear; posts call it 'flat' and a 'dead cat bounce'",
+        "Breadth calm: 6.8% overbought, 3.4% oversold; VIX 17.85, Fear & Greed 37.9 'fear' (snapshot 18:03Z, unchanged)",
+        "Veterans Day: bond market closed, no US data; UK GDP prelim Thu 07:00 UTC; US CPI Tue 0.4% m/m, core 0.3%"
       ]
     },
     "rumors": [
       {
-        "text": "AMD up almost 50% in 4 days 'on little news' - posters call the move unjustified",
+        "text": "Post cites WSJ: Trump authorizes JD Vance to lead direct negotiations with Iran",
         "source": "stocktwits",
         "tickers": [
-          "AMD"
+          "SPY"
         ],
         "names": {
-          "AMD": "Advanced Micro Devices"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "If the run lacks a fundamental catalyst, a crowded long in AMD could unwind and drag QQQ/SPY"
-      },
-      {
-        "text": "Put holders were squeezed out; SPY rally is a short/put squeeze",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.35,
-        "why": "Squeeze-driven gains can extend into close but often lack follow-through next day (continuation of last hour's short-covering story)"
+        "credibility": 0.4,
+        "why": "Direct US-Iran talks would lower oil/geopolitical risk premium, mildly bullish for SPY"
       },
       {
-        "text": "Rally lacks volume confirmation; some expect a pullback to VWAP",
+        "text": "Strait of Hormuz is closed",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -63,8 +49,36 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "Thin holiday volume makes a late fade toward VWAP plausible (repeat of last hour's thin-volume complaint)"
+        "credibility": 0.15,
+        "why": "A real closure would spike oil and hit equities; unsourced single post, no confirmation found"
+      },
+      {
+        "text": "AI/neocloud 'scams' and fraud will be exposed when the bubble bursts",
+        "source": "stocktwits",
+        "tickers": [
+          "QQQ",
+          "NBIS"
+        ],
+        "names": {
+          "QQQ": "Invesco QQQ Trust",
+          "NBIS": "Nebius Group"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "Generic bubble talk; would only matter if a specific accounting issue surfaced"
+      },
+      {
+        "text": "Boeing institutional accumulation up ~+22.7M to +24.5M shares in recent 13F filings",
+        "source": "stocktwits",
+        "tickers": [
+          "BA"
+        ],
+        "names": {
+          "BA": "Boeing"
+        },
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "Stale quarterly 13F data being re-shared; little near-term effect"
       }
     ],
     "names": {
@@ -72,31 +86,32 @@
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
       "AMD": "Advanced Micro Devices",
-      "NBIS": "Nebius Group",
-      "NVDA": "NVIDIA"
+      "AMAT": "Applied Materials",
+      "BA": "Boeing",
+      "NBIS": "Nebius Group"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
+        "direction": "down",
         "horizon": "close",
-        "confidence": 0.54,
-        "reason": "SPY made a new session high (+1.51% vs +1.43% last hour) with QQQ +3% chip leadership and calm VIX; crowd still only ~49% bullish by tagged posts",
-        "catalyst": "Semis/AI momentum and put squeeze into power hour; risks are thin holiday volume and a VWAP fade"
+        "confidence": 0.52,
+        "reason": "SPY slipped from 761.21 high to 760.25 and chip leaders (AMD) are off highs; crowd posts say momentum has stalled on thin holiday volume",
+        "catalyst": "Late-day fade toward VWAP; Iran headlines cut both ways"
       }
     ],
-    "whats_new": "SPY pushed to a new session high (761.21, +1.51%) from 760.64 last hour, and QQQ widened to +3.05%, so the close-up play is still on track. Leadership shifted toward semis: AMD +9.5% is now trending #3 with extremely bullish chatter, while CRWV fell out of the trending list. VIX ticked down to 17.85 and Fear & Greed edged to 37.9; new skeptical chatter says AMD's ~50% 4-day run has little news behind it.",
+    "whats_new": "SPY eased to 760.25 (+1.38%) from last hour's 761.21 session high, and AMD backed off its 567 high to about 556, so the semis-led push has stalled. A new Stocktwits post cites WSJ that Vance will lead direct Iran talks, alongside an unconfirmed 'Hormuz closed' claim. VIX and Fear & Greed snapshots are unchanged (17.85, 37.9); last hour's AMD and put-squeeze stories are no longer new.",
     "sources": {
-      "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 18:03Z) + stocktwits price 19:07Z",
+      "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 18:03Z) + stocktwits price 20:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake economic calendar; stocktwits posts; one web search found no dated coverage of today"
+      "news": "stocklake economic calendar; stocktwits posts; stocklake news feed needs re-auth; one web search found no coverage dated today"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.51,
+      "value": 1.38,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -122,10 +137,10 @@
   "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 18:03Z) + stocktwits price 19:07Z",
+    "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 18:03Z) + stocktwits price 20:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake economic calendar; stocktwits posts; one web search found no dated coverage of today"
+    "news": "stocklake economic calendar; stocktwits posts; stocklake news feed needs re-auth; one web search found no coverage dated today"
   },
   "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
