@@ -1,34 +1,33 @@
 {
   "date": "2026-11-11",
   "bias": "neutral",
-  "written_at": "2026-11-11T11:07:38-05:00",
-  "as_of": "2026-11-11T16:07:00Z",
+  "written_at": "2026-11-11T12:07:17-05:00",
+  "as_of": "2026-11-11T17:07:00Z",
   "readings": {
-    "as_of": "2026-11-11T16:07:00Z",
-    "spy_price": 758.25,
-    "spy_change_pct": 1.11,
-    "vix": 18.35,
-    "fear_greed": 36.5,
+    "as_of": "2026-11-11T17:07:00Z",
+    "spy_price": 760.19,
+    "spy_change_pct": 1.37,
+    "vix": 17.95,
+    "fear_greed": 37.5,
     "stocktwits": {
       "SPY": {
         "score": 64,
-        "bullish_pct": 48.71
+        "bullish_pct": 48.87
       }
     },
     "news": {
-      "score": 0.2,
+      "score": 0.3,
       "headlines": [
-        "11:07 ET: SPY 758.25 (+1.11%), reclaiming 758 after 756 at 10:07; QQQ ~+2.1% at last Stocklake snapshot, IWM +0.6%",
-        "VIX 18.35 / Fear & Greed 36.5 'fear' (Stocklake snapshot 14:09Z, not refreshed)",
-        "CRWV +23% to ~59.9, near 60.52 intraday high; trending #1 on Stocktwits",
-        "MSFT -2.4% to ~520.5 (from 535 open), trending #5; options tape near-even calls/puts",
-        "House vote to advance Hegseth impeachment failed 211-204 (shared on Stocktwits)",
-        "No US data today (Veterans Day, bond market closed); UK GDP prelim Thu 07:00 UTC"
+        "12:07 ET: SPY 760.19 (+1.37%), new session high above 758; QQQ +2.6%, IWM +0.8% (Stocklake 16:09Z)",
+        "Semis surging: SOXS (3x inverse) -22% and trending #10",
+        "CRWV +25% to ~61, trending #1; MSFT -2.4% to ~520, trending #3",
+        "VIX 17.95 (from 18.35 last hour); Fear & Greed 37.5 'fear'; GLD -0.8%, TLT -0.1%",
+        "Veterans Day: bond market closed, no US data; UK GDP prelim Thu 07:00 UTC"
       ]
     },
     "rumors": [
       {
-        "text": "MSFT selloff blamed on 'Anthropic news yesterday' - posters say an AI product launch hurts Microsoft (details unspecified)",
+        "text": "MSFT selloff blamed on Anthropic AI news from yesterday hurting Microsoft (details unspecified)",
         "source": "stocktwits",
         "tickers": [
           "MSFT"
@@ -38,10 +37,10 @@
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "If competitive pressure on MSFT AI franchise is real, a megacap drag caps SPY upside"
+        "why": "Megacap drag on SPY if competitive worry persists; carried over from last hour, not new"
       },
       {
-        "text": "Money rotating out of MSFT/software into chips and neoclouds (profit-taking rotation)",
+        "text": "Rotation out of MSFT/software into chips and neoclouds",
         "source": "stocktwits",
         "tickers": [
           "MSFT",
@@ -51,29 +50,31 @@
           "MSFT": "Microsoft",
           "CRWV": "CoreWeave"
         },
-        "direction": "down",
-        "credibility": 0.35,
-        "why": "Rotation rather than de-risking keeps index flat-to-up even as MSFT falls"
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "Rotation, not de-risking, keeps the index bid; price action (semis up, MSFT down) is consistent"
       },
       {
-        "text": "CoreWeave post-earnings rally extends to +23%, AI-infrastructure bid broadening",
+        "text": "Poster claims a chip reseller ('Megaspeed') diverted NVIDIA chips to North Korea",
         "source": "stocktwits",
         "tickers": [
-          "CRWV"
+          "NVDA"
         ],
         "names": {
-          "CRWV": "CoreWeave"
+          "NVDA": "NVIDIA"
         },
-        "direction": "up",
-        "credibility": 0.6,
-        "why": "Price-confirmed; continued AI capex enthusiasm supports semis and QQQ"
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "Export-control headline risk for NVDA if anything like it were confirmed; single unsourced post"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "MSFT": "Microsoft",
-      "CRWV": "CoreWeave"
+      "CRWV": "CoreWeave",
+      "NVDA": "NVIDIA",
+      "SOXS": "Direxion Daily Semiconductor Bear 3X ETF"
     },
     "plays": [
       {
@@ -81,22 +82,22 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.55,
-        "reason": "SPY reclaimed 758 (prior-hour resistance) with QQQ leading and VIX eased; crowd still only ~49% bullish so not crowded",
-        "catalyst": "AI-infrastructure momentum (CRWV, chips) offsetting MSFT weakness in a thin bond-holiday session"
+        "reason": "Trend day: new highs at +1.37% led by semis, VIX easing; crowd only ~49% bullish by tagged posts so not fully crowded",
+        "catalyst": "Semiconductor/AI-infra momentum in a thin bond-holiday session; risk is euphoric 'pump' chatter and midday consolidation"
       }
     ],
-    "whats_new": "SPY pushed through 758 to +1.11% (from 756.02, +0.81%) so the prior hour's 1h down play failed. New: MSFT broke to -2.4% (~520) and is trending, with posters blaming Anthropic AI news and rotation into chips/neoclouds; CRWV extended to +23%. Stocktwits SPY sentiment steady at 64; Stocklake VIX/Fear&Greed snapshot not refreshed; NVDA CEO-probe chatter faded.",
+    "whats_new": "SPY extended to 760.19 (+1.37%) from 758.25, so last hour's close-up play is tracking. Semis are the engine (SOXS -22%, QQQ +2.6%) while MSFT holds -2.4%; VIX eased to 17.95 and Fear & Greed ticked up to 37.5. Stocktwits chatter shifted to euphoric 'pump' posts; MSFT/Anthropic rumor is stale carryover.",
     "sources": {
-      "market_pulse": "stocklake (14:09Z snapshot) + stocktwits price 16:07Z",
+      "market_pulse": "stocklake (16:09Z) + stocktwits price 17:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake economic calendar; stocktwits pulse/trending; one web search (no dated coverage of today)"
+      "news": "stocklake economic calendar; stocktwits pulse/trending; one web search (no dated coverage of today); stocklake news feed needed re-auth"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.11,
+      "value": 1.37,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -108,7 +109,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 36.5,
+      "value": 37.5,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -122,10 +123,10 @@
   "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (14:09Z snapshot) + stocktwits price 16:07Z",
+    "market_pulse": "stocklake (16:09Z) + stocktwits price 17:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake economic calendar; stocktwits pulse/trending; one web search (no dated coverage of today)"
+    "news": "stocklake economic calendar; stocktwits pulse/trending; one web search (no dated coverage of today); stocklake news feed needed re-auth"
   },
   "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
