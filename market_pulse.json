@@ -1,47 +1,60 @@
 {
-  "date": "2026-11-10",
-  "bias": "bearish",
-  "written_at": "2026-11-10T15:06:56-05:00",
-  "as_of": "2026-11-10T20:07:00Z",
+  "date": "2026-11-11",
+  "bias": "neutral",
+  "written_at": "2026-11-11T09:08:57-05:00",
+  "as_of": "2026-11-11T14:08:00Z",
   "readings": {
-    "as_of": "2026-11-10T20:07:00Z",
-    "spy_price": 748.16,
-    "spy_change_pct": -0.6,
-    "vix": 21.01,
+    "as_of": "2026-11-11T14:08:00Z",
+    "spy_price": 757.15,
+    "spy_change_pct": 0.96,
+    "vix": 20.46,
     "fear_greed": 33,
     "stocktwits": {
       "SPY": {
-        "score": 59,
-        "bullish_pct": 46.55
+        "score": 63,
+        "bullish_pct": 48.75
       }
     },
     "news": {
-      "score": -0.25,
+      "score": 0.2,
       "headlines": [
-        "US Oct CPI m/m 0.4% vs 0.6% prior; core 0.3% unchanged (13:30Z)",
-        "Stocktwits 20:06Z: NVDA -6.7% at ~166.6, new session low ~166.06 (low 165.89); APPS -38%, HIMS -18%, LEGN -17.5%, ASTS -10.5%, BABA -2.8%; TTD +2.5%, LKNCY +5.4%",
-        "Stocklake 18:10Z: SPY -0.50%, QQQ -1.12%, IWM -0.90%, TLT -1.34%, GLD -2.72%; VIX 21.01; F&G 32.9 (fear)",
-        "Web search found no dated coverage of today's session"
+        "Premarket 09:07 ET: SPY 757.15 (+0.96%), QQQ 687.35 (+1.87%), IWM 283.17 (+0.92%) - rebound after Tuesday's -0.6%",
+        "Stocktwits premarket: CRWV +13% (~55.2), NVDA +3% (~174, faded from ~178 high), RGTI +4.3%, RUM +4.3%",
+        "Web: Nvidia CEO Jensen Huang controversy weighed on AI names earlier this week (Nov 9 coverage); no dated coverage of today found",
+        "No major US data on today's calendar; US Oct CPI (Tue) 0.4% m/m vs 0.6% prior, core 0.3% unchanged"
       ]
     },
     "rumors": [
       {
-        "text": "NVDA 'should be below 160' - posters calling for further flush in NVDA/QQQ/SPY",
+        "text": "CRWV surging 13%+ on strong earnings and AI demand, carrying NVDA/semis and the Nasdaq",
         "source": "stocktwits",
         "tickers": [
-          "NVDA",
-          "SPY"
+          "CRWV",
+          "NVDA"
         ],
         "names": {
-          "NVDA": "NVIDIA",
-          "SPY": "SPDR S&P 500 ETF"
+          "CRWV": "CoreWeave",
+          "NVDA": "NVIDIA"
         },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Further NVDA selling would drag QQQ/SPY into the close; crowd opinion, no news"
+        "direction": "up",
+        "credibility": 0.6,
+        "why": "Price move confirms; if AI demand story holds, semis lead SPY higher today"
       },
       {
-        "text": "SPY 'way too high, should flush 2%', calls for 737 tomorrow / 730 by Friday",
+        "text": "NVDA CEO 'needs to resign' over the personal controversy; posters warn of further downside",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "A leadership change at NVDA would hit AI megacaps and SPY; resignation talk is speculation"
+      },
+      {
+        "text": "Markets increasingly expect another Fed rate hike; 10-year yield near 5%",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -50,53 +63,53 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
+        "credibility": 0.3,
+        "why": "Hike expectations would cap the rebound, esp. growth stocks; not confirmed by data seen"
+      },
+      {
+        "text": "SPY 'reaches 765 today' / breakout above 758.31, else puts",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
         "credibility": 0.1,
-        "why": "A 1.5-2.5% further drop; bear cheerleading, not a catalyst"
-      },
-      {
-        "text": "Anthropic set to release Office-like products targeting Excel/workplace software (carried over, not new this hour)",
-        "source": "stocktwits",
-        "tickers": [
-          "MSFT"
-        ],
-        "names": {
-          "MSFT": "Microsoft"
-        },
-        "direction": "down",
-        "credibility": 0.5,
-        "why": "A credible Office rival would pressure MSFT productivity revenue"
+        "why": "~+1% more from premarket; crowd target, no catalyst"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "NVDA": "NVIDIA",
-      "MSFT": "Microsoft"
+      "CRWV": "CoreWeave"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
-        "horizon": "close",
+        "horizon": "1h",
         "confidence": 0.53,
-        "reason": "NVDA rolled over to fresh session lows and the last hour's megacap bounce failed (SPY 748.5 -> 748.2); fear regime with tech leading lower",
-        "catalyst": "NVDA breakdown into the close; overnight de-risking"
+        "reason": "~1% gap-up after a fear day (F&G 33) with leaders NVDA (178->175) and CRWV (57.8->55.8) already fading premarket; gap-fill risk at open",
+        "catalyst": "Opening-range fade in AI leaders; 758.3 resistance cited by crowd"
       }
     ],
-    "whats_new": "The megacap bounce from last hour faded: NVDA slid from ~168.6 back to fresh session lows near 166 (-6.7%) and SPY eased from 748.5 to ~748.2 (-0.60%). Stocktwits SPY sentiment is roughly flat (59, 46.6% bullish) but the post sample turned clearly bearish ('dumping hour', calls for 730-737) versus last hour's 'rip into close' talk. No new macro news; VIX/F&G snapshot unchanged since 18:10Z.",
+    "whats_new": "Sharp reversal overnight: SPY is +0.96% premarket at 757.15 (vs 748.16 last reading) and QQQ +1.87%, led by a CRWV +13% earnings pop and NVDA bouncing ~3%. Stocktwits SPY sentiment edged up to 63 (48.8% bullish) with talk shifting from 'flush to 730' to breakout targets, though bear-macro posts (Fed hike, 5% 10y) persist. VIX/F&G are still Tuesday's 20:10Z snapshot; yesterday's bearish NVDA rumors are stale.",
     "sources": {
-      "market_pulse": "stocklake (18:10Z snapshot) + stocktwits price 20:06Z",
+      "market_pulse": "stocklake (indices premarket; VIX/F&G from 2026-11-10 20:10Z snapshot) + stocktwits price 14:07Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake economic calendar; stocklake news feed needs re-auth; stocktwits trending; web search found nothing dated today"
+      "news": "stocklake economic calendar; stocktwits pulse/trending; one web search (no dated coverage of today)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.6,
-      "vote": -1,
-      "why": "\u2264 -0.3"
+      "value": 0.96,
+      "vote": 1,
+      "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -112,18 +125,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 59.0,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 63.0,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (18:10Z snapshot) + stocktwits price 20:06Z",
+    "market_pulse": "stocklake (indices premarket; VIX/F&G from 2026-11-10 20:10Z snapshot) + stocktwits price 14:07Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake economic calendar; stocklake news feed needs re-auth; stocktwits trending; web search found nothing dated today"
+    "news": "stocklake economic calendar; stocktwits pulse/trending; one web search (no dated coverage of today)"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
