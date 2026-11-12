@@ -1,119 +1,134 @@
 {
-  "date": "2026-11-11",
+  "date": "2026-11-12",
   "bias": "neutral",
-  "written_at": "2026-11-11T15:06:50-05:00",
-  "as_of": "2026-11-11T20:08:00Z",
+  "written_at": "2026-11-12T09:08:22-05:00",
+  "as_of": "2026-11-12T14:08:00Z",
   "readings": {
-    "as_of": "2026-11-11T20:08:00Z",
-    "spy_price": 760.25,
-    "spy_change_pct": 1.38,
-    "vix": 17.85,
-    "fear_greed": 37.9,
+    "as_of": "2026-11-12T14:08:00Z",
+    "spy_price": 755.0,
+    "spy_change_pct": -0.63,
+    "vix": 17.34,
+    "fear_greed": 37.3,
     "stocktwits": {
       "SPY": {
-        "score": 64,
-        "bullish_pct": 49.58
+        "score": 67,
+        "bullish_pct": 49.37
       }
     },
     "news": {
-      "score": 0.1,
+      "score": -0.5,
       "headlines": [
-        "15:06 ET: SPY 760.25 (+1.38%) on Stocktwits, off the 761.21 high from last hour; Stocklake delayed print 760.47 (+1.41%), QQQ +2.6%, IWM +0.87%, GLD -1.08%, TLT +0.06%",
-        "Chips cooling from highs: AMD 556 (+7.9%) vs intraday high 567.6; AMAT +6.5% trending #9",
-        "SPY Stocktwits message volume HIGH (62); crowd split 49.6% bull / 50.4% bear; posts call it 'flat' and a 'dead cat bounce'",
-        "Breadth calm: 6.8% overbought, 3.4% oversold; VIX 17.85, Fear & Greed 37.9 'fear' (snapshot 18:03Z, unchanged)",
-        "Veterans Day: bond market closed, no US data; UK GDP prelim Thu 07:00 UTC; US CPI Tue 0.4% m/m, core 0.3%"
+        "Premarket 09:07 ET: SPY 755.00 (-0.63%) on Stocktwits; Stocklake delayed SPY 754.76 (-0.66%), QQQ -1.14%, IWM -0.50%, GLD -1.94%, TLT -0.52%",
+        "NVDA -10.4% premarket to 155.64 (prev close 173.73), #1 trending; NBIS -19.7% (#2), GLD -2.4% also trending",
+        "NVDA CEO turmoil: earlier media reports (Finimize, Monday) tied Jensen Huang to a possible China spy; NVDA fell 4.5% premarket that day",
+        "Stocktwits NVDA stream dominated by claims about Huang's future; SPY posts blame NVDA ('1.8T erased'), some see dip buyers at 21x earnings",
+        "Calendar: UK GDP prelim 07:00 UTC today; no major US data listed; EZ GDP flash Fri 10:00 UTC; US CPI Tue 0.4% m/m, core 0.3%"
       ]
     },
     "rumors": [
       {
-        "text": "Post cites WSJ: Trump authorizes JD Vance to lead direct negotiations with Iran",
+        "text": "Jensen Huang is 'officially out' as NVIDIA CEO",
         "source": "stocktwits",
         "tickers": [
+          "NVDA",
           "SPY"
         ],
         "names": {
+          "NVDA": "NVIDIA",
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.4,
-        "why": "Direct US-Iran talks would lower oil/geopolitical risk premium, mildly bullish for SPY"
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "CEO exit would extend NVDA's slide and drag SPY/QQQ; contradicted by another post saying no board decision yet"
       },
       {
-        "text": "Strait of Hormuz is closed",
+        "text": "NVIDIA board met late Wednesday but announced no decision; Huang still CEO",
         "source": "stocktwits",
         "tickers": [
+          "NVDA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.45,
+        "why": "Unresolved leadership question keeps headline risk open into the open"
+      },
+      {
+        "text": "Overnight analyst moves: William Blair downgrade, Citi PT 225, Stifel 205, Bernstein 400 to 200, Ives values NVDA 225 without Huang vs 300 with him",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.4,
+        "why": "Broad PT cuts would cap rebound attempts; single unsourced post, not verified"
+      },
+      {
+        "text": "Media reports tie Jensen Huang to a possible China spy",
+        "source": "news",
+        "tickers": [
+          "NVDA",
           "SPY"
         ],
         "names": {
+          "NVDA": "NVIDIA",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.15,
-        "why": "A real closure would spike oil and hit equities; unsourced single post, no confirmation found"
+        "credibility": 0.25,
+        "why": "Story dates from Monday; outlets unnamed and no company response found; if substantiated, deep governance and export-control risk"
       },
       {
-        "text": "AI/neocloud 'scams' and fraud will be exposed when the bubble bursts",
+        "text": "Huang won't be fired; NVDA set for a 20% bounce",
         "source": "stocktwits",
         "tickers": [
-          "QQQ",
-          "NBIS"
+          "NVDA"
         ],
         "names": {
-          "QQQ": "Invesco QQQ Trust",
-          "NBIS": "Nebius Group"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "Generic bubble talk; would only matter if a specific accounting issue surfaced"
-      },
-      {
-        "text": "Boeing institutional accumulation up ~+22.7M to +24.5M shares in recent 13F filings",
-        "source": "stocktwits",
-        "tickers": [
-          "BA"
-        ],
-        "names": {
-          "BA": "Boeing"
+          "NVDA": "NVIDIA"
         },
         "direction": "up",
-        "credibility": 0.4,
-        "why": "Stale quarterly 13F data being re-shared; little near-term effect"
+        "credibility": 0.2,
+        "why": "If board backs Huang, a sharp relief rally in NVDA and SPY is likely"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
-      "AMD": "Advanced Micro Devices",
-      "AMAT": "Applied Materials",
-      "BA": "Boeing",
-      "NBIS": "Nebius Group"
+      "NVDA": "NVIDIA",
+      "NBIS": "Nebius Group",
+      "GLD": "SPDR Gold Shares",
+      "GS": "Goldman Sachs"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
-        "horizon": "close",
-        "confidence": 0.52,
-        "reason": "SPY slipped from 761.21 high to 760.25 and chip leaders (AMD) are off highs; crowd posts say momentum has stalled on thin holiday volume",
-        "catalyst": "Late-day fade toward VWAP; Iran headlines cut both ways"
+        "horizon": "1h",
+        "confidence": 0.53,
+        "reason": "NVDA -10% premarket (large SPY weight) with posts flagging stop-loss selling at the open; QQQ weaker than SPY",
+        "catalyst": "14:30 UTC cash open; any NVDA board/CEO statement can flip this"
       }
     ],
-    "whats_new": "SPY eased to 760.25 (+1.38%) from last hour's 761.21 session high, and AMD backed off its 567 high to about 556, so the semis-led push has stalled. A new Stocktwits post cites WSJ that Vance will lead direct Iran talks, alongside an unconfirmed 'Hormuz closed' claim. VIX and Fear & Greed snapshots are unchanged (17.85, 37.9); last hour's AMD and put-squeeze stories are no longer new.",
+    "whats_new": "Yesterday's +1.4% chip-led rally reversed overnight: SPY is -0.63% premarket at 755 as NVDA gaps -10% on CEO turmoil, with conflicting posts on whether Huang is out or the board made no decision. AMD/AMAT strength and the Iran-talks/Hormuz rumors are stale. VIX and Fear & Greed are yesterday's 20:06-20:11Z snapshots (17.34, 37.3).",
     "sources": {
-      "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 18:03Z) + stocktwits price 20:06Z",
+      "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 2026-11-11 20:11Z) + stocktwits price 14:07Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake economic calendar; stocktwits posts; stocklake news feed needs re-auth; one web search found no coverage dated today"
+      "news": "stocklake economic calendar; stocktwits posts; one web search + finimize article (undated, Monday); stocklake news feed needs re-auth"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.38,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": -0.63,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -123,24 +138,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 37.9,
+      "value": 37.3,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 64.0,
+      "value": 67.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
   ],
-  "net_votes": 1,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 18:03Z) + stocktwits price 20:06Z",
+    "market_pulse": "stocklake (indices delayed ~15m; vix/fear_greed snapshot 2026-11-11 20:11Z) + stocktwits price 14:07Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake economic calendar; stocktwits posts; stocklake news feed needs re-auth; one web search found no coverage dated today"
+    "news": "stocklake economic calendar; stocktwits posts; one web search + finimize article (undated, Monday); stocklake news feed needs re-auth"
   },
-  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
