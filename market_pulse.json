@@ -1,17 +1,17 @@
 {
   "date": "2026-11-13",
   "bias": "neutral",
-  "written_at": "2026-11-13T11:27:10-05:00",
-  "as_of": "2026-11-13T16:27:00Z",
+  "written_at": "2026-11-13T12:07:28-05:00",
+  "as_of": "2026-11-13T17:07:00Z",
   "readings": {
-    "as_of": "2026-11-13T16:27:00Z",
-    "spy_price": 749.3,
-    "spy_change_pct": -1.03,
+    "as_of": "2026-11-13T17:07:00Z",
+    "spy_price": 751.35,
+    "spy_change_pct": -0.76,
     "vix": 20.37,
     "fear_greed": 37,
     "stocktwits": {
       "SPY": {
-        "score": 75,
+        "score": 76,
         "bullish_pct": 52.12
       }
     },
@@ -21,32 +21,31 @@
       "top": []
     },
     "news": {
-      "score": -0.45,
+      "score": -0.35,
       "headlines": [
-        "SPY 749.3 (-1.03%), QQQ -2.22%, IWM -0.94% per Stocklake ~16:09Z; tech/chip-led selloff deepening",
-        "Stocktwits trending: NBIS -10%, AMD -9.9%, AMAT -6%, CSCO -5.6%, HOOD -4.9%, NVDA -3.7% (NVDA ~160, near day low)",
-        "MSFT roughly flat (~-0.1%), holding up vs chips",
-        "VIX 20.37 (up from 18.21 at the 14:11Z snapshot); Fear & Greed 37.3 (fear), down from 41",
-        "Breadth: 3.4% of universe oversold, 5.6% overbought",
-        "Econ calendar: no further major-economy releases scheduled today; Euro Area GDP flash 0.4% q/q unchanged earlier"
+        "SPY 751.35 (-0.76%) per Stocktwits 17:06Z, bounced from 749.3 an hour ago; posters describe a 2-hour pin",
+        "Chips still near day lows: AMD -9.9% (527), NBIS -8.7%, AMAT -4.9%, NVDA -3.2% (160.8 vs low 158.4), HOOD -4.5%",
+        "MSFT flat (~+0.05%); NU +11.8%, VKTX +4.5% among trending gainers",
+        "Stocklake snapshot (16:09Z, not refreshed): VIX 20.37, Fear & Greed 37.3 (fear), QQQ -1.98%, IWM -0.78%, GLD +0.19%, TLT -0.29%",
+        "Econ calendar: no further major-economy releases scheduled today"
       ]
     },
     "rumors": [
       {
-        "text": "Poster: if tech gets wrecked, healthcare, banks and AAPL will be green (desperation rotation)",
+        "text": "Stocktwits post citing FT: NVIDIA's board approached Arm CEO Rene Haas as a potential successor to Jensen Huang",
         "source": "stocktwits",
         "tickers": [
-          "AAPL"
+          "NVDA"
         ],
         "names": {
-          "AAPL": "Apple"
+          "NVDA": "NVIDIA"
         },
-        "direction": "up",
-        "credibility": 0.25,
-        "why": "Rotation would cushion the S&P even as chips fall, limiting SPY downside"
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "CEO succession talk at the largest index weight could add uncertainty to an already falling chip complex"
       },
       {
-        "text": "Several posters target SPY 745 / 743 as the next level, others call a reversal toward 756",
+        "text": "Poster warns SPY is forming a weekly shooting-star candle and could fall 4%+ next week",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -56,10 +55,10 @@
         },
         "direction": "down",
         "credibility": 0.2,
-        "why": "Crowd levels only; no catalyst, but shows dip-buyers waiting lower"
+        "why": "Pure chart read; would matter only if Friday closes near lows"
       },
       {
-        "text": "Poster says VIX is up ~9% while SPY is down only ~1% (VIX 'broken')",
+        "text": "Posters call SPY 754 'in play' and a Monday rip after afternoon chop",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -67,22 +66,9 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "down",
-        "credibility": 0.35,
-        "why": "Stocklake VIX rose 18.2 to 20.4 between snapshots, consistent with hedging demand outpacing the index drop"
-      },
-      {
-        "text": "Samsung in preliminary talks to buy Modine's data-center cooling business (stale, carried from earlier hours, no new confirmation)",
-        "source": "news",
-        "tickers": [
-          "MOD"
-        ],
-        "names": {
-          "MOD": "Modine Manufacturing"
-        },
         "direction": "up",
-        "credibility": 0.4,
-        "why": "A deal would value the AI-cooling unit at a premium"
+        "credibility": 0.2,
+        "why": "Crowd levels only; shows dip-buyers still active"
       }
     ],
     "names": {
@@ -93,34 +79,33 @@
       "AMD": "Advanced Micro Devices",
       "AMAT": "Applied Materials",
       "NBIS": "Nebius Group",
-      "CSCO": "Cisco Systems",
       "HOOD": "Robinhood Markets",
       "MSFT": "Microsoft",
-      "AAPL": "Apple",
-      "MOD": "Modine Manufacturing"
+      "NU": "Nu Holdings",
+      "VKTX": "Viking Therapeutics"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "down",
-        "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Chip leaders still pinned near day lows, VIX jumped above 20 and Fear & Greed slipped to 37, while Stocktwits SPY score stays 75 (dip-buyers not flushed); no scheduled data to spark a reversal, but rotation into defensives/MSFT could cap losses so the edge is small",
-        "catalyst": "Semiconductor selling follow-through and Friday de-risking into the weekend"
+        "direction": "up",
+        "horizon": "1h",
+        "confidence": 0.52,
+        "reason": "SPY recovered ~2 points off the 749 area and has held a range for ~2 hours while MSFT is flat; but chips remain near lows, so edge is thin",
+        "catalyst": "Midday pin/consolidation with no scheduled data; possible short covering"
       }
     ],
-    "whats_new": "SPY slipped further from 750.7 to 749.3 (-1.03%) and QQQ widened to -2.2% as the chip rout continued (AMD ~-10%, NBIS -10%, AMAT -6%). VIX rose from 18.2 to 20.4 and Fear & Greed fell from 41 to 37, while Stocktwits SPY sentiment is unchanged at 75, still bullish against falling price. Last hour's cool-PPI and 'VIX capped at 20' claims were not repeated; VIX is now above 20.",
+    "whats_new": "SPY bounced from 749.3 (-1.03%) to 751.35 (-0.76%) and posters describe a two-hour pin, though chip names (AMD, NBIS, NVDA, AMAT) stay near day lows. New unverified claim circulating: FT reportedly says NVIDIA's board approached Arm CEO Rene Haas as a Huang successor. Stocklake VIX/Fear & Greed snapshot has not refreshed since 16:09Z (still 20.37 / 37); the Modine/Samsung story was not repeated.",
     "sources": {
-      "market_pulse": "stocklake",
+      "market_pulse": "stocklake (16:09Z snapshot) + stocktwits price 17:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocktwits trending + stocklake pulse/calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
+      "news": "stocktwits trending/posts + stocklake calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.03,
+      "value": -0.76,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -138,7 +123,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 75.0,
+      "value": 76.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
@@ -146,10 +131,10 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake",
+    "market_pulse": "stocklake (16:09Z snapshot) + stocktwits price 17:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocktwits trending + stocklake pulse/calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
+    "news": "stocktwits trending/posts + stocklake calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
