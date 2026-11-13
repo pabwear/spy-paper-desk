@@ -1,29 +1,28 @@
 {
   "date": "2026-11-13",
   "bias": "neutral",
-  "written_at": "2026-11-13T14:07:01-05:00",
-  "as_of": "2026-11-13T19:06:00Z",
+  "written_at": "2026-11-13T15:06:41-05:00",
+  "as_of": "2026-11-13T20:06:00Z",
   "readings": {
-    "as_of": "2026-11-13T19:06:00Z",
-    "spy_price": 753.36,
-    "spy_change_pct": -0.5,
+    "as_of": "2026-11-13T20:06:00Z",
+    "spy_price": 753.5,
+    "spy_change_pct": -0.48,
     "vix": 19.7,
     "fear_greed": 38,
     "stocktwits": {
       "SPY": {
-        "score": 80,
-        "bullish_pct": 52.77
+        "score": 81,
+        "bullish_pct": 53.2
       }
     },
     "news": {
-      "score": -0.25,
+      "score": -0.2,
       "headlines": [
-        "SPY 753.36 (-0.50%) per Stocktwits 19:06Z, up ~2 pts from 751.29 an hour ago; Stocklake 18:10Z SPY 753.24 -0.51%, QQQ -1.31%, IWM -0.51%",
-        "Chips bouncing off lows but still red: NVDA 162.48 -2.2% (low 158.39), AMD 531.01 -9.3% (low 520.0), NBIS -8.5%, IONQ -6.0%, CSCO -6.1%",
-        "CBS: Commerce Sec. Lutnick agrees to testify Dec 10 to Senate Banking as Treasury Sec. Bessent blames him for not banning Nvidia chip exports to China-linked firm Megaspeed",
-        "Bloomberg (via Stocktwits post): Anthropic CEO calls compute supply its biggest challenge in briefing ahead of its IPO",
-        "VIX eased to 19.7 from 20.37; Fear & Greed 37.9 (fear); breadth neutral (3.4% oversold, 5.6% overbought); GLD +0.2%, TLT -0.38%",
-        "No same-day web coverage found of the chip drop; trending also VKTX +5.7%, NVO +2.5%, ZVRA -16.7%"
+        "SPY 753.50 (-0.48%) per Stocktwits 20:06Z, flat vs 753.36 an hour ago; Stocklake 18:10Z SPY -0.46%, QQQ -1.22%, IWM -0.42%",
+        "Chips still red but holding off lows: NVDA 162.73 -2.1% (low 158.39); CSCO 95.70 -6.2%",
+        "Trending movers: MOD +30.0%, NMAX +29.3%, VKTX +6.9%, KLAR +7.2%, NVO +2.7%; CADL -26.2%, ZVRA -15.8%, FLO -8.7%",
+        "VIX 19.7, Fear & Greed 37.9 (fear); breadth neutral (3.4% oversold, 5.6% overbought); TLT -0.44%, GLD flat",
+        "Econ calendar: no US events left today; Euro Area Q3 GDP flash 0.4% q/q unchanged; France CPI 3.7% y/y"
       ]
     },
     "names": {
@@ -31,37 +30,39 @@
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
       "NVDA": "NVIDIA",
-      "AMD": "Advanced Micro Devices",
       "CSCO": "Cisco Systems",
-      "NBIS": "Nebius Group",
-      "IONQ": "IonQ",
+      "MOD": "Modine Manufacturing",
+      "NMAX": "Newsmax",
       "VKTX": "Viking Therapeutics",
+      "KLAR": "Klarna Group",
       "NVO": "Novo Nordisk",
-      "ZVRA": "Zevra Therapeutics"
+      "CADL": "Candel Therapeutics",
+      "ZVRA": "Zevra Therapeutics",
+      "FLO": "Flowers Foods"
     },
     "rumors": [],
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
-        "horizon": "1h",
-        "confidence": 0.54,
-        "reason": "SPY climbed ~2 pts off the 751 range, chips are lifting off their lows (NVDA +2.6% from low, AMD +2% from low) and VIX is easing; short-term bounce momentum, but crowd is already extremely bullish so edge is thin",
-        "catalyst": "Intraday rebound in semis; no scheduled data"
+        "horizon": "close",
+        "confidence": 0.52,
+        "reason": "SPY has held the ~752-754 recovery off the 751 range for an hour with VIX easing and chips off lows; Stocktwits chatter notes equal-weight (unverified) green, but crowd is already extremely bullish so edge is thin",
+        "catalyst": "Friday close flows; no scheduled US data"
       }
     ],
-    "whats_new": "SPY broke out of its midday range, rising from 751.29 to 753.36 (-0.50% vs -0.77%) as NVDA and AMD bounced off lows and VIX eased to 19.7. New headline: Bessent blames Lutnick over Nvidia chip exports to Megaspeed, Lutnick to testify Dec 10, adding policy noise for NVDA. Stocktwits SPY sentiment edged to 80 (extremely bullish); no new rumors surfaced and the earlier NVIDIA/Arm succession claim was not seen again.",
+    "whats_new": "Quiet hour: SPY essentially unchanged at 753.50 (-0.48%) vs 753.36 last reading, holding its rebound but not extending it. Stocktwits SPY sentiment ticked up to 81 (bullish 53.2%); MOD (+30%) and NMAX (+29%) joined the trending list. No new rumors; Stocklake news feed unavailable this hour.",
     "sources": {
-      "market_pulse": "stocklake (18:10Z) + stocktwits price 19:06Z",
+      "market_pulse": "stocklake (18:10Z) + stocktwits price 20:06Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (fetch blocked; search found no same-day threads)",
-      "news": "stocktwits posts (CBS, Bloomberg links) + web search (no same-day coverage)"
+      "reddit": "unavailable (fetch blocked)",
+      "news": "stocklake econ calendar + stocktwits trending; news feed needs re-auth; web search found no same-day coverage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.5,
+      "value": -0.48,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -79,7 +80,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 80.0,
+      "value": 81.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
@@ -87,10 +88,10 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (18:10Z) + stocktwits price 19:06Z",
+    "market_pulse": "stocklake (18:10Z) + stocktwits price 20:06Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (fetch blocked; search found no same-day threads)",
-    "news": "stocktwits posts (CBS, Bloomberg links) + web search (no same-day coverage)"
+    "reddit": "unavailable (fetch blocked)",
+    "news": "stocklake econ calendar + stocktwits trending; news feed needs re-auth; web search found no same-day coverage"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
