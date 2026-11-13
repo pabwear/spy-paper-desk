@@ -1,75 +1,78 @@
 {
   "date": "2026-11-13",
   "bias": "neutral",
-  "written_at": "2026-11-13T11:00:20-05:00",
-  "as_of": "2026-11-13T16:00:00Z",
+  "written_at": "2026-11-13T11:27:10-05:00",
+  "as_of": "2026-11-13T16:27:00Z",
   "readings": {
-    "as_of": "2026-11-13T16:00:00Z",
-    "spy_price": 750.71,
-    "spy_change_pct": -0.85,
-    "vix": 18.21,
-    "fear_greed": 41,
+    "as_of": "2026-11-13T16:27:00Z",
+    "spy_price": 749.3,
+    "spy_change_pct": -1.03,
+    "vix": 20.37,
+    "fear_greed": 37,
     "stocktwits": {
       "SPY": {
         "score": 75,
-        "bullish_pct": 52.46
+        "bullish_pct": 52.12
       }
     },
+    "reddit": {
+      "score": 0,
+      "posts": 0,
+      "top": []
+    },
     "news": {
-      "score": -0.4,
+      "score": -0.45,
       "headlines": [
-        "SPY 750.7 (-0.85%), QQQ -1.95%, IWM -1.0% at ~16:00Z; tech-led selloff",
-        "Chips hit hard: AMD -9.3%, AMAT -6.5%, NVDA -3.8%; NBIS -12% after cutting outlook on data-center capacity delays",
-        "CSCO -5.4% despite beat-and-raise; IONQ -6.8% after CFO/COO exits",
-        "MSFT +0.3% holding up; NU +9.3%",
-        "Fear & Greed 41 (fear), VIX 18.21 per 14:11Z Stocklake snapshot",
-        "Econ calendar: Euro Area GDP flash 0.4% q/q unchanged; no further major-economy releases listed for today"
+        "SPY 749.3 (-1.03%), QQQ -2.22%, IWM -0.94% per Stocklake ~16:09Z; tech/chip-led selloff deepening",
+        "Stocktwits trending: NBIS -10%, AMD -9.9%, AMAT -6%, CSCO -5.6%, HOOD -4.9%, NVDA -3.7% (NVDA ~160, near day low)",
+        "MSFT roughly flat (~-0.1%), holding up vs chips",
+        "VIX 20.37 (up from 18.21 at the 14:11Z snapshot); Fear & Greed 37.3 (fear), down from 41",
+        "Breadth: 3.4% of universe oversold, 5.6% overbought",
+        "Econ calendar: no further major-economy releases scheduled today; Euro Area GDP flash 0.4% q/q unchanged earlier"
       ]
     },
     "rumors": [
       {
-        "text": "Poster says US PPI came in cool yet the market tanked (no PPI release found in Stocklake calendar to confirm)",
+        "text": "Poster: if tech gets wrecked, healthcare, banks and AAPL will be green (desperation rotation)",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "AAPL"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "AAPL": "Apple"
         },
         "direction": "up",
-        "credibility": 0.3,
-        "why": "If inflation really cooled, rate worries ease and the selloff is about AI/chip positioning, not macro"
+        "credibility": 0.25,
+        "why": "Rotation would cushion the S&P even as chips fall, limiting SPY downside"
       },
       {
-        "text": "VIX was 'jammed to 20' and stopped; poster says SPY is done falling for the day",
+        "text": "Several posters target SPY 745 / 743 as the next level, others call a reversal toward 756",
         "source": "stocktwits",
         "tickers": [
           "SPY"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "Capitulation-style intraday call; unverified VIX level, no catalyst"
-      },
-      {
-        "text": "AI rally is a Wall Street-pumped bubble about to unwind",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA",
-          "SPY"
-        ],
-        "names": {
-          "NVDA": "NVIDIA",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.1,
-        "why": "Narrative, not news; but it echoes today's broad chip selling"
+        "credibility": 0.2,
+        "why": "Crowd levels only; no catalyst, but shows dip-buyers waiting lower"
       },
       {
-        "text": "Samsung in preliminary talks to buy Modine's data-center cooling business (carried from last hour, no new confirmation)",
+        "text": "Poster says VIX is up ~9% while SPY is down only ~1% (VIX 'broken')",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.35,
+        "why": "Stocklake VIX rose 18.2 to 20.4 between snapshots, consistent with hedging demand outpacing the index drop"
+      },
+      {
+        "text": "Samsung in preliminary talks to buy Modine's data-center cooling business (stale, carried from earlier hours, no new confirmation)",
         "source": "news",
         "tickers": [
           "MOD"
@@ -78,21 +81,22 @@
           "MOD": "Modine Manufacturing"
         },
         "direction": "up",
-        "credibility": 0.45,
+        "credibility": 0.4,
         "why": "A deal would value the AI-cooling unit at a premium"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
+      "IWM": "iShares Russell 2000 ETF",
       "NVDA": "NVIDIA",
       "AMD": "Advanced Micro Devices",
       "AMAT": "Applied Materials",
       "NBIS": "Nebius Group",
       "CSCO": "Cisco Systems",
-      "IONQ": "IonQ",
+      "HOOD": "Robinhood Markets",
       "MSFT": "Microsoft",
-      "NU": "Nu Holdings",
+      "AAPL": "Apple",
       "MOD": "Modine Manufacturing"
     },
     "plays": [
@@ -101,22 +105,22 @@
         "direction": "down",
         "horizon": "close",
         "confidence": 0.53,
-        "reason": "Chip leadership is breaking hard (AMD -9%, NVDA -4%) and SPY fell ~5 points in the last hour, while Stocktwits sentiment stays bullish (score 75), so dip-buyers are not yet flushed; Friday de-risking adds pressure, but a bounce off the morning low is plausible so the edge is small",
-        "catalyst": "Semiconductor selling follow-through; Friday afternoon positioning"
+        "reason": "Chip leaders still pinned near day lows, VIX jumped above 20 and Fear & Greed slipped to 37, while Stocktwits SPY score stays 75 (dip-buyers not flushed); no scheduled data to spark a reversal, but rotation into defensives/MSFT could cap losses so the edge is small",
+        "catalyst": "Semiconductor selling follow-through and Friday de-risking into the weekend"
       }
     ],
-    "whats_new": "SPY slid from 755.6 to 750.7 (-0.85% on day) as the AI/chip selloff deepened: AMD -9%, AMAT -6.5%, NVDA -3.8%, QQQ nearly -2%. Market data is back this hour: VIX 18.2, Fear & Greed 41 (fear), Stocktwits SPY score 75, which is bullish while price falls. The Huang, whale-puts and bull-flag claims from last hour were not seen again; a new unconfirmed claim says PPI was cool.",
+    "whats_new": "SPY slipped further from 750.7 to 749.3 (-1.03%) and QQQ widened to -2.2% as the chip rout continued (AMD ~-10%, NBIS -10%, AMAT -6%). VIX rose from 18.2 to 20.4 and Fear & Greed fell from 41 to 37, while Stocktwits SPY sentiment is unchanged at 75, still bullish against falling price. Last hour's cool-PPI and 'VIX capped at 20' claims were not repeated; VIX is now above 20.",
     "sources": {
       "market_pulse": "stocklake",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocktwits trending + stocklake calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
+      "news": "stocktwits trending + stocklake pulse/calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.85,
+      "value": -1.03,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -128,7 +132,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 41.0,
+      "value": 37.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -145,7 +149,7 @@
     "market_pulse": "stocklake",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocktwits trending + stocklake calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
+    "news": "stocktwits trending + stocklake pulse/calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
