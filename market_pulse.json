@@ -1,39 +1,60 @@
 {
   "date": "2026-11-13",
   "bias": "neutral",
-  "written_at": "2026-11-13T09:54:48-05:00",
-  "as_of": "2026-11-13T14:54:00Z",
+  "written_at": "2026-11-13T11:00:20-05:00",
+  "as_of": "2026-11-13T16:00:00Z",
   "readings": {
-    "as_of": "2026-11-13T14:54:00Z",
-    "spy_price": 755.57,
+    "as_of": "2026-11-13T16:00:00Z",
+    "spy_price": 750.71,
+    "spy_change_pct": -0.85,
+    "vix": 18.21,
+    "fear_greed": 41,
+    "stocktwits": {
+      "SPY": {
+        "score": 75,
+        "bullish_pct": 52.46
+      }
+    },
     "news": {
-      "score": -0.3,
+      "score": -0.4,
       "headlines": [
-        "14:53Z: SPY ~755.6 per Stocktwits stream, below last reading's 757.63 (Thu 20:06Z); opening move vs prior close not available",
-        "BTC sharp selloff broke support, leveraged longs liquidated; stronger dollar and rate worries cited (Stocktwits trending)",
-        "CSCO beat and raised outlook but traders focus on margin/order concerns; AMAT beat-and-raise sold off",
-        "NBIS cut revenue outlook on data-center capacity delays; IONQ CFO and COO left immediately",
-        "MSFT 365 outage; Microsoft says no evidence of malicious activity",
-        "CBRS rallied on results, raised outlook and a Microsoft cloud deal",
-        "Web: no coverage of today's session found; Nov 9 NVIDIA board investigation into Huang remains the governance backdrop"
+        "SPY 750.7 (-0.85%), QQQ -1.95%, IWM -1.0% at ~16:00Z; tech-led selloff",
+        "Chips hit hard: AMD -9.3%, AMAT -6.5%, NVDA -3.8%; NBIS -12% after cutting outlook on data-center capacity delays",
+        "CSCO -5.4% despite beat-and-raise; IONQ -6.8% after CFO/COO exits",
+        "MSFT +0.3% holding up; NU +9.3%",
+        "Fear & Greed 41 (fear), VIX 18.21 per 14:11Z Stocklake snapshot",
+        "Econ calendar: Euro Area GDP flash 0.4% q/q unchanged; no further major-economy releases listed for today"
       ]
     },
     "rumors": [
       {
-        "text": "Samsung in preliminary talks to buy Modine's data-center cooling business",
-        "source": "news",
+        "text": "Poster says US PPI came in cool yet the market tanked (no PPI release found in Stocklake calendar to confirm)",
+        "source": "stocktwits",
         "tickers": [
-          "MOD"
+          "SPY"
         ],
         "names": {
-          "MOD": "Modine Manufacturing"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.5,
-        "why": "Reported talks only, no deal announced; a deal would value the AI-cooling unit at a premium"
+        "credibility": 0.3,
+        "why": "If inflation really cooled, rate worries ease and the selloff is about AI/chip positioning, not macro"
       },
       {
-        "text": "Huang will sell NVIDIA shares and leave to start a rival AI company that pulls engineers",
+        "text": "VIX was 'jammed to 20' and stopped; poster says SPY is done falling for the day",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "Capitulation-style intraday call; unverified VIX level, no catalyst"
+      },
+      {
+        "text": "AI rally is a Wall Street-pumped bubble about to unwind",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -45,82 +66,59 @@
         },
         "direction": "down",
         "credibility": 0.1,
-        "why": "New twist on the Huang story but pure speculation; would hit NVDA, the largest S&P weight"
+        "why": "Narrative, not news; but it echoes today's broad chip selling"
       },
       {
-        "text": "A whale bought SPY puts ahead of a dump (call flow -$39M vs puts +$7.3M)",
-        "source": "stocktwits",
+        "text": "Samsung in preliminary talks to buy Modine's data-center cooling business (carried from last hour, no new confirmation)",
+        "source": "news",
         "tickers": [
-          "SPY"
+          "MOD"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Flow-reading claim; one print rarely predicts direction"
-      },
-      {
-        "text": "SPY bull flag will break above 765 toward 779 and new highs",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "MOD": "Modine Manufacturing"
         },
         "direction": "up",
-        "credibility": 0.15,
-        "why": "Chart call with no catalyst; contrarian to the bearish crowd"
-      },
-      {
-        "text": "Starship booster catch will push SpaceX stock toward $200",
-        "source": "stocktwits",
-        "tickers": [
-          "SPCX"
-        ],
-        "direction": "up",
-        "credibility": 0.15,
-        "why": "Speculative price targets from posters"
+        "credibility": 0.45,
+        "why": "A deal would value the AI-cooling unit at a premium"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
+      "QQQ": "Invesco QQQ Trust",
       "NVDA": "NVIDIA",
-      "MOD": "Modine Manufacturing",
-      "CSCO": "Cisco Systems",
+      "AMD": "Advanced Micro Devices",
       "AMAT": "Applied Materials",
       "NBIS": "Nebius Group",
+      "CSCO": "Cisco Systems",
       "IONQ": "IonQ",
       "MSFT": "Microsoft",
-      "CBRS": "Cerebras Systems",
-      "CADL": "Candel Therapeutics",
-      "QQQ": "Invesco QQQ Trust"
+      "NU": "Nu Holdings",
+      "MOD": "Modine Manufacturing"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "SPY is about 2 points under Thursday's late level, crypto liquidations and dollar strength are risk-off, and posters say rallies keep getting sold; but sentiment is already bearish, so the edge is thin",
-        "catalyst": "BTC selloff follow-through; NVDA/Huang headlines; Friday flows"
+        "confidence": 0.53,
+        "reason": "Chip leadership is breaking hard (AMD -9%, NVDA -4%) and SPY fell ~5 points in the last hour, while Stocktwits sentiment stays bullish (score 75), so dip-buyers are not yet flushed; Friday de-risking adds pressure, but a bounce off the morning low is plausible so the edge is small",
+        "catalyst": "Semiconductor selling follow-through; Friday afternoon positioning"
       }
     ],
-    "whats_new": "SPY is near 755.6, down from 757.63 at yesterday's 20:06Z reading. New since then: a sharp Bitcoin selloff with liquidations, a reported Samsung-Modine cooling-unit deal talk, CSCO and AMAT beat-and-raise reports being sold, and IONQ executive exits. The Huang story has a new unverified twist (he will sell and start a rival); last hour's 'second affair' claim is not repeated. VIX, Fear & Greed and the Stocktwits score are missing this hour because the connectors failed.",
+    "whats_new": "SPY slid from 755.6 to 750.7 (-0.85% on day) as the AI/chip selloff deepened: AMD -9%, AMAT -6.5%, NVDA -3.8%, QQQ nearly -2%. Market data is back this hour: VIX 18.2, Fear & Greed 41 (fear), Stocktwits SPY score 75, which is bullish while price falls. The Huang, whale-puts and bull-flag claims from last hour were not seen again; a new unconfirmed claim says PPI was cool.",
     "sources": {
-      "market_pulse": "unavailable (Stocklake connector failed)",
-      "sentiment_flow": "stocktwits public stream + trending (connector failed)",
-      "reddit": "unavailable (fetch blocked, web search found nothing current)",
-      "news": "stocktwits trending summaries; one standard web search"
+      "market_pulse": "stocklake",
+      "sentiment_flow": "stocktwits",
+      "reddit": "unavailable (fetch blocked)",
+      "news": "stocktwits trending + stocklake calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": null,
-      "vote": 0,
-      "why": "missing"
+      "value": -0.85,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -130,24 +128,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": null,
-      "vote": 0,
-      "why": "missing"
+      "value": 41.0,
+      "vote": -1,
+      "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": null,
-      "vote": 0,
-      "why": "missing"
+      "value": 75.0,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "unavailable (Stocklake connector failed)",
-    "sentiment_flow": "stocktwits public stream + trending (connector failed)",
-    "reddit": "unavailable (fetch blocked, web search found nothing current)",
-    "news": "stocktwits trending summaries; one standard web search"
+    "market_pulse": "stocklake",
+    "sentiment_flow": "stocktwits",
+    "reddit": "unavailable (fetch blocked)",
+    "news": "stocktwits trending + stocklake calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
