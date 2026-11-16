@@ -1,52 +1,67 @@
 {
   "date": "2026-11-16",
-  "bias": "bearish",
-  "written_at": "2026-11-16T10:08:18-05:00",
-  "as_of": "2026-11-16T15:07:00Z",
+  "bias": "neutral",
+  "written_at": "2026-11-16T11:08:13-05:00",
+  "as_of": "2026-11-16T16:07:00Z",
   "readings": {
-    "as_of": "2026-11-16T15:07:00Z",
-    "spy_price": 745.08,
-    "spy_change_pct": -1.23,
+    "as_of": "2026-11-16T16:07:00Z",
+    "spy_price": 746.51,
+    "spy_change_pct": -1.04,
     "vix": 20.59,
-    "vix_change_pct": 6.1,
     "fear_greed": 38,
     "stocktwits": {
       "SPY": {
-        "score": 75,
-        "bullish_pct": 53.5
+        "score": 74,
+        "bullish_pct": 53.1
       },
       "NVDA": {
         "score": 92,
-        "bullish_pct": 60.8
+        "bullish_pct": 60.7
       }
     },
     "news": {
-      "score": -0.4,
+      "score": -0.3,
       "headlines": [
-        "SPY 745.08 (-1.23%) at 15:07Z, extending premarket loss; QQQ weaker (-1.18% at 14:10Z snapshot) than SPY",
-        "NVDA 158.94 (-2.4%); Stocktwits message volume extremely high (88)",
-        "Shared on Stocktwits citing CNBC: Trump says Nvidia scandal did not put national security at risk, keeps Lutnick as Commerce Secretary, would not mind Huang reinstated; Trump departing for Asia trip to meet Xi",
-        "Trending decliners: HELP -19%, SMMT -11%, IREN -10.6%, BMNR -6.3%, TTWO -2.7%; XPEV +5.7%",
-        "Econ: Canada CPI 3.1% y/y (core 2.0%), Japan Q3 GDP -0.1% annualised; US Retail Sales Tue 13:30Z",
-        "Breadth: 3.7% of universe oversold, 6.4% overbought; TLT +0.2%, GLD flat"
+        "SPY 746.51 (-1.04%) at 16:07Z, bouncing off ~744 low; Stocklake 14:10Z snapshot had QQQ -2.1%, IWM -1.18%",
+        "NVDA 159.32 (-2.2%); Stocktwits message volume extremely high (88)",
+        "NVIDIA, IBM and Fermilab announce quantum-classical co-design platform (shared on Stocktwits)",
+        "Motley Fool 11/16: Nvidia's troubles push some investors toward SOXX",
+        "Trending decliners: IREN -10.3%, SMMT -14.4%, RUM -12.4%, HELP -9.0%, VKTX -5.4%; defensives PG +1.5%, KO +0.6% in trending list",
+        "Econ: Canada CPI 3.1% y/y (core 2.0%), Japan Q3 GDP -0.1% annualised, China retail sales 0.4% y/y; US Retail Sales Tue 13:30Z"
       ]
     },
     "rumors": [
       {
-        "text": "Trump says he would not mind seeing Jensen Huang reinstated as NVIDIA CEO",
+        "text": "Fed chair speech at 12:00 ET today; SPY expected to recover beforehand",
         "source": "stocktwits",
         "tickers": [
-          "NVDA"
+          "SPY"
         ],
         "names": {
-          "NVDA": "NVIDIA"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.3,
-        "why": "Reinstatement talk could ease leadership-shock discount on NVDA; only a presidential remark, no board action"
+        "credibility": 0.25,
+        "why": "A scheduled Fed chair remark within the hour could swing SPY; web search found no confirmation of the event"
       },
       {
-        "text": "Jensen Huang resigned as NVIDIA CEO last week over an affair with a woman some allege is a Chinese spy (post cites CNBC)",
+        "text": "Widespread AI capex cuts being forecast across the board; 'AI bubble has burst'",
+        "source": "stocktwits",
+        "tickers": [
+          "SOXX",
+          "NVDA",
+          "SPY"
+        ],
+        "names": {
+          "SOXX": "iShares Semiconductor ETF",
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "If capex guidance is really being cut, semis and mega-cap tech drag the index further"
+      },
+      {
+        "text": "Jensen Huang resignation / spy-affair story and Trump's reinstatement remark still circulating",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -56,26 +71,24 @@
           "NVDA": "NVIDIA"
         },
         "direction": "down",
-        "credibility": 0.6,
-        "why": "Now attributed to mainstream coverage; largely old news being re-shared, but spy angle feeds export-control scrutiny"
+        "credibility": 0.5,
+        "why": "Old news re-shared from last hour; keeps NVDA leadership/export-control overhang alive"
       },
       {
-        "text": "Questions over Commerce Secretary Lutnick's handling of NVIDIA chip export controls; BIS tightening remote-access loophole",
+        "text": "Retail is over-levered buying the dip; a further dump would wipe them out",
         "source": "stocktwits",
         "tickers": [
-          "NVDA",
-          "SOXX"
+          "SPY"
         ],
         "names": {
-          "NVDA": "NVIDIA",
-          "SOXX": "iShares Semiconductor ETF"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.5,
-        "why": "Stricter export regime narrows AI chip sales; semis lead index lower"
+        "credibility": 0.2,
+        "why": "Crowded dip-buying could amplify a break of 744 support"
       },
       {
-        "text": "Neocloud / AI-infrastructure names getting hit (IREN -10.6%) as AI trade unwinds",
+        "text": "Neocloud/AI-infra names keep sliding (IREN -10%) as AI trade unwinds",
         "source": "stocktwits",
         "tickers": [
           "IREN",
@@ -87,20 +100,7 @@
         },
         "direction": "down",
         "credibility": 0.5,
-        "why": "Broadening AI selloff drags Nasdaq-heavy SPY weights"
-      },
-      {
-        "text": "Crowd calls for SPY 740 then 738 key support, break targets 720",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Chart chatter only; marks levels traders watch"
+        "why": "Continuing from last hour; broad AI de-risking weighs on SPY's tech weight"
       }
     ],
     "names": {
@@ -109,26 +109,27 @@
       "NVDA": "NVIDIA",
       "SOXX": "iShares Semiconductor ETF",
       "IREN": "IREN Limited",
-      "HELP": "Helus Pharma",
+      "IBM": "IBM",
       "SMMT": "Summit Therapeutics",
-      "BMNR": "BitMine Immersion Technologies",
-      "XPEV": "XPeng",
-      "TTWO": "Take-Two Interactive",
-      "AMD": "Advanced Micro Devices"
+      "HELP": "Helus Pharma",
+      "VKTX": "Viking Therapeutics",
+      "RUM": "RUM Group",
+      "PG": "Procter & Gamble",
+      "KO": "Coca-Cola"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Gap-down extended after open (-0.64% premarket to -1.23%), tech leading, NVDA fading off highs, while Stocktwits SPY/NVDA still extremely bullish - no capitulation yet; oversold breadth only 3.7%",
-        "catalyst": "AI/semis unwind, NVDA leadership and export-control headlines; 740/738 support watched"
+        "confidence": 0.52,
+        "reason": "Bounce from 744 to 746.5 is modest while tech/AI unwind continues and Stocktwits stays bullish (74) with heavy 0DTE call buying - no capitulation; but rebound off lows cuts edge",
+        "catalyst": "AI/semis unwind, NVDA headlines; 744 low and 745.87 value-area level watched; unconfirmed Fed chair remarks ~17:00Z"
       }
     ],
-    "whats_new": "Selling deepened after the cash open: SPY fell from 749.57 premarket to 745.08 (-1.23%) and VIX rose to 20.59 from 19.4. The Huang resignation story, flagged last hour as unverified, now circulates with CNBC attribution and Trump comments (no security risk, open to Huang's reinstatement, Asia trip to meet Xi). Stocktwits SPY score steady at 75 (extremely bullish) despite the drop.",
+    "whats_new": "SPY made a new low near 744 then bounced to 746.51 (-1.04%), slightly better than 745.08 last hour; NVDA steady around 159 (-2.2%). Stocktwits SPY sentiment still bullish (74) with traders buying same-day 750 calls, and a new unconfirmed claim of a Fed chair speech at noon ET. Huang/NVDA story is now old news re-shared; NVDA-IBM-Fermilab quantum announcement is the fresh NVDA headline.",
     "sources": {
-      "market_pulse": "stocktwits price 15:07Z; VIX and fear_greed from stocklake 14:10Z snapshot",
+      "market_pulse": "stocktwits price 16:07Z; VIX and fear_greed from stocklake 14:10Z snapshot",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
       "news": "stocktwits shared posts + stocklake econ calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
@@ -137,15 +138,15 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.23,
+      "value": -1.04,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": 6.1,
-      "vote": -1,
-      "why": "\u2265 5.0"
+      "value": null,
+      "vote": 0,
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -155,18 +156,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 75.0,
+      "value": 74.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocktwits price 15:07Z; VIX and fear_greed from stocklake 14:10Z snapshot",
+    "market_pulse": "stocktwits price 16:07Z; VIX and fear_greed from stocklake 14:10Z snapshot",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
     "news": "stocktwits shared posts + stocklake econ calendar; stocklake news feed needs re-auth; web search found no same-day coverage"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
