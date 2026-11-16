@@ -1,89 +1,52 @@
 {
   "date": "2026-11-16",
   "bias": "neutral",
-  "written_at": "2026-11-16T13:07:05-05:00",
-  "as_of": "2026-11-16T18:07:00Z",
+  "written_at": "2026-11-16T14:06:44-05:00",
+  "as_of": "2026-11-16T19:07:00Z",
   "readings": {
-    "as_of": "2026-11-16T18:07:00Z",
-    "spy_price": 742.39,
-    "spy_change_pct": -1.59,
-    "vix": 21.62,
-    "fear_greed": 36,
+    "as_of": "2026-11-16T19:07:00Z",
+    "spy_price": 740.94,
+    "spy_change_pct": -1.78,
+    "vix": 21.12,
+    "fear_greed": 34,
     "stocktwits": {
       "SPY": {
-        "score": 75,
-        "bullish_pct": 51.8
+        "score": 71,
+        "bullish_pct": 51.76
       }
     },
     "news": {
       "score": -0.4,
       "headlines": [
-        "SPY 742.39 (-1.59%) at 18:06Z, new session low below the ~744 area; Stocklake 16:09Z: QQQ -2.12%, IWM -1.28%, VIX 21.62, Fear&Greed 35.5 (fear), breadth mostly neutral RSI",
-        "NVDA -4.2% to ~156 on heavy volume (184M); Stocktwits chatter dominated by talk of Jensen Huang's status at Nvidia (unverified)",
-        "Trending decliners: HOOD -7.6%, ASTS -10.6%, CAPR -12.0%, HELP -8.0%, BIDU -4.3%, BABA -3.2%; SEZL +5.8%; KO flat",
-        "Shared on Stocktwits (citing Reuters): Trump says he may meet Kim Jong-un in China this week; Trump scheduled to travel to China Thursday to meet Xi and Putin",
-        "Econ: Canada CPI 3.1% y/y (core 2.0%); US Retail Sales Tue 17 Nov 13:30Z (prev 0.8% m/m)"
+        "SPY 740.94 (-1.78%) at 19:06Z after a session low of 738.73; Stocklake 18:10Z: SPY 739.85 -1.92%, QQQ -2.6%, IWM -1.79%, VIX 21.12, Fear&Greed 33.7 (fear)",
+        "NVDA -4.2% to ~156 on 221M shares; crowd says market is waiting on NVDA earnings",
+        "Trending decliners: ASTS -11.2%, HOOD -7.3%, SMMT -16.1%, VKTX -8.0%, SLS -6.4%, LEGN -5.8%, JPM -2.3%, GLD -0.6%",
+        "Econ: Canada CPI 3.1% y/y (core 2.0%), Japan Q3 GDP -0.1% annualised, China retail sales 0.4% y/y; US Retail Sales Tue 17 Nov 13:30Z (prev 0.8% m/m)"
       ]
     },
     "rumors": [
       {
-        "text": "Jensen Huang is out at Nvidia and the board is not considering his return ('without Jensen')",
+        "text": "Widespread online outage at Chase, Bank of America, Wells Fargo and Robinhood lasting over an hour",
         "source": "stocktwits",
         "tickers": [
-          "NVDA",
+          "JPM",
+          "BAC",
+          "WFC",
+          "HOOD",
           "SPY"
         ],
         "names": {
-          "NVDA": "NVIDIA"
-        },
-        "direction": "down",
-        "credibility": 0.4,
-        "why": "Leadership uncertainty at the largest index weight would extend the AI unwind and drag SPY/QQQ; not verified from a primary source this run"
-      },
-      {
-        "text": "Nvidia will fumble its upcoming earnings call without Jensen, killing the catalyst",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA"
-        ],
-        "names": {
-          "NVDA": "NVIDIA"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Opinion layered on the leadership rumor; would weigh on semis into the print"
-      },
-      {
-        "text": "Trump may meet Kim Jong-un in China this week alongside Xi and Putin (Thursday trip)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "BABA",
-          "BIDU"
-        ],
-        "names": {
-          "BABA": "Alibaba Group",
-          "BIDU": "Baidu"
-        },
-        "direction": "up",
-        "credibility": 0.4,
-        "why": "Geopolitical thaw/China summit could lift risk appetite and China ADRs later in the week"
-      },
-      {
-        "text": "Morgan Stanley headline bullish for next year but bearish near term (S&P ~7100)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "JPM": "JPMorgan Chase",
+          "BAC": "Bank of America",
+          "WFC": "Wells Fargo",
+          "HOOD": "Robinhood Markets"
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "A near-term sell-side downside target would feed the de-risking narrative"
+        "why": "A real multi-bank outage (or cyberattack) would hit financials and risk appetite; web search found no confirming report, though JPM -2.3% and HOOD -7.3% today"
       },
       {
-        "text": "Tech could drag the S&P down 10-15% as index is concentrated; growth outside tech ~1%",
+        "text": "Bank outages are a cyberattack by a bad actor also targeting tech",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -93,8 +56,46 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
+        "credibility": 0.1,
+        "why": "Speculation layered on the outage claim; would deepen the selloff if true"
+      },
+      {
+        "text": "Jensen Huang is out at Nvidia (carried over from last hour, still unverified)",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA",
+          "SPY"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Leadership uncertainty at the largest index weight; chatter has shifted to NVDA earnings as the trigger"
+      },
+      {
+        "text": "Guaranteed NVDA earnings beat coming",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "up",
         "credibility": 0.2,
-        "why": "Strategist opinion re-shared; reinforces bearish tone but no new data"
+        "why": "Dip-buyer conviction; a beat could reverse the AI unwind"
+      },
+      {
+        "text": "Trump may meet Kim Jong-un in China this week alongside Xi and Putin (carried over)",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {},
+        "direction": "up",
+        "credibility": 0.35,
+        "why": "Geopolitical thaw could lift risk appetite later in the week"
       }
     ],
     "names": {
@@ -104,35 +105,37 @@
       "NVDA": "NVIDIA",
       "HOOD": "Robinhood Markets",
       "ASTS": "AST SpaceMobile",
-      "CAPR": "Capricor Therapeutics",
-      "HELP": "Helus Pharma",
-      "BIDU": "Baidu",
-      "BABA": "Alibaba Group",
-      "SEZL": "Sezzle",
-      "KO": "Coca-Cola"
+      "JPM": "JPMorgan Chase",
+      "BAC": "Bank of America",
+      "WFC": "Wells Fargo",
+      "GLD": "SPDR Gold Shares",
+      "VKTX": "Viking Therapeutics",
+      "SMMT": "Summit Therapeutics",
+      "LEGN": "Legend Biotech",
+      "SLS": "SELLAS Life Sciences"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.54,
-        "reason": "SPY broke below the ~744 low to 742.4 with NVDA -4% and QQQ leading lower, while Stocktwits SPY sentiment is still 'extremely bullish' (75) - no capitulation, dip-buyers crowded",
-        "catalyst": "NVDA leadership chatter and AI unwind; trend continuation into close"
+        "confidence": 0.53,
+        "reason": "SPY made another lower low (738.73) and only bounced weakly to ~741; QQQ -2.6% leads, financials joining on bank-outage chatter, while Stocktwits stays bullish (71) - no capitulation yet",
+        "catalyst": "NVDA weakness, unconfirmed bank outage headlines, trend continuation into close"
       }
     ],
-    "whats_new": "SPY slipped from 744.76 to 742.39 (-1.59%), breaking the prior ~744 low, as NVDA fell to ~156 (-4.2%). The crowd's focus shifted from the Warsh/AI-capex talk to chatter about Jensen Huang's status at Nvidia, plus a Trump-Kim/China summit headline; Stocktwits SPY sentiment is unchanged at 75 despite the new low.",
+    "whats_new": "SPY fell further from 742.39 to a 738.73 low and sits near 740.9 (-1.78%); QQQ now -2.6% and Fear&Greed eased to 34. New this hour: unverified Stocktwits claims of a multi-bank online outage (JPM -2.3%, HOOD -7.3%); Stocktwits SPY sentiment dipped from 75 to 71 but remains bullish.",
     "sources": {
-      "market_pulse": "stocktwits price 18:06Z; VIX, fear_greed, QQQ/IWM from stocklake 16:09Z",
+      "market_pulse": "stocklake 18:10Z + stocktwits price 19:06Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (fetch blocked; web search found no same-day coverage)",
-      "news": "stocktwits shared posts + stocklake econ calendar; web search found no same-day coverage"
+      "reddit": "unavailable (fetch blocked)",
+      "news": "stocktwits posts + stocklake econ calendar; web search found no confirmation of bank outage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.59,
+      "value": -1.78,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -144,13 +147,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 36.0,
+      "value": 34.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 75.0,
+      "value": 71.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
@@ -158,10 +161,10 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocktwits price 18:06Z; VIX, fear_greed, QQQ/IWM from stocklake 16:09Z",
+    "market_pulse": "stocklake 18:10Z + stocktwits price 19:06Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (fetch blocked; web search found no same-day coverage)",
-    "news": "stocktwits shared posts + stocklake econ calendar; web search found no same-day coverage"
+    "reddit": "unavailable (fetch blocked)",
+    "news": "stocktwits posts + stocklake econ calendar; web search found no confirmation of bank outage"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
