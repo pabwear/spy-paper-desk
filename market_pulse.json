@@ -1,132 +1,111 @@
 {
   "date": "2026-11-17",
   "bias": "bearish",
-  "written_at": "2026-11-17T12:06:58-05:00",
-  "as_of": "2026-11-17T17:06:00Z",
+  "written_at": "2026-11-17T13:06:51-05:00",
+  "as_of": "2026-11-17T18:07:00Z",
   "readings": {
-    "as_of": "2026-11-17T17:06:00Z",
-    "spy_price": 732.11,
-    "spy_change_pct": -1.06,
+    "as_of": "2026-11-17T18:07:00Z",
+    "spy_price": 731.88,
+    "spy_change_pct": -1.09,
     "vix": 23.04,
     "fear_greed": 25,
     "stocktwits": {
       "SPY": {
-        "score": 54,
-        "bullish_pct": 49.2
+        "score": 57,
+        "bullish_pct": 49.56
       }
     },
     "news": {
-      "score": -0.35,
+      "score": -0.3,
       "headlines": [
-        "SPY 732.11 (-1.06%) at 12:06 ET; session low 727.03 (~-1.7%) then partial bounce. Stocklake delayed snapshot: SPY -1.22%, QQQ -1.51%, IWM -1.22%, TLT +0.33%, GLD +0.29%",
-        "Fear & Greed slid to 24.7 (extreme fear) from 31; VIX ~23.0; breadth 6% oversold / 5% overbought",
-        "US Retail Sales Oct +0.2% m/m (prev 0.8%), ex-autos +0.6% (prev 0.9%)",
-        "CRM -9.4%, HOOD -5.3%, NKE -2.4%, OMER -19%, SLS +172%, FUBO +9.7%, DIS +1.3% trending on Stocktwits",
-        "NVDA -1.1% (low 150.35) with extremely high Stocktwits volume and 89 sentiment score into earnings; UK CPI due Wed 07:00Z"
+        "SPY 731.88 (-1.09%) at 13:06 ET, flat vs prior hour, holding above the 727 session low",
+        "Stocklake snapshot unchanged since 16:11Z: VIX 23.04, Fear & Greed 24.7 (extreme fear), breadth 6% oversold / 5% overbought; TLT +0.47%, GLD +0.28%",
+        "US Retail Sales Oct +0.2% m/m (prev 0.8%), ex-autos +0.6% (prev 0.9%); UK CPI due Wed 07:00Z",
+        "Stocktwits trending: SLS +169%, CRM -9.3%, HOOD -5.5%, TTWO -4.7%, FSLR -5.4%, MSTR -5.1%, NKE -2.3%, NVDA -1.4% (low 150.35)",
+        "SPY Stocktwits message volume HIGH; chatter dominated by NVDA earnings and 'forced liquidation' framing"
       ]
     },
     "rumors": [
       {
-        "text": "Crowd expects an end-of-day rally into the NVDA earnings print plus hype around an Anthropic IPO",
+        "text": "Posters say NVDA reports tonight and expect the market to use it to push SPY down toward 718 (Jensen exit chatter repeated, unconfirmed)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
-          "QQQ",
           "SPY"
         ],
         "names": {
           "NVDA": "NVIDIA",
-          "QQQ": "Invesco QQQ Trust",
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.25,
-        "why": "A pre-earnings run-up in the top index weight would lift SPY into the close"
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "A sell-the-news reaction in the top index weight would extend SPY's slide"
       },
       {
-        "text": "Jensen Huang's role at Nvidia in question; posters debate making him a non-voting advisor (continuation of stale exit chatter, unconfirmed)",
+        "text": "'Forced liquidation' underway: no bids, everyone waiting for NVDA and an Anthropic debut before touching anything",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "NVDA"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "If de-risking is mechanical, selling can continue until the catalyst passes"
+      },
+      {
+        "text": "Crowd expects an end-of-day rally into NVDA earnings plus Anthropic IPO hype (repeat from last hour)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
           "SPY"
         ],
         "names": {
-          "NVDA": "NVIDIA"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "A CEO change before earnings would hit the AI trade and SPY"
-      },
-      {
-        "text": "ZeroHedge piece circulating: Anthropic paid a lobbying firm tied to Rubio's ex-chief of staff and lobbied the NSC after a 'Jensen memo'; posters frame it as foul play against Nvidia",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA"
-        ],
-        "names": {
-          "NVDA": "NVIDIA"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Hints at policy fights over AI chip exports that could weigh on Nvidia's China/export outlook"
-      },
-      {
-        "text": "'Shorts are all in, this can go parabolic' - squeeze calls on SPY off the lows",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
+          "NVDA": "NVIDIA",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
         "credibility": 0.2,
-        "why": "Crowded shorts plus extreme fear can fuel sharp short-covering bounces"
+        "why": "A pre-earnings run-up would lift SPY into the close"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF",
       "NVDA": "NVIDIA",
       "CRM": "Salesforce",
       "HOOD": "Robinhood Markets",
       "NKE": "Nike",
-      "DIS": "Walt Disney",
-      "SLS": "SELLAS Life Sciences",
-      "OMER": "Omeros",
-      "FUBO": "fuboTV"
+      "TTWO": "Take-Two Interactive",
+      "FSLR": "First Solar",
+      "MSTR": "Strategy",
+      "SLS": "SELLAS Life Sciences"
     },
     "plays": [
-      {
-        "ticker": "SPY",
-        "direction": "up",
-        "horizon": "1h",
-        "confidence": 0.52,
-        "reason": "Extreme fear (F&G 25), SPY bounced ~5 pts off 727 low; bears/bulls split 50/50 so no crowded long yet",
-        "catalyst": "Short covering and dip buying after a three-session slide"
-      },
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Risk-off persists (QQQ weaker than SPY, bonds/gold bid, CRM -9%); bounces have faded today and fear readings are worsening",
-        "catalyst": "Pre-NVDA-earnings tech de-risking into the close"
+        "reason": "Risk-off intact (bonds/gold bid, high-beta names HOOD/MSTR/CRM weak), bounce off 727 has stalled near 732",
+        "catalyst": "Pre-NVDA-earnings de-risking into the close"
       }
     ],
-    "whats_new": "SPY made a new low near 727 (~-1.7%) after the last reading, then bounced to ~732 (-1.06%). Fear & Greed fell from 31 to ~25 (extreme fear) and VIX edged up to ~23.0. Stocktwits SPY sentiment steady near 54 (50/50), while NVDA chatter is extremely high and very bullish into earnings; a ZeroHedge Anthropic-lobbying story is the new NVDA talking point.",
+    "whats_new": "SPY is essentially unchanged over the hour (~732, -1.1%), stalling after the bounce from 727. Stocktwits SPY score edged up to 57 but bulls/bears remain 50/50; trending list added TTWO, FSLR and MSTR losers. Stocklake VIX/Fear&Greed snapshot has not refreshed since 16:11Z, so those are carried over.",
     "sources": {
-      "market_pulse": "stocklake (16:05-16:11Z snapshot) + stocktwits price 17:06Z",
+      "market_pulse": "stocklake (16:11Z snapshot, stale) + stocktwits price 18:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake econ calendar + stocktwits trending/posts; web search found no same-day wrap; stocklake news feed needs re-auth"
+      "news": "stocklake econ calendar + stocktwits trending/posts; web search found no same-day coverage; stocklake news feed needs re-auth"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.06,
+      "value": -1.09,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -144,7 +123,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 54.0,
+      "value": 57.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -152,10 +131,10 @@
   "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (16:05-16:11Z snapshot) + stocktwits price 17:06Z",
+    "market_pulse": "stocklake (16:11Z snapshot, stale) + stocktwits price 18:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake econ calendar + stocktwits trending/posts; web search found no same-day wrap; stocklake news feed needs re-auth"
+    "news": "stocklake econ calendar + stocktwits trending/posts; web search found no same-day coverage; stocklake news feed needs re-auth"
   },
   "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
