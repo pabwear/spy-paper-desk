@@ -1,33 +1,37 @@
 {
   "date": "2026-11-17",
   "bias": "neutral",
-  "written_at": "2026-11-17T09:07:58-05:00",
-  "as_of": "2026-11-17T14:07:00Z",
+  "written_at": "2026-11-17T10:07:15-05:00",
+  "as_of": "2026-11-17T15:07:00Z",
   "readings": {
-    "as_of": "2026-11-17T14:07:00Z",
-    "spy_price": 739.03,
-    "spy_change_pct": -0.12,
-    "vix": 23.51,
-    "fear_greed": 30,
+    "as_of": "2026-11-17T15:07:00Z",
+    "spy_price": 737.27,
+    "spy_change_pct": -0.36,
+    "vix": 22.55,
+    "fear_greed": 31,
     "stocktwits": {
       "SPY": {
         "score": 63,
-        "bullish_pct": 50.24
+        "bullish_pct": 50.23
+      },
+      "NVDA": {
+        "score": 87,
+        "bullish_pct": 59.66
       }
     },
     "news": {
       "score": -0.3,
       "headlines": [
-        "Premarket 09:06 ET: SPY 739.03 (-0.12%) after Monday's ~-1.9% drop; Stocklake last snapshot (Mon 20:10Z): VIX 23.51, Fear&Greed 30.2 (fear), SPY RSI 40, QQQ RSI 38",
-        "US Retail Sales (Oct) due/just out 13:30Z (prev 0.8% m/m, ex-autos 0.9%); actual not yet in feed",
-        "Home Depot reports today (scheduled 9:00 ET); HD -2.9% premarket on Stocktwits trending, results not confirmed by our sources",
-        "Stocktwits trending premarket: SLS +253% (cause unconfirmed), JD -6.2%, BABA -3.3%, DIS -2.7%, HD -2.9%, OMER -10.4%",
-        "Japan Q3 GDP -0.1% annualised, China retail sales 0.4% y/y (prev 1.1%) - weak global growth backdrop; UK CPI Wed 07:00Z"
+        "US Retail Sales Oct +0.2% m/m (prev 0.8%), ex-autos +0.6% (prev 0.9%) - consumer slowing",
+        "SPY 737.27 (-0.36%) at 10:06 ET, extending Monday's ~-1.9% drop; QQQ flat, IWM -0.2% at last Stocklake snapshot",
+        "Stocklake 14:10Z: VIX 22.55, Fear&Greed 30.7 (fear), SPY RSI 40, breadth neutral (5.7% oversold / 6.3% overbought)",
+        "Stocktwits trending: SLS +179%, UNH -5.2%, JD -6.2%, BABA -3.1%, HD -1.3% (earnings day), DIS +2.2%, NKE +2.4%, OMER -18.5%",
+        "UK CPI due Wed 07:00Z; NVDA earnings anticipation dominating chatter (message volume extremely high)"
       ]
     },
     "rumors": [
       {
-        "text": "Nvidia removed the affiliate badge from Jensen Huang's X account and unfollowed him; posters tie it to 'personal/family' issues and an exit",
+        "text": "NVDA may pull or withhold guidance in its upcoming report (debated and disputed by other posters)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -37,11 +41,43 @@
           "NVDA": "NVIDIA"
         },
         "direction": "down",
-        "credibility": 0.15,
-        "why": "Continuation of the stale, unconfirmed ouster rumor (now day 2); a real CEO exit before earnings would hit the biggest index weight"
+        "credibility": 0.1,
+        "why": "No guidance from the largest index weight would hit AI trade and SPY"
       },
       {
-        "text": "Market 'won't be allowed' to move much until NVDA earnings later this week; dip in NVDA is an 'obvious' buy",
+        "text": "Institutions pushing chips lower on 'future rate hikes' excuse; dip buyers being shaken out",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA",
+          "MU",
+          "INTC",
+          "SPY"
+        ],
+        "names": {
+          "NVDA": "NVIDIA",
+          "MU": "Micron Technology",
+          "INTC": "Intel"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Rate-hike fears would pressure high-multiple tech and the index"
+      },
+      {
+        "text": "Nvidia unfollowed / removed affiliate badge from Jensen Huang's X account, tied to an exit (stale, day 2, unconfirmed)",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA",
+          "SPY"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "A real CEO exit before earnings would hit the biggest index weight; no confirmation found"
+      },
+      {
+        "text": "Market pinned until NVDA earnings; NVDA dip is a buy into the print",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -52,7 +88,7 @@
         },
         "direction": "up",
         "credibility": 0.2,
-        "why": "Dip-buyer positioning ahead of NVDA earnings; if crowded, a disappointment would amplify downside"
+        "why": "Crowded long into the print; a beat lifts SPY, a miss amplifies downside"
       }
     ],
     "names": {
@@ -60,36 +96,48 @@
       "QQQ": "Invesco QQQ Trust",
       "NVDA": "NVIDIA",
       "HD": "Home Depot",
+      "UNH": "UnitedHealth Group",
       "JD": "JD.com",
       "BABA": "Alibaba Group",
       "DIS": "Walt Disney",
+      "NKE": "Nike",
       "SLS": "SELLAS Life Sciences",
-      "OMER": "Omeros"
+      "OMER": "Omeros",
+      "MU": "Micron Technology",
+      "INTC": "Intel"
     },
     "plays": [
+      {
+        "ticker": "SPY",
+        "direction": "down",
+        "horizon": "1h",
+        "confidence": 0.53,
+        "reason": "Open-hour selling after soft retail sales, no bounce from Monday's -1.9%; NVDA (largest weight) -1.2% with extreme chatter",
+        "catalyst": "Weak Oct retail sales print; pre-NVDA-earnings de-risking"
+      },
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "1d",
         "confidence": 0.52,
-        "reason": "Premarket flat after a -1.9% day with fear readings (F&G 30, VIX 23.5) and RSI ~40; mild mean-reversion edge, but crowd still not capitulated (ST score 63)",
-        "catalyst": "Retail sales print and HD/retail earnings reaction; NVDA earnings anticipation"
+        "reason": "Fear readings (F&G 31, VIX ~22.5, RSI 40) after two down days give a slight mean-reversion edge, but crowd not capitulated",
+        "catalyst": "Oversold bounce attempt; NVDA earnings run-up"
       }
     ],
-    "whats_new": "SPY closed Monday near 740 (~-1.9%) and is flat premarket at 739.03. Stocktwits SPY sentiment cooled from 70 to 63 (bulls ~50%), VIX snapshot rose to 23.51 and Fear&Greed to 30. Bank-outage and Trump-Kim chatter faded; Jensen ouster rumor persists unconfirmed; HD earnings day and retail sales are today's catalysts.",
+    "whats_new": "Retail sales came in soft (+0.2% vs prior 0.8%) and SPY slid from flat premarket to -0.36% (737.27) in the first half hour. VIX snapshot eased to 22.55, F&G steady ~31; Stocktwits SPY score unchanged at 63 while NVDA chatter is extremely high and bullish (87) despite NVDA -1.2%. New chatter: NVDA guidance-pull fears and 'rate hike' narrative; Jensen exit rumor still unconfirmed.",
     "sources": {
-      "market_pulse": "stocklake (Mon 20:10Z snapshot) + stocktwits price 14:06Z",
+      "market_pulse": "stocklake (14:10Z snapshot) + stocktwits price 15:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (fetch blocked)",
-      "news": "stocklake econ calendar + stocktwits trending; news feed needs re-auth; web search returned only 2025/schedule items"
+      "news": "stocklake econ calendar + stocktwits trending; stocklake news feed needs re-auth; web search returned only older articles"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.12,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": -0.36,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -99,7 +147,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 30.0,
+      "value": 31.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -110,13 +158,13 @@
       "why": "\u2265 60.0"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (Mon 20:10Z snapshot) + stocktwits price 14:06Z",
+    "market_pulse": "stocklake (14:10Z snapshot) + stocktwits price 15:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (fetch blocked)",
-    "news": "stocklake econ calendar + stocktwits trending; news feed needs re-auth; web search returned only 2025/schedule items"
+    "news": "stocklake econ calendar + stocktwits trending; stocklake news feed needs re-auth; web search returned only older articles"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
