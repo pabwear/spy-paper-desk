@@ -1,18 +1,19 @@
 {
   "date": "2026-11-18",
   "bias": "neutral",
-  "written_at": "2026-11-18T13:06:54-05:00",
-  "as_of": "2026-11-18T18:07:00Z",
+  "written_at": "2026-11-18T14:06:31-05:00",
+  "as_of": "2026-11-18T19:07:00Z",
   "readings": {
-    "as_of": "2026-11-18T18:07:00Z",
-    "spy_price": 730.96,
-    "spy_change_pct": -0.2,
-    "vix": 24.51,
-    "fear_greed": 24,
+    "as_of": "2026-11-18T19:07:00Z",
+    "spy_price": 731.03,
+    "spy_change_pct": -0.19,
+    "vix": 24.57,
+    "vix_change_pct": 0.24,
+    "fear_greed": 25,
     "stocktwits": {
       "SPY": {
-        "score": 54,
-        "bullish_pct": 47.73
+        "score": 55,
+        "bullish_pct": 47.62
       }
     },
     "reddit": {
@@ -21,48 +22,35 @@
       "top": []
     },
     "news": {
-      "score": -0.2,
+      "score": -0.3,
       "headlines": [
-        "SPY 730.96 (-0.20%) at 13:06 ET per Stocktwits, holding above the ~727 intraday low; Stocklake delayed: SPY 731.60 (-0.11%), QQQ +0.32%, IWM +0.98%, TLT +0.72%, GLD -2.77%",
-        "VIX 24.51 and fear & greed 24 'extreme fear' (Stocklake snapshot 16:10Z, unchanged); breadth 7.4% oversold vs 3.2% overbought",
-        "UNH -8.3% at 357.20, trending #1 on Stocktwits; posters cite an unconfirmed regulatory proposal",
-        "NVDA -2.5% at 151.57 near day low 150.86 (trending #4); MSTR -3.9%, ASTS -5.2%, IREN -2.6%",
-        "Gainers trending: TTWO +7.5%, PANW +6.5%, CELH +5.4%, GME +4.7%",
-        "Stocktwits post (Ticker Tape): US 20-year Treasury auction cleared at 5.459% with solid demand (not independently confirmed)",
-        "Calendar: no US key event left today; Japan CPI 23:30Z; UK CPI 3.6% y/y earlier"
+        "SPY 731.03 (-0.19%) at 14:05 ET per Stocktwits; Stocklake delayed snapshot 18:09Z had SPY 733.73 (+0.18%), QQQ +0.77%, IWM +1.08%, TLT +0.78%, GLD -2.78%",
+        "FOMC minutes out ~14:00 ET; Stocktwits poster summary: almost all officials saw further hikes likely, a couple open to >25bp, AI buildout cited as inflation risk (summary not independently confirmed)",
+        "VIX 24.57, fear & greed 25 'fear' (Stocklake 18:02Z); breadth 7.4% oversold vs 3.2% overbought",
+        "UNH -9.7% at 351.96, trending #1 and at day lows",
+        "NVDA -2.4% at 151.67 near day low 150.86",
+        "Gainers trending: TTWO +8.5%, PANW +8.0%, TGT +7.1%, DIS +4.9%, BB +5.2%",
+        "Calendar: no US data left today; Japan CPI 23:30Z; UK CPI 3.6% y/y earlier; US retail sales 0.2% m/m yesterday"
       ]
     },
     "rumors": [
       {
-        "text": "UNH posters say the drop is driven by a regulatory proposal (not final) and talk of an audit; down ~$54 in two days",
+        "text": "Poster summary of FOMC minutes: almost all officials saw further rate hikes likely, a couple said >25bp could be considered if inflation is unfavorable",
         "source": "stocktwits",
         "tickers": [
-          "UNH",
-          "MOH"
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "UNH": "UnitedHealth Group",
-          "MOH": "Molina Healthcare"
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "A rule cutting insurer payments would keep pressure on managed care and S&P health care"
+        "credibility": 0.5,
+        "why": "A more hawkish path than priced would pressure equities, especially long-duration tech"
       },
       {
-        "text": "Posters claim 729.10 is the line: an SPY close below it targets 716; others say they only care about holding the 200-day MA",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "A break of the morning low area could trigger a faster drop into the close"
-      },
-      {
-        "text": "NVDA posters calling for shorts on the day-low retest (re-shared bearish tone; leadership worry from earlier hours is stale)",
+        "text": "Same minutes summary says many officials saw the AI buildout as a material inflation risk",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -73,23 +61,34 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "Continued weakness in the largest index weight caps SPY"
+        "credibility": 0.45,
+        "why": "Fed framing AI capex as inflationary adds pressure on AI leaders already at day lows"
       },
       {
-        "text": "Rotation out of AI megacaps into small caps and beaten-down names (IWM ~+1%, QQQ flat-up, TTWO/PANW/CELH up)",
+        "text": "UNH slide (now ~-9.7%) blamed by posters on an unconfirmed regulatory proposal; selling extended into the afternoon",
         "source": "stocktwits",
         "tickers": [
-          "IWM",
-          "NVDA"
+          "UNH"
         ],
         "names": {
-          "IWM": "iShares Russell 2000 ETF",
-          "NVDA": "NVIDIA"
+          "UNH": "UnitedHealth Group"
         },
-        "direction": "up",
-        "credibility": 0.45,
-        "why": "Broadening helps equal-weight while cap-weighted SPY lags"
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "A payment-cutting rule would keep weighing on managed care and S&P health care"
+      },
+      {
+        "text": "Posters calling 'full puts into close' and a run to SPY 720 after the minutes",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "A break of the ~727 intraday low could accelerate selling into the close"
       }
     ],
     "names": {
@@ -100,55 +99,52 @@
       "GLD": "SPDR Gold Shares",
       "NVDA": "NVIDIA",
       "UNH": "UnitedHealth Group",
-      "MOH": "Molina Healthcare",
-      "MSTR": "Strategy",
-      "ASTS": "AST SpaceMobile",
-      "IREN": "IREN Limited",
       "TTWO": "Take-Two Interactive",
       "PANW": "Palo Alto Networks",
-      "CELH": "Celsius Holdings",
-      "GME": "GameStop"
+      "TGT": "Target",
+      "DIS": "Walt Disney",
+      "BB": "BlackBerry"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
+        "direction": "down",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "SPY held ~727 and is near flat with IWM +1% and QQQ green, extreme fear (24) and RSI ~37 favor mean reversion; offset by NVDA at day lows and UNH still sliding",
-        "catalyst": "Solid 20-year auction reported, no US data left today"
+        "confidence": 0.54,
+        "reason": "Hawkish-sounding minutes summary circulating, NVDA and UNH pinned at lows and SPY slipped back below flat; offset by extreme-fear readings, RSI ~37 and strong small caps",
+        "catalyst": "FOMC minutes digestion into the close"
       }
     ],
-    "whats_new": "SPY edged up to 730.96 (-0.20%) from 730.32 an hour ago, still above the ~727 low; small caps strengthened (IWM ~+1%). UNH slid a bit further to -8.3% with posters now calling the cause a regulatory proposal, and NVDA slipped to -2.5% near its low. A 20-year Treasury auction was reported to clear at 5.459% with solid demand; VIX/fear-greed snapshot unchanged since 16:10Z.",
+    "whats_new": "FOMC minutes landed around 14:00 ET and the circulating summary reads hawkish (most officials see further hikes likely, AI buildout flagged as inflation risk); SPY is roughly unchanged from last hour at 731.03 (-0.19%). UNH deepened to about -9.7% and TGT/DIS joined the trending gainers. Fear & greed ticked to 25 and VIX 24.57, essentially unchanged.",
     "sources": {
-      "market_pulse": "stocklake (16:10Z) + stocktwits prices 18:06Z",
+      "market_pulse": "stocklake (18:09Z) + stocktwits price 19:05Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked; web search found no same-day coverage)",
-      "news": "stocklake econ calendar + stocktwits trending/posts; standard web search found no same-day coverage"
+      "reddit": "unavailable (reddit fetch blocked)",
+      "news": "stocklake econ calendar + stocktwits posts/trending; stocklake news feed needs re-auth; standard web search found no same-day coverage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.2,
+      "value": -0.19,
       "vote": 0,
       "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": null,
+      "value": 0.24,
       "vote": 0,
-      "why": "missing"
+      "why": "in the neutral band"
     },
     {
       "reading": "fear_greed",
-      "value": 24.0,
+      "value": 25.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 54.0,
+      "value": 55.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -156,10 +152,10 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (16:10Z) + stocktwits prices 18:06Z",
+    "market_pulse": "stocklake (18:09Z) + stocktwits price 19:05Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked; web search found no same-day coverage)",
-    "news": "stocklake econ calendar + stocktwits trending/posts; standard web search found no same-day coverage"
+    "reddit": "unavailable (reddit fetch blocked)",
+    "news": "stocklake econ calendar + stocktwits posts/trending; stocklake news feed needs re-auth; standard web search found no same-day coverage"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
