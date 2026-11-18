@@ -1,33 +1,39 @@
 {
   "date": "2026-11-18",
   "bias": "neutral",
-  "written_at": "2026-11-18T09:08:07-05:00",
-  "as_of": "2026-11-18T14:07:00Z",
+  "written_at": "2026-11-18T10:07:45-05:00",
+  "as_of": "2026-11-18T15:07:00Z",
   "readings": {
-    "as_of": "2026-11-18T14:07:00Z",
-    "spy_price": 734.78,
-    "spy_change_pct": 0.32,
-    "vix": 25.44,
-    "fear_greed": 24,
+    "as_of": "2026-11-18T15:07:00Z",
+    "spy_price": 732.68,
+    "spy_change_pct": 0.03,
+    "vix": 23.81,
+    "vix_change_pct": -6.4,
+    "fear_greed": 26,
     "stocktwits": {
       "SPY": {
-        "score": 54,
+        "score": 55,
         "bullish_pct": 48.54
       }
     },
+    "reddit": {
+      "score": 0.0,
+      "posts": 0,
+      "top": []
+    },
     "news": {
-      "score": 0.1,
+      "score": -0.2,
       "headlines": [
-        "SPY premarket 734.78 (+0.32%) at 09:06 ET; Stocklake (delayed) SPY 734.87 +0.33%, QQQ +0.79%, IWM -0.23%, GLD -1.64%",
-        "Stocklake VIX/F&G/breadth snapshot still from 17 Nov 20:10Z: VIX 25.44, Fear & Greed 24.2 extreme fear, breadth 6.6% oversold / 4.1% overbought; SPY RSI 37.5",
-        "Premarket movers on Stocktwits trending: TTWO +5.1%, NVDA +2.7%, ZIM +3.4%, TGT +0.6%; LOW -5.6%, AAOI -9.8%, SLV -3.1%, GLD -1.6%, NKE -1.8%",
-        "Calendar: UK CPI due 07:00Z today; no US key event listed for today; Japan CPI 23:30Z tomorrow; US retail sales Oct +0.2% m/m released yesterday",
-        "SPY Stocktwits message volume HIGH (57); chart posters call SPX at new multi-month lows retesting Jun-Jul support near 7300 (bearish structure), others expect a bounce"
+        "SPY 732.68 (+0.03%) at 10:06 ET per Stocktwits; premarket +0.3% gap (734.78) fully faded after the open; Stocklake delayed SPY 730.62 -0.25%, QQQ -0.23%, IWM +0.26%",
+        "Stocklake 14:10Z: VIX 23.81 (from 25.44 yesterday), Fear & Greed 26 'fear', breadth 7.1% oversold / 3.3% overbought; SPY RSI 37.5; TLT +0.6%, GLD -2.0%",
+        "NVDA reversed from ~161 early to ~155 (-0.2%), posters cite a 52-week low; web coverage: Nov 12 NVDA named CFO Colette Kress interim CEO, Nov 16 Treasury Sec. Bessent called for an outsider CEO and S&P fell 1.9%",
+        "Stocktwits trending: AAOI -12%, UNH -4.2%, CRM -3.0%, IREN -2.4%; TTWO +6.0%, TGT +6.0%, ZIM +2.0%; LOW recovered to -1.2% from -5.6% premarket",
+        "Calendar: UK CPI 3.6% y/y (prev 3.5) released 07:00Z; no US key event today; Japan CPI 23:30Z Nov 19"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say most of the crowd is bullish into an imminent NVDA earnings report; NVDA up ~2.7% premarket (report timing not verified)",
+        "text": "Poster claims NVDA beat top to bottom with a $150B buyback, EPS +106% and revenue +103% y/y, yet stock sits near a 52-week low",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -38,11 +44,58 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.3,
-        "why": "A run-up into the top index weight's print could lift SPY today, but sets up a sell-the-news risk"
+        "credibility": 0.35,
+        "why": "If the print was that strong and the stock still fades, the selling is about leadership/governance, not numbers; a bounce could lift SPY"
       },
       {
-        "text": "Poster warns shorts that a Trump meeting with China is coming and any headline could send the market higher (unconfirmed)",
+        "text": "Bond yields keep falling as money rotates into Treasuries on economic uncertainty (TLT +0.6% today)",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "TLT"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "TLT": "iShares 20+ Year Treasury Bond ETF"
+        },
+        "direction": "down",
+        "credibility": 0.5,
+        "why": "Flight to safety signals risk-off positioning that caps equity bounces"
+      },
+      {
+        "text": "Posters say AVGO and AMD are being bid to prop up the index while NVDA fades",
+        "source": "stocktwits",
+        "tickers": [
+          "AVGO",
+          "AMD",
+          "SPY"
+        ],
+        "names": {
+          "AVGO": "Broadcom",
+          "AMD": "Advanced Micro Devices",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "Rotation within semis would cushion SPY even if NVDA keeps sliding"
+      },
+      {
+        "text": "Bear posts: 'Trump has no reason to save stocks now' after early November; risk has 'skyrocketed'",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "Opinion that no policy put exists; if believed widely it extends de-risking"
+      },
+      {
+        "text": "Leaders' summit chatter ('three old men dividing the globe') continues; earlier claim of a Trump-China meeting still unconfirmed (stale)",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -52,79 +105,68 @@
         },
         "direction": "up",
         "credibility": 0.2,
-        "why": "Positive US-China trade headlines would spark a relief rally from extreme fear"
-      },
-      {
-        "text": "Bearish posters claim 'the Fed wants to crash the market'",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "NVDA"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "NVDA": "NVIDIA"
-        },
-        "direction": "down",
-        "credibility": 0.05,
-        "why": "Hawkish Fed talk would extend the slide; claim is opinion, not news"
+        "why": "A positive geopolitical/trade headline could spark a relief rally from fear levels"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
-      "NVDA": "NVIDIA",
-      "TTWO": "Take-Two Interactive",
-      "LOW": "Lowe's",
-      "TGT": "Target",
-      "ZIM": "ZIM Integrated Shipping",
-      "AAOI": "Applied Optoelectronics",
-      "NKE": "Nike",
+      "TLT": "iShares 20+ Year Treasury Bond ETF",
       "GLD": "SPDR Gold Shares",
-      "SLV": "iShares Silver Trust",
-      "EXK": "Endeavour Silver"
+      "NVDA": "NVIDIA",
+      "UNH": "UnitedHealth Group",
+      "CRM": "Salesforce",
+      "AAOI": "Applied Optoelectronics",
+      "TTWO": "Take-Two Interactive",
+      "TGT": "Target",
+      "LOW": "Lowe's",
+      "ZIM": "ZIM Integrated Shipping",
+      "IREN": "IREN Limited",
+      "AVGO": "Broadcom",
+      "AMD": "Advanced Micro Devices",
+      "NBIS": "Nebius Group"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
+        "direction": "down",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Premarket +0.3% led by NVDA/QQQ strength off extreme fear and oversold RSI ~37; but chart structure still lower highs and LOW -5.6% weighs on retail",
-        "catalyst": "Reflex bounce plus NVDA run-up ahead of its expected earnings"
+        "reason": "Premarket gap fully faded, NVDA rejected near 160-161 and megacaps (UNH, CRM) weak while bonds bid; offset by fear/oversold readings and falling VIX",
+        "catalyst": "NVDA failed bounce and risk-off bond flows"
       }
     ],
-    "whats_new": "SPY is +0.3% premarket at 734.78, well above yesterday's 15:06 ET reading of 728.79, so the late slide reversed into the close and futures are extending it; QQQ (+0.8%) and NVDA (+2.7%) lead while IWM lags. Lowe's (-5.6%) and Take-Two (+5.1%) are the big premarket earnings movers; Stocktwits SPY bulls/bears still ~49/51. Stocklake VIX/F&G snapshot has not refreshed since yesterday 20:10Z.",
+    "whats_new": "The +0.3% premarket gap is gone: SPY is ~flat at 732.68 after the open as NVDA reversed from ~161 to ~155 and UNH (-4%) and CRM (-3%) slid, while IWM is green. Stocklake's snapshot refreshed: VIX eased to 23.8 from 25.4 and Fear & Greed is 26 (fear). Stocktwits SPY still split ~49/51 with HIGH volume and chop talk.",
     "sources": {
-      "market_pulse": "stocklake (VIX/F&G snapshot 2026-11-17 20:10Z, index prices delayed) + stocktwits price 14:06Z",
+      "market_pulse": "stocklake (snapshot 14:10Z, prices delayed) + stocktwits price 15:06Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (fetch blocked; web search found no same-day coverage)",
-      "news": "stocklake econ calendar + stocktwits trending/posts; stocklake news feed needs re-auth; web search returned no reliable same-day coverage"
+      "reddit": "unavailable (reddit fetch blocked)",
+      "news": "stocklake econ calendar + stocktwits trending/posts + one standard web search (no same-day article found; context from Nov 12/16 coverage)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.32,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": 0.03,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
-      "value": null,
-      "vote": 0,
-      "why": "missing"
+      "value": -6.4,
+      "vote": 1,
+      "why": "\u2264 -5.0"
     },
     {
       "reading": "fear_greed",
-      "value": 24.0,
+      "value": 26.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 54.0,
+      "value": 55.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -132,10 +174,10 @@
   "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (VIX/F&G snapshot 2026-11-17 20:10Z, index prices delayed) + stocktwits price 14:06Z",
+    "market_pulse": "stocklake (snapshot 14:10Z, prices delayed) + stocktwits price 15:06Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (fetch blocked; web search found no same-day coverage)",
-    "news": "stocklake econ calendar + stocktwits trending/posts; stocklake news feed needs re-auth; web search returned no reliable same-day coverage"
+    "reddit": "unavailable (reddit fetch blocked)",
+    "news": "stocklake econ calendar + stocktwits trending/posts + one standard web search (no same-day article found; context from Nov 12/16 coverage)"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
