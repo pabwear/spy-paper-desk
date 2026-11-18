@@ -1,18 +1,18 @@
 {
   "date": "2026-11-18",
   "bias": "neutral",
-  "written_at": "2026-11-18T12:06:42-05:00",
-  "as_of": "2026-11-18T17:06:00Z",
+  "written_at": "2026-11-18T13:06:54-05:00",
+  "as_of": "2026-11-18T18:07:00Z",
   "readings": {
-    "as_of": "2026-11-18T17:06:00Z",
-    "spy_price": 730.32,
-    "spy_change_pct": -0.29,
+    "as_of": "2026-11-18T18:07:00Z",
+    "spy_price": 730.96,
+    "spy_change_pct": -0.2,
     "vix": 24.51,
     "fear_greed": 24,
     "stocktwits": {
       "SPY": {
-        "score": 51,
-        "bullish_pct": 48.07
+        "score": 54,
+        "bullish_pct": 47.73
       }
     },
     "reddit": {
@@ -21,40 +21,48 @@
       "top": []
     },
     "news": {
-      "score": -0.3,
+      "score": -0.2,
       "headlines": [
-        "SPY 730.32 (-0.29%) at 12:05 ET per Stocktwits; Stocklake delayed quote 727.85 (-0.63%) shows an intraday dip toward 727 that has since bounced; QQQ -0.4%, IWM +0.35%, TLT +0.68%, GLD -2.9%",
-        "VIX 24.51 (from 23.81 last reading); fear & greed 24 'extreme fear' (from 26); breadth 7.4% oversold vs 3.2% overbought",
-        "UNH extends drop to -8.2% (357.70), trending #2 on Stocktwits; managed-care peers tagged; no confirmed cause found",
-        "NVDA -2.1% at 152.18, near day low 150.86; MSTR -4.7% (trending #1), ASTS -7.1%",
-        "Gainers: LULU +8.2%, TTWO +6.9%, PANW +6.2%; no confirmed catalysts found",
-        "Calendar: UK CPI 3.6% y/y; US retail sales (Nov 17) 0.2% m/m; no US key event today; Japan CPI 23:30Z"
+        "SPY 730.96 (-0.20%) at 13:06 ET per Stocktwits, holding above the ~727 intraday low; Stocklake delayed: SPY 731.60 (-0.11%), QQQ +0.32%, IWM +0.98%, TLT +0.72%, GLD -2.77%",
+        "VIX 24.51 and fear & greed 24 'extreme fear' (Stocklake snapshot 16:10Z, unchanged); breadth 7.4% oversold vs 3.2% overbought",
+        "UNH -8.3% at 357.20, trending #1 on Stocktwits; posters cite an unconfirmed regulatory proposal",
+        "NVDA -2.5% at 151.57 near day low 150.86 (trending #4); MSTR -3.9%, ASTS -5.2%, IREN -2.6%",
+        "Gainers trending: TTWO +7.5%, PANW +6.5%, CELH +5.4%, GME +4.7%",
+        "Stocktwits post (Ticker Tape): US 20-year Treasury auction cleared at 5.459% with solid demand (not independently confirmed)",
+        "Calendar: no US key event left today; Japan CPI 23:30Z; UK CPI 3.6% y/y earlier"
       ]
     },
     "rumors": [
       {
-        "text": "Posters say a new managed-care rule nicknamed 'CRUSH' is behind the UNH/HUM/MOH/CNC/ELV selloff (unconfirmed)",
+        "text": "UNH posters say the drop is driven by a regulatory proposal (not final) and talk of an audit; down ~$54 in two days",
         "source": "stocktwits",
         "tickers": [
           "UNH",
-          "HUM",
-          "MOH",
-          "CNC",
-          "ELV"
+          "MOH"
         ],
         "names": {
           "UNH": "UnitedHealth Group",
-          "HUM": "Humana",
-          "MOH": "Molina Healthcare",
-          "CNC": "Centene",
-          "ELV": "Elevance Health"
+          "MOH": "Molina Healthcare"
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "A regulatory hit to insurer payments would keep pressure on the whole managed-care group and S&P health care"
+        "why": "A rule cutting insurer payments would keep pressure on managed care and S&P health care"
       },
       {
-        "text": "NVDA posters fear Jensen Huang will not return as CEO (re-shared from last hour; unconfirmed)",
+        "text": "Posters claim 729.10 is the line: an SPY close below it targets 716; others say they only care about holding the 200-day MA",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "A break of the morning low area could trigger a faster drop into the close"
+      },
+      {
+        "text": "NVDA posters calling for shorts on the day-low retest (re-shared bearish tone; leadership worry from earlier hours is stale)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -65,51 +73,23 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.15,
-        "why": "Leadership uncertainty at the largest index weight weighs on SPY"
+        "credibility": 0.2,
+        "why": "Continued weakness in the largest index weight caps SPY"
       },
       {
-        "text": "Posters frame LULU's +8% as rotation out of AI names ('Burry winning, AI bubble investors crying'); one GEX post says LULU flipped to positive gamma above the 110 call wall",
+        "text": "Rotation out of AI megacaps into small caps and beaten-down names (IWM ~+1%, QQQ flat-up, TTWO/PANW/CELH up)",
         "source": "stocktwits",
         "tickers": [
-          "LULU",
+          "IWM",
           "NVDA"
         ],
         "names": {
-          "LULU": "Lululemon Athletica",
+          "IWM": "iShares Russell 2000 ETF",
           "NVDA": "NVIDIA"
         },
         "direction": "up",
-        "credibility": 0.3,
-        "why": "If money is rotating from AI megacaps to beaten-down consumer names, SPY lags while equal-weight/small caps hold up (IWM green)"
-      },
-      {
-        "text": "SPY dip-buyers claim 727 is a level 'they won't let break'; others call the bounce a fake pump with lower highs",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "A hold of 727 would mark a short-term floor; a break would likely bring a faster drop"
-      },
-      {
-        "text": "Bonds bid as money rotates to Treasuries (TLT +0.68%) while gold/silver sell off",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "TLT"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "TLT": "iShares 20+ Year Treasury Bond ETF"
-        },
-        "direction": "down",
-        "credibility": 0.5,
-        "why": "Flight to safety tends to cap equity bounces"
+        "credibility": 0.45,
+        "why": "Broadening helps equal-weight while cap-weighted SPY lags"
       }
     ],
     "names": {
@@ -118,41 +98,39 @@
       "IWM": "iShares Russell 2000 ETF",
       "TLT": "iShares 20+ Year Treasury Bond ETF",
       "GLD": "SPDR Gold Shares",
-      "SLV": "iShares Silver Trust",
       "NVDA": "NVIDIA",
       "UNH": "UnitedHealth Group",
-      "HUM": "Humana",
-      "ELV": "Elevance Health",
-      "CNC": "Centene",
       "MOH": "Molina Healthcare",
       "MSTR": "Strategy",
       "ASTS": "AST SpaceMobile",
+      "IREN": "IREN Limited",
       "TTWO": "Take-Two Interactive",
       "PANW": "Palo Alto Networks",
-      "LULU": "Lululemon Athletica"
+      "CELH": "Celsius Holdings",
+      "GME": "GameStop"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "down",
+        "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Lower highs, NVDA near day lows, UNH selloff accelerating (-6% to -8%), VIX up and bonds bid; offset by extreme fear (24), RSI ~37 and a bounce off ~727 with IWM green",
-        "catalyst": "NVDA leadership overhang and managed-care selloff"
+        "reason": "SPY held ~727 and is near flat with IWM +1% and QQQ green, extreme fear (24) and RSI ~37 favor mean reversion; offset by NVDA at day lows and UNH still sliding",
+        "catalyst": "Solid 20-year auction reported, no US data left today"
       }
     ],
-    "whats_new": "SPY dipped toward ~727 (Stocklake delayed -0.63%) then bounced back to 730.32 (-0.29%), about where it was an hour ago. UNH deepened to -8.2% with posters now blaming a managed-care rule; fear & greed slipped to 24 (extreme fear) and VIX rose to 24.5. LULU, TTWO and PANW lead gainers while MSTR tops Stocktwits trending.",
+    "whats_new": "SPY edged up to 730.96 (-0.20%) from 730.32 an hour ago, still above the ~727 low; small caps strengthened (IWM ~+1%). UNH slid a bit further to -8.3% with posters now calling the cause a regulatory proposal, and NVDA slipped to -2.5% near its low. A 20-year Treasury auction was reported to clear at 5.459% with solid demand; VIX/fear-greed snapshot unchanged since 16:10Z.",
     "sources": {
-      "market_pulse": "stocklake (16:10Z) + stocktwits prices 17:05Z",
+      "market_pulse": "stocklake (16:10Z) + stocktwits prices 18:06Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocklake econ calendar + stocktwits trending/posts; one standard web search found no same-day coverage; stocklake news feed needs re-auth"
+      "reddit": "unavailable (reddit fetch blocked; web search found no same-day coverage)",
+      "news": "stocklake econ calendar + stocktwits trending/posts; standard web search found no same-day coverage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.29,
+      "value": -0.2,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -170,7 +148,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 51.0,
+      "value": 54.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -178,10 +156,10 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (16:10Z) + stocktwits prices 17:05Z",
+    "market_pulse": "stocklake (16:10Z) + stocktwits prices 18:06Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocklake econ calendar + stocktwits trending/posts; one standard web search found no same-day coverage; stocklake news feed needs re-auth"
+    "reddit": "unavailable (reddit fetch blocked; web search found no same-day coverage)",
+    "news": "stocklake econ calendar + stocktwits trending/posts; standard web search found no same-day coverage"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
