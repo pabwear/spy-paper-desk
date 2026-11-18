@@ -1,19 +1,18 @@
 {
   "date": "2026-11-18",
-  "bias": "neutral",
-  "written_at": "2026-11-18T10:07:45-05:00",
-  "as_of": "2026-11-18T15:07:00Z",
+  "bias": "bearish",
+  "written_at": "2026-11-18T11:08:06-05:00",
+  "as_of": "2026-11-18T16:07:00Z",
   "readings": {
-    "as_of": "2026-11-18T15:07:00Z",
-    "spy_price": 732.68,
-    "spy_change_pct": 0.03,
+    "as_of": "2026-11-18T16:07:00Z",
+    "spy_price": 730.07,
+    "spy_change_pct": -0.32,
     "vix": 23.81,
-    "vix_change_pct": -6.4,
     "fear_greed": 26,
     "stocktwits": {
       "SPY": {
-        "score": 55,
-        "bullish_pct": 48.54
+        "score": 52,
+        "bullish_pct": 48.26
       }
     },
     "reddit": {
@@ -22,18 +21,69 @@
       "top": []
     },
     "news": {
-      "score": -0.2,
+      "score": -0.3,
       "headlines": [
-        "SPY 732.68 (+0.03%) at 10:06 ET per Stocktwits; premarket +0.3% gap (734.78) fully faded after the open; Stocklake delayed SPY 730.62 -0.25%, QQQ -0.23%, IWM +0.26%",
-        "Stocklake 14:10Z: VIX 23.81 (from 25.44 yesterday), Fear & Greed 26 'fear', breadth 7.1% oversold / 3.3% overbought; SPY RSI 37.5; TLT +0.6%, GLD -2.0%",
-        "NVDA reversed from ~161 early to ~155 (-0.2%), posters cite a 52-week low; web coverage: Nov 12 NVDA named CFO Colette Kress interim CEO, Nov 16 Treasury Sec. Bessent called for an outsider CEO and S&P fell 1.9%",
-        "Stocktwits trending: AAOI -12%, UNH -4.2%, CRM -3.0%, IREN -2.4%; TTWO +6.0%, TGT +6.0%, ZIM +2.0%; LOW recovered to -1.2% from -5.6% premarket",
-        "Calendar: UK CPI 3.6% y/y (prev 3.5) released 07:00Z; no US key event today; Japan CPI 23:30Z Nov 19"
+        "SPY 730.07 (-0.32%) at 11:06 ET per Stocktwits, down from ~flat (732.68) an hour ago; Stocklake delayed snapshot (14:10Z, not refreshed) SPY RSI 36.9, QQQ -0.09%, IWM +0.2%, TLT +0.64%",
+        "NVDA extends slide to 152.44 (-1.9%) from ~161 early, new low below last hour's ~155; Stocktwits NVDA chatter EXTREMELY HIGH (90) and sentiment 90 'extremely bullish' despite the drop",
+        "UNH -6.1% to ~366, trending #1 on Stocktwits; sharp drop began ~10:30 ET; managed-care peers (HUM, ELV, CNC, MOH) tagged; no confirmed cause found",
+        "Metals selloff: GLD -2.6%, SLV -4.7%, GDXU -20.7%; MSTR -3.8%; TTWO +8.3%, TGT +5.6% lead gainers",
+        "Calendar: UK CPI 3.6% y/y (prev 3.5); US retail sales (Nov 17) 0.2% m/m vs 0.8% prior; no US key event today; Japan CPI 23:30Z"
       ]
     },
     "rumors": [
       {
-        "text": "Poster claims NVDA beat top to bottom with a $150B buyback, EPS +106% and revenue +103% y/y, yet stock sits near a 52-week low",
+        "text": "Posters blame political/regulatory pressure (references to Sen. Warren and the administration) for UNH's sudden -6% drop; no confirmed headline",
+        "source": "stocktwits",
+        "tickers": [
+          "UNH",
+          "HUM",
+          "ELV",
+          "CNC",
+          "MOH"
+        ],
+        "names": {
+          "UNH": "UnitedHealth Group",
+          "HUM": "Humana",
+          "ELV": "Elevance Health",
+          "CNC": "Centene",
+          "MOH": "Molina Healthcare"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "A policy hit to managed care would weigh on the whole group and on the Dow/S&P health sector"
+      },
+      {
+        "text": "NVDA posters fear Jensen Huang will not return as CEO and could join a competitor if the board holds firm",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA",
+          "SPY"
+        ],
+        "names": {
+          "NVDA": "NVIDIA",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Leadership uncertainty at the largest index weight keeps pressure on NVDA and SPY despite strong earnings"
+      },
+      {
+        "text": "Poster asks whether today's selling is driven by Anthropic-related news (unspecified, unconfirmed)",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "NVDA"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "If an AI-lab headline is hitting AI-capex names, semis could keep leading the tape lower"
+      },
+      {
+        "text": "Claim NVDA beat top to bottom with large buyback yet stock keeps falling (re-shared from last hour; stale)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -44,11 +94,11 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.35,
-        "why": "If the print was that strong and the stock still fades, the selling is about leadership/governance, not numbers; a bounce could lift SPY"
+        "credibility": 0.3,
+        "why": "Selling is about governance not numbers; any CEO clarity could spark a sharp bounce"
       },
       {
-        "text": "Bond yields keep falling as money rotates into Treasuries on economic uncertainty (TLT +0.6% today)",
+        "text": "Bond yields keep falling as money rotates to Treasuries (TLT +0.64%)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -60,52 +110,20 @@
         },
         "direction": "down",
         "credibility": 0.5,
-        "why": "Flight to safety signals risk-off positioning that caps equity bounces"
+        "why": "Flight to safety caps equity bounces"
       },
       {
-        "text": "Posters say AVGO and AMD are being bid to prop up the index while NVDA fades",
+        "text": "Posters calling for the President to 'tweet something' to save the market; no policy action known",
         "source": "stocktwits",
         "tickers": [
-          "AVGO",
-          "AMD",
           "SPY"
         ],
         "names": {
-          "AVGO": "Broadcom",
-          "AMD": "Advanced Micro Devices",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.2,
-        "why": "Rotation within semis would cushion SPY even if NVDA keeps sliding"
-      },
-      {
-        "text": "Bear posts: 'Trump has no reason to save stocks now' after early November; risk has 'skyrocketed'",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
         "credibility": 0.1,
-        "why": "Opinion that no policy put exists; if believed widely it extends de-risking"
-      },
-      {
-        "text": "Leaders' summit chatter ('three old men dividing the globe') continues; earlier claim of a Trump-China meeting still unconfirmed (stale)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "A positive geopolitical/trade headline could spark a relief rally from fear levels"
+        "why": "A supportive policy headline could trigger a relief rally from fear levels"
       }
     ],
     "names": {
@@ -114,49 +132,49 @@
       "IWM": "iShares Russell 2000 ETF",
       "TLT": "iShares 20+ Year Treasury Bond ETF",
       "GLD": "SPDR Gold Shares",
+      "SLV": "iShares Silver Trust",
       "NVDA": "NVIDIA",
       "UNH": "UnitedHealth Group",
-      "CRM": "Salesforce",
-      "AAOI": "Applied Optoelectronics",
+      "HUM": "Humana",
+      "ELV": "Elevance Health",
+      "CNC": "Centene",
+      "MOH": "Molina Healthcare",
       "TTWO": "Take-Two Interactive",
       "TGT": "Target",
-      "LOW": "Lowe's",
-      "ZIM": "ZIM Integrated Shipping",
-      "IREN": "IREN Limited",
-      "AVGO": "Broadcom",
-      "AMD": "Advanced Micro Devices",
-      "NBIS": "Nebius Group"
+      "MSTR": "Strategy",
+      "AAOI": "Applied Optoelectronics",
+      "SBUX": "Starbucks"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Premarket gap fully faded, NVDA rejected near 160-161 and megacaps (UNH, CRM) weak while bonds bid; offset by fear/oversold readings and falling VIX",
-        "catalyst": "NVDA failed bounce and risk-off bond flows"
+        "confidence": 0.54,
+        "reason": "Gap fade became a breakdown: SPY -0.32% from flat, NVDA making new intraday lows, UNH -6%, bonds bid; crowd still buying dips (NVDA sentiment 90). Offset: fear 26, RSI ~37, oversold bounce risk",
+        "catalyst": "NVDA leadership overhang and UNH/managed-care selloff"
       }
     ],
-    "whats_new": "The +0.3% premarket gap is gone: SPY is ~flat at 732.68 after the open as NVDA reversed from ~161 to ~155 and UNH (-4%) and CRM (-3%) slid, while IWM is green. Stocklake's snapshot refreshed: VIX eased to 23.8 from 25.4 and Fear & Greed is 26 (fear). Stocktwits SPY still split ~49/51 with HIGH volume and chop talk.",
+    "whats_new": "SPY slipped from ~flat (732.68) to 730.07 (-0.32%) as NVDA broke to 152 (from ~155) and UNH dropped 6% to trend #1 on Stocktwits; gold/silver sold off hard (GLD -2.6%, SLV -4.7%). Stocklake's VIX/fear snapshot did not refresh (still 23.8 / 26), so the earlier VIX change is not repeated. SPY crowd still split ~48/52 while NVDA posters stay extremely bullish into the drop.",
     "sources": {
-      "market_pulse": "stocklake (snapshot 14:10Z, prices delayed) + stocktwits price 15:06Z",
+      "market_pulse": "stocklake (snapshot 14:10Z, not refreshed) + stocktwits prices 16:07Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocklake econ calendar + stocktwits trending/posts + one standard web search (no same-day article found; context from Nov 12/16 coverage)"
+      "news": "stocklake econ calendar + stocktwits trending/posts; one standard web search found no same-day coverage; stocklake news feed needs re-auth"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.03,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": -0.32,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -6.4,
-      "vote": 1,
-      "why": "\u2264 -5.0"
+      "value": null,
+      "vote": 0,
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -166,18 +184,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 55.0,
+      "value": 52.0,
       "vote": 0,
       "why": "in the neutral band"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (snapshot 14:10Z, prices delayed) + stocktwits price 15:06Z",
+    "market_pulse": "stocklake (snapshot 14:10Z, not refreshed) + stocktwits prices 16:07Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocklake econ calendar + stocktwits trending/posts + one standard web search (no same-day article found; context from Nov 12/16 coverage)"
+    "news": "stocklake econ calendar + stocktwits trending/posts; one standard web search found no same-day coverage; stocklake news feed needs re-auth"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
