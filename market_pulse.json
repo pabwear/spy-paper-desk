@@ -1,47 +1,48 @@
 {
   "date": "2026-11-19",
   "bias": "neutral",
-  "written_at": "2026-11-19T10:07:26-05:00",
-  "as_of": "2026-11-19T15:07:00Z",
+  "written_at": "2026-11-19T11:07:40-05:00",
+  "as_of": "2026-11-19T16:07:00Z",
   "readings": {
-    "as_of": "2026-11-19T15:07:00Z",
-    "spy_price": 737.15,
-    "spy_change_pct": 0.95,
+    "as_of": "2026-11-19T16:07:00Z",
+    "spy_price": 729.61,
+    "spy_change_pct": -0.08,
     "vix": 22.61,
     "fear_greed": 29,
     "stocktwits": {
       "SPY": {
-        "score": 59,
-        "bullish_pct": 48.95
+        "score": 56,
+        "bullish_pct": 49.47
       }
     },
     "news": {
-      "score": 0.2,
+      "score": -0.3,
       "headlines": [
-        "SPY 737.15 (+0.95%) at 10:06 ET per Stocktwits, off delayed Stocklake 738.42 (+1.13%); QQQ +2.24%, IWM -0.08%, TLT -0.34%, GLD -0.35% (Stocklake ~14:09Z)",
-        "Rally narrow and tech-led: QQQ +2.2% vs IWM flat; breadth 8.9% oversold vs 3.7% overbought",
-        "China ADRs rip after open: PDD +12.4%, BABA +4.2% (trending #2), KWEB +0.3%",
-        "PANW +7.2% at 364.48; WMT -1.6% at 125.37 on earnings day (pared from -2.3% premarket); TTWO -1.5% trending #1",
-        "VIX 22.61 (from 23.76), fear & greed 28.9 'fear' (up from 24 extreme fear)",
-        "Calendar: no US releases today; Japan CPI 23:30Z; UK and Canada retail sales tomorrow"
+        "SPY reversed: opened 737.46, high 739.89, flushed to 725.66 around 15:50Z, now 729.61 (-0.08%) at 11:06 ET (Stocktwits)",
+        "AMD -6.4% at 496 after sliding from 555 high to 470.69 low; Stocktwits posters tie the drop to a Hunterbrook short report (unconfirmed)",
+        "UNH -5.3% at 331.3, posters say third straight day of losses on the same news (~21% total, unverified)",
+        "Gainers: INSM +17%, PANW +5.6%, BABA +2.8%; WMT -1.3% after earnings",
+        "Anthropic (ANT) trending #2 on Stocktwits ahead of its Nasdaq debut",
+        "Stocklake delayed pulse (14:09Z snapshot): SPY -0.21%, QQQ +0.03%, IWM -0.68%, GLD -0.87%; VIX 22.61, F&G 28.9 fear; breadth 8.9% oversold vs 3.7% overbought",
+        "Calendar (Stocklake, major economies): no US releases listed; Japan CPI 23:30Z; UK and Canada retail sales tomorrow"
       ]
     },
     "rumors": [
       {
-        "text": "Multiple SPY posters report thinkorswim down: can't log in or shows zero balance",
+        "text": "Hunterbrook published a short report on AMD that triggered the intraday plunge; bulls call it fake news to hit stops",
         "source": "stocktwits",
         "tickers": [
-          "SCHW"
+          "AMD"
         ],
         "names": {
-          "SCHW": "Charles Schwab"
+          "AMD": "Advanced Micro Devices"
         },
         "direction": "down",
-        "credibility": 0.35,
-        "why": "A broker outage at the open could briefly thin retail flow and draw headline risk for Schwab"
+        "credibility": 0.45,
+        "why": "A credible short thesis on a megacap AI chip name could keep pressure on semis and QQQ/SPY"
       },
       {
-        "text": "Crowd claims 'everyone is buying puts' and flips to calls as a contrarian bet",
+        "text": "US data today was weak: poor manufacturing index, higher than expected jobless claims, housing index lowest since 2012",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -49,49 +50,74 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
+        "direction": "down",
+        "credibility": 0.35,
+        "why": "If true, growth worries could explain the reversal and extend a 6th straight red day; Stocklake calendar shows no such US releases"
+      },
+      {
+        "text": "Anthropic (ANT) indicated to open at $106 in its Nasdaq debut vs an $83 IPO price",
+        "source": "stocktwits",
+        "tickers": [
+          "ANT"
+        ],
+        "names": {
+          "ANT": "Anthropic"
+        },
         "direction": "up",
-        "credibility": 0.3,
-        "why": "If put positioning really is heavy, covering could support the gap; it is anecdote, not flow data"
+        "credibility": 0.4,
+        "why": "A hot AI IPO could pull money from other AI names or lift AI sentiment broadly"
+      },
+      {
+        "text": "UNH falling for a third day on the same news, down about 21% in total",
+        "source": "stocktwits",
+        "tickers": [
+          "UNH"
+        ],
+        "names": {
+          "UNH": "UnitedHealth Group"
+        },
+        "direction": "down",
+        "credibility": 0.4,
+        "why": "Continued managed-care selling weighs on the Dow and health care in SPY"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
-      "TLT": "iShares 20+ Year Treasury Bond ETF",
       "GLD": "SPDR Gold Shares",
-      "WMT": "Walmart",
+      "AMD": "Advanced Micro Devices",
+      "UNH": "UnitedHealth Group",
       "PANW": "Palo Alto Networks",
-      "TTWO": "Take-Two Interactive",
       "BABA": "Alibaba Group",
-      "PDD": "PDD Holdings",
-      "KWEB": "KraneShares CSI China Internet ETF",
-      "SCHW": "Charles Schwab"
+      "WMT": "Walmart",
+      "INSM": "Insmed",
+      "ANT": "Anthropic"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
+        "direction": "down",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Gap held through the first 40 min with fear easing (F&G 24->29, VIX 23.8->22.6), but rally is narrow (IWM flat) and already slipping from 738.4 to 737.2, so near a coin flip",
-        "catalyst": "Short covering from fear readings vs gap-fade on thin breadth"
+        "confidence": 0.53,
+        "reason": "Failed +1.3% gap reversed to flat on an AMD/semis flush; failed gaps often close weak, but SPY already bounced 4 points off 725.66 and fear is elevated, so near a coin flip",
+        "catalyst": "AMD short-report selling and unverified weak-data chatter vs dip buying from oversold breadth"
       }
     ],
-    "whats_new": "SPY's +1% gap is holding after the open (737.15, +0.95%) but is a touch off the delayed 738.42 high-print; QQQ leads +2.2% while IWM is flat, so the move is narrow. Fear eased (F&G 24->29, VIX 23.76->22.61); China ADRs surged after the open (PDD +12%, BABA flipped to +4%) and WMT pared its loss to -1.6%. Last hour's Dimon/VOO and Iran-strike chatter did not resurface; new chatter is a thinkorswim outage.",
+    "whats_new": "The gap failed: SPY went from about 737 last hour (high 739.89) to a 725.66 low and sits near flat at 729.61. The trigger looks like AMD's sudden drop from 555 to 471 (short-report chatter) plus UNH -5%; last hour's thinkorswim outage and put-heavy chatter faded, and Anthropic's IPO is the new trending story.",
     "sources": {
-      "market_pulse": "stocklake pulse (2026-11-19 14:09Z, delayed) + stocktwits price 15:06Z",
+      "market_pulse": "stocklake pulse (14:09Z, delayed) + stocktwits prices 16:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocktwits trending/posts + stocklake econ calendar; stocklake news feed needs re-auth; standard web search found no same-day coverage"
+      "news": "stocktwits trending/posts + stocklake econ calendar; standard web search found no same-day coverage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.95,
-      "vote": 1,
-      "why": "\u2265 0.3"
+      "value": -0.08,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "vix_change_pct",
@@ -107,18 +133,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 59.0,
+      "value": 56.0,
       "vote": 0,
       "why": "in the neutral band"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake pulse (2026-11-19 14:09Z, delayed) + stocktwits price 15:06Z",
+    "market_pulse": "stocklake pulse (14:09Z, delayed) + stocktwits prices 16:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocktwits trending/posts + stocklake econ calendar; stocklake news feed needs re-auth; standard web search found no same-day coverage"
+    "news": "stocktwits trending/posts + stocklake econ calendar; standard web search found no same-day coverage"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
