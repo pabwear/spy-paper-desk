@@ -1,35 +1,33 @@
 {
   "date": "2026-11-19",
   "bias": "bearish",
-  "written_at": "2026-11-19T13:06:39-05:00",
-  "as_of": "2026-11-19T18:06:00Z",
+  "written_at": "2026-11-19T14:06:36-05:00",
+  "as_of": "2026-11-19T19:06:00Z",
   "readings": {
-    "as_of": "2026-11-19T18:06:00Z",
-    "spy_price": 721.08,
-    "spy_change_pct": -1.25,
-    "vix": 24.36,
-    "fear_greed": 24,
+    "as_of": "2026-11-19T19:06:00Z",
+    "spy_price": 719.23,
+    "spy_change_pct": -1.5,
+    "vix": 26.58,
+    "fear_greed": 22,
     "stocktwits": {
       "SPY": {
-        "score": 54,
-        "bullish_pct": 48.25
+        "score": 52,
+        "bullish_pct": 48.05
       }
     },
     "news": {
-      "score": -0.5,
+      "score": -0.55,
       "headlines": [
-        "SPY 721.08 (-1.25%) at 13:06 ET, bouncing off a new day low 717.54; open 737.46, high 739.89; intraday lower highs 729.77 -> 726.14 -> 723.45 (Stocktwits)",
-        "AMD -8.8% at 483.39 (low 470.69) after Hunterbrook export-control claims; AMD disputes them",
-        "Anthropic (ANT) #1 trending: 95.86 vs 83 IPO price, opened 112.97, high 115, at session low 95.05; fading all day",
-        "AI/semis weak: NBIS -6.0%, IREN -4.2%, MU -0.6% (off 760 high), QQQ -1.30%, DIA -1.58%; GME +1.7%",
-        "Stocklake pulse (16:09Z, delayed): VIX 24.36, Fear & Greed 23.9 extreme fear; breadth 8.1% oversold vs 2.9% overbought; GLD -1.06%, TLT flat",
-        "Calendar: no US releases today; Japan CPI 23:30Z; UK retail sales 07:00Z and Canada retail sales 13:30Z tomorrow. US retail sales Nov 17 slowed to +0.2% MM from +0.8%",
-        "Web: AMD agreed to buy about $2.5bn of Anthropic shares at the IPO price in a $26bn private placement (secondary reports)"
+        "SPY 719.23 (-1.50%) at 14:05 ET, near day low 717.54; intraday lower highs 729.77 -> 726.14 -> 723.45 -> 722.64 (Stocktwits)",
+        "ANT (Anthropic) #1 trending at 94.28 vs 83 IPO price; opened 112.97, new session low 92.72",
+        "AMD -9.5% at 479.73 (low 470.69) on Hunterbrook export-control claims, which AMD disputes; NBIS -7.8%, IREN -4.6%, SOFI -3.2%",
+        "Stocklake pulse 18:09Z (delayed): VIX 26.58 (up from 24.36 last reading), Fear & Greed 21.5 extreme fear; breadth 8.1% oversold vs 2.9% overbought; QQQ -1.35%, IWM -1.40%, GLD -1.25%, TLT flat",
+        "Calendar: no US releases today; Japan CPI 23:30Z; UK and Canada retail sales tomorrow"
       ]
     },
     "rumors": [
       {
-        "text": "Hunterbrook short report alleges AMD practices tied to export controls; AMD says the claims misrepresent its practices (carried over, not new)",
+        "text": "Hunterbrook short report alleges AMD practices tied to export controls; AMD says claims misrepresent its practices (carried over)",
         "source": "stocktwits",
         "tickers": [
           "AMD"
@@ -39,10 +37,10 @@
         },
         "direction": "down",
         "credibility": 0.55,
-        "why": "An export-control probe on a megacap AI chip name would keep pressure on semis, QQQ and SPY"
+        "why": "An export-control probe on a megacap AI chip name keeps pressure on semis, QQQ and SPY"
       },
       {
-        "text": "The Anthropic IPO is 'not the clearing event markets had been hoping for'; risk-off as ANT fades from its open",
+        "text": "Anthropic IPO is not the clearing event markets hoped for; ANT fading from its open to new lows (carried over)",
         "source": "stocktwits",
         "tickers": [
           "ANT",
@@ -57,7 +55,7 @@
         "why": "If the IPO fails to re-ignite the AI trade, AI megacaps may keep de-risking"
       },
       {
-        "text": "Wall Street is dumping AI winners to fund Anthropic IPO allocations (carried over)",
+        "text": "Funds dumping AI winners to fund Anthropic IPO allocations (carried over)",
         "source": "stocktwits",
         "tickers": [
           "ANT",
@@ -76,20 +74,7 @@
         "why": "Rotation out of AI megacaps could persist until IPO demand settles"
       },
       {
-        "text": "Trump bought GME, per a 13F",
-        "source": "stocktwits",
-        "tickers": [
-          "GME"
-        ],
-        "names": {
-          "GME": "GameStop"
-        },
-        "direction": "up",
-        "credibility": 0.15,
-        "why": "Would fuel a meme-style bid in GME; unverified single post"
-      },
-      {
-        "text": "SPY tends to put in a top or bottom around 12:30 ET daily; some call green by 2PM",
+        "text": "Dip buyers 'defending 720' on SPY; some posting 720 calls",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -98,20 +83,20 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.15,
-        "why": "Folk pattern; the 717.5 low near 12:30 ET may attract dip buyers"
+        "credibility": 0.2,
+        "why": "If 720/717.5 holds, a short-covering bounce into the close is possible"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "DIA": "SPDR Dow Jones Industrial Average ETF",
+      "IWM": "iShares Russell 2000 ETF",
       "GLD": "SPDR Gold Shares",
       "AMD": "Advanced Micro Devices",
       "NVDA": "NVIDIA",
-      "MU": "Micron Technology",
       "NBIS": "Nebius Group",
       "IREN": "IREN Limited",
+      "SOFI": "SoFi Technologies",
       "GME": "GameStop",
       "ANT": "Anthropic"
     },
@@ -121,22 +106,22 @@
         "direction": "down",
         "horizon": "close",
         "confidence": 0.53,
-        "reason": "Failed-gap trend day with a sequence of lower intraday highs; semis and ANT still at or near lows",
-        "catalyst": "AMD/Hunterbrook semis pressure, ANT fading toward session low; extreme fear and oversold breadth cap the edge"
+        "reason": "Trend day with a fourth lower intraday high; VIX rising and ANT/AMD at or near session lows",
+        "catalyst": "AI/semis de-risking into the close; extreme fear and oversold breadth (8.1%) cap the edge"
       }
     ],
-    "whats_new": "SPY made a new day low at 717.54 then bounced to 721.08 (-1.25% vs -1.70% last hour), but each bounce has made a lower high. ANT kept fading to about 95.86 near its session low and AMD is still -8.8%. Stocktwits SPY sentiment is flat (54 vs 55); VIX and Fear & Greed readings are unchanged (stale 16:09Z snapshot).",
+    "whats_new": "SPY slipped to 719.23 (-1.50% vs -1.25% last hour), another lower high at 722.64 and hovering just above the 717.54 low. VIX rose to 26.58 from 24.36 and Fear & Greed dipped to 21.5; ANT made a new session low at 92.72 and AMD widened to -9.5%. Stocktwits SPY sentiment eased to 52 (48% bullish); no new rumors, mostly capitulation chatter.",
     "sources": {
-      "market_pulse": "stocklake pulse (16:09Z, delayed) + stocktwits prices 18:05Z",
+      "market_pulse": "stocklake pulse (18:09Z, delayed) + stocktwits prices 19:05Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocktwits trending/posts + stocklake econ calendar + standard web search"
+      "news": "stocktwits trending/posts + stocklake econ calendar; standard web search returned no current coverage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.25,
+      "value": -1.5,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -148,13 +133,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 24.0,
+      "value": 22.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 54.0,
+      "value": 52.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -162,10 +147,10 @@
   "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake pulse (16:09Z, delayed) + stocktwits prices 18:05Z",
+    "market_pulse": "stocklake pulse (18:09Z, delayed) + stocktwits prices 19:05Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocktwits trending/posts + stocklake econ calendar + standard web search"
+    "news": "stocktwits trending/posts + stocklake econ calendar; standard web search returned no current coverage"
   },
   "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
