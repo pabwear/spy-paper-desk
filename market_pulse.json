@@ -1,83 +1,57 @@
 {
   "date": "2026-11-19",
   "bias": "neutral",
-  "written_at": "2026-11-19T09:08:33-05:00",
-  "as_of": "2026-11-19T14:07:00Z",
+  "written_at": "2026-11-19T10:07:26-05:00",
+  "as_of": "2026-11-19T15:07:00Z",
   "readings": {
-    "as_of": "2026-11-19T14:07:00Z",
-    "spy_price": 737.78,
-    "spy_change_pct": 1.04,
-    "vix": 23.76,
-    "fear_greed": 24,
+    "as_of": "2026-11-19T15:07:00Z",
+    "spy_price": 737.15,
+    "spy_change_pct": 0.95,
+    "vix": 22.61,
+    "fear_greed": 29,
     "stocktwits": {
       "SPY": {
-        "score": 60,
-        "bullish_pct": 48.6
+        "score": 59,
+        "bullish_pct": 48.95
       }
     },
     "news": {
       "score": 0.2,
       "headlines": [
-        "SPY 737.78 (+1.04%) premarket 09:06 ET per Stocktwits; Stocklake delayed quotes: QQQ +1.78%, IWM +0.53%, TLT -0.22%, GLD -0.32%",
-        "WMT -2.3% premarket at 124.48, trending #3; earnings were scheduled for today per web search",
-        "PANW +7.2% premarket at 364.25 extends gains; TTWO -3.2%",
-        "China ADRs active: BABA -1.7% (trending #1), PDD +3.7%, BIDU -0.6%, KWEB -0.8%",
-        "UVIX -6.6% premarket as volatility eases",
-        "VIX 23.76, fear & greed 24.4 'extreme fear' (Stocklake, last updated 18 Nov ~20:04Z); breadth 8.1% oversold vs 3.5% overbought",
-        "Stocklake calendar: no US releases today; Japan CPI 23:30Z. Recent: US retail sales +0.2% m/m (prev 0.8), UK CPI 3.6% y/y"
+        "SPY 737.15 (+0.95%) at 10:06 ET per Stocktwits, off delayed Stocklake 738.42 (+1.13%); QQQ +2.24%, IWM -0.08%, TLT -0.34%, GLD -0.35% (Stocklake ~14:09Z)",
+        "Rally narrow and tech-led: QQQ +2.2% vs IWM flat; breadth 8.9% oversold vs 3.7% overbought",
+        "China ADRs rip after open: PDD +12.4%, BABA +4.2% (trending #2), KWEB +0.3%",
+        "PANW +7.2% at 364.48; WMT -1.6% at 125.37 on earnings day (pared from -2.3% premarket); TTWO -1.5% trending #1",
+        "VIX 22.61 (from 23.76), fear & greed 28.9 'fear' (up from 24 extreme fear)",
+        "Calendar: no US releases today; Japan CPI 23:30Z; UK and Canada retail sales tomorrow"
       ]
     },
     "rumors": [
       {
-        "text": "Poster claims Jamie Dimon completely exited his VOO position",
+        "text": "Multiple SPY posters report thinkorswim down: can't log in or shows zero balance",
         "source": "stocktwits",
         "tickers": [
-          "VOO",
+          "SCHW"
+        ],
+        "names": {
+          "SCHW": "Charles Schwab"
+        },
+        "direction": "down",
+        "credibility": 0.35,
+        "why": "A broker outage at the open could briefly thin retail flow and draw headline risk for Schwab"
+      },
+      {
+        "text": "Crowd claims 'everyone is buying puts' and flips to calls as a contrarian bet",
+        "source": "stocktwits",
+        "tickers": [
           "SPY"
         ],
         "names": {
-          "VOO": "Vanguard S&P 500 ETF",
           "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "A top banker dumping index exposure would feed bearish sentiment; likely a misread or meme"
-      },
-      {
-        "text": "Cathie Wood says NVDA could see huge demand from SpaceX orbital data centers",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA"
-        ],
-        "names": {
-          "NVDA": "NVIDIA"
         },
         "direction": "up",
-        "credibility": 0.4,
-        "why": "New AI demand narrative could lift NVDA and AI chips; it is opinion, not orders"
-      },
-      {
-        "text": "Posters debating a possible US strike on Iran; one argues it will not happen before Thanksgiving week",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "A geopolitical shock would hit equities and lift oil and VIX"
-      },
-      {
-        "text": "Traders say they will short newly hyped $ANT after its initial pop",
-        "source": "stocktwits",
-        "tickers": [
-          "ANT"
-        ],
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Crowded fade plans on a hot debut can mean a volatile first session"
+        "credibility": 0.3,
+        "why": "If put positioning really is heavy, covering could support the gap; it is anecdote, not flow data"
       }
     ],
     "names": {
@@ -91,25 +65,22 @@
       "TTWO": "Take-Two Interactive",
       "BABA": "Alibaba Group",
       "PDD": "PDD Holdings",
-      "BIDU": "Baidu",
       "KWEB": "KraneShares CSI China Internet ETF",
-      "UVIX": "Volatility Shares 2x Long VIX Futures ETF",
-      "NVDA": "NVIDIA",
-      "VOO": "Vanguard S&P 500 ETF"
+      "SCHW": "Charles Schwab"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Broad +1% gap led by QQQ from extreme fear (24) and RSI ~37, with yesterday's crowded put chatter able to fuel covering; gap-fade risk keeps it near a coin flip",
-        "catalyst": "Short covering after extreme-fear readings; WMT earnings reaction as a drag"
+        "confidence": 0.52,
+        "reason": "Gap held through the first 40 min with fear easing (F&G 24->29, VIX 23.8->22.6), but rally is narrow (IWM flat) and already slipping from 738.4 to 737.2, so near a coin flip",
+        "catalyst": "Short covering from fear readings vs gap-fade on thin breadth"
       }
     ],
-    "whats_new": "SPY jumped from 730.69 (-0.24%) late yesterday to 737.78 premarket (+1.04%), with QQQ leading (+1.78%) and UVIX -6.6%. Stocktwits SPY score rose 54->60 though bullish share is flat near 49%; WMT is down 2.3% premarket on earnings day and PANW extends gains. Yesterday's FOMC-minutes and put-loading chatter looks stale.",
+    "whats_new": "SPY's +1% gap is holding after the open (737.15, +0.95%) but is a touch off the delayed 738.42 high-print; QQQ leads +2.2% while IWM is flat, so the move is narrow. Fear eased (F&G 24->29, VIX 23.76->22.61); China ADRs surged after the open (PDD +12%, BABA flipped to +4%) and WMT pared its loss to -1.6%. Last hour's Dimon/VOO and Iran-strike chatter did not resurface; new chatter is a thinkorswim outage.",
     "sources": {
-      "market_pulse": "stocklake (pulse snapshot 2026-11-18 20:09Z, delayed quotes) + stocktwits price 14:06Z",
+      "market_pulse": "stocklake pulse (2026-11-19 14:09Z, delayed) + stocktwits price 15:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
       "news": "stocktwits trending/posts + stocklake econ calendar; stocklake news feed needs re-auth; standard web search found no same-day coverage"
@@ -118,7 +89,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.04,
+      "value": 0.95,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -130,24 +101,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 24.0,
+      "value": 29.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 60.0,
-      "vote": 1,
-      "why": "\u2265 60.0"
+      "value": 59.0,
+      "vote": 0,
+      "why": "in the neutral band"
     }
   ],
-  "net_votes": 1,
+  "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (pulse snapshot 2026-11-18 20:09Z, delayed quotes) + stocktwits price 14:06Z",
+    "market_pulse": "stocklake pulse (2026-11-19 14:09Z, delayed) + stocktwits price 15:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
     "news": "stocktwits trending/posts + stocklake econ calendar; stocklake news feed needs re-auth; standard web search found no same-day coverage"
   },
-  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
