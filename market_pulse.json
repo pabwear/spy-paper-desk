@@ -1,95 +1,83 @@
 {
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "bias": "neutral",
-  "written_at": "2026-11-18T15:06:34-05:00",
-  "as_of": "2026-11-18T20:06:00Z",
+  "written_at": "2026-11-19T09:08:33-05:00",
+  "as_of": "2026-11-19T14:07:00Z",
   "readings": {
-    "as_of": "2026-11-18T20:06:00Z",
-    "spy_price": 730.69,
-    "spy_change_pct": -0.24,
-    "vix": 24.57,
-    "fear_greed": 25,
+    "as_of": "2026-11-19T14:07:00Z",
+    "spy_price": 737.78,
+    "spy_change_pct": 1.04,
+    "vix": 23.76,
+    "fear_greed": 24,
     "stocktwits": {
       "SPY": {
-        "score": 54,
-        "bullish_pct": 47.6
+        "score": 60,
+        "bullish_pct": 48.6
       }
     },
-    "reddit": {
-      "score": 0.0,
-      "posts": 0,
-      "top": []
-    },
     "news": {
-      "score": -0.3,
+      "score": 0.2,
       "headlines": [
-        "SPY 730.69 (-0.24%) at 15:05 ET per Stocktwits; Stocklake snapshot still 18:09Z: QQQ +0.30%, IWM +0.39%, TLT +0.80%, GLD -3.31%",
-        "UNH -10.6% at 348.46 (low 342.63), trending #1",
-        "NVDA -2.8% at 151.06, near day low 150.52",
-        "Metals selloff: GLD -3.1%, SLV -4.8%; TalkMarkets: copper -5% after Druckenmiller disclosed a short",
-        "Gainers trending: FROG +11.2%, PANW +7.0%, TTWO +6.2%, TGT +5.4%",
-        "VIX 24.57, fear & greed 25 'fear' (Stocklake 18:02Z, not refreshed); breadth 7.4% oversold vs 3.2% overbought",
-        "Calendar: no US data left today; Japan CPI 23:30Z"
+        "SPY 737.78 (+1.04%) premarket 09:06 ET per Stocktwits; Stocklake delayed quotes: QQQ +1.78%, IWM +0.53%, TLT -0.22%, GLD -0.32%",
+        "WMT -2.3% premarket at 124.48, trending #3; earnings were scheduled for today per web search",
+        "PANW +7.2% premarket at 364.25 extends gains; TTWO -3.2%",
+        "China ADRs active: BABA -1.7% (trending #1), PDD +3.7%, BIDU -0.6%, KWEB -0.8%",
+        "UVIX -6.6% premarket as volatility eases",
+        "VIX 23.76, fear & greed 24.4 'extreme fear' (Stocklake, last updated 18 Nov ~20:04Z); breadth 8.1% oversold vs 3.5% overbought",
+        "Stocklake calendar: no US releases today; Japan CPI 23:30Z. Recent: US retail sales +0.2% m/m (prev 0.8), UK CPI 3.6% y/y"
       ]
     },
     "rumors": [
       {
-        "text": "Poster summary of FOMC minutes still circulating: almost all officials saw further hikes likely, a couple open to >25bp",
+        "text": "Poster claims Jamie Dimon completely exited his VOO position",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "QQQ"
+          "VOO",
+          "SPY"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
+          "VOO": "Vanguard S&P 500 ETF",
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.5,
-        "why": "A more hawkish path than priced would pressure equities; now an hour old, likely partly priced"
+        "credibility": 0.15,
+        "why": "A top banker dumping index exposure would feed bearish sentiment; likely a misread or meme"
       },
       {
-        "text": "UNH slide (now ~-10.6%) blamed by posters on an unconfirmed regulatory proposal",
+        "text": "Cathie Wood says NVDA could see huge demand from SpaceX orbital data centers",
         "source": "stocktwits",
         "tickers": [
-          "UNH"
+          "NVDA"
         ],
         "names": {
-          "UNH": "UnitedHealth Group"
+          "NVDA": "NVIDIA"
         },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "A payment-cutting rule would keep weighing on managed care and S&P health care"
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "New AI demand narrative could lift NVDA and AI chips; it is opinion, not orders"
       },
       {
-        "text": "Druckenmiller revealed a copper short, cited as trigger for a 5% copper drop and broad commodity selloff",
-        "source": "news",
-        "tickers": [
-          "COPX",
-          "GLD"
-        ],
-        "names": {
-          "COPX": "Global X Copper Miners ETF",
-          "GLD": "SPDR Gold Shares"
-        },
-        "direction": "down",
-        "credibility": 0.5,
-        "why": "Macro-fund commodity shorts could extend metals and miners weakness"
-      },
-      {
-        "text": "Multiple posters say they loaded SPY/QQQ puts into tomorrow and call for a tank into the close",
+        "text": "Posters debating a possible US strike on Iran; one argues it will not happen before Thanksgiving week",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "QQQ"
+          "SPY"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
+          "SPY": "SPDR S&P 500 ETF"
         },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "A geopolitical shock would hit equities and lift oil and VIX"
+      },
+      {
+        "text": "Traders say they will short newly hyped $ANT after its initial pop",
+        "source": "stocktwits",
+        "tickers": [
+          "ANT"
+        ],
         "direction": "down",
         "credibility": 0.2,
-        "why": "Crowded one-sided put bets in extreme fear can fuel a squeeze if the low holds"
+        "why": "Crowded fade plans on a hot debut can mean a volatile first session"
       }
     ],
     "names": {
@@ -98,39 +86,41 @@
       "IWM": "iShares Russell 2000 ETF",
       "TLT": "iShares 20+ Year Treasury Bond ETF",
       "GLD": "SPDR Gold Shares",
-      "SLV": "iShares Silver Trust",
-      "NVDA": "NVIDIA",
-      "UNH": "UnitedHealth Group",
-      "TTWO": "Take-Two Interactive",
+      "WMT": "Walmart",
       "PANW": "Palo Alto Networks",
-      "TGT": "Target",
-      "FROG": "JFrog",
-      "COPX": "Global X Copper Miners ETF"
+      "TTWO": "Take-Two Interactive",
+      "BABA": "Alibaba Group",
+      "PDD": "PDD Holdings",
+      "BIDU": "Baidu",
+      "KWEB": "KraneShares CSI China Internet ETF",
+      "UVIX": "Volatility Shares 2x Long VIX Futures ETF",
+      "NVDA": "NVIDIA",
+      "VOO": "Vanguard S&P 500 ETF"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "down",
+        "direction": "up",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "SPY drifted lower again with UNH and NVDA at day lows and metals selling off; offset by fear 25, RSI ~37 and crowded put chatter that raises squeeze risk",
-        "catalyst": "FOMC minutes digestion and UNH/NVDA weakness into the close"
+        "confidence": 0.53,
+        "reason": "Broad +1% gap led by QQQ from extreme fear (24) and RSI ~37, with yesterday's crowded put chatter able to fuel covering; gap-fade risk keeps it near a coin flip",
+        "catalyst": "Short covering after extreme-fear readings; WMT earnings reaction as a drag"
       }
     ],
-    "whats_new": "SPY slipped slightly from 731.03 to 730.69 (-0.24%) as UNH deepened to about -10.6% and NVDA hit new day lows near 151. Metals selloff broadened (SLV -4.8%, GLD -3.1%) with a Druckenmiller copper short cited; FROG joined trending gainers. Stocklake VIX/fear readings have not refreshed since 18:02Z.",
+    "whats_new": "SPY jumped from 730.69 (-0.24%) late yesterday to 737.78 premarket (+1.04%), with QQQ leading (+1.78%) and UVIX -6.6%. Stocktwits SPY score rose 54->60 though bullish share is flat near 49%; WMT is down 2.3% premarket on earnings day and PANW extends gains. Yesterday's FOMC-minutes and put-loading chatter looks stale.",
     "sources": {
-      "market_pulse": "stocklake (18:09Z) + stocktwits price 20:05Z",
+      "market_pulse": "stocklake (pulse snapshot 2026-11-18 20:09Z, delayed quotes) + stocktwits price 14:06Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked; web search found no same-day threads)",
-      "news": "stocklake econ calendar + stocktwits posts/trending; standard web search found no same-day coverage"
+      "reddit": "unavailable (reddit fetch blocked)",
+      "news": "stocktwits trending/posts + stocklake econ calendar; stocklake news feed needs re-auth; standard web search found no same-day coverage"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.24,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 1.04,
+      "vote": 1,
+      "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -140,24 +130,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 25.0,
+      "value": 24.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 54.0,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 60.0,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (18:09Z) + stocktwits price 20:05Z",
+    "market_pulse": "stocklake (pulse snapshot 2026-11-18 20:09Z, delayed quotes) + stocktwits price 14:06Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked; web search found no same-day threads)",
-    "news": "stocklake econ calendar + stocktwits posts/trending; standard web search found no same-day coverage"
+    "reddit": "unavailable (reddit fetch blocked)",
+    "news": "stocktwits trending/posts + stocklake econ calendar; stocklake news feed needs re-auth; standard web search found no same-day coverage"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
