@@ -1,17 +1,17 @@
 {
   "date": "2026-11-20",
   "bias": "bearish",
-  "written_at": "2026-11-20T12:07:21-05:00",
-  "as_of": "2026-11-20T17:07:00Z",
+  "written_at": "2026-11-20T13:07:02-05:00",
+  "as_of": "2026-11-20T18:07:00Z",
   "readings": {
-    "as_of": "2026-11-20T17:07:00Z",
-    "spy_price": 702.02,
-    "spy_change_pct": -1.94,
+    "as_of": "2026-11-20T18:07:00Z",
+    "spy_price": 700.67,
+    "spy_change_pct": -2.12,
     "vix": 29.99,
     "fear_greed": 14,
     "stocktwits": {
       "SPY": {
-        "score": 45,
+        "score": 40,
         "bullish_pct": 47
       }
     },
@@ -19,23 +19,63 @@
       "score": -0.4,
       "posts": 0,
       "top": [
-        "Reddit fetch blocked; standard search found no Nov 20 r/wallstreetbets coverage",
-        "Undated Finimize item: WSB favorites Rocket Lab and CoreWeave fell premarket"
+        "Reddit fetch blocked again; no same-day Reddit coverage found"
       ]
     },
     "news": {
       "score": -0.6,
       "headlines": [
-        "SPY 702.02 (-1.94% vs 715.87) at 17:06Z, day low 700.86 after failed 716.7 reversal; testing 700 round number",
-        "QQQ -3.7% to 621; AI/semis rout widening: MU -12.7%, AVGO -11.1%, NVDA -7.1% at 135.6, SNDK -15.5%, APLD -16.9%, IREN -13.6%, NBIS -13.2%, MSTR -6.6%",
-        "Stocklake 16:09Z: VIX 29.99, Fear & Greed 13.6 extreme fear, SPY RSI 29.7, QQQ RSI 30.7, breadth 12.5% oversold vs 2.8% overbought, GLD -3.1%, TLT +1.1%",
-        "Week context (AP via search): Nov 16-17 AI selloff led by Nvidia after Jensen Huang's reported resignation; interim CEO Colette Kress delivered earnings; Anthropic IPO weighing on AI names",
-        "Nov 20 is monthly options expiration; no US data releases today"
+        "SPY 700.67 (-2.12% vs 715.87) at 18:06Z, broke 700 with day low 699.02; QQQ -3.75% at 620.88",
+        "Semis rout deepening: SOXL -26%, AVGO -11.6%, MU -12.6%, TSM -8.4%, NVDA -7.2% at 135.52, APLD -16.5%, NBIS -12.8%, MSTR -5.6%",
+        "Stocklake 16:09Z: VIX 29.99, Fear & Greed 13.6 extreme fear, SPY RSI 29.7, QQQ RSI 30.7, breadth 12.5% oversold vs 2.8% overbought; GLD -3.6%, TLT +1.2%",
+        "Week context (AP Nov 16): AI selloff led by Nvidia after new US rules restricting remote access to advanced chips; Jensen Huang departure and Anthropic IPO weighing on AI names",
+        "Nov 20 is monthly options expiration; Stocktwits users report Trump speaking live now (praising Xi/China)"
       ]
     },
     "rumors": [
       {
-        "text": "Forced margin-call selling is driving the drop; a bounce is close",
+        "text": "Bottom is in at 700; market about to pump hard in coming weeks",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "A flush below 700 on opex could mark a short-term low"
+      },
+      {
+        "text": "Trump's live remarks praising Xi/China could signal a trade or chip deal (crowd reads it as noise so far)",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "NVDA"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "NVDA": "NVIDIA"
+        },
+        "direction": "up",
+        "credibility": 0.15,
+        "why": "Any hint of easing chip export curbs would spark a semis short-cover"
+      },
+      {
+        "text": "Down 7 days in a row; this is only the '6th inning' and bounces are not a bottom",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "If right, rallies get sold into year end"
+      },
+      {
+        "text": "Forced margin-call selling driving the drop; bounce close (carried over)",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -45,40 +85,10 @@
         },
         "direction": "up",
         "credibility": 0.25,
-        "why": "Liquidation flushes near 700 often produce sharp intraday snap-backs"
+        "why": "Liquidation flushes often snap back sharply"
       },
       {
-        "text": "Trump will step in or speak to rescue the market",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "NVDA",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "NVDA": "NVIDIA",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "up",
-        "credibility": 0.1,
-        "why": "Any official jawboning would trigger a short-covering rally"
-      },
-      {
-        "text": "S&P 500 about 8% off its early-October record and on track for a seventh straight daily loss",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.5,
-        "why": "Long losing streaks show persistent selling but also stretch odds of a relief bounce"
-      },
-      {
-        "text": "SPY heading to 650/630; capitulation not done",
+        "text": "SPY heading to 650/630 (carried over)",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -88,20 +98,7 @@
         },
         "direction": "down",
         "credibility": 0.15,
-        "why": "If right, 700 support breaks and selling extends into next week"
-      },
-      {
-        "text": "NVDA deeply oversold; 20%+ relief rally coming (carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA"
-        ],
-        "names": {
-          "NVDA": "NVIDIA"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "An NVDA bounce would lift QQQ and SPY"
+        "why": "Break of 700 support would extend selling into next week"
       },
       {
         "text": "Hunterbrook short report alleges AMD export-control issues; AMD disputes (carried over, no new detail)",
@@ -120,12 +117,12 @@
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
+      "SOXL": "Direxion Daily Semiconductor Bull 3X",
       "NVDA": "NVIDIA",
       "AVGO": "Broadcom",
       "MU": "Micron Technology",
-      "SNDK": "Sandisk",
+      "TSM": "Taiwan Semiconductor Manufacturing",
       "APLD": "Applied Digital",
-      "IREN": "IREN Limited",
       "NBIS": "Nebius Group",
       "MSTR": "Strategy",
       "AMD": "Advanced Micro Devices"
@@ -135,31 +132,31 @@
         "ticker": "SPY",
         "direction": "down",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Trend day with failed bounce and new lows as semis accelerate; such days often close near lows",
-        "catalyst": "Opex flows and AI/semis liquidation; risk is a flush-and-bounce at 700 with RSI ~30 and F&G 14"
+        "confidence": 0.52,
+        "reason": "Trend day still making new lows below 700 as semis keep sliding; such days often close near lows",
+        "catalyst": "Opex flows and AI/semis liquidation; risk is a round-number flush-and-bounce with RSI ~30"
       },
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "1d",
         "confidence": 0.55,
-        "reason": "Extreme fear (F&G 14), SPY RSI ~30, ~7-day losing streak and crowd calling 630-650 targets: crowded bearish setup prone to relief",
-        "catalyst": "Post-opex unwind of hedges next session"
+        "reason": "Extreme fear (F&G 14), RSI ~30, 7-day losing streak, Stocktwits sentiment turning bearish (40): crowded bearish setup prone to relief",
+        "catalyst": "Post-opex hedge unwind next session"
       }
     ],
-    "whats_new": "SPY broke from 705.9 to a 700.86 low (-1.94%), extending last hour's down-to-close idea; QQQ is now -3.7% and the semis rout widened to MU (-12.7%) and NBIS (-13%). VIX steady near 30 and Fear & Greed slipped to 13.6; Stocktwits SPY sentiment 45, roughly flat from 46, with chatter split between capitulation calls and bounce hopes at 700.",
+    "whats_new": "SPY slipped from 702 to a 699.02 low, breaking the 700 round number (-2.12%), while semis accelerated (SOXL -26%, AVGO -11.6%, TSM -8.4%). Stocktwits SPY sentiment fell to 40 (BEARISH) from 45 with chatter volume high; Trump is reportedly speaking live but the crowd treats it as noise. Stocklake gauges unchanged since 16:09Z (VIX 30, F&G 14).",
     "sources": {
-      "market_pulse": "stocklake (16:09Z) + stocktwits prices 17:06Z",
+      "market_pulse": "stocklake (16:09Z) + stocktwits prices 18:06Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked; standard search had no same-day coverage)",
-      "news": "stocktwits + standard web search (AP Nov 16-17); stocklake news feed not used"
+      "reddit": "unavailable (reddit fetch blocked)",
+      "news": "stocktwits + standard web search (AP Nov 16)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -1.94,
+      "value": -2.12,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -177,18 +174,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 45.0,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 40.0,
+      "vote": -1,
+      "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": -3,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (16:09Z) + stocktwits prices 17:06Z",
+    "market_pulse": "stocklake (16:09Z) + stocktwits prices 18:06Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked; standard search had no same-day coverage)",
-    "news": "stocktwits + standard web search (AP Nov 16-17); stocklake news feed not used"
+    "reddit": "unavailable (reddit fetch blocked)",
+    "news": "stocktwits + standard web search (AP Nov 16)"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
