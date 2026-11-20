@@ -1,60 +1,69 @@
 {
   "date": "2026-11-20",
-  "bias": "neutral",
-  "written_at": "2026-11-20T10:07:32-05:00",
-  "as_of": "2026-11-20T15:07:00Z",
+  "bias": "bearish",
+  "written_at": "2026-11-20T11:07:13-05:00",
+  "as_of": "2026-11-20T16:07:00Z",
   "readings": {
-    "as_of": "2026-11-20T15:07:00Z",
-    "spy_price": 715.72,
-    "spy_change_pct": -0.02,
+    "as_of": "2026-11-20T16:07:00Z",
+    "spy_price": 705.86,
+    "spy_change_pct": -1.4,
     "vix": 30.4,
     "fear_greed": 15,
     "stocktwits": {
       "SPY": {
-        "score": 53,
+        "score": 46,
         "bullish_pct": 47
       }
     },
     "news": {
-      "score": -0.2,
+      "score": -0.5,
       "headlines": [
-        "SPY V-shaped reversal: opened 713.56, low ~707.85, now 715.72 (-0.02% vs 715.87 close), day high 718.28 (Stocktwits 15:06Z)",
-        "Stocklake 14:09Z snapshot (pre-reversal): VIX 30.4, Fear & Greed 14.6 extreme fear, breadth 11.7% oversold vs 2.7% overbought; SPY RSI 31.6, QQQ -1.57%, IWM -2.18%, GLD -2.5%, TLT +0.8%",
-        "Micron -5.9% at 650 (trending #3); Anthropic (ANT) -7.4% at 90 but bounced off ~84.7 low; IREN -7.3%; PayPal -2.4%",
-        "Intuit pared loss to -3.9% at 298 after opening ~284 on weak guidance and Mailchimp sale",
-        "UnitedHealth +4.8% at 346; Capricor +2.7%",
-        "Stocktwits SPY message volume HIGH (63); a post cites RSP (equal-weight) strength this morning",
-        "Econ calendar: no US releases today; UK retail sales beat prior (+0.7% m/m); Nov 20 is monthly options expiration"
+        "SPY reversal failed: rallied to ~716.7 then slid to new day low 704.56; now 705.86 (-1.40% vs 715.87 close) (Stocktwits 16:06Z)",
+        "AI/semis rout accelerating: NVDA -6.4% at 136.5, AVGO -9.2% at 314.6, SNDK -14.0%, ANT -11.3% at 86.2, APLD -14.9%, IREN -11.0%, INFQ -10.2%, MSTR -5.9%",
+        "Stocklake 14:09Z snapshot (stale): VIX 30.4, Fear & Greed 14.6 extreme fear, breadth 11.7% oversold vs 2.7% overbought, QQQ -2.46%, GLD -2.86%, TLT +1.0%",
+        "Stocktwits SPY sentiment 46 (neutral, down from 53), bears 52.8%; message volume HIGH 63; NVDA volume extremely high (81) yet NVDA sentiment 79 extremely bullish (dip buyers)",
+        "Econ calendar: no US releases today; UK retail sales beat prior; Nov 20 is monthly options expiration"
       ]
     },
     "rumors": [
       {
-        "text": "Banks are illiquid (JPM, BAC)",
+        "text": "Market will fall to the March lows; full capitulation still coming",
         "source": "stocktwits",
         "tickers": [
-          "JPM",
-          "BAC"
+          "SPY"
         ],
         "names": {
-          "JPM": "JPMorgan Chase",
-          "BAC": "Bank of America"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.05,
-        "why": "A real bank liquidity scare would hit financials and SPY hard; no evidence offered"
+        "credibility": 0.15,
+        "why": "If right, the selloff extends well past today's 704.56 low"
       },
       {
-        "text": "Intuit will take another multibillion write-off on Credit Karma, like Mailchimp (carried over)",
+        "text": "Selloff forces the Fed to cut; market keeps sliding until the next Fed meeting",
         "source": "stocktwits",
         "tickers": [
-          "INTU"
+          "SPY"
         ],
         "names": {
-          "INTU": "Intuit"
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
+        "credibility": 0.15,
+        "why": "Implies weeks of weakness before any policy relief"
+      },
+      {
+        "text": "NVDA daily RSI ~17; a 20%+ relief rally is coming before the next leg down",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "up",
         "credibility": 0.2,
-        "why": "An impairment would confirm Credit Karma weakness; stock already recovering intraday"
+        "why": "A sharp NVDA bounce would lift QQQ and SPY from oversold"
       },
       {
         "text": "Hunterbrook short report alleges AMD export-control issues; AMD disputes (carried over, no new detail)",
@@ -66,71 +75,36 @@
           "AMD": "Advanced Micro Devices"
         },
         "direction": "down",
-        "credibility": 0.45,
-        "why": "A probe on a megacap AI chip name keeps pressure on semis and QQQ"
-      },
-      {
-        "text": "The bounce is a bull trap; one last dump coming",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "If right, SPY retests the ~708 low into the opex close"
-      },
-      {
-        "text": "Washout is over; SPY reclaims 720 on equal-weight strength",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "RSP"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "RSP": "Invesco S&P 500 Equal Weight ETF"
-        },
-        "direction": "up",
-        "credibility": 0.35,
-        "why": "Short covering from extreme fear and oversold breadth could carry SPY green"
+        "credibility": 0.4,
+        "why": "Adds to semis pressure on a day chips are leading the drop"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF",
-      "TQQQ": "ProShares UltraPro QQQ",
-      "MU": "Micron Technology",
+      "NVDA": "NVIDIA",
+      "AVGO": "Broadcom",
+      "SNDK": "Sandisk",
       "ANT": "Anthropic",
-      "INTU": "Intuit",
-      "UNH": "UnitedHealth Group",
-      "PYPL": "PayPal",
+      "APLD": "Applied Digital",
       "IREN": "IREN Limited",
-      "CAPR": "Capricor Therapeutics",
-      "GME": "GameStop",
-      "JPM": "JPMorgan Chase",
-      "BAC": "Bank of America",
+      "MSTR": "Strategy",
       "AMD": "Advanced Micro Devices",
-      "RSP": "Invesco S&P 500 Equal Weight ETF"
+      "INFQ": "Infleqtion"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
+        "direction": "down",
         "horizon": "close",
-        "confidence": 0.54,
-        "reason": "Sharp intraday reversal from ~708 to ~716 with extreme fear (F&G ~15), RSI ~31 and bearish-leaning crowd (53% bears) = room for short covering",
-        "catalyst": "Opex-day dealer flows; risk is a fade/retest as crowd calls bull trap and QQQ/IWM lag"
+        "confidence": 0.55,
+        "reason": "Morning reversal to ~717 failed and SPY made a new low at 704.56 as semis (NVDA, AVGO) accelerate lower; failed bounces on trend days often close near lows",
+        "catalyst": "Opex-day hedging flows and continued AI/semis liquidation; risk is a snap-back from extreme fear (F&G ~15) and oversold RSI"
       }
     ],
-    "whats_new": "SPY flipped from ~708 premarket/early low to 715.72, essentially flat on the day, reversing the morning's -0.6% gap; Intuit and Anthropic pared losses while Micron (-5.9%) is the new laggard. Stocklake's 14:09Z snapshot showed fear deepening (VIX 30.4, Fear & Greed 14.6) before the bounce, so those readings may now overstate fear. Stocktwits SPY sentiment edged to 53 with bears at 53%, so the crowd has not chased the reversal.",
+    "whats_new": "The 15:07Z reversal to flat failed: SPY topped ~716.7 and broke to a new day low 704.56, now -1.40%, invalidating last hour's up-to-close idea. The AI/semis selloff deepened sharply (AVGO -9%, NVDA -6.4%, SNDK -14%, ANT -11%). Stocktwits SPY sentiment slipped from 53 to 46 while NVDA chatter is extreme and still dip-buying.",
     "sources": {
-      "market_pulse": "stocklake (14:09Z snapshot, pre-reversal) + stocktwits prices 15:06Z",
+      "market_pulse": "stocklake (14:09Z snapshot, stale) + stocktwits prices 16:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
       "news": "stocktwits posts + standard web search (no Nov 20 coverage found); stocklake news feed needs re-auth"
@@ -139,9 +113,9 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.02,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": -1.4,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -157,18 +131,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 53.0,
+      "value": 46.0,
       "vote": 0,
       "why": "in the neutral band"
     }
   ],
-  "net_votes": -1,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (14:09Z snapshot, pre-reversal) + stocktwits prices 15:06Z",
+    "market_pulse": "stocklake (14:09Z snapshot, stale) + stocktwits prices 16:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
     "news": "stocktwits posts + standard web search (no Nov 20 coverage found); stocklake news feed needs re-auth"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
