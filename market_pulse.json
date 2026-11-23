@@ -1,53 +1,47 @@
 {
   "date": "2026-11-23",
   "bias": "neutral",
-  "written_at": "2026-11-23T14:07:11-05:00",
-  "as_of": "2026-11-23T19:07:00Z",
+  "written_at": "2026-11-23T15:06:38-05:00",
+  "as_of": "2026-11-23T20:07:00Z",
   "readings": {
-    "as_of": "2026-11-23T19:07:00Z",
-    "spy_price": 724.26,
-    "spy_change_pct": 4.99,
+    "as_of": "2026-11-23T20:07:00Z",
+    "spy_price": 722.29,
+    "spy_change_pct": 4.71,
     "vix": 27.52,
     "fear_greed": 17,
     "stocktwits": {
       "SPY": {
-        "score": 46,
+        "score": 47,
         "bullish_pct": 47
       }
     },
-    "reddit": {
-      "posts": 0,
-      "top": []
-    },
     "news": {
-      "score": 0.3,
+      "score": 0.25,
       "headlines": [
-        "SPY ~724.3 (+5.0%) at 19:06Z, new intraday push after ~2h flat near 722; QQQ +6.8%, IWM +3.2% (Stocklake 18:09Z)",
-        "NVDA +31.6% to ~165.2 (high 171.5); Stocktwits #1 trending",
-        "Reuters link shared on Stocktwits: 'US lawmakers criticize Nvidia decision to reinstate Huang as CEO' - bipartisan call for chip-export legislation (article not opened, fetch blocked)",
-        "VIX 27.5, Fear & Greed 16.8 (extreme fear); oversold breadth 12.8% (Stocklake 18:09Z)",
-        "Trending: CRWD -10.5%, SOXS -40%, HPE +18%, DELL +21.5% (~338, off 379 high), GLXY +14.6%, BMNR +12.8%",
-        "No US economic releases on the calendar today"
+        "SPY ~722.3 (+4.7%) at 20:06Z, slipped from ~724.3 an hour ago; Stocktwits SPY message volume HIGH (66)",
+        "NVDA ~165.1 (+31.5%) after Huang reinstatement news before the open; Stocktwits NVDA sentiment 86 (extremely bullish), volume extremely high",
+        "Stocktwits-shared article text: analysts rushing to upgrade NVDA with targets restored above $200, one at $270",
+        "Trending: CRWD -10.5% (#1), HPE +16.6%, ZS +15.6%, SOXS -37%",
+        "VIX 27.5 and Fear & Greed 16.8 (extreme fear) as of Stocklake 18:09Z; oversold breadth 12.8%",
+        "No major-economy economic releases on today's calendar"
       ]
     },
     "rumors": [
       {
-        "text": "Nvidia has reinstated Jensen Huang as CEO; a Reuters headline about lawmakers criticizing the reinstatement is now being shared",
+        "text": "Michael Burry reportedly told Substack readers NVDA could rebound to the high 100s and he won't short until near $200 (quoted in a reposted article on Stocktwits)",
         "source": "stocktwits",
         "tickers": [
-          "NVDA",
-          "SPY"
+          "NVDA"
         ],
         "names": {
-          "NVDA": "NVIDIA",
-          "SPY": "SPDR S&P 500 ETF"
+          "NVDA": "NVIDIA"
         },
         "direction": "up",
-        "credibility": 0.65,
-        "why": "Raised from 0.5: a Reuters-titled link now references the reinstatement, but I could not open it and web search still finds no other coverage"
+        "credibility": 0.4,
+        "why": "Would mean a well-known bear is not leaning against the rebound yet, leaving room for further NVDA upside"
       },
       {
-        "text": "Bipartisan US lawmakers say Congress must pass legislation to crack down on chip exports to China and get answers from Nvidia",
+        "text": "Data-center moratoriums are possible once Democrats take control of Congress and governor posts in January (cited as an overhang in a reposted article)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -58,12 +52,12 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.55,
-        "why": "New regulatory headline risk could cap the NVDA-led rally that is carrying the index"
+        "credibility": 0.3,
+        "why": "Would hit AI capex demand that drives NVDA and index leadership"
       },
       {
-        "text": "Huang agreed to appear before Congress by Thanksgiving (Nov 26), per Rep. Mast; not confirmed by Nvidia (Nov 13 report, old news re-shared)",
-        "source": "news",
+        "text": "Ongoing investigations into alleged Chinese espionage involving Nvidia and others remain an overhang (reposted article)",
+        "source": "stocktwits",
         "tickers": [
           "NVDA"
         ],
@@ -71,65 +65,63 @@
           "NVDA": "NVIDIA"
         },
         "direction": "down",
-        "credibility": 0.35,
-        "why": "A hearing this week would keep headline risk on NVDA and the index"
+        "credibility": 0.4,
+        "why": "New findings could reverse part of today's NVDA reflex rally"
       },
       {
-        "text": "'We gonna get a peace deal today' (single Stocktwits post, no details)",
+        "text": "Bipartisan US lawmakers criticize Nvidia's reinstatement of Huang and want chip-export legislation (carried over from last hour, still unverified beyond a shared Reuters link)",
         "source": "stocktwits",
         "tickers": [
+          "NVDA",
           "SPY"
         ],
         "names": {
+          "NVDA": "NVIDIA",
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.1,
-        "why": "Would add to risk-on mood only if a real geopolitical deal was announced"
+        "direction": "down",
+        "credibility": 0.5,
+        "why": "Regulatory headline risk could cap the NVDA-led rally carrying the index"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "NVDA": "NVIDIA",
-      "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF",
       "CRWD": "CrowdStrike",
       "HPE": "Hewlett Packard Enterprise",
-      "DELL": "Dell Technologies",
-      "SOXS": "Direxion Daily Semiconductor Bear 3X",
-      "GLXY": "Galaxy Digital",
-      "BMNR": "BitMine Immersion Technologies"
+      "ZS": "Zscaler",
+      "SOXS": "Direxion Daily Semiconductor Bear 3X"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
-        "horizon": "close",
-        "confidence": 0.53,
-        "reason": "SPY broke above its 2h 721-723 range to ~724 while the SPY crowd stays net bearish (46) and Fear & Greed is in extreme fear",
-        "catalyst": "Short covering into the close; no macro data today"
+        "direction": "down",
+        "horizon": "1h",
+        "confidence": 0.52,
+        "reason": "SPY faded ~2 points off its 724 push and SPY crowd stays net bearish while NVDA crowd is euphoric (86), a crowded one-sided bet",
+        "catalyst": "Profit taking into the close on a +4.7% day"
       },
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "1d",
         "confidence": 0.52,
-        "reason": "A 5% index day built on one stock's CEO news, now drawing bipartisan lawmaker criticism; give-back risk in thin Thanksgiving-week trade",
-        "catalyst": "Congressional reaction / export-control headlines on NVDA"
+        "reason": "A near-5% index day driven by one stock's CEO news in thin Thanksgiving-week trade carries give-back risk",
+        "catalyst": "NVDA profit taking; congressional/export-control headlines"
       }
     ],
-    "whats_new": "SPY pushed from ~722.7 to ~724.3 (+5.0%) and NVDA firmed to ~165 (+31.6%). A Reuters-titled link now circulates saying lawmakers of both parties criticized Nvidia's decision to reinstate Huang and want chip-export legislation, which makes the reinstatement look more real but adds regulatory risk; the 'Sen. Scott Dec 3 hearing' and Hastings parody posts have dropped off. Fear & Greed edged down to 16.8.",
+    "whats_new": "SPY eased from ~724.3 to ~722.3 (+4.7%) while NVDA held ~165 (+31.5%) with Stocktwits sentiment extremely bullish (86). Reposted articles now cite analyst upgrades (targets >$200) and a reported Burry comment, plus overhangs from espionage probes and possible data-center moratoriums. ZS (+15.6%) joined the trending list; the 'peace deal' post is gone. Web search found no independent coverage after Nov 17 confirming the reinstatement.",
     "sources": {
-      "market_pulse": "stocklake (18:09Z) + stocktwits price 19:06Z",
+      "market_pulse": "stocklake (18:09Z) + stocktwits price 20:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocktwits posts/trending + one standard web search (Stocklake news feed needs re-auth; reuters fetch blocked)"
+      "news": "stocktwits posts/trending + one standard web search (Stocklake news feed needs re-auth)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 4.99,
+      "value": 4.71,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -147,7 +139,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 46.0,
+      "value": 47.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -155,10 +147,10 @@
   "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (18:09Z) + stocktwits price 19:06Z",
+    "market_pulse": "stocklake (18:09Z) + stocktwits price 20:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocktwits posts/trending + one standard web search (Stocklake news feed needs re-auth; reuters fetch blocked)"
+    "news": "stocktwits posts/trending + one standard web search (Stocklake news feed needs re-auth)"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
