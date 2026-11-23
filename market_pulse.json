@@ -1,130 +1,101 @@
 {
-  "date": "2026-11-20",
-  "bias": "bearish",
-  "written_at": "2026-11-20T15:06:47-05:00",
-  "as_of": "2026-11-20T20:06:00Z",
+  "date": "2026-11-23",
+  "bias": "neutral",
+  "written_at": "2026-11-23T09:06:54-05:00",
+  "as_of": "2026-11-23T14:06:00Z",
   "readings": {
-    "as_of": "2026-11-20T20:06:00Z",
-    "spy_price": 694.0,
-    "spy_change_pct": -3.06,
-    "vix": 31.48,
-    "fear_greed": 11,
+    "as_of": "2026-11-23T14:06:00Z",
+    "spy_price": 719.05,
+    "spy_change_pct": 4.24,
+    "vix": 31.39,
+    "fear_greed": 10,
     "stocktwits": {
       "SPY": {
-        "score": 37,
+        "score": 39,
         "bullish_pct": 46
+      },
+      "NVDA": {
+        "score": 82,
+        "bullish_pct": 60
       }
     },
     "news": {
-      "score": -0.7,
+      "score": 0.6,
       "headlines": [
-        "SPY 694.00 (-3.06%) at 20:05Z, broke below earlier 699.02 low and the 700 level into the last hour",
-        "Late-day semis leg lower: NVDA -11.9% at 128.65 (low 127.43), SOXL -28.5%, MU -13.4%, AMD -12.0%, IREN -16.2%, TQQQ -14.5%, QQQ -4.8% at 614.14",
-        "Stocklake 18:09Z: VIX 31.48, Fear & Greed 11.1 extreme fear, SPY RSI 26, QQQ RSI 27.7, breadth 12.5% oversold; TLT +1.5%, GLD -3.5%",
-        "No US economic releases today; Nov 20 is monthly options expiration",
-        "Week context: AI selloff after Jensen Huang's exit as Nvidia CEO, ahead of Anthropic IPO (web search, undated report)"
+        "Premarket 09:06 ET: SPY 719.05 (+4.24% vs Fri close 689.81), NVDA 161.62 (+28.8%), all while cash market is closed",
+        "Stocktwits NVDA posts claim WSJ reports Jensen Huang is returning as Nvidia CEO; not confirmed by standard web search",
+        "Premarket movers: APLD +20%, ZS +22%, NTSK +6%, S +4.6%; CAPR -74%, UNH -5.1%, CRWD -5.4%, HUM -2.9% (no catalysts confirmed)",
+        "No major-economy economic releases on Stocklake calendar today",
+        "Stocklake VIX 31.39 and Fear & Greed 10 are Friday 20:09Z snapshots, stale"
       ]
     },
     "rumors": [
       {
-        "text": "SPY gets pinned back to a 700 close because opex gamma is concentrated there",
+        "text": "WSJ reports Jensen Huang is coming back as Nvidia CEO",
         "source": "stocktwits",
         "tickers": [
+          "NVDA",
           "SPY"
         ],
         "names": {
+          "NVDA": "NVIDIA",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.15,
-        "why": "A pin would mean a ~0.9% squeeze in the final hour"
+        "credibility": 0.6,
+        "why": "Would reverse last week's AI selloff driver; NVDA +29% premarket is consistent with it, but I could not confirm the report"
       },
       {
-        "text": "Fed will cut rates by 2 percentage points in December",
+        "text": "An SEC investigation into Nvidia is ongoing and could still be a problem",
         "source": "stocktwits",
         "tickers": [
-          "SPY"
+          "NVDA"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.03,
-        "why": "An emergency-size cut would spark a huge relief rally; no evidence at all"
-      },
-      {
-        "text": "Democrats plan to tax IRAs, driving constant selling",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "NVDA": "NVIDIA"
         },
         "direction": "down",
-        "credibility": 0.05,
-        "why": "Would pressure retirement-account equity holdings; unsourced political claim"
-      },
-      {
-        "text": "Hunterbrook short report alleges AMD export-control issues; AMD disputes (carried over, no new detail)",
-        "source": "stocktwits",
-        "tickers": [
-          "AMD"
-        ],
-        "names": {
-          "AMD": "Advanced Micro Devices"
-        },
-        "direction": "down",
-        "credibility": 0.4,
-        "why": "Adds to semis pressure; AMD now -12%"
+        "credibility": 0.25,
+        "why": "An open probe could cap the rebound; unverified single post"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "QQQ": "Invesco QQQ Trust",
-      "TQQQ": "ProShares UltraPro QQQ",
-      "SOXL": "Direxion Daily Semiconductor Bull 3X",
       "NVDA": "NVIDIA",
-      "MU": "Micron Technology",
-      "AMD": "Advanced Micro Devices",
-      "IREN": "IREN Limited",
-      "MSTR": "Strategy",
-      "TTWO": "Take-Two Interactive",
+      "QQQ": "Invesco QQQ Trust",
+      "APLD": "Applied Digital",
       "CAPR": "Capricor Therapeutics",
-      "TLT": "iShares 20+ Year Treasury Bond ETF"
+      "UNH": "UnitedHealth Group",
+      "CRWD": "CrowdStrike",
+      "ZS": "Zscaler",
+      "HUM": "Humana",
+      "S": "SentinelOne",
+      "NTSK": "Netskope"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "down",
-        "horizon": "close",
-        "confidence": 0.55,
-        "reason": "Trend day: SPY broke the 699 intraday low and 700 in the final hour as NVDA/semis accelerated lower; trend days tend to close near lows",
-        "catalyst": "Semis liquidation into opex close; risk is a gamma pin/short-cover back toward 700"
-      },
-      {
-        "ticker": "SPY",
         "direction": "up",
         "horizon": "1d",
-        "confidence": 0.54,
-        "reason": "Extreme fear (F&G 11), SPY RSI 26, -3% day, Stocktwits bearish 37 and message volume high: stretched one-sided setup prone to relief",
-        "catalyst": "Post-opex hedge unwind next session; risk is continued AI/semis deleveraging"
+        "confidence": 0.53,
+        "reason": "Crowd stays bearish (Stocktwits SPY 39, bulls 46%) despite +4% gap after extreme fear; disbelief can fuel short covering",
+        "catalyst": "NVDA CEO-return report unwinding Friday's AI deleveraging; risk is a large-gap fade at the open"
       }
     ],
-    "whats_new": "Selling accelerated in the last hour: SPY lost the 699 low and 700, now 694 (-3.06% vs -2.14% an hour ago), led by NVDA (-11.9% vs -7.2%) and SOXL (-28%). Stocktwits SPY sentiment fell to 37 from 41 with high message volume; Stocklake gauges unchanged since 18:09Z (VIX 31.5, F&G 11). Bulls' '700 gamma close' talk is the main crowd hope.",
+    "whats_new": "Full reversal over the weekend: SPY is +4.2% premarket at 719 after closing Friday at 689.81, led by NVDA +29% on a reported Jensen Huang return as CEO. Stocktwits SPY sentiment is still bearish (39 vs 37) even as price surges, while NVDA sentiment is extremely bullish (82). Friday's '700 gamma pin' and IRA-tax rumors are stale.",
     "sources": {
-      "market_pulse": "stocklake (18:09Z) + stocktwits prices 20:05Z",
+      "market_pulse": "stocktwits premarket prices 14:06Z; stocklake VIX/F&G stale from Fri 20:09Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocktwits + stocklake + standard web search; stocklake news feed needs re-auth"
+      "reddit": "unavailable (reddit fetch blocked, search found nothing current)",
+      "news": "stocktwits posts + standard web search (unconfirmed); stocklake news feed needs re-auth"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -3.06,
-      "vote": -1,
-      "why": "\u2264 -0.3"
+      "value": 4.24,
+      "vote": 1,
+      "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -134,24 +105,24 @@
     },
     {
       "reading": "fear_greed",
-      "value": 11.0,
+      "value": 10.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 37.0,
+      "value": 39.0,
       "vote": -1,
       "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -3,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (18:09Z) + stocktwits prices 20:05Z",
+    "market_pulse": "stocktwits premarket prices 14:06Z; stocklake VIX/F&G stale from Fri 20:09Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocktwits + stocklake + standard web search; stocklake news feed needs re-auth"
+    "reddit": "unavailable (reddit fetch blocked, search found nothing current)",
+    "news": "stocktwits posts + standard web search (unconfirmed); stocklake news feed needs re-auth"
   },
-  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
