@@ -1,38 +1,38 @@
 {
   "date": "2026-11-23",
   "bias": "neutral",
-  "written_at": "2026-11-23T10:06:45-05:00",
-  "as_of": "2026-11-23T15:06:00Z",
+  "written_at": "2026-11-23T11:06:43-05:00",
+  "as_of": "2026-11-23T16:06:00Z",
   "readings": {
-    "as_of": "2026-11-23T15:06:00Z",
-    "spy_price": 721.52,
-    "spy_change_pct": 4.6,
+    "as_of": "2026-11-23T16:06:00Z",
+    "spy_price": 724.0,
+    "spy_change_pct": 4.96,
     "vix": 31.18,
-    "vix_change_pct": -0.67,
     "fear_greed": 11,
     "stocktwits": {
       "SPY": {
-        "score": 45,
+        "score": 46,
         "bullish_pct": 46
       },
-      "NVDA": {
-        "score": 85,
-        "bullish_pct": 60
-      }
+      "NVDA": {}
+    },
+    "reddit": {
+      "posts": 0,
+      "top": []
     },
     "news": {
-      "score": 0.5,
+      "score": 0.4,
       "headlines": [
-        "SPY 721.52 (+4.6% vs Fri close 689.81); opened 724.32, dipped to 713.57, recovered; QQQ +6.8%, IWM ~+3%",
-        "NVDA +32% to ~166 on Stocktwits-circulated report Huang returning as CEO; web search found only the Nov 12 resignation coverage, no confirmation of a return",
-        "Semis/AI infra ripping: SOXL +38%, MU +17%, DELL +23%, IREN +27%, APLD +23%; CRWD -10%",
-        "Breadth still washed out: ~20% of universe RSI-oversold; SPY RSI ~25 before today's bounce; GLD +4%",
+        "SPY 724.0 (+4.96% vs Fri 689.81); day range 713.57-727.97, faded from ~726 high; QQQ +7.5%, IWM +3.2% (Stocklake 14:09Z snapshot)",
+        "NVDA +33.7% to ~167.9 (high 171.5); standard web search still finds only the Nov 12 Huang resignation/interim CEO Kress release, no confirmation of a return",
+        "Semis/AI infra: SOXS -41%, TQQQ +20%, DELL +21%; cyber split: CRWD -12.5%, ZS +12.6%",
+        "Breadth still washed out: ~20% of universe RSI-oversold, 2.3% overbought; GLD +4.2%, TLT flat",
         "No major-economy economic releases on today's calendar"
       ]
     },
     "rumors": [
       {
-        "text": "WSJ reports Jensen Huang is returning as Nvidia CEO",
+        "text": "Reports that Jensen Huang is returning as Nvidia CEO (attributed to WSJ by posters)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -43,11 +43,11 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "up",
-        "credibility": 0.55,
-        "why": "Would undo the Nov 12 resignation shock; price action fits it but standard search still shows no confirming article"
+        "credibility": 0.5,
+        "why": "Would undo the Nov 12 resignation shock; price fits it but a second standard search still shows no confirming article or Nvidia release"
       },
       {
-        "text": "Insiders/politically connected buyers loaded NVDA in the days before the jump (manipulation claim)",
+        "text": "Trump sold his NVDA position at a gain, so he is no longer concerned",
         "source": "stocktwits",
         "tickers": [
           "NVDA"
@@ -56,11 +56,11 @@
           "NVDA": "NVIDIA"
         },
         "direction": "down",
-        "credibility": 0.1,
-        "why": "Unsupported single-post speculation; would only matter if regulators took interest"
+        "credibility": 0.05,
+        "why": "Joke/speculation from one post; no basis, would only matter as political noise"
       },
       {
-        "text": "Santa rally and new all-time highs by year end now back on",
+        "text": "Today's gap is a low-volume fake pump; SPY back under 700 / 630-650 next week",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -68,9 +68,9 @@
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "Crowd hope rather than a claim; signals chasing after a 4-6% index gap"
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Crowd bear calls, not a factual claim; reflects lingering bear-market mindset after the Nov selloff"
       }
     ],
     "names": {
@@ -79,52 +79,52 @@
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
       "GLD": "SPDR Gold Shares",
-      "MU": "Micron Technology",
+      "TLT": "iShares 20+ Year Treasury Bond ETF",
       "DELL": "Dell Technologies",
-      "IREN": "IREN Limited",
-      "APLD": "Applied Digital",
       "CRWD": "CrowdStrike",
-      "SOXL": "Direxion Daily Semiconductor Bull 3X",
-      "SOXS": "Direxion Daily Semiconductor Bear 3X"
+      "ZS": "Zscaler",
+      "AVGO": "Broadcom",
+      "SOXS": "Direxion Daily Semiconductor Bear 3X",
+      "TQQQ": "ProShares UltraPro QQQ"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.54,
-        "reason": "Gap-down from open was bought (713.57 low back to 721.5); Stocktwits SPY still net bearish (45, bulls 46%) with extreme-fear F&G 11, leaving room for short covering",
-        "catalyst": "NVDA/semis leadership continuing; no macro data today"
+        "confidence": 0.53,
+        "reason": "Gap held and extended from 713.6 low to ~724; Stocktwits SPY still net bearish (46, bulls 46%) with F&G 11, posts mention shorts needing to cover",
+        "catalyst": "Short covering / NVDA-led semis follow-through; no macro data today"
       },
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "1d",
         "confidence": 0.52,
-        "reason": "Huge gap rests on an unconfirmed NVDA CEO report; a denial or clarification could reverse a chunk of it",
-        "catalyst": "Official Nvidia statement or WSJ confirmation/denial"
+        "reason": "~5% index gap leans on an unconfirmed NVDA CEO report; price already faded from 728 high",
+        "catalyst": "Official Nvidia statement or confirmation/denial of the Huang report"
       }
     ],
-    "whats_new": "Gap held into the open: SPY extended to +4.6% (721.5) after an early dip to 713.6, NVDA now +32% and semis/AI infra names up 17-38%. Stocktwits SPY sentiment ticked up to 45 from 39 but bulls are still a minority, while NVDA sentiment is extreme (85). The Huang-return report is still unconfirmed by standard web search; VIX/F&G barely moved (31.2, 11).",
+    "whats_new": "SPY pushed to a 727.97 high and now sits ~724 (+4.96%), NVDA extended to +33.7%. Stocktwits SPY sentiment barely moved (46 vs 45) with bulls still a minority and chatter volume HIGH; the Huang-return report remains unconfirmed by standard search. New: CRWD down 12.5% while ZS up 12.6%; VIX/F&G snapshot unchanged (31.2, 11).",
     "sources": {
-      "market_pulse": "stocklake (VIX/F&G 14:09Z) + stocktwits prices 15:06Z",
+      "market_pulse": "stocklake (VIX/F&G 14:09Z) + stocktwits prices 16:06Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocktwits trending + one standard web search"
+      "reddit": "unavailable (reddit fetch blocked; standard search found no Reddit content)",
+      "news": "stocktwits trending + two standard web searches"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 4.6,
+      "value": 4.96,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": -0.67,
+      "value": null,
       "vote": 0,
-      "why": "in the neutral band"
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -134,7 +134,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 45.0,
+      "value": 46.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -142,10 +142,10 @@
   "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (VIX/F&G 14:09Z) + stocktwits prices 15:06Z",
+    "market_pulse": "stocklake (VIX/F&G 14:09Z) + stocktwits prices 16:06Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocktwits trending + one standard web search"
+    "reddit": "unavailable (reddit fetch blocked; standard search found no Reddit content)",
+    "news": "stocktwits trending + two standard web searches"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
