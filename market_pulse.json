@@ -1,38 +1,42 @@
 {
   "date": "2026-11-23",
   "bias": "neutral",
-  "written_at": "2026-11-23T11:06:43-05:00",
-  "as_of": "2026-11-23T16:06:00Z",
+  "written_at": "2026-11-23T12:06:40-05:00",
+  "as_of": "2026-11-23T17:06:00Z",
   "readings": {
-    "as_of": "2026-11-23T16:06:00Z",
-    "spy_price": 724.0,
-    "spy_change_pct": 4.96,
-    "vix": 31.18,
-    "fear_greed": 11,
+    "as_of": "2026-11-23T17:06:00Z",
+    "spy_price": 723.07,
+    "spy_change_pct": 4.82,
+    "vix": 27.41,
+    "fear_greed": 18,
     "stocktwits": {
       "SPY": {
-        "score": 46,
-        "bullish_pct": 46
+        "score": 47,
+        "bullish_pct": 47
       },
-      "NVDA": {}
+      "NVDA": {
+        "score": 86,
+        "bullish_pct": 63
+      }
     },
     "reddit": {
       "posts": 0,
       "top": []
     },
     "news": {
-      "score": 0.4,
+      "score": 0.35,
       "headlines": [
-        "SPY 724.0 (+4.96% vs Fri 689.81); day range 713.57-727.97, faded from ~726 high; QQQ +7.5%, IWM +3.2% (Stocklake 14:09Z snapshot)",
-        "NVDA +33.7% to ~167.9 (high 171.5); standard web search still finds only the Nov 12 Huang resignation/interim CEO Kress release, no confirmation of a return",
-        "Semis/AI infra: SOXS -41%, TQQQ +20%, DELL +21%; cyber split: CRWD -12.5%, ZS +12.6%",
-        "Breadth still washed out: ~20% of universe RSI-oversold, 2.3% overbought; GLD +4.2%, TLT flat",
-        "No major-economy economic releases on today's calendar"
+        "SPY ~723 (+4.8%), QQQ +6.6%, IWM +2.9% (Stocklake 16:09Z; Stocktwits 17:06Z)",
+        "NVDA +32.5% to ~166.4 (high 171.5), Stocktwits #1 trending with extremely high chatter",
+        "VIX eased to 27.4 from 31.2; Fear & Greed 18 (extreme fear) vs 11 earlier",
+        "Breadth improving: oversold share 12.8% vs ~20% earlier; GLD +3.8%, TLT flat",
+        "CRWD -10.8%, ZS +15.2%, HPE +14.2%, SYM +15.6%; SOXS -40.5%",
+        "No major-economy economic releases today"
       ]
     },
     "rumors": [
       {
-        "text": "Reports that Jensen Huang is returning as Nvidia CEO (attributed to WSJ by posters)",
+        "text": "Jensen Huang reinstated/returning as Nvidia CEO (posters treat as done; attributed earlier to WSJ)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -44,23 +48,36 @@
         },
         "direction": "up",
         "credibility": 0.5,
-        "why": "Would undo the Nov 12 resignation shock; price fits it but a second standard search still shows no confirming article or Nvidia release"
+        "why": "Would reverse the Nov 12 resignation shock; standard search still finds no confirming article, only Nov 12 exit and interim CEO Kress"
       },
       {
-        "text": "Trump sold his NVDA position at a gain, so he is no longer concerned",
+        "text": "Sen. Scott has announced a Huang hearing for December 3",
         "source": "stocktwits",
         "tickers": [
-          "NVDA"
+          "NVDA",
+          "SPY"
         ],
         "names": {
-          "NVDA": "NVIDIA"
+          "NVDA": "NVIDIA",
+          "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.05,
-        "why": "Joke/speculation from one post; no basis, would only matter as political noise"
+        "credibility": 0.3,
+        "why": "A Senate hearing on a reinstated CEO under investigation would keep headline risk on NVDA and the AI-led rally"
       },
       {
-        "text": "Today's gap is a low-volume fake pump; SPY back under 700 / 630-650 next week",
+        "text": "A 3x Nvidia short ETF was halted after a -91% plunge (shared Hedgeye post)",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDS"
+        ],
+        "names": {},
+        "direction": "down",
+        "credibility": 0.35,
+        "why": "Signals a violent short squeeze; forced de-risking of inverse products can exaggerate the NVDA gap"
+      },
+      {
+        "text": "Today's gap is a fake pump; don't rush in",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -70,7 +87,7 @@
         },
         "direction": "down",
         "credibility": 0.15,
-        "why": "Crowd bear calls, not a factual claim; reflects lingering bear-market mindset after the Nov selloff"
+        "why": "Crowd caution, not a factual claim; bears still a slight majority on SPY"
       }
     ],
     "names": {
@@ -80,43 +97,42 @@
       "IWM": "iShares Russell 2000 ETF",
       "GLD": "SPDR Gold Shares",
       "TLT": "iShares 20+ Year Treasury Bond ETF",
-      "DELL": "Dell Technologies",
       "CRWD": "CrowdStrike",
       "ZS": "Zscaler",
-      "AVGO": "Broadcom",
-      "SOXS": "Direxion Daily Semiconductor Bear 3X",
-      "TQQQ": "ProShares UltraPro QQQ"
+      "HPE": "Hewlett Packard Enterprise",
+      "SYM": "Symbotic",
+      "SOXS": "Direxion Daily Semiconductor Bear 3X"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.53,
-        "reason": "Gap held and extended from 713.6 low to ~724; Stocktwits SPY still net bearish (46, bulls 46%) with F&G 11, posts mention shorts needing to cover",
-        "catalyst": "Short covering / NVDA-led semis follow-through; no macro data today"
+        "confidence": 0.52,
+        "reason": "Gap holding ~723 for an hour, VIX down to 27.4, breadth improving while SPY crowd still net bearish (47)",
+        "catalyst": "Continued short covering into close; no macro data today"
       },
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "1d",
-        "confidence": 0.52,
-        "reason": "~5% index gap leans on an unconfirmed NVDA CEO report; price already faded from 728 high",
-        "catalyst": "Official Nvidia statement or confirmation/denial of the Huang report"
+        "confidence": 0.53,
+        "reason": "~5% index gap rests on an unconfirmed NVDA CEO story; NVDA crowd at extreme bullish (86) and a Dec 3 hearing is rumored",
+        "catalyst": "Official Nvidia confirmation/denial; give-back of squeeze"
       }
     ],
-    "whats_new": "SPY pushed to a 727.97 high and now sits ~724 (+4.96%), NVDA extended to +33.7%. Stocktwits SPY sentiment barely moved (46 vs 45) with bulls still a minority and chatter volume HIGH; the Huang-return report remains unconfirmed by standard search. New: CRWD down 12.5% while ZS up 12.6%; VIX/F&G snapshot unchanged (31.2, 11).",
+    "whats_new": "SPY steady near 723 (+4.8%) after fading from 728; VIX eased to 27.4 and Fear & Greed rose to 18 from 11 as oversold breadth shrank to 12.8%. New chatter: a rumored Senate Huang hearing on Dec 3 and a halted inverse NVDA ETF; the Huang-return story is still unconfirmed by search.",
     "sources": {
-      "market_pulse": "stocklake (VIX/F&G 14:09Z) + stocktwits prices 16:06Z",
+      "market_pulse": "stocklake (16:09Z) + stocktwits prices 17:06Z",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked; standard search found no Reddit content)",
-      "news": "stocktwits trending + two standard web searches"
+      "reddit": "unavailable (reddit fetch blocked)",
+      "news": "stocktwits trending + one standard web search (Stocklake news feed needs re-auth)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 4.96,
+      "value": 4.82,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -128,13 +144,13 @@
     },
     {
       "reading": "fear_greed",
-      "value": 11.0,
+      "value": 18.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 46.0,
+      "value": 47.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -142,10 +158,10 @@
   "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (VIX/F&G 14:09Z) + stocktwits prices 16:06Z",
+    "market_pulse": "stocklake (16:09Z) + stocktwits prices 17:06Z",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked; standard search found no Reddit content)",
-    "news": "stocktwits trending + two standard web searches"
+    "reddit": "unavailable (reddit fetch blocked)",
+    "news": "stocktwits trending + one standard web search (Stocklake news feed needs re-auth)"
   },
   "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
 }
