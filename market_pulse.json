@@ -1,17 +1,17 @@
 {
   "date": "2026-11-23",
   "bias": "neutral",
-  "written_at": "2026-11-23T12:06:40-05:00",
-  "as_of": "2026-11-23T17:06:00Z",
+  "written_at": "2026-11-23T13:06:42-05:00",
+  "as_of": "2026-11-23T18:06:00Z",
   "readings": {
-    "as_of": "2026-11-23T17:06:00Z",
-    "spy_price": 723.07,
-    "spy_change_pct": 4.82,
+    "as_of": "2026-11-23T18:06:00Z",
+    "spy_price": 722.74,
+    "spy_change_pct": 4.77,
     "vix": 27.41,
     "fear_greed": 18,
     "stocktwits": {
       "SPY": {
-        "score": 47,
+        "score": 46,
         "bullish_pct": 47
       },
       "NVDA": {
@@ -24,19 +24,18 @@
       "top": []
     },
     "news": {
-      "score": 0.35,
+      "score": 0.3,
       "headlines": [
-        "SPY ~723 (+4.8%), QQQ +6.6%, IWM +2.9% (Stocklake 16:09Z; Stocktwits 17:06Z)",
-        "NVDA +32.5% to ~166.4 (high 171.5), Stocktwits #1 trending with extremely high chatter",
-        "VIX eased to 27.4 from 31.2; Fear & Greed 18 (extreme fear) vs 11 earlier",
-        "Breadth improving: oversold share 12.8% vs ~20% earlier; GLD +3.8%, TLT flat",
-        "CRWD -10.8%, ZS +15.2%, HPE +14.2%, SYM +15.6%; SOXS -40.5%",
-        "No major-economy economic releases today"
+        "SPY ~722.7 (+4.8%) at 18:05Z, flat for ~2h; QQQ +6.8%, IWM +3.1% (Stocklake 16:09Z)",
+        "NVDA +30.8% to ~164.2, off high 171.5; Stocktwits #1 trending, crowd extremely bullish (86)",
+        "VIX 27.4, Fear & Greed 18 (extreme fear); oversold breadth 12.8% (Stocklake snapshot 16:09Z, not refreshed)",
+        "Trending: CRWD -10%, SOXS -39%, ZS +16%, HPE +17%, DELL +22% (off 379 high to ~338), SYM +17%",
+        "Web search found no coverage confirming the NVDA CEO story"
       ]
     },
     "rumors": [
       {
-        "text": "Jensen Huang reinstated/returning as Nvidia CEO (posters treat as done; attributed earlier to WSJ)",
+        "text": "Jensen Huang reinstated/returning as Nvidia CEO (still treated as done by posters; no confirming article found)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -48,10 +47,23 @@
         },
         "direction": "up",
         "credibility": 0.5,
-        "why": "Would reverse the Nov 12 resignation shock; standard search still finds no confirming article, only Nov 12 exit and interim CEO Kress"
+        "why": "Stale since last hour; NVDA has faded ~4% from its high while the story stays unconfirmed by search"
       },
       {
-        "text": "Sen. Scott has announced a Huang hearing for December 3",
+        "text": "Reed Hastings 'just returned' to Netflix (single Stocktwits post, likely parody of the Huang story)",
+        "source": "stocktwits",
+        "tickers": [
+          "NFLX"
+        ],
+        "names": {
+          "NFLX": "Netflix"
+        },
+        "direction": "up",
+        "credibility": 0.05,
+        "why": "Almost certainly a joke; would matter only if real"
+      },
+      {
+        "text": "Sen. Scott has announced a Huang hearing for December 3 (repeated from last hour)",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
@@ -63,43 +75,19 @@
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "A Senate hearing on a reinstated CEO under investigation would keep headline risk on NVDA and the AI-led rally"
-      },
-      {
-        "text": "A 3x Nvidia short ETF was halted after a -91% plunge (shared Hedgeye post)",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDS"
-        ],
-        "names": {},
-        "direction": "down",
-        "credibility": 0.35,
-        "why": "Signals a violent short squeeze; forced de-risking of inverse products can exaggerate the NVDA gap"
-      },
-      {
-        "text": "Today's gap is a fake pump; don't rush in",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Crowd caution, not a factual claim; bears still a slight majority on SPY"
+        "why": "Would keep headline risk on NVDA and the AI-led rally"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "NVDA": "NVIDIA",
+      "NFLX": "Netflix",
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
-      "GLD": "SPDR Gold Shares",
-      "TLT": "iShares 20+ Year Treasury Bond ETF",
       "CRWD": "CrowdStrike",
       "ZS": "Zscaler",
       "HPE": "Hewlett Packard Enterprise",
+      "DELL": "Dell Technologies",
       "SYM": "Symbotic",
       "SOXS": "Direxion Daily Semiconductor Bear 3X"
     },
@@ -109,21 +97,21 @@
         "direction": "up",
         "horizon": "close",
         "confidence": 0.52,
-        "reason": "Gap holding ~723 for an hour, VIX down to 27.4, breadth improving while SPY crowd still net bearish (47)",
-        "catalyst": "Continued short covering into close; no macro data today"
+        "reason": "Gap has held 721-723 for two hours while the SPY crowd stays net bearish (46)",
+        "catalyst": "Short covering into close; no macro data today"
       },
       {
         "ticker": "SPY",
         "direction": "down",
         "horizon": "1d",
         "confidence": 0.53,
-        "reason": "~5% index gap rests on an unconfirmed NVDA CEO story; NVDA crowd at extreme bullish (86) and a Dec 3 hearing is rumored",
-        "catalyst": "Official Nvidia confirmation/denial; give-back of squeeze"
+        "reason": "About 5% index gap rests on an unconfirmed NVDA CEO story; NVDA crowd extremely bullish and already off its high",
+        "catalyst": "Official Nvidia confirmation or denial; squeeze give-back"
       }
     ],
-    "whats_new": "SPY steady near 723 (+4.8%) after fading from 728; VIX eased to 27.4 and Fear & Greed rose to 18 from 11 as oversold breadth shrank to 12.8%. New chatter: a rumored Senate Huang hearing on Dec 3 and a halted inverse NVDA ETF; the Huang-return story is still unconfirmed by search.",
+    "whats_new": "Little changed: SPY holding ~722.7 (+4.8%), NVDA slipped to ~164 (+30.8%) from 166 an hour ago, DELL faded from 379 to ~338. Stocklake's VIX/F&G snapshot has not updated since 16:09Z. Only new chatter is a likely-parody 'Reed Hastings returned' post; the Huang story is still unconfirmed.",
     "sources": {
-      "market_pulse": "stocklake (16:09Z) + stocktwits prices 17:06Z",
+      "market_pulse": "stocklake (16:09Z snapshot) + stocktwits price 18:05Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
       "news": "stocktwits trending + one standard web search (Stocklake news feed needs re-auth)"
@@ -132,7 +120,7 @@
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 4.82,
+      "value": 4.77,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -150,7 +138,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 47.0,
+      "value": 46.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -158,7 +146,7 @@
   "net_votes": 0,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (16:09Z) + stocktwits prices 17:06Z",
+    "market_pulse": "stocklake (16:09Z snapshot) + stocktwits price 18:05Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
     "news": "stocktwits trending + one standard web search (Stocklake news feed needs re-auth)"
