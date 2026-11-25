@@ -1,34 +1,47 @@
 {
   "date": "2026-11-25",
-  "bias": "neutral",
-  "written_at": "2026-11-25T14:06:58-05:00",
-  "as_of": "2026-11-25T19:06:00Z",
+  "bias": "bearish",
+  "written_at": "2026-11-25T15:06:21-05:00",
+  "as_of": "2026-11-25T20:06:00Z",
   "readings": {
-    "as_of": "2026-11-25T19:06:00Z",
-    "spy_price": 718.03,
-    "spy_change_pct": -0.1,
+    "as_of": "2026-11-25T20:06:00Z",
+    "spy_price": 716.11,
+    "spy_change_pct": -0.37,
     "vix": 30.28,
     "fear_greed": 14,
     "stocktwits": {
       "SPY": {
-        "score": 48,
-        "bullish_pct": 47.03
+        "score": 52,
+        "bullish_pct": 47.23
       }
     },
     "news": {
-      "score": 0.2,
+      "score": 0.1,
       "headlines": [
-        "SPY 718.03 (-0.10%) at 14:06 ET: full V-reversal from 695.49 low, now testing prior close 718.78; session high 718.16",
-        "QQQ 634.09 (-0.63%), SOXL -3.6% (was -18.7% at lows), DELL +0.3% after trading as low as 265, BABA +1.4%, ASTS +11.1%, GDXU +9.7%",
-        "Stocklake 18:09Z: VIX 30.28 (from 31.71), Fear & Greed 13.6 extreme fear, IWM +0.74%, TLT +1.31%, GLD -0.3%; breadth 9.1% oversold vs 2.7% overbought",
+        "SPY 716.11 (-0.37%) at 15:05 ET: V-reversal from 695.49 low stalled at 718.42 high, just under prior close 718.78",
+        "QQQ 632.48 (-0.88%), SOXL -4.3%, MU -5.0% (rebounded from 548), DELL -0.9% (low 265), HPQ +10.5%, AMBA -19.1%, RKT +7.2%, VKTX +4.5%",
+        "Stocklake 18:09Z: VIX 30.28, Fear & Greed 13.6 extreme fear, IWM +0.63%, TLT +1.2%, GLD -0.41%; breadth 9.1% oversold vs 2.7% overbought",
         "US GDP 2nd est 4.3% (prior 3.4%), deflator 1.8% (prior 2.2%)",
-        "Day before Thanksgiving; Friday half session; next data Tokyo CPI 23:30 UTC",
-        "Stocktwits SPY message volume HIGH (66), trending #3"
+        "Markets closed Thursday for Thanksgiving; Friday half session; next data Tokyo CPI 23:30 UTC",
+        "Stocktwits SPY message volume HIGH (66), trending #9"
       ]
     },
     "rumors": [
       {
-        "text": "Michael Burry has gone long / turned bullish, signalling AI datacenter trade is not a bubble (carried over, still re-shared)",
+        "text": "Dip buyers from the reversal will dump in the last hour before the holiday",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.25,
+        "why": "A late fade would leave SPY red into the long weekend"
+      },
+      {
+        "text": "Market will see a severe crash today or Monday",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -38,12 +51,12 @@
           "SPY": "SPDR S&P 500 ETF",
           "QQQ": "Invesco QQQ Trust"
         },
-        "direction": "up",
-        "credibility": 0.15,
-        "why": "A famous bear turning bullish could fuel FOMO into the holiday"
+        "direction": "down",
+        "credibility": 0.05,
+        "why": "Unsupported doom call; would mean renewed liquidation"
       },
       {
-        "text": "SPY forming a double top near 718 (prior close) giving bulls an exit",
+        "text": "SPY double top near 718 (prior close) giving bulls an exit (carried over; high 718.42 then fade so far fits)",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -53,20 +66,7 @@
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "Failure at 718-719 could trigger a late-day fade"
-      },
-      {
-        "text": "Bounce was engineered so people would not complain about the market at Thanksgiving dinner",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.05,
-        "why": "Implies rally lacks real buyers and may reverse after the holiday"
+        "why": "Failure at 718-719 caps the holiday bounce"
       },
       {
         "text": "Neocloud credit default swaps blowing out is the main bear catalyst for AI stocks (carried over)",
@@ -84,7 +84,7 @@
         "why": "Credit stress at AI cloud providers would renew pressure on chips and the index"
       },
       {
-        "text": "Bonds rallying on view inflation is peaking while economy runs hot, giving the Fed room (carried over; TLT +1.3% supports it)",
+        "text": "Bonds rallying on view inflation is peaking while economy runs hot, giving the Fed room (carried over; TLT +1.2%, deflator 1.8%)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -106,45 +106,45 @@
       "TLT": "iShares 20+ Year Treasury Bond ETF",
       "GLD": "SPDR Gold Shares",
       "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
+      "MU": "Micron Technology",
       "DELL": "Dell Technologies",
-      "BABA": "Alibaba Group",
-      "ASTS": "AST SpaceMobile",
-      "RKLB": "Rocket Lab",
-      "PATH": "UiPath",
-      "NVDA": "NVIDIA"
+      "HPQ": "HP Inc",
+      "AMBA": "Ambarella",
+      "RKT": "Rocket Companies",
+      "VKTX": "Viking Therapeutics"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
+        "direction": "down",
         "horizon": "close",
-        "confidence": 0.52,
-        "reason": "Strong intraday momentum and pre-holiday drift, but price sits at 718-719 resistance (prior close) after a +3.2% run off the low, so a stall is equally plausible",
-        "catalyst": "Pre-Thanksgiving positioning and short covering in thin trade"
+        "confidence": 0.51,
+        "reason": "Rally stalled at 718.42 just under prior close and has faded to 716; crowd talks of last-hour selling, but pre-holiday drift offsets",
+        "catalyst": "Rejection at prior close 718.78 into a long weekend"
       },
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "1d",
-        "confidence": 0.54,
-        "reason": "Extreme fear (F&G ~14, VIX ~30) with bullish reversal, falling VIX and rallying bonds; crowd only neutral (48), not euphoric",
+        "confidence": 0.53,
+        "reason": "Extreme fear (F&G ~14, VIX ~30) after a large intraday reversal, bonds rallying; crowd neutral (52), not euphoric",
         "catalyst": "Friday half-session holiday seasonality"
       }
     ],
-    "whats_new": "SPY extended the reversal from 712 to 718.03 (-0.10%), almost erasing a -3.2% intraday drop and testing the prior close 718.78. Stocktwits sentiment rose to 48 (neutral) from 40 and VIX eased to 30.3 from 31.7, while Fear & Greed ticked up to 13.6; semis now only modestly lower (SOXL -3.6%).",
+    "whats_new": "SPY topped at 718.42, just under the prior close, and slipped back to 716.11 (-0.37%) from 718.03 an hour ago. Stocktwits score is 52 (neutral) with bulls 47%; SPY fell to #9 trending as HPQ (+10.5%), AMBA (-19%) and MU (-5%) drew attention. VIX/Fear & Greed snapshot unchanged (no new Stocklake update since 18:09Z).",
     "sources": {
-      "market_pulse": "stocklake (snapshot 18:09Z); SPY price stocktwits 14:06 ET",
+      "market_pulse": "stocklake (snapshot 18:09Z); SPY price stocktwits 15:05 ET",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocktwits trending/posts; stocklake economic calendar; web search (no same-day coverage); stocklake news feed unavailable (auth)"
+      "news": "stocktwits trending/posts; stocklake economic calendar; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.1,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": -0.37,
+      "vote": -1,
+      "why": "\u2264 -0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -160,18 +160,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 48.0,
+      "value": 52.0,
       "vote": 0,
       "why": "in the neutral band"
     }
   ],
-  "net_votes": -1,
+  "net_votes": -2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (snapshot 18:09Z); SPY price stocktwits 14:06 ET",
+    "market_pulse": "stocklake (snapshot 18:09Z); SPY price stocktwits 15:05 ET",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocktwits trending/posts; stocklake economic calendar; web search (no same-day coverage); stocklake news feed unavailable (auth)"
+    "news": "stocktwits trending/posts; stocklake economic calendar; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
 }
