@@ -1,35 +1,91 @@
 {
   "date": "2026-11-25",
   "bias": "bearish",
-  "written_at": "2026-11-25T11:07:06-05:00",
-  "as_of": "2026-11-25T16:06:00Z",
+  "written_at": "2026-11-25T12:06:41-05:00",
+  "as_of": "2026-11-25T17:06:00Z",
   "readings": {
-    "as_of": "2026-11-25T16:06:00Z",
-    "spy_price": 698.62,
-    "spy_change_pct": -2.81,
-    "vix": 30.78,
-    "fear_greed": 12,
+    "as_of": "2026-11-25T17:06:00Z",
+    "spy_price": 704.19,
+    "spy_change_pct": -2.03,
+    "vix": 31.71,
+    "fear_greed": 9,
     "stocktwits": {
       "SPY": {
         "score": 37,
-        "bullish_pct": 47.24
+        "bullish_pct": 47.02
       }
     },
     "news": {
-      "score": -0.55,
+      "score": -0.4,
       "headlines": [
-        "SPY 698.62 (-2.81%) at 11:05 ET; bounce to 705.02 high faded, session low 695.49, open 703.2, prior close 718.78",
-        "Stocklake delayed: QQQ -4.36% (610.26, RSI 34), IWM -1.73%, SPY RSI 34.9; breadth 7.9% oversold vs 2.6% overbought",
-        "Chips/AI hardware rout extends: SOXL -22.6%, DELL -7.9%, AMBA -20.3%; crypto proxies MSTR -8.3%, BMNR -8.2%",
-        "Flight to bonds: TLT +1.5% (82.75); GLD -3.1%; DE +3.3%, IBM +1.4% among few green trending names",
-        "VIX 30.78, Fear & Greed 11.5 extreme fear (Stocklake snapshot 14:09Z, unchanged since last reading)",
-        "US GDP 2nd estimate released 13:30 UTC; actual figure still not in sources. Germany Q3 GDP +0.1% q/q",
-        "Day before US Thanksgiving: thin liquidity; Stocktwits SPY message volume HIGH (66)"
+        "SPY 704.19 (-2.03%) at 12:05 ET: sharp late-hour bounce from ~698 toward the 705.02 session high; low 695.49, prior close 718.78",
+        "Stocklake (delayed, 16:09Z): QQQ -4.42% RSI 34, IWM -1.77%, SPY RSI 34.9; breadth 9.1% oversold vs 2.7% overbought",
+        "Chip/memory rout: SOXL -18.7% (was -22.6%), MU -10.9%, SNDK -11.4%, AMBA -19.3%; DELL -4.8% (was -7.9%)",
+        "HPQ +11.1% a rare green trending name; SLV -4.1%, GLD -2.8%; TLT +1.5% flight to bonds",
+        "VIX 31.71 (up from 30.78), Fear & Greed 9.1 extreme fear (Stocklake 16:04Z)",
+        "US GDP 2nd estimate 4.3% vs prior 3.4%; cons spending 4.2%; deflator 1.8% (released 13:30 UTC)",
+        "Day before Thanksgiving: thin liquidity; Stocktwits SPY message volume HIGH (66); next data: Tokyo CPI 23:30 UTC"
       ]
     },
     "rumors": [
       {
-        "text": "Poster says markets assume the Fed keeps hiking (50-75bp more after a September hike) but data before the December meeting will force it to back off",
+        "text": "EXTREME high NYSE TICK readings firing = shorts covering; bounce needs more green daily candles to become a trend",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.35,
+        "why": "Short covering into a holiday can extend the intraday bounce, though it may not hold"
+      },
+      {
+        "text": "'Thanksgiving pump' coming into the holiday",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "Holiday seasonality plus oversold conditions could lift SPY into the close"
+      },
+      {
+        "text": "Market makers playing games with AVGO/TSM; poster calls this a loading zone for $500 targets",
+        "source": "stocktwits",
+        "tickers": [
+          "AVGO",
+          "TSM"
+        ],
+        "names": {
+          "AVGO": "Broadcom",
+          "TSM": "Taiwan Semiconductor Manufacturing"
+        },
+        "direction": "up",
+        "credibility": 0.15,
+        "why": "Dip buying in semis would help QQQ/SPY recover"
+      },
+      {
+        "text": "Meme-like megacaps such as NVDA are exit liquidity before a big downturn",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA",
+          "SPY"
+        ],
+        "names": {
+          "NVDA": "NVIDIA",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Further AI-leader liquidation would drag the index"
+      },
+      {
+        "text": "Fed keeps hiking but pre-December data will force it to back off (carried over)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -40,147 +96,73 @@
           "TLT": "iShares 20+ Year Treasury Bond ETF"
         },
         "direction": "up",
-        "credibility": 0.25,
-        "why": "A Fed pause/pivot would support bonds (already bid) and eventually equities"
-      },
-      {
-        "text": "'Liquidity crisis' call: metals crashing plus a soaring dollar signal forced selling across assets",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "GLD"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "GLD": "SPDR Gold Shares"
-        },
-        "direction": "down",
         "credibility": 0.2,
-        "why": "Cross-asset liquidation would mean dip buys get sold again; GLD -3% fits but no evidence of a funding stress event"
+        "why": "A Fed pause would support bonds and later equities; strong 4.3% GDP cuts against it"
       },
       {
-        "text": "Dell 'slammed' on its earnings report means puts all day for QQQ/SPY (DELL -7.9%; earnings link unverified in sources)",
+        "text": "Dell slide on earnings means puts all day for QQQ/SPY (carried over; DELL has since pared losses to -4.8%)",
         "source": "stocktwits",
         "tickers": [
           "DELL",
-          "QQQ",
           "SPY"
         ],
         "names": {
           "DELL": "Dell Technologies",
-          "QQQ": "Invesco QQQ Trust",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.35,
-        "why": "A weak AI-server read-through would keep pressure on chips and the index"
-      },
-      {
-        "text": "Selling is just pre-holiday de-risking, not a fundamental break",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "SOXL"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares"
-        },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "If positioning-driven, flows could reverse after the holiday"
-      },
-      {
-        "text": "Market makers 'using the same strategy as yesterday' (bounce sold, pin lower)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "NVDA"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "NVDA": "NVIDIA"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Repeat of a faded intraday bounce into the close"
-      },
-      {
-        "text": "US GDP came in at 3.6% (carried over from last hour, still unconfirmed by any source)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
         "credibility": 0.25,
-        "why": "Strong growth would undercut recession fear but has not stopped the selloff"
-      },
-      {
-        "text": "AI-chip unwind / 'great AI destruction' narrative (stale, carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "MU",
-          "SOXL"
-        ],
-        "names": {
-          "MU": "Micron Technology",
-          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Continued semis liquidation would keep pressing QQQ and SPY"
+        "why": "Weak AI-server read-through would keep pressure on tech"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "DIA": "SPDR Dow Jones Industrial Average ETF",
       "IWM": "iShares Russell 2000 ETF",
       "TLT": "iShares 20+ Year Treasury Bond ETF",
       "GLD": "SPDR Gold Shares",
+      "SLV": "iShares Silver Trust",
       "DELL": "Dell Technologies",
       "AMBA": "Ambarella",
-      "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
-      "MSTR": "Strategy",
-      "BMNR": "BitMine Immersion Technologies",
-      "DE": "Deere & Co",
-      "IBM": "IBM",
+      "SNDK": "Sandisk",
       "MU": "Micron Technology",
+      "HPQ": "HP Inc",
+      "MSTR": "Strategy",
+      "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
+      "AVGO": "Broadcom",
+      "TSM": "Taiwan Semiconductor Manufacturing",
       "NVDA": "NVIDIA"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "down",
-        "horizon": "1h",
-        "confidence": 0.52,
-        "reason": "Rip to 705 was rejected at the bearish trigger/open zone and price slid back to ~698.6 with top wicks; chips still in free fall (SOXL -22%)",
-        "catalyst": "Failed bounce; retest of 695.5 low"
+        "direction": "up",
+        "horizon": "close",
+        "confidence": 0.54,
+        "reason": "Late-hour bounce from ~698 to ~704 with chips paring losses and extreme TICK/short covering; extreme fear (F&G 9) into a thin pre-holiday session",
+        "catalyst": "Short covering and pre-Thanksgiving positioning"
       },
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "1d",
         "confidence": 0.53,
-        "reason": "Extreme fear (F&G 12, VIX ~31), RSI ~35, -2.8% into a holiday; crowd net bearish (37) with loss-porn chatter; holiday-week seasonality skews up",
-        "catalyst": "Capitulation-style selloff before Thanksgiving; post-holiday shortened session"
+        "reason": "Oversold (RSI ~35, VIX ~32, F&G 9) with crowd still net bearish (score 37); holiday-week seasonality skews up",
+        "catalyst": "Post-Thanksgiving shortened session"
       }
     ],
-    "whats_new": "The 10:06 ET rip to ~704-705 failed: SPY is back to 698.6 (-2.8%) near the 695.5 low, and the chip rout deepened (SOXL -17% to -22.6%, DELL -5.5% to -7.9%). Crowd sentiment edged lower (score 38 to 37, bullish 47.6% to 47.2%) on high message volume; VIX/F&G snapshot unchanged. New chatter centers on Fed-hike fears, a 'liquidity crisis' call and Dell's drop; GDP figure still unverified.",
+    "whats_new": "SPY bounced from ~698.6 to 704.19 (-2.03% vs -2.81%) as chips pared losses (SOXL -22.6% to -18.7%, DELL -7.9% to -4.8%), with chatter of extreme TICK short covering. Yet VIX rose to 31.7 and Fear & Greed fell to 9; crowd sentiment flat at 37. The GDP rumor of 3.6% was wrong: the 2nd estimate printed 4.3% (prior 3.4%).",
     "sources": {
-      "market_pulse": "stocklake (VIX/F&G/breadth snapshot 14:09Z; indices delayed); SPY price stocktwits 11:05 ET",
+      "market_pulse": "stocklake (VIX/F&G/breadth 16:04Z; indices delayed); SPY price stocktwits 12:05 ET",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked; web search found no same-day coverage)",
+      "reddit": "unavailable (reddit fetch blocked)",
       "news": "stocktwits trending/posts; stocklake economic calendar; web search (no same-day coverage)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -2.81,
+      "value": -2.03,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -192,7 +174,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 12.0,
+      "value": 9.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -206,9 +188,9 @@
   "net_votes": -3,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (VIX/F&G/breadth snapshot 14:09Z; indices delayed); SPY price stocktwits 11:05 ET",
+    "market_pulse": "stocklake (VIX/F&G/breadth 16:04Z; indices delayed); SPY price stocktwits 12:05 ET",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked; web search found no same-day coverage)",
+    "reddit": "unavailable (reddit fetch blocked)",
     "news": "stocktwits trending/posts; stocklake economic calendar; web search (no same-day coverage)"
   },
   "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
