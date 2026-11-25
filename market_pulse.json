@@ -1,40 +1,39 @@
 {
-  "date": "2026-11-24",
+  "date": "2026-11-25",
   "bias": "bearish",
-  "written_at": "2026-11-24T15:06:31-05:00",
-  "as_of": "2026-11-24T20:06:00Z",
+  "written_at": "2026-11-25T09:07:35-05:00",
+  "as_of": "2026-11-25T14:07:00Z",
   "readings": {
-    "as_of": "2026-11-24T20:06:00Z",
-    "spy_price": 715.81,
-    "spy_change_pct": -0.9,
-    "vix": 26.98,
+    "as_of": "2026-11-25T14:07:00Z",
+    "spy_price": 703.9,
+    "spy_change_pct": -2.07,
+    "vix": 26.76,
     "fear_greed": 17,
     "stocktwits": {
       "SPY": {
-        "score": 47,
-        "bullish_pct": 49.02
+        "score": 40,
+        "bullish_pct": 47.82
       },
-      "NVDA": {
-        "score": 81,
-        "bullish_pct": 64.35
+      "MU": {
+        "score": 60,
+        "bullish_pct": 76.14
       }
     },
     "news": {
-      "score": -0.35,
+      "score": -0.5,
       "headlines": [
-        "SPY 715.81 (-0.90%) at 20:05Z, down from 717.43 an hour ago; Stocklake delayed: QQQ -2.37%, IWM +0.48%, GLD -2.2%, TLT flat",
-        "NVDA -7.8% (~152.23); AI hardware still hit: HPE -17.5%, DELL -12.2%, WULF -8.7%",
-        "Trending gainers: ANF +21.6%, SNY +10.4%, TGTX +9.6%, XBI +5.9%; SLV -5.3%, LABD -17.4%",
-        "VIX 26.98 and Fear & Greed 17.3 (extreme fear), Stocklake snapshot 18:07-18:09Z, not refreshed",
-        "Breadth 7.4% oversold vs 2.4% overbought",
-        "Undated web article (The Standard HK) claims a selloff on 'fallout from Jensen Huang's resignation as Nvidia CEO' - unverified",
-        "US GDP 2nd estimate, deflator, consumer spending tomorrow 13:30 UTC"
+        "Premarket 09:06 ET: SPY 703.9 (-2.07%) vs 718.78 close; QQQ 617.3 (-3.26%), VOO -2.05%; Stocklake delayed: IWM -1.42%, GLD -2.1%, TLT +0.87%",
+        "Chip rout premarket: SOXL -16.3%, MU -9.2% (572), AVGO -4.9%, DELL -7.5%, AMBA -30.4%; DE -3.2%",
+        "TLT +1% to 82.3: flight to bonds",
+        "VIX 26.76 / Fear & Greed 16.6 (extreme fear) are Stocklake snapshots from 2026-11-24 20:07Z, not refreshed; breadth 7.5% oversold vs 2.5% overbought",
+        "US GDP 2nd estimate, deflator, consumer spending released 13:30 UTC; actual figures not available in sources",
+        "Day before US Thanksgiving holiday: thinner liquidity likely"
       ]
     },
     "rumors": [
       {
-        "text": "Web article (undated, unverified) says Jensen Huang resigned as Nvidia CEO; Stocktwits posts reference Jensen 'being back' and a fading 'Jensen bounce'",
-        "source": "news",
+        "text": "Stocktwits posters blame the selloff on the 'Jensen pump' fading ('who bought NVDA on the Jensen pump?'); earlier unverified claim of Jensen Huang leaving as Nvidia CEO still unconfirmed (stale, carried over)",
+        "source": "stocktwits",
         "tickers": [
           "NVDA",
           "SPY"
@@ -44,37 +43,11 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.3,
-        "why": "Leadership turmoil at the largest index weight would extend the AI selloff"
+        "credibility": 0.2,
+        "why": "Leadership doubt at the largest index weight would deepen the AI selloff"
       },
       {
-        "text": "Stocktwits posters claim NVDA chips contain 'spyware' and 'we have proof now'",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA"
-        ],
-        "names": {
-          "NVDA": "NVIDIA"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "Would hurt demand and invite regulatory scrutiny"
-      },
-      {
-        "text": "Calls for an NVDA shareholder class action over 'shenanigans'; circular financing/probe talk continues (carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA"
-        ],
-        "names": {
-          "NVDA": "NVIDIA"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Litigation/governance overhang on the AI leader"
-      },
-      {
-        "text": "Poster: 'they know what the 5:30 prints gonna be' (hinting GDP/PCE data tomorrow already priced or leaked)",
+        "text": "Posters call for a circuit-breaker day and 'next leg down is $691' once the cash open hits",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -84,10 +57,38 @@
         },
         "direction": "down",
         "credibility": 0.1,
-        "why": "Implies weak data ahead; no evidence"
+        "why": "A further ~2% drop at the open; mostly crowd fear, no evidence"
       },
       {
-        "text": "New 16-country Section 301 tariff threat before Thanksgiving (carried over; still unconfirmed)",
+        "text": "'The great AI destruction of 2026' - claims AI chip stocks are a pump-and-dump, MU headed to the $400s / 20% bear market",
+        "source": "stocktwits",
+        "tickers": [
+          "MU",
+          "SOXL"
+        ],
+        "names": {
+          "MU": "Micron Technology",
+          "SOXL": "Direxion Daily Semiconductor Bull 3X Shares"
+        },
+        "direction": "down",
+        "credibility": 0.15,
+        "why": "Would mean the AI memory trade is unwinding further"
+      },
+      {
+        "text": "MU bulls say shorting here takes 'huge balls' and keep buying the dip (MU crowd still 76% bullish while stock -9%)",
+        "source": "stocktwits",
+        "tickers": [
+          "MU"
+        ],
+        "names": {
+          "MU": "Micron Technology"
+        },
+        "direction": "up",
+        "credibility": 0.25,
+        "why": "Dip buyers could spark a reflex bounce, but crowded long side risks more forced selling"
+      },
+      {
+        "text": "New Section 301 tariff threat before Thanksgiving (carried over; still unconfirmed)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -100,72 +101,57 @@
           "AMZN": "Amazon"
         },
         "direction": "down",
-        "credibility": 0.2,
+        "credibility": 0.15,
         "why": "Fresh tariffs would hit retail margins"
-      },
-      {
-        "text": "Oil falling so PCE inflation should come in cold (carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "Soft inflation would ease Fed-hike fears"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
-      "NVDA": "NVIDIA",
-      "HPE": "Hewlett Packard Enterprise",
-      "DELL": "Dell Technologies",
-      "WULF": "TeraWulf",
-      "ANF": "Abercrombie & Fitch",
-      "SNY": "Sanofi",
-      "TGTX": "TG Therapeutics",
-      "XBI": "SPDR S&P Biotech ETF",
-      "LABD": "Direxion Daily S&P Biotech Bear 3X Shares",
-      "SLV": "iShares Silver Trust",
       "QQQ": "Invesco QQQ Trust",
+      "VOO": "Vanguard S&P 500 ETF",
       "IWM": "iShares Russell 2000 ETF",
+      "TLT": "iShares 20+ Year Treasury Bond ETF",
+      "GLD": "SPDR Gold Shares",
+      "MU": "Micron Technology",
+      "DELL": "Dell Technologies",
+      "AVGO": "Broadcom",
+      "AMBA": "Ambarella",
+      "SOXL": "Direxion Daily Semiconductor Bull 3X Shares",
+      "DE": "Deere & Company",
+      "NVDA": "NVIDIA",
       "WMT": "Walmart",
       "AMZN": "Amazon"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "down",
+        "direction": "up",
         "horizon": "close",
         "confidence": 0.53,
-        "reason": "Lower low (717.4 to 715.8) with QQQ at -2.4% and NVDA crowd still extremely bullish (81) - capitulation not yet seen; crowd shorting any bounce",
-        "catalyst": "AI-hardware selling into the final hour; 'Jensen bounce fading'"
+        "reason": "-2% gap down into extreme fear (F&G 17), oversold breadth and openly bearish crowd (score 40, circuit-breaker talk); pre-holiday sessions often see partial gap fills",
+        "catalyst": "Cash open 14:30 UTC; pre-Thanksgiving thin trade"
       },
       {
         "ticker": "SPY",
-        "direction": "up",
-        "horizon": "1d",
+        "direction": "down",
+        "horizon": "1h",
         "confidence": 0.52,
-        "reason": "Extreme fear (F&G 17), oversold breadth, IWM green, holiday week seasonality favor a rebound",
-        "catalyst": "US GDP 2nd estimate tomorrow 13:30 UTC"
+        "reason": "Premarket sparkline still making lower lows (713.9 to 703.6) with chips (SOXL -16%) leading; first hour may extend before any bounce",
+        "catalyst": "Opening chip selling, MU/AVGO/DELL"
       }
     ],
-    "whats_new": "SPY slid further from 717.4 (-0.67%) to 715.8 (-0.90%), a new intraday low, as QQQ deepened to -2.4% and NVDA to -7.8%; DELL and HPE extended losses. A new unverified claim surfaced of Jensen Huang leaving as Nvidia CEO, plus Stocktwits 'spyware' chatter on NVDA. SPY crowd unchanged at 47 (49% bullish); NVDA crowd still extremely bullish (81). VIX/F&G snapshot not refreshed.",
+    "whats_new": "SPY rallied into yesterday's close (718.78 vs 715.8 at the last reading) but is now gapping down -2.07% premarket to 703.9 as the chip rout deepens (SOXL -16%, MU -9%, AMBA -30%, DELL -7.5%, QQQ -3.3%) and bonds rally. SPY crowd turned more bearish (47 to 40); MU crowd still 76% bullish. GDP figures out at 13:30 UTC but not yet visible; VIX/F&G not refreshed since yesterday.",
     "sources": {
-      "market_pulse": "stocklake (VIX/F&G 18:07-18:09Z; indices delayed ~15m); SPY price stocktwits 20:05Z",
+      "market_pulse": "stocklake (indices delayed ~15m; VIX/F&G/breadth snapshot 2026-11-24 20:07Z); SPY price stocktwits 09:06 ET",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked; web search found nothing for today)",
-      "news": "stocktwits trending/posts; web search (mostly older results, one undated article)"
+      "reddit": "unavailable (reddit fetch blocked; web search returned only older results)",
+      "news": "stocktwits trending/posts; stocklake economic calendar; web search (no same-day coverage found); stocklake news feed unavailable (auth)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.9,
+      "value": -2.07,
       "vote": -1,
       "why": "\u2264 -0.3"
     },
@@ -183,18 +169,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 47.0,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 40.0,
+      "vote": -1,
+      "why": "\u2264 40.0"
     }
   ],
-  "net_votes": -2,
+  "net_votes": -3,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (VIX/F&G 18:07-18:09Z; indices delayed ~15m); SPY price stocktwits 20:05Z",
+    "market_pulse": "stocklake (indices delayed ~15m; VIX/F&G/breadth snapshot 2026-11-24 20:07Z); SPY price stocktwits 09:06 ET",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked; web search found nothing for today)",
-    "news": "stocktwits trending/posts; web search (mostly older results, one undated article)"
+    "reddit": "unavailable (reddit fetch blocked; web search returned only older results)",
+    "news": "stocktwits trending/posts; stocklake economic calendar; web search (no same-day coverage found); stocklake news feed unavailable (auth)"
   },
-  "note": "Derived from live readings: net -2 votes (needs \u00b12) \u2192 bearish."
+  "note": "Derived from live readings: net -3 votes (needs \u00b12) \u2192 bearish."
 }
