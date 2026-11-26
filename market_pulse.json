@@ -1,35 +1,113 @@
 {
   "date": "2026-11-26",
   "bias": "neutral",
-  "written_at": "2026-11-26T10:07:18-05:00",
-  "as_of": "2026-11-26T15:10:00Z",
+  "written_at": "2026-11-26T11:07:39-05:00",
+  "as_of": "2026-11-26T16:06:00Z",
   "readings": {
-    "as_of": "2026-11-26T15:10:00Z",
-    "spy_price": 716.7,
-    "spy_change_pct": -0.29,
+    "as_of": "2026-11-26T16:06:00Z",
+    "spy_price": 720.43,
+    "spy_change_pct": 0.23,
     "vix": 26.83,
     "vix_change_pct": -3.35,
     "fear_greed": 15,
     "stocktwits": {
       "SPY": {
         "score": 58,
-        "bullish_pct": 47.23
+        "bullish_pct": 47.14
       }
     },
     "news": {
-      "score": 0.05,
+      "score": -0.05,
       "headlines": [
         "US markets closed Thursday for Thanksgiving; Friday half session (1pm ET close)",
-        "Stocklake late quote SPY 720.43 incl. after-hours (01:20Z), QQQ 636.57, IWM 270.31 (+1.19%), TLT +0.66%",
-        "Stocklake 14:09Z: VIX 26.83 (from 27.76), Fear & Greed 15 extreme fear, breadth 6.2% oversold vs 3.1% overbought",
-        "US GDP 2nd est 4.3% (prior 3.4%), deflator 1.8% (prior 2.2%)",
+        "Stocklake snapshot unchanged since 14:09Z: SPY 720.43 (+0.23% incl. after-hours), QQQ 636.57, IWM +1.19%, TLT +0.66%, VIX 26.83, Fear & Greed 15 extreme fear",
+        "Bloomberg (via Stocktwits link): Trump calls revised GDP numbers fake, alleges purposeful under-reporting, calls for investigation",
+        "Bloomberg (via Stocktwits): Huawei preparing to release details of a new high-bandwidth memory chip it says could top Samsung and SK Hynix",
+        "Commerce Dept interim rule (Nov 17) requires licenses for advanced AI chip exports to Singapore, Malaysia, Thailand, Indonesia, Brazil; followed Jensen Huang's resignation as Nvidia CEO",
         "Next data: Tokyo CPI 23:30 UTC; French payrolls rev 07:45 UTC and German unemployment 08:55 UTC Fri",
-        "Stocktwits trending: NASA ETF, XRP ETF, VRTX (fell after hours ~521 from 564), SONY +2.5%, SFM +3%, GM +2%, S (SentinelOne)"
+        "Stocktwits trending: VRTX (after-hours ~521 from 564), MO +1.95%, TXN +4.5%, EWZ +2.9%, CDE +5%, UCTT -2.4%, AMGN -1%"
       ]
     },
     "rumors": [
       {
-        "text": "Trump is trying to engineer a year-end stock pump",
+        "text": "Nvidia ordered manufacturing partners to halt shipments of servers with its chips to Thailand, Malaysia, Indonesia and Singapore",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA",
+          "SMCI",
+          "SPY"
+        ],
+        "names": {
+          "NVDA": "NVIDIA",
+          "SMCI": "Super Micro Computer",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.35,
+        "why": "Likely a re-share of the Nov 17 US license rule for those countries; if a new company-level halt, it would hit AI server makers like SMCI"
+      },
+      {
+        "text": "Huawei about to unveil an HBM chip that beats Samsung and SK Hynix, launching Chinese production despite sanctions",
+        "source": "stocktwits",
+        "tickers": [
+          "MU",
+          "NVDA",
+          "AMD",
+          "SNDK"
+        ],
+        "names": {
+          "MU": "Micron Technology",
+          "NVDA": "NVIDIA",
+          "AMD": "Advanced Micro Devices"
+        },
+        "direction": "down",
+        "credibility": 0.4,
+        "why": "A credible Chinese HBM rival would pressure memory makers' pricing and US chip leadership narrative"
+      },
+      {
+        "text": "Trump says revised GDP numbers are fake and calls for an investigation",
+        "source": "news",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.6,
+        "why": "Attacks on official data add policy uncertainty and could unsettle bond and equity markets"
+      },
+      {
+        "text": "Big players coordinate to move SPY $20 in a morning",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.05,
+        "why": "Manipulation claim; would mean higher intraday volatility, not a direction"
+      },
+      {
+        "text": "Memory/chip selloff yesterday marked the bottom for now",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "MU",
+          "SNDK"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "MU": "Micron Technology"
+        },
+        "direction": "up",
+        "credibility": 0.2,
+        "why": "A technical low in chips would support a relief bounce in the index"
+      },
+      {
+        "text": "Trump is trying to engineer a year-end stock pump (carried over)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -41,20 +119,7 @@
         },
         "direction": "up",
         "credibility": 0.15,
-        "why": "Policy jawboning or announcements aimed at stocks could fuel a December rally"
-      },
-      {
-        "text": "Holiday pump into Friday, then Monday down (carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Seasonal bounce would fade once full volume returns"
+        "why": "Policy jawboning aimed at stocks could fuel a December rally"
       },
       {
         "text": "Neocloud credit default swaps blowing out is the main bear catalyst for AI stocks (carried over)",
@@ -72,7 +137,7 @@
         "why": "Credit stress at AI cloud providers would renew pressure on chips"
       },
       {
-        "text": "Inflation has peaked while economy runs hot, giving the Fed room; bonds rallying (carried over)",
+        "text": "Inflation has peaked while economy runs hot, giving the Fed room (carried over)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -84,22 +149,7 @@
         },
         "direction": "up",
         "credibility": 0.45,
-        "why": "Lower yields plus strong growth supports a relief rally"
-      },
-      {
-        "text": "Image post about 'people behind Jensen's removal' at NVIDIA (carried over, still unconfirmed)",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA",
-          "SPY"
-        ],
-        "names": {
-          "NVDA": "NVIDIA",
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.05,
-        "why": "A CEO ouster at NVIDIA would hit AI chips and the index"
+        "why": "Lower yields plus strong growth support a relief rally"
       }
     ],
     "names": {
@@ -108,34 +158,39 @@
       "IWM": "iShares Russell 2000 ETF",
       "TLT": "iShares 20+ Year Treasury Bond ETF",
       "NVDA": "NVIDIA",
+      "SMCI": "Super Micro Computer",
+      "MU": "Micron Technology",
+      "AMD": "Advanced Micro Devices",
       "VRTX": "Vertex Pharmaceuticals",
-      "SONY": "Sony Group",
-      "SFM": "Sprouts Farmers Market",
-      "GM": "General Motors",
-      "S": "SentinelOne"
+      "MO": "Altria Group",
+      "TXN": "Texas Instruments",
+      "EWZ": "iShares MSCI Brazil ETF",
+      "CDE": "Coeur Mining",
+      "AMGN": "Amgen",
+      "UCTT": "Ultra Clean Holdings"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
         "horizon": "1d",
-        "confidence": 0.53,
-        "reason": "Extreme fear (F&G 15) with VIX easing further to 26.8, late quote firmer than the 716.70 close, crowd only mildly bullish; thin half sessions tend to drift up",
+        "confidence": 0.52,
+        "reason": "Extreme fear (F&G 15), VIX easing, late quote above close and crowd only mildly bullish; thin half sessions tend to drift up, trimmed slightly for new chip/China headlines",
         "catalyst": "Black Friday half session seasonality"
       }
     ],
-    "whats_new": "Still closed for Thanksgiving. Stocklake's latest snapshot shows VIX down again to 26.83 (from 27.76) and a late SPY quote of 720.43 above the 716.70 close; Fear & Greed stays at 15. Stocktwits SPY score unchanged at 58 (bulls 47%) with high but holiday-light chatter; the only new talk is a low-credibility 'Trump year-end pump' claim.",
+    "whats_new": "Still closed; Stocklake numbers are the same 14:09Z snapshot (SPY now shown with after-hours, 720.43 +0.23%, not a new move). New Stocktwits talk: an Nvidia SE Asia server-shipment halt (looks like a re-share of the Nov 17 US license rule), a Bloomberg-sourced Huawei HBM chip story, and Trump calling the GDP revision fake. The earlier 'Jensen removal' rumor is dropped: web reports say Huang already resigned, so it is old news.",
     "sources": {
       "market_pulse": "stocklake (snapshot 2026-11-26 14:09Z)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocklake economic calendar; stocktwits posts/trending; web search (no same-day coverage)"
+      "news": "stocklake economic calendar; stocktwits posts/trending; web search (Nvidia/SE Asia chip rule)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": -0.29,
+      "value": 0.23,
       "vote": 0,
       "why": "in the neutral band"
     },
@@ -164,7 +219,7 @@
     "market_pulse": "stocklake (snapshot 2026-11-26 14:09Z)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocklake economic calendar; stocktwits posts/trending; web search (no same-day coverage)"
+    "news": "stocklake economic calendar; stocktwits posts/trending; web search (Nvidia/SE Asia chip rule)"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
