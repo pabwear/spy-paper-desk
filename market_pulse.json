@@ -1,63 +1,50 @@
 {
   "date": "2026-11-26",
   "bias": "neutral",
-  "written_at": "2026-11-26T09:06:42-05:00",
-  "as_of": "2026-11-26T14:10:00Z",
+  "written_at": "2026-11-26T10:07:18-05:00",
+  "as_of": "2026-11-26T15:10:00Z",
   "readings": {
-    "as_of": "2026-11-26T14:10:00Z",
+    "as_of": "2026-11-26T15:10:00Z",
     "spy_price": 716.7,
     "spy_change_pct": -0.29,
-    "vix": 27.76,
-    "vix_change_pct": -8.3,
+    "vix": 26.83,
+    "vix_change_pct": -3.35,
     "fear_greed": 15,
     "stocktwits": {
       "SPY": {
         "score": 58,
-        "bullish_pct": 47.26
+        "bullish_pct": 47.23
       }
     },
     "news": {
       "score": 0.05,
       "headlines": [
         "US markets closed Thursday for Thanksgiving; Friday half session (1pm ET close)",
-        "SPY closed Wed 716.70 (-0.29%), QQQ 633.93 (-0.65%), IWM 268.87 (+0.65%), TLT +0.92%, GLD +0.61%",
-        "Stocklake 20:09Z Wed: VIX 27.76, Fear & Greed 15.3 extreme fear, breadth 7.9% oversold vs 3.0% overbought",
+        "Stocklake late quote SPY 720.43 incl. after-hours (01:20Z), QQQ 636.57, IWM 270.31 (+1.19%), TLT +0.66%",
+        "Stocklake 14:09Z: VIX 26.83 (from 27.76), Fear & Greed 15 extreme fear, breadth 6.2% oversold vs 3.1% overbought",
         "US GDP 2nd est 4.3% (prior 3.4%), deflator 1.8% (prior 2.2%)",
-        "Next data: Tokyo CPI 23:30 UTC; German unemployment Fri 08:55 UTC",
-        "Stocktwits trending: ADI +6.4%, DELL rebound to 297, WYNN +2.3%, B (Barrick) +2.8%, SVIX -3.9%"
+        "Next data: Tokyo CPI 23:30 UTC; French payrolls rev 07:45 UTC and German unemployment 08:55 UTC Fri",
+        "Stocktwits trending: NASA ETF, XRP ETF, VRTX (fell after hours ~521 from 564), SONY +2.5%, SFM +3%, GM +2%, S (SentinelOne)"
       ]
     },
     "rumors": [
       {
-        "text": "Stocktwits post circulating image about 'people behind Jensen's removal' at NVIDIA",
+        "text": "Trump is trying to engineer a year-end stock pump",
         "source": "stocktwits",
         "tickers": [
-          "NVDA",
-          "SPY"
+          "SPY",
+          "QQQ"
         ],
         "names": {
-          "NVDA": "NVIDIA",
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.05,
-        "why": "A CEO ouster at NVIDIA would hit AI chips and the index; no confirmation found"
-      },
-      {
-        "text": "US-India trade deal at a 17% tariff rate could boost Indian exports (via small news site)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "up",
-        "credibility": 0.35,
-        "why": "A trade deal would ease tariff uncertainty modestly"
+        "credibility": 0.15,
+        "why": "Policy jawboning or announcements aimed at stocks could fuel a December rally"
       },
       {
-        "text": "Holiday pump into Friday, then Monday down",
+        "text": "Holiday pump into Friday, then Monday down (carried over)",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -98,6 +85,21 @@
         "direction": "up",
         "credibility": 0.45,
         "why": "Lower yields plus strong growth supports a relief rally"
+      },
+      {
+        "text": "Image post about 'people behind Jensen's removal' at NVIDIA (carried over, still unconfirmed)",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA",
+          "SPY"
+        ],
+        "names": {
+          "NVDA": "NVIDIA",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.05,
+        "why": "A CEO ouster at NVIDIA would hit AI chips and the index"
       }
     ],
     "names": {
@@ -105,13 +107,12 @@
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
       "TLT": "iShares 20+ Year Treasury Bond ETF",
-      "GLD": "SPDR Gold Shares",
       "NVDA": "NVIDIA",
-      "ADI": "Analog Devices",
-      "DELL": "Dell Technologies",
-      "WYNN": "Wynn Resorts",
-      "B": "Barrick Mining",
-      "SVIX": "Volatility Shares -1x Short VIX Futures ETF"
+      "VRTX": "Vertex Pharmaceuticals",
+      "SONY": "Sony Group",
+      "SFM": "Sprouts Farmers Market",
+      "GM": "General Motors",
+      "S": "SentinelOne"
     },
     "plays": [
       {
@@ -119,16 +120,16 @@
         "direction": "up",
         "horizon": "1d",
         "confidence": 0.53,
-        "reason": "Extreme fear (F&G ~15) with VIX easing to 27.8 from 30.3, bonds rallying, crowd only mildly bullish; low-volume half session tends to drift up",
+        "reason": "Extreme fear (F&G 15) with VIX easing further to 26.8, late quote firmer than the 716.70 close, crowd only mildly bullish; thin half sessions tend to drift up",
         "catalyst": "Black Friday half session seasonality"
       }
     ],
-    "whats_new": "Market is closed for Thanksgiving; SPY settled at 716.70 (-0.29%), a bit above the 716.11 seen at the last reading, so the feared last-hour dump did not happen. Stocklake's close snapshot shows VIX down to 27.76 (from 30.28) and Fear & Greed 15.3; Stocktwits SPY score rose to 58 (bulls 47%). Chatter is light and holiday-themed, with an unconfirmed NVIDIA CEO-removal meme the only new rumor.",
+    "whats_new": "Still closed for Thanksgiving. Stocklake's latest snapshot shows VIX down again to 26.83 (from 27.76) and a late SPY quote of 720.43 above the 716.70 close; Fear & Greed stays at 15. Stocktwits SPY score unchanged at 58 (bulls 47%) with high but holiday-light chatter; the only new talk is a low-credibility 'Trump year-end pump' claim.",
     "sources": {
-      "market_pulse": "stocklake (snapshot 2026-11-25 20:09Z)",
+      "market_pulse": "stocklake (snapshot 2026-11-26 14:09Z)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocktwits posts/trending; stocklake economic calendar; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
+      "news": "stocklake economic calendar; stocktwits posts/trending; web search (no same-day coverage)"
     }
   },
   "votes": [
@@ -140,9 +141,9 @@
     },
     {
       "reading": "vix_change_pct",
-      "value": -8.3,
-      "vote": 1,
-      "why": "\u2264 -5.0"
+      "value": -3.35,
+      "vote": 0,
+      "why": "in the neutral band"
     },
     {
       "reading": "fear_greed",
@@ -157,13 +158,13 @@
       "why": "in the neutral band"
     }
   ],
-  "net_votes": 0,
+  "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (snapshot 2026-11-25 20:09Z)",
+    "market_pulse": "stocklake (snapshot 2026-11-26 14:09Z)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocktwits posts/trending; stocklake economic calendar; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
+    "news": "stocklake economic calendar; stocktwits posts/trending; web search (no same-day coverage)"
   },
-  "note": "Derived from live readings: net +0 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
