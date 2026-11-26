@@ -1,71 +1,97 @@
 {
   "date": "2026-11-26",
   "bias": "neutral",
-  "written_at": "2026-11-26T11:07:39-05:00",
-  "as_of": "2026-11-26T16:06:00Z",
+  "written_at": "2026-11-26T12:06:59-05:00",
+  "as_of": "2026-11-26T17:10:00Z",
   "readings": {
-    "as_of": "2026-11-26T16:06:00Z",
+    "as_of": "2026-11-26T17:10:00Z",
     "spy_price": 720.43,
     "spy_change_pct": 0.23,
-    "vix": 26.83,
-    "vix_change_pct": -3.35,
+    "vix": 27.11,
     "fear_greed": 15,
     "stocktwits": {
       "SPY": {
-        "score": 58,
-        "bullish_pct": 47.14
+        "score": 57,
+        "bullish_pct": 47.57
       }
+    },
+    "reddit": {
+      "score": 0.0,
+      "posts": 0,
+      "top": []
     },
     "news": {
       "score": -0.05,
       "headlines": [
-        "US markets closed Thursday for Thanksgiving; Friday half session (1pm ET close)",
-        "Stocklake snapshot unchanged since 14:09Z: SPY 720.43 (+0.23% incl. after-hours), QQQ 636.57, IWM +1.19%, TLT +0.66%, VIX 26.83, Fear & Greed 15 extreme fear",
-        "Bloomberg (via Stocktwits link): Trump calls revised GDP numbers fake, alleges purposeful under-reporting, calls for investigation",
-        "Bloomberg (via Stocktwits): Huawei preparing to release details of a new high-bandwidth memory chip it says could top Samsung and SK Hynix",
-        "Commerce Dept interim rule (Nov 17) requires licenses for advanced AI chip exports to Singapore, Malaysia, Thailand, Indonesia, Brazil; followed Jensen Huang's resignation as Nvidia CEO",
+        "US markets closed for Thanksgiving; Friday half session (1pm ET close)",
+        "Stocklake: SPY 720.43 (+0.23% incl. after-hours), QQQ 636.57 -0.24%, IWM 270.31 +1.19%, TLT +0.66%, GLD +0.32%; VIX 27.11; Fear & Greed 15 extreme fear; breadth 5.5% oversold / 3.3% overbought",
+        "US GDP 2nd estimate 4.3% (prev 3.4%), deflator 1.8% (prev 2.2%) released Nov 25",
         "Next data: Tokyo CPI 23:30 UTC; French payrolls rev 07:45 UTC and German unemployment 08:55 UTC Fri",
-        "Stocktwits trending: VRTX (after-hours ~521 from 564), MO +1.95%, TXN +4.5%, EWZ +2.9%, CDE +5%, UCTT -2.4%, AMGN -1%"
+        "Stocktwits users report Microsoft Teams/Copilot outage today (unconfirmed); a prior multi-country MSFT 365 outage hit Nov 12-13",
+        "Stocktwits trending: VRTX (after-hours ~521 vs 564 close), DE +4.4%, NEM +2%, FCX +1.7%, EWZ +2.9%, SBUX +1.3%, KLAC, AMGN -1%"
       ]
     },
     "rumors": [
       {
-        "text": "Nvidia ordered manufacturing partners to halt shipments of servers with its chips to Thailand, Malaysia, Indonesia and Singapore",
+        "text": "Microsoft Teams and Copilot are down again today (user reports; Teams back after ~15 min, Copilot still down)",
+        "source": "stocktwits",
+        "tickers": [
+          "MSFT"
+        ],
+        "names": {
+          "MSFT": "Microsoft"
+        },
+        "direction": "down",
+        "credibility": 0.35,
+        "why": "A second outage within weeks could weigh on MSFT at Friday's open as one did after Nov 12-13"
+      },
+      {
+        "text": "AI debt, credit default swaps and circular financing are the main risk for AI stocks; CDS on NVDA and neoclouds blew out since July",
         "source": "stocktwits",
         "tickers": [
           "NVDA",
-          "SMCI",
+          "CRWV",
           "SPY"
         ],
         "names": {
           "NVDA": "NVIDIA",
-          "SMCI": "Super Micro Computer",
+          "CRWV": "CoreWeave",
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.35,
-        "why": "Likely a re-share of the Nov 17 US license rule for those countries; if a new company-level halt, it would hit AI server makers like SMCI"
+        "credibility": 0.3,
+        "why": "Credit stress at AI cloud providers would renew pressure on chips and the index (carried over, re-shared)"
       },
       {
-        "text": "Huawei about to unveil an HBM chip that beats Samsung and SK Hynix, launching Chinese production despite sanctions",
+        "text": "Nvidia CDS reversal will start soon and lead AI names higher",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "up",
+        "credibility": 0.15,
+        "why": "Easing credit fears would support a chip rebound"
+      },
+      {
+        "text": "Huawei about to unveil an HBM chip that beats Samsung and SK Hynix (carried over)",
         "source": "stocktwits",
         "tickers": [
           "MU",
-          "NVDA",
-          "AMD",
-          "SNDK"
+          "NVDA"
         ],
         "names": {
           "MU": "Micron Technology",
-          "NVDA": "NVIDIA",
-          "AMD": "Advanced Micro Devices"
+          "NVDA": "NVIDIA"
         },
         "direction": "down",
         "credibility": 0.4,
-        "why": "A credible Chinese HBM rival would pressure memory makers' pricing and US chip leadership narrative"
+        "why": "A Chinese HBM rival would pressure memory pricing"
       },
       {
-        "text": "Trump says revised GDP numbers are fake and calls for an investigation",
+        "text": "Trump says revised GDP numbers are fake and calls for an investigation (carried over)",
         "source": "news",
         "tickers": [
           "SPY"
@@ -75,10 +101,10 @@
         },
         "direction": "down",
         "credibility": 0.6,
-        "why": "Attacks on official data add policy uncertainty and could unsettle bond and equity markets"
+        "why": "Attacks on official data add policy uncertainty"
       },
       {
-        "text": "Big players coordinate to move SPY $20 in a morning",
+        "text": "Big players will dump the market at Friday's open; easy short Friday",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -87,57 +113,24 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.05,
-        "why": "Manipulation claim; would mean higher intraday volatility, not a direction"
+        "credibility": 0.1,
+        "why": "Pure crowd speculation; thin half-session liquidity can exaggerate moves either way"
       },
       {
-        "text": "Memory/chip selloff yesterday marked the bottom for now",
+        "text": "BYND hit a bottom and is short squeezing with massive short interest",
         "source": "stocktwits",
         "tickers": [
-          "SPY",
-          "MU",
-          "SNDK"
+          "BYND"
         ],
         "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "MU": "Micron Technology"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "A technical low in chips would support a relief bounce in the index"
-      },
-      {
-        "text": "Trump is trying to engineer a year-end stock pump (carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
+          "BYND": "Beyond Meat"
         },
         "direction": "up",
         "credibility": 0.15,
-        "why": "Policy jawboning aimed at stocks could fuel a December rally"
+        "why": "A squeeze would lift BYND for a few sessions; no SPY impact"
       },
       {
-        "text": "Neocloud credit default swaps blowing out is the main bear catalyst for AI stocks (carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "Credit stress at AI cloud providers would renew pressure on chips"
-      },
-      {
-        "text": "Inflation has peaked while economy runs hot, giving the Fed room (carried over)",
+        "text": "Fed under Warsh may need more aggressive hikes if markets keep pricing out tightening",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -147,9 +140,9 @@
           "SPY": "SPDR S&P 500 ETF",
           "TLT": "iShares 20+ Year Treasury Bond ETF"
         },
-        "direction": "up",
-        "credibility": 0.45,
-        "why": "Lower yields plus strong growth support a relief rally"
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Opinion, not news; hawkish repricing would hit bonds and stocks"
       }
     ],
     "names": {
@@ -157,17 +150,20 @@
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
       "TLT": "iShares 20+ Year Treasury Bond ETF",
+      "GLD": "SPDR Gold Shares",
+      "MSFT": "Microsoft",
       "NVDA": "NVIDIA",
-      "SMCI": "Super Micro Computer",
+      "CRWV": "CoreWeave",
       "MU": "Micron Technology",
-      "AMD": "Advanced Micro Devices",
+      "BYND": "Beyond Meat",
       "VRTX": "Vertex Pharmaceuticals",
-      "MO": "Altria Group",
-      "TXN": "Texas Instruments",
+      "DE": "Deere & Co",
+      "NEM": "Newmont",
+      "FCX": "Freeport-McMoRan",
       "EWZ": "iShares MSCI Brazil ETF",
-      "CDE": "Coeur Mining",
-      "AMGN": "Amgen",
-      "UCTT": "Ultra Clean Holdings"
+      "SBUX": "Starbucks",
+      "KLAC": "KLA Corp",
+      "AMGN": "Amgen"
     },
     "plays": [
       {
@@ -175,16 +171,16 @@
         "direction": "up",
         "horizon": "1d",
         "confidence": 0.52,
-        "reason": "Extreme fear (F&G 15), VIX easing, late quote above close and crowd only mildly bullish; thin half sessions tend to drift up, trimmed slightly for new chip/China headlines",
+        "reason": "Extreme fear (F&G 15), RSI ~40 and crowd only mildly bullish (score 57, bullish 47.6%); thin half sessions tend to drift up, trimmed for MSFT outage chatter and VIX ticking up",
         "catalyst": "Black Friday half session seasonality"
       }
     ],
-    "whats_new": "Still closed; Stocklake numbers are the same 14:09Z snapshot (SPY now shown with after-hours, 720.43 +0.23%, not a new move). New Stocktwits talk: an Nvidia SE Asia server-shipment halt (looks like a re-share of the Nov 17 US license rule), a Bloomberg-sourced Huawei HBM chip story, and Trump calling the GDP revision fake. The earlier 'Jensen removal' rumor is dropped: web reports say Huang already resigned, so it is old news.",
+    "whats_new": "Still closed; Stocklake prices unchanged, but the 16:09Z snapshot shows VIX 27.11 (from 26.83). New Stocktwits talk: users report a Microsoft Teams/Copilot outage today (unconfirmed, after a real Nov 12-13 outage) and a BYND squeeze call; AI credit/CDS worries are being re-shared. Stocktwits SPY score 57 (from 58), bullish 47.6%.",
     "sources": {
-      "market_pulse": "stocklake (snapshot 2026-11-26 14:09Z)",
+      "market_pulse": "stocklake (snapshot 2026-11-26 16:09Z)",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocklake economic calendar; stocktwits posts/trending; web search (Nvidia/SE Asia chip rule)"
+      "reddit": "unavailable (reddit fetch blocked; web search found no WSB coverage)",
+      "news": "stocklake economic calendar; stocktwits posts/trending; web search (Microsoft outage)"
     }
   },
   "votes": [
@@ -196,9 +192,9 @@
     },
     {
       "reading": "vix_change_pct",
-      "value": -3.35,
+      "value": null,
       "vote": 0,
-      "why": "in the neutral band"
+      "why": "missing"
     },
     {
       "reading": "fear_greed",
@@ -208,7 +204,7 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 58.0,
+      "value": 57.0,
       "vote": 0,
       "why": "in the neutral band"
     }
@@ -216,10 +212,10 @@
   "net_votes": -1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (snapshot 2026-11-26 14:09Z)",
+    "market_pulse": "stocklake (snapshot 2026-11-26 16:09Z)",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocklake economic calendar; stocktwits posts/trending; web search (Nvidia/SE Asia chip rule)"
+    "reddit": "unavailable (reddit fetch blocked; web search found no WSB coverage)",
+    "news": "stocklake economic calendar; stocktwits posts/trending; web search (Microsoft outage)"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
