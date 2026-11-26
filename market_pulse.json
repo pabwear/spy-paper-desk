@@ -1,10 +1,10 @@
 {
   "date": "2026-11-26",
   "bias": "neutral",
-  "written_at": "2026-11-26T13:07:01-05:00",
-  "as_of": "2026-11-26T18:10:00Z",
+  "written_at": "2026-11-26T14:07:03-05:00",
+  "as_of": "2026-11-26T19:10:00Z",
   "readings": {
-    "as_of": "2026-11-26T18:10:00Z",
+    "as_of": "2026-11-26T19:10:00Z",
     "spy_price": 720.43,
     "spy_change_pct": 0.23,
     "vix": 27.11,
@@ -12,7 +12,7 @@
     "stocktwits": {
       "SPY": {
         "score": 57,
-        "bullish_pct": 47.61
+        "bullish_pct": 47.7
       }
     },
     "reddit": {
@@ -24,16 +24,63 @@
       "score": -0.05,
       "headlines": [
         "US markets closed for Thanksgiving; Friday half session (1pm ET close)",
-        "Stocklake (unchanged, snapshot 16:09Z): SPY 720.43 +0.23% incl. after-hours, QQQ 636.57 -0.24%, IWM 270.31 +1.19%, TLT +0.66%, GLD +0.32%; VIX 27.11; Fear & Greed 15 extreme fear; breadth 5.5% oversold / 3.3% overbought; SPY RSI 39.8",
+        "Stocklake (unchanged, snapshot 16:09Z): SPY 720.43 +0.23%, QQQ 636.57 -0.24%, IWM 270.31 +1.19%, TLT +0.66%, GLD +0.32%; VIX 27.11; Fear & Greed 15 extreme fear; breadth 5.5% oversold / 3.3% overbought; SPY RSI 39.8",
         "US GDP 2nd estimate 4.3% (prev 3.4%), deflator 1.8% (prev 2.2%) released Nov 25",
         "Next data: Tokyo CPI 23:30 UTC; French payrolls rev 07:45 UTC and German unemployment 08:55 UTC Fri",
-        "Stocktwits users share a claim of a cyberattack on Israel's power grid; a follow-up post says Israel Electric Corp denied it; web search found no coverage",
-        "Stocktwits trending: DE +4.4%, TXN +4.5%, VRTX (after-hours ~521 vs 564 close), NET -1.4%, ADBE, MO +2%, CMCSA +1.4%, MS -0.7%"
+        "Dutch government has objected to the proposed US Match Act limiting ASML China sales (news, undated in search)",
+        "Stocktwits trending: STWD, EWY -1.2%, SCO -2.8% / UCO +3.2% (crude up), ON +1.6%, EXK +6.2%, MO +2%, KLAC, HUBS +2.4%, TER"
       ]
     },
     "rumors": [
       {
-        "text": "Cyberattack disrupted power grids in Israel (Israel Electric Corp reportedly denied it; power restored in some areas)",
+        "text": "Dutch government will start/allow ASML sales to China despite US pressure, saying the US will not tell the Netherlands what to do",
+        "source": "stocktwits",
+        "tickers": [
+          "ASML"
+        ],
+        "names": {
+          "ASML": "ASML Holding"
+        },
+        "direction": "up",
+        "credibility": 0.3,
+        "why": "Overstates the Dutch objection to the US Match Act; if true, supports ASML China revenue but risks US-EU trade friction"
+      },
+      {
+        "text": "Texas resumes issuing data center permits",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA",
+          "SPY"
+        ],
+        "names": {
+          "NVDA": "NVIDIA",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "up",
+        "credibility": 0.3,
+        "why": "Would ease a bottleneck on AI data center buildout, supportive for AI hardware names"
+      },
+      {
+        "text": "AI debt bubble / credit market stress at AI cloud providers will trigger the real correction before the Fed can cut (carried over)",
+        "source": "stocktwits",
+        "tickers": [
+          "CRWV",
+          "ORCL",
+          "NVDA",
+          "SPY"
+        ],
+        "names": {
+          "CRWV": "CoreWeave",
+          "ORCL": "Oracle",
+          "NVDA": "NVIDIA",
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Credit stress at AI infrastructure borrowers would pressure chips and the index"
+      },
+      {
+        "text": "Cyberattack disrupted power grids in Israel (carried over; Israel Electric Corp reportedly denied it, no web coverage found)",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -42,24 +89,11 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "A confirmed state-linked grid attack could lift geopolitical risk premium and oil at Friday's open"
+        "credibility": 0.15,
+        "why": "A confirmed attack could lift geopolitical risk premium and oil at Friday's open"
       },
       {
-        "text": "Microsoft Teams and Copilot are down again today (user reports; carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "MSFT"
-        ],
-        "names": {
-          "MSFT": "Microsoft"
-        },
-        "direction": "down",
-        "credibility": 0.3,
-        "why": "A second outage within weeks could weigh on MSFT Friday"
-      },
-      {
-        "text": "Trump says revised GDP numbers are fake and calls for an investigation (carried over, re-shared with Bloomberg link)",
+        "text": "Trump says revised GDP numbers are fake and calls for an investigation (carried over)",
         "source": "news",
         "tickers": [
           "SPY"
@@ -72,40 +106,17 @@
         "why": "Attacks on official data add policy uncertainty"
       },
       {
-        "text": "Friday profit-taking in AAPL and TSLA will rotate into NVDA and SNDK, SPY to 710 then chips rally next week",
+        "text": "Microsoft Teams and Copilot are down again (user reports; carried over)",
         "source": "stocktwits",
         "tickers": [
-          "AAPL",
-          "TSLA",
-          "NVDA",
-          "SNDK"
+          "MSFT"
         ],
         "names": {
-          "AAPL": "Apple",
-          "TSLA": "Tesla",
-          "NVDA": "NVIDIA",
-          "SNDK": "Sandisk"
-        },
-        "direction": "down",
-        "credibility": 0.1,
-        "why": "Single-user speculation; would mean a soft Friday for SPY then chip strength"
-      },
-      {
-        "text": "AI debt and CDS on NVDA and neoclouds blowing out is the main risk for AI stocks (carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA",
-          "CRWV",
-          "SPY"
-        ],
-        "names": {
-          "NVDA": "NVIDIA",
-          "CRWV": "CoreWeave",
-          "SPY": "SPDR S&P 500 ETF"
+          "MSFT": "Microsoft"
         },
         "direction": "down",
         "credibility": 0.3,
-        "why": "Credit stress at AI cloud providers would pressure chips and the index"
+        "why": "A repeat outage could weigh on MSFT Friday"
       },
       {
         "text": "Huawei about to unveil an HBM chip that beats Samsung and SK Hynix (carried over)",
@@ -119,11 +130,11 @@
           "NVDA": "NVIDIA"
         },
         "direction": "down",
-        "credibility": 0.35,
+        "credibility": 0.3,
         "why": "A Chinese HBM rival would pressure memory pricing"
       },
       {
-        "text": "Big players will dump the market at Friday's open (carried over)",
+        "text": "SPY will retest 700 next week",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -133,7 +144,7 @@
         },
         "direction": "down",
         "credibility": 0.1,
-        "why": "Crowd speculation; thin half-session liquidity can exaggerate moves either way"
+        "why": "Single-user call; would be a ~3% drop"
       }
     ],
     "names": {
@@ -142,20 +153,22 @@
       "IWM": "iShares Russell 2000 ETF",
       "TLT": "iShares 20+ Year Treasury Bond ETF",
       "GLD": "SPDR Gold Shares",
-      "MSFT": "Microsoft",
+      "ASML": "ASML Holding",
       "NVDA": "NVIDIA",
       "CRWV": "CoreWeave",
+      "ORCL": "Oracle",
+      "MSFT": "Microsoft",
       "MU": "Micron Technology",
-      "AAPL": "Apple",
-      "TSLA": "Tesla",
-      "DE": "Deere & Co",
-      "TXN": "Texas Instruments",
-      "VRTX": "Vertex Pharmaceuticals",
-      "NET": "Cloudflare",
-      "ADBE": "Adobe",
+      "STWD": "Starwood Property Trust",
+      "EWY": "iShares MSCI South Korea ETF",
+      "SCO": "ProShares UltraShort Bloomberg Crude Oil",
+      "UCO": "ProShares Ultra Bloomberg Crude Oil",
+      "ON": "ON Semiconductor",
+      "EXK": "Endeavour Silver",
       "MO": "Altria Group",
-      "CMCSA": "Comcast",
-      "MS": "Morgan Stanley"
+      "KLAC": "KLA Corp",
+      "HUBS": "HubSpot",
+      "TER": "Teradyne"
     },
     "plays": [
       {
@@ -163,16 +176,16 @@
         "direction": "up",
         "horizon": "1d",
         "confidence": 0.52,
-        "reason": "Extreme fear (F&G 15), RSI ~40, crowd only mildly bullish (score 57, bullish 47.6%); thin half sessions tend to drift up, trimmed for cyber/geopolitical chatter and VIX 27",
+        "reason": "Extreme fear (F&G 15), RSI ~40, crowd split (score 57, bullish 47.7%); thin half sessions tend to drift up, trimmed for AI-credit worries and VIX 27",
         "catalyst": "Black Friday half session seasonality"
       }
     ],
-    "whats_new": "Still closed and Stocklake numbers unchanged from the 16:09Z snapshot. New Stocktwits talk: an Israel power-grid cyberattack claim that a follow-up post says was denied by Israel Electric Corp (no web coverage found), plus a rotation-into-chips Friday call. TXN (+4.5%) joined the trending list; SPY score steady at 57, bullish 47.6%.",
+    "whats_new": "Still closed and Stocklake numbers unchanged from the 16:09Z snapshot; SPY Stocktwits score steady at 57, bullish 47.7%. New chatter: a claim the Dutch will allow ASML China sales despite US pressure (news only confirms objections to the US Match Act) and a Texas data center permits claim; AI-debt bear posts continue. Trending list rotated to STWD, EWY, crude ETFs (oil up), ON, EXK, KLAC, HUBS, TER.",
     "sources": {
       "market_pulse": "stocklake (snapshot 2026-11-26 16:09Z)",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked; web search found no WSB coverage)",
-      "news": "stocklake economic calendar; stocktwits posts/trending; web search (Israel grid claim, none found)"
+      "reddit": "unavailable (reddit fetch blocked; web search found no current coverage)",
+      "news": "stocklake economic calendar; stocktwits posts/trending; web search (ASML/Dutch)"
     }
   },
   "votes": [
@@ -206,8 +219,8 @@
   "sources": {
     "market_pulse": "stocklake (snapshot 2026-11-26 16:09Z)",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked; web search found no WSB coverage)",
-    "news": "stocklake economic calendar; stocktwits posts/trending; web search (Israel grid claim, none found)"
+    "reddit": "unavailable (reddit fetch blocked; web search found no current coverage)",
+    "news": "stocklake economic calendar; stocktwits posts/trending; web search (ASML/Dutch)"
   },
   "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
 }
