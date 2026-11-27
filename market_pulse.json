@@ -1,75 +1,86 @@
 {
   "date": "2026-11-27",
   "bias": "neutral",
-  "written_at": "2026-11-27T13:07:04-05:00",
-  "as_of": "2026-11-27T18:07:00Z",
+  "written_at": "2026-11-27T14:06:49-05:00",
+  "as_of": "2026-11-27T19:06:00Z",
   "readings": {
-    "as_of": "2026-11-27T18:07:00Z",
-    "spy_price": 728.19,
+    "as_of": "2026-11-27T19:06:00Z",
+    "spy_price": 728.2,
     "spy_change_pct": 1.6,
-    "vix": 26.86,
-    "fear_greed": 24.5,
+    "vix": 24.67,
+    "fear_greed": 24.8,
     "stocktwits": {
       "SPY": {
         "score": 78,
-        "bullish_pct": 50.9
+        "bullish_pct": 51.6
       }
     },
     "news": {
-      "score": 0.2,
+      "score": 0.1,
       "headlines": [
-        "Black Friday half session closed 1pm ET (18:00Z); SPY 728.19 +1.60% (Stocktwits 18:04Z); Stocklake feed lagged at 726.29 +1.34%",
-        "QQQ +1.98%, IWM +1.32%, GLD +1.65%, TLT -1.11% (Stocklake ~18:00Z)",
-        "VIX 26.86 and Fear&Greed 24.5 (extreme fear) still from the 16:09Z snapshot, not refreshed; breadth 4.4% oversold vs 3.3% overbought; SPY RSI 42.8",
-        "Econ: US GDP 2nd estimate 4.3% (prev 3.4%) released Nov 25; Tokyo core CPI 2.9% (prev 2.6%); no US events left today, next session Mon Nov 30",
-        "Stocktwits trending: BB +6.2%, EXK +12.1%, SNDQ -30.9% (2x short SNDK, implies SNDK rally), VRTX -5.2% (rebounded from 503 to 535), B (Barrick) +5.8%, NN +14.8%, EWZ +9.7%; causes not found",
-        "Web search found no same-day 2026 market coverage"
+        "Market closed (Black Friday half day ended 18:00Z); SPY final ~728.20 +1.60%, QQQ 649.61 +2.47%, IWM 273.55 +1.74%, GLD +1.91%, TLT -1.11% (Stocklake ~19:00Z)",
+        "VIX snapshot refreshed to 24.67 (from 26.86 at 16:09Z); Fear&Greed 24.8 still extreme fear (18:06Z); breadth 4.4% oversold vs 3.3% overbought; SPY RSI 42.8",
+        "Econ: Germany unemployment rate 6.4% unchanged (Nov 27); US GDP 2nd est 4.3% (Nov 25); no US events until Mon Nov 30",
+        "BBC: NATO chief vows defence after German media reports Russia planned a nuclear-armed satellite launch (shared on Stocktwits)",
+        "Stocktwits trending: SNDQ -30.9% (short SNDK), BB +6.2%, NTSK +7.8%, CDE +8.0%, B +5.8%, GNRC +7.4%, VRTX -5.2%, OCUL -3.8%, VZ +1.0%",
+        "Web search found no same-day 2026 market coverage; Stocklake news feed unavailable (needs re-auth)"
       ]
     },
     "rumors": [
       {
-        "text": "Black Friday pump: shoppers spending big, 'door busters for everybody'",
-        "source": "stocktwits",
+        "text": "German media report Russia plans to launch a nuclear-armed satellite in coming weeks; NATO vows defence",
+        "source": "news",
         "tickers": [
           "SPY"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.25,
-        "why": "Anecdotal; strong holiday spend data would support consumer names into next week"
+        "direction": "down",
+        "credibility": 0.35,
+        "why": "Unconfirmed geopolitical escalation; could weigh on risk appetite at Monday open if it gains traction over the weekend"
       },
       {
-        "text": "SPY held above Wednesday's 718.43 high into the close; poster targets ~740 next week, exits on close under 712",
+        "text": "SPY 'has no choice but going up' to 737 next",
         "source": "stocktwits",
         "tickers": [
           "SPY"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.2,
-        "why": "Technical opinion; holding 718 would keep the bounce intact next week"
-      },
-      {
-        "text": "'They're not done' - claims the move is not finished (EL), more upside for SPY/QQQ",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
         },
         "direction": "up",
         "credibility": 0.15,
-        "why": "Opinion only; would mean continuation Monday"
+        "why": "Technical opinion; would mean another ~1.2% continuation"
       },
       {
-        "text": "China state support driving global bounce; carried over from earlier, still unconfirmed",
+        "text": "Holiday rally inside a correction can't be trusted; SPY still under its 200-day MA, steep drop possible Monday (put buyers)",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Opinion; thin-volume holiday gains often fade, would mean giveback Monday"
+      },
+      {
+        "text": "Best Thanksgiving week since 2008, SPY +5.6% on the week (top 2% of weeks since 1993) - posters warn of what came next in 2008",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.3,
+        "why": "Stat unverified; huge short-term rallies in bearish regimes are often bear-market rallies"
+      },
+      {
+        "text": "China state support driving global bounce (carried over, still unconfirmed)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -80,22 +91,25 @@
           "KWEB": "KraneShares CSI China Internet ETF"
         },
         "direction": "up",
-        "credibility": 0.2,
-        "why": "Stale, unverified; would support risk appetite if confirmed"
+        "credibility": 0.15,
+        "why": "Stale; would support risk appetite if confirmed"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
       "IWM": "iShares Russell 2000 ETF",
-      "BB": "BlackBerry",
-      "EXK": "Endeavour Silver",
       "SNDQ": "Tradr 2X Short SNDK Daily ETF",
       "SNDK": "Sandisk",
-      "VRTX": "Vertex Pharmaceuticals",
+      "BB": "BlackBerry",
+      "NTSK": "Netskope",
+      "CDE": "Coeur Mining",
       "B": "Barrick Mining",
-      "NN": "NextNav",
-      "EWZ": "iShares MSCI Brazil ETF",
+      "GNRC": "Generac Holdings",
+      "VRTX": "Vertex Pharmaceuticals",
+      "OCUL": "Ocular Therapeutix",
+      "VZ": "Verizon Communications",
+      "CAVA": "CAVA Group",
       "KWEB": "KraneShares CSI China Internet ETF"
     },
     "plays": [
@@ -103,17 +117,17 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "1d",
-        "confidence": 0.52,
-        "reason": "SPY closed near its highs (+1.6%) with broad participation while Fear&Greed sits in extreme fear, a contrarian tailwind; but thin holiday volume often reverses and VIX near 27 keeps it close to a coin flip",
-        "catalyst": "Monday Nov 30 open after holiday rally; holiday sales data headlines over the weekend"
+        "confidence": 0.51,
+        "reason": "Closed at highs with broad participation, VIX easing to 24.7 and Fear&Greed in extreme fear is a contrarian tailwind; offset by a stretched +5.6% week below the 200MA and weekend geopolitical headline risk, so near coin flip",
+        "catalyst": "Monday Nov 30 open; weekend holiday-sales and Russia satellite headlines"
       }
     ],
-    "whats_new": "The half-day session closed at 18:00Z with SPY firming to about 728.2 (+1.6%), recovering last hour's $1 dip, so the up-into-close play worked. Trending names rotated to BB, EXK, SNDQ (short SNDK collapsing), Barrick and NN, with gold/silver miners active alongside GLD +1.65%. VIX/Fear&Greed snapshot is unchanged from 16:09Z; crowd chatter is celebratory, with bears quiet.",
+    "whats_new": "Market is closed for the weekend; SPY finished flat versus last reading at 728.2 (+1.6%). The VIX snapshot refreshed lower to 24.67 from 26.86 while Fear&Greed stayed in extreme fear (24.8). Post-close chatter turned more skeptical (holiday-rally/200MA/2008 comparisons) and a BBC-linked Russia nuclear-satellite report is the new risk headline; trending rotated to NTSK, CDE, GNRC, OCUL.",
     "sources": {
-      "market_pulse": "stocklake (indices ~18:00Z; vix/fear_greed snapshot 16:09Z); SPY close from stocktwits 18:04Z",
+      "market_pulse": "stocklake (indices ~19:00Z; vix/fear_greed 18:06-18:12Z)",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocklake econ calendar; stocktwits trending/messages; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
+      "news": "stocklake econ calendar; stocktwits messages/trending; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
     }
   },
   "votes": [
@@ -131,7 +145,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 24.5,
+      "value": 24.8,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -145,10 +159,10 @@
   "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (indices ~18:00Z; vix/fear_greed snapshot 16:09Z); SPY close from stocktwits 18:04Z",
+    "market_pulse": "stocklake (indices ~19:00Z; vix/fear_greed 18:06-18:12Z)",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocklake econ calendar; stocktwits trending/messages; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
+    "news": "stocklake econ calendar; stocktwits messages/trending; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
   },
   "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
