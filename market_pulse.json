@@ -1,49 +1,77 @@
 {
   "date": "2026-11-27",
   "bias": "neutral",
-  "written_at": "2026-11-27T11:07:04-05:00",
-  "as_of": "2026-11-27T16:07:00Z",
+  "written_at": "2026-11-27T12:07:13-05:00",
+  "as_of": "2026-11-27T17:07:00Z",
   "readings": {
-    "as_of": "2026-11-27T16:07:00Z",
-    "spy_price": 725.38,
-    "spy_change_pct": 1.21,
-    "vix": 25.21,
-    "fear_greed": 20,
+    "as_of": "2026-11-27T17:07:00Z",
+    "spy_price": 725.85,
+    "spy_change_pct": 1.28,
+    "vix": 26.86,
+    "fear_greed": 24.5,
     "stocktwits": {
       "SPY": {
         "score": 78,
-        "bullish_pct": 49.69
+        "bullish_pct": 50.5
       }
     },
     "news": {
-      "score": 0.2,
+      "score": 0.15,
       "headlines": [
         "Black Friday half session, US stocks close 1pm ET (18:00Z)",
-        "SPY reversed the opening fade: 720.49 at 10:06 ET -> 725.38 at 11:06 ET (+1.21%); QQQ +1.83%, IWM +1.38%, GLD +1.63%, TLT -0.84% (Stocklake ~11:00 ET)",
-        "VIX 25.21 and Fear&Greed 19.9 (extreme fear) from 14:09Z snapshot, not refreshed since; SPY RSI 42.8; breadth 5.1% oversold vs 3.3% overbought",
-        "Stocktwits trending: VRTX -6.1% (off -8% low), MO, CHTR +4.2%, EWZ +10.2%, TSLA +4.9%, DELL +6.5%, COST +0.8%; causes not found",
-        "No major US data today; Wed GDP 2nd estimate 4.3% vs 3.4% prior; Tokyo core CPI 2.9% vs 2.6%",
+        "SPY 726.28 +1.34% at 17:00Z, then a ~$1 drop candle to 725.85 at 17:06Z; QQQ +1.88%, IWM +1.58%, GLD +1.58%, TLT -1.20% (Stocklake)",
+        "VIX 26.86 and Fear&Greed 24.5 (extreme fear) from 16:09Z snapshot, VIX up from 25.21 in the prior snapshot despite the rally; SPY RSI 42.8; breadth 4.4% oversold vs 3.3% overbought",
+        "Stocktwits trending: TSLA +4.9%, VRTX -5.5% (rebounding off 503 low), KSS +3.1%, EWZ +10.1%, NTSK +7.2%, KWEB +4.7%, RBLX +4.9%, GOOGL flat after fading from 281; causes not found",
+        "Stocktwits SPY message volume HIGH (55); sentiment split 50.5 bull / 49.5 bear",
         "Web search found no same-day market coverage"
       ]
     },
     "rumors": [
       {
-        "text": "Cup-and-handle on SPY/QQQ intraday could break upside into the half-day close",
+        "text": "Packed malls, shoppers spending big on Black Friday",
         "source": "stocktwits",
         "tickers": [
           "SPY",
-          "QQQ"
+          "KSS"
         ],
         "names": {
           "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
+          "KSS": "Kohl's"
         },
         "direction": "up",
         "credibility": 0.3,
-        "why": "Technical chatter; price is already near session highs on thin volume, so a late push to ~728 premarket high is plausible but unconfirmed"
+        "why": "Anecdotal; strong holiday spending would support retail names and consumer confidence"
       },
       {
-        "text": "SPY closes strong today, opens strong Monday, then dumps",
+        "text": "China state support driving the global bounce (KWEB +4.7%, EWZ +10%); carried over, still unconfirmed",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "KWEB"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "KWEB": "KraneShares CSI China Internet ETF"
+        },
+        "direction": "up",
+        "credibility": 0.25,
+        "why": "Would support risk appetite; stale story, price action consistent but cause unverified"
+      },
+      {
+        "text": "Media is targeting NVIDIA to shake holders out; NVDA ~148.9, down ~12% from Nov 23 high after a 125-175 swing",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "up",
+        "credibility": 0.15,
+        "why": "Opinion; if NVDA weakness is only noise it would remove a drag on QQQ/SPY"
+      },
+      {
+        "text": "SPY will squeeze through the top then reverse; calls for a 716 close",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -53,37 +81,23 @@
         },
         "direction": "down",
         "credibility": 0.15,
-        "why": "Opinion only; would mean holiday strength is a trap for early December"
-      },
-      {
-        "text": "China pledged state buying of stocks, driving the global bounce (carried over, still unconfirmed, not new)",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY",
-          "QQQ"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF",
-          "QQQ": "Invesco QQQ Trust"
-        },
-        "direction": "up",
-        "credibility": 0.25,
-        "why": "Would support risk appetite; stale story being re-shared"
+        "why": "Opinion only; would mean the holiday rally fades into the close"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "VRTX": "Vertex Pharmaceuticals",
-      "MO": "Altria Group",
-      "CHTR": "Charter Communications",
-      "EWZ": "iShares MSCI Brazil ETF",
+      "IWM": "iShares Russell 2000 ETF",
       "TSLA": "Tesla",
-      "DELL": "Dell Technologies",
-      "COST": "Costco Wholesale",
+      "VRTX": "Vertex Pharmaceuticals",
+      "KSS": "Kohl's",
+      "EWZ": "iShares MSCI Brazil ETF",
       "F": "Ford Motor",
-      "SRPT": "Sarepta Therapeutics",
-      "DIA": "SPDR Dow Jones Industrial Average ETF",
+      "NTSK": "Netskope",
+      "KWEB": "KraneShares CSI China Internet ETF",
+      "GM": "General Motors",
+      "GOOGL": "Alphabet",
+      "RBLX": "Roblox",
       "NVDA": "NVIDIA"
     },
     "plays": [
@@ -91,23 +105,23 @@
         "ticker": "SPY",
         "direction": "up",
         "horizon": "close",
-        "confidence": 0.55,
-        "reason": "Opening fade fully reversed (720.5 -> 725.4), QQQ/IWM/TSLA/DELL leading, Stocktwits score 78; holiday half-days tend to drift with the session trend. Thin volume and extreme-fear backdrop keep conviction low",
-        "catalyst": "Intraday trend into the 1pm ET half-day close"
+        "confidence": 0.52,
+        "reason": "SPY still holding most of the reversal (+1.3%) with QQQ/IWM leading; half-days tend to drift with the session trend, but a fresh $1 drop candle, rising VIX and split crowd make this near a coin flip",
+        "catalyst": "Thin-volume drift into the 1pm ET half-day close"
       }
     ],
-    "whats_new": "The gap fade failed: SPY bounced from 720.5 to 725.4 (+1.21%), so last hour's 1h down play likely lost; QQQ now +1.8% with TSLA and DELL leading. VIX and Fear&Greed are the same stale 14:09Z snapshot (25.2 / ~20). NVDA smuggling claim not repeated; new chatter is cup-and-handle breakout talk, while posters with puts report losses.",
+    "whats_new": "SPY edged up from 725.38 to a 726.28 high near 17:00Z, then dropped about $1 in one candle to 725.85, so last hour's up-into-close play is only marginally ahead. VIX snapshot rose to 26.86 (from 25.21) and Fear&Greed to 24.5 even as stocks rallied, a fear-vs-price divergence. New trending names: KSS, NTSK, KWEB, RBLX; cup-and-handle chatter replaced by squeeze-then-fade and packed-malls posts.",
     "sources": {
-      "market_pulse": "stocklake (indices ~11:00 ET; vix/fear_greed snapshot 14:09Z); SPY latest from stocktwits 11:06 ET",
+      "market_pulse": "stocklake (indices ~17:00Z; vix/fear_greed snapshot 16:09Z); SPY latest from stocktwits 17:06Z",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocklake economic calendar; stocktwits trending; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
+      "news": "stocktwits trending and messages; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.21,
+      "value": 1.28,
       "vote": 1,
       "why": "\u2265 0.3"
     },
@@ -119,7 +133,7 @@
     },
     {
       "reading": "fear_greed",
-      "value": 20.0,
+      "value": 24.5,
       "vote": -1,
       "why": "\u2264 45.0"
     },
@@ -133,10 +147,10 @@
   "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (indices ~11:00 ET; vix/fear_greed snapshot 14:09Z); SPY latest from stocktwits 11:06 ET",
+    "market_pulse": "stocklake (indices ~17:00Z; vix/fear_greed snapshot 16:09Z); SPY latest from stocktwits 17:06Z",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocklake economic calendar; stocktwits trending; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
+    "news": "stocktwits trending and messages; web search (no same-day coverage); stocklake news feed unavailable (needs re-auth)"
   },
   "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
