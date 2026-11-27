@@ -1,40 +1,49 @@
 {
-  "date": "2026-11-26",
+  "date": "2026-11-27",
   "bias": "neutral",
-  "written_at": "2026-11-26T15:06:54-05:00",
-  "as_of": "2026-11-26T20:10:00Z",
+  "written_at": "2026-11-27T09:07:06-05:00",
+  "as_of": "2026-11-27T14:07:00Z",
   "readings": {
-    "as_of": "2026-11-26T20:10:00Z",
-    "spy_price": 720.43,
-    "spy_change_pct": 0.23,
-    "vix": 27.11,
+    "as_of": "2026-11-27T14:07:00Z",
+    "spy_price": 727.2,
+    "spy_change_pct": 1.47,
+    "vix": 26.8,
     "fear_greed": 15,
     "stocktwits": {
       "SPY": {
-        "score": 57,
-        "bullish_pct": 47.86
+        "score": 77,
+        "bullish_pct": 49.75
       }
     },
-    "reddit": {
-      "score": 0.0,
-      "posts": 0,
-      "top": []
-    },
     "news": {
-      "score": 0.0,
+      "score": 0.4,
       "headlines": [
-        "US markets closed for Thanksgiving; Friday half session (1pm ET close)",
-        "Stocklake (unchanged, snapshot 16:09Z): SPY 720.43 +0.23%, QQQ 636.57 -0.24%, IWM 270.31 +1.19%, TLT +0.66%, GLD +0.32%; VIX 27.11; Fear & Greed 15 extreme fear; breadth 5.5% oversold / 3.3% overbought; SPY RSI 39.8",
-        "US GDP 2nd estimate 4.3% (prev 3.4%), deflator 1.8% (prev 2.2%) released Nov 25",
-        "Next data: Tokyo CPI 23:30 UTC; French payrolls rev 07:45 UTC and German unemployment 08:55 UTC Fri",
-        "DutchNews: Dutch trade minister Sjoerdsma says NL 'will not be dictated to' over US bill curbing ASML China sales; says China signaled no retaliation",
-        "Reuters: retailers face rising AI cyberattack threat into Black Friday, many uninsured",
-        "Stocktwits trending: HUBS +2.4%, GE -0.3%, ACN +3.5%, DKS +3.5%, MAGS -1%, VZ, TEAM +2.5%, OKTA +1.8%, KSS +5.4%, MUU -9.2%"
+        "Black Friday half session, US stocks close 1pm ET",
+        "SPY premarket 727.20 (+1.47% vs Wed close 716.70) per Stocktwits 09:04 ET; Stocklake snapshot stale (Wed close, VIX 26.8, F&G 15 extreme fear, SPY RSI 39.8)",
+        "Brazil names surging premarket: EWZ +13.5%, PBR +11.4%, NU +11.6% (cause not found)",
+        "VRTX -8.5% premarket (cause not found)",
+        "Econ calendar: French payrolls rev 07:45 UTC, German unemployment 08:55 UTC; no major US data today; US GDP 2nd est 4.3% released Nov 25",
+        "Stocktwits trending: EWZ, VRTX, CHWY, ABCL, MDB, MO -2.5%, MLTX, PBR, HPQ, NU"
       ]
     },
     "rumors": [
       {
-        "text": "US stock futures are up about 0.7% on Thanksgiving, pointing to a higher Friday open",
+        "text": "China pledged state buying of stocks and the bounce went global overnight (KOSPI +4.34%, all Mag 7 higher premarket)",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY",
+          "QQQ"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF",
+          "QQQ": "Invesco QQQ Trust"
+        },
+        "direction": "up",
+        "credibility": 0.4,
+        "why": "State-backed buying would support global risk appetite into the half day; SPY premarket +1.5% fits"
+      },
+      {
+        "text": "India-US trade deal nears completion even as Washington proposes 25% tariffs on India",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -44,139 +53,93 @@
         },
         "direction": "up",
         "credibility": 0.35,
-        "why": "Single unsourced post, web search found no 2026 futures coverage; if true SPY gaps up toward ~725"
+        "why": "A done deal would ease tariff risk; the 25% threat cuts the other way"
       },
       {
-        "text": "Dutch government will allow ASML China sales despite US pressure (news only confirms objection to the US MATCH Act; carried over)",
+        "text": "Largest overnight pump in history will be sold; gap to 716 gets filled, Monday gives it all back",
         "source": "stocktwits",
         "tickers": [
-          "ASML"
+          "SPY"
         ],
         "names": {
-          "ASML": "ASML Holding"
+          "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "Supports ASML China revenue (~20%) but risks US-EU trade friction"
+        "direction": "down",
+        "credibility": 0.2,
+        "why": "Bear fade thesis; gap fills are common but not reliable on thin holiday sessions"
       },
       {
-        "text": "BYND short squeeze continuing and set to be added to a Russell microcap index in early December",
+        "text": "SPY 200-day SMA/EMA sit near 733.2-733.5, acting as resistance above 730",
         "source": "stocktwits",
         "tickers": [
-          "BYND"
+          "SPY"
         ],
         "names": {
-          "BYND": "Beyond Meat"
+          "SPY": "SPDR S&P 500 ETF"
         },
-        "direction": "up",
-        "credibility": 0.25,
-        "why": "Index addition would bring passive buying into a heavily shorted name"
+        "direction": "down",
+        "credibility": 0.4,
+        "why": "Unverified level from one poster; would cap upside today"
       },
       {
-        "text": "AI debt bubble / AI spending collapse will trigger a black swan correction (carried over, same bear posters)",
+        "text": "AI debt bubble / AI spending collapse will trigger a correction (carried over, stale)",
         "source": "stocktwits",
         "tickers": [
-          "META",
-          "ORCL",
           "NVDA",
-          "SPY"
+          "META",
+          "ORCL"
         ],
         "names": {
-          "META": "Meta Platforms",
-          "ORCL": "Oracle",
           "NVDA": "NVIDIA",
-          "SPY": "SPDR S&P 500 ETF"
+          "META": "Meta Platforms",
+          "ORCL": "Oracle"
         },
         "direction": "down",
-        "credibility": 0.25,
-        "why": "Credit stress at AI infrastructure borrowers would pressure chips and the index"
-      },
-      {
-        "text": "VIX spike toward 35-45 likely into early December",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.15,
-        "why": "Single-user call; would imply a sharp SPY drop"
-      },
-      {
-        "text": "Trump says revised GDP numbers are fake and calls for an investigation (carried over)",
-        "source": "news",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.6,
-        "why": "Attacks on official data add policy uncertainty"
-      },
-      {
-        "text": "Texas resumes issuing data center permits (carried over)",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA"
-        ],
-        "names": {
-          "NVDA": "NVIDIA"
-        },
-        "direction": "up",
-        "credibility": 0.3,
-        "why": "Would ease an AI buildout bottleneck"
+        "credibility": 0.2,
+        "why": "Credit stress at AI borrowers would pressure chips and the index"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
-      "IWM": "iShares Russell 2000 ETF",
-      "TLT": "iShares 20+ Year Treasury Bond ETF",
-      "GLD": "SPDR Gold Shares",
-      "ASML": "ASML Holding",
+      "EWZ": "iShares MSCI Brazil ETF",
+      "PBR": "Petroleo Brasileiro",
+      "NU": "Nu Holdings",
+      "VRTX": "Vertex Pharmaceuticals",
+      "CHWY": "Chewy",
+      "ABCL": "AbCellera Biologics",
+      "MDB": "MongoDB",
+      "MO": "Altria Group",
+      "MLTX": "MoonLake Immunotherapeutics",
+      "HPQ": "HP Inc",
       "NVDA": "NVIDIA",
       "META": "Meta Platforms",
-      "ORCL": "Oracle",
-      "BYND": "Beyond Meat",
-      "HUBS": "HubSpot",
-      "GE": "GE Aerospace",
-      "ACN": "Accenture",
-      "DKS": "Dick's Sporting Goods",
-      "MAGS": "Roundhill Magnificent Seven ETF",
-      "VZ": "Verizon",
-      "TEAM": "Atlassian",
-      "OKTA": "Okta",
-      "KSS": "Kohl's",
-      "MUU": "Direxion Daily MU Bull 2X Shares"
+      "ORCL": "Oracle"
     },
     "plays": [
       {
         "ticker": "SPY",
         "direction": "up",
-        "horizon": "1d",
-        "confidence": 0.53,
-        "reason": "Extreme fear (F&G 15), RSI ~40, crowd split (score 57, bullish 47.9%); thin Black Friday half sessions tend to drift up; unverified futures-up chatter; trimmed for VIX 27 and AI-credit worries",
-        "catalyst": "Black Friday half session seasonality"
+        "horizon": "close",
+        "confidence": 0.54,
+        "reason": "Broad global risk-on gap from extreme-fear levels (F&G 15) into a thin half session where shorts tend to cover; trimmed for crowd gap-fill talk and 730/733 resistance",
+        "catalyst": "Black Friday half-day close 1pm ET"
       }
     ],
-    "whats_new": "Market still closed; Stocklake numbers unchanged from the 16:09Z snapshot and SPY Stocktwits score steady at 57 (bullish 47.9%). New chatter: an unverified claim that futures are up ~0.7% and a BYND squeeze/Russell-add post; ASML-Dutch story now backed by a DutchNews link (objection, not a sales decision). Trending rotated to software/retail names (HUBS, ACN, TEAM, OKTA, DKS, KSS) and MAGS lower.",
+    "whats_new": "Market reopens for a half day with SPY gapping +1.5% premarket to ~727 on a global bounce; last hour's unverified futures-up rumor proved right. Stocktwits SPY score jumped 57 to 77 (bullish tags still ~50%). New chatter: China state buying, India-US deal; Brazil ETFs/stocks up 11-13% and VRTX -8.5% with no cause found.",
     "sources": {
-      "market_pulse": "stocklake (snapshot 2026-11-26 16:09Z)",
+      "market_pulse": "stocklake (snapshot 2026-11-26 20:14Z, prices as of Wed close); SPY premarket from stocktwits",
       "sentiment_flow": "stocktwits",
-      "reddit": "unavailable (reddit fetch blocked; web search found no current coverage)",
-      "news": "stocklake economic calendar; stocktwits posts/trending; web search (no 2026 futures coverage)"
+      "reddit": "unavailable (reddit fetch blocked)",
+      "news": "stocklake economic calendar; stocktwits posts/trending; web search (no same-day coverage)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 0.23,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 1.47,
+      "vote": 1,
+      "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
@@ -192,18 +155,18 @@
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 57.0,
-      "vote": 0,
-      "why": "in the neutral band"
+      "value": 77.0,
+      "vote": 1,
+      "why": "\u2265 60.0"
     }
   ],
-  "net_votes": -1,
+  "net_votes": 1,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (snapshot 2026-11-26 16:09Z)",
+    "market_pulse": "stocklake (snapshot 2026-11-26 20:14Z, prices as of Wed close); SPY premarket from stocktwits",
     "sentiment_flow": "stocktwits",
-    "reddit": "unavailable (reddit fetch blocked; web search found no current coverage)",
-    "news": "stocklake economic calendar; stocktwits posts/trending; web search (no 2026 futures coverage)"
+    "reddit": "unavailable (reddit fetch blocked)",
+    "news": "stocklake economic calendar; stocktwits posts/trending; web search (no same-day coverage)"
   },
-  "note": "Derived from live readings: net -1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
 }
