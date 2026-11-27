@@ -1,34 +1,61 @@
 {
   "date": "2026-11-27",
-  "bias": "neutral",
-  "written_at": "2026-11-27T09:07:06-05:00",
-  "as_of": "2026-11-27T14:07:00Z",
+  "bias": "bullish",
+  "written_at": "2026-11-27T10:07:16-05:00",
+  "as_of": "2026-11-27T15:07:00Z",
   "readings": {
-    "as_of": "2026-11-27T14:07:00Z",
-    "spy_price": 727.2,
-    "spy_change_pct": 1.47,
-    "vix": 26.8,
-    "fear_greed": 15,
+    "as_of": "2026-11-27T15:07:00Z",
+    "spy_price": 720.49,
+    "spy_change_pct": 0.53,
+    "vix": 25.21,
+    "vix_change_pct": -5.9,
+    "fear_greed": 20,
     "stocktwits": {
       "SPY": {
-        "score": 77,
-        "bullish_pct": 49.75
+        "score": 76,
+        "bullish_pct": 49.92
       }
     },
     "news": {
-      "score": 0.4,
+      "score": 0.1,
       "headlines": [
         "Black Friday half session, US stocks close 1pm ET",
-        "SPY premarket 727.20 (+1.47% vs Wed close 716.70) per Stocktwits 09:04 ET; Stocklake snapshot stale (Wed close, VIX 26.8, F&G 15 extreme fear, SPY RSI 39.8)",
-        "Brazil names surging premarket: EWZ +13.5%, PBR +11.4%, NU +11.6% (cause not found)",
-        "VRTX -8.5% premarket (cause not found)",
-        "Econ calendar: French payrolls rev 07:45 UTC, German unemployment 08:55 UTC; no major US data today; US GDP 2nd est 4.3% released Nov 25",
-        "Stocktwits trending: EWZ, VRTX, CHWY, ABCL, MDB, MO -2.5%, MLTX, PBR, HPQ, NU"
+        "SPY fading the gap: ~727 premarket -> 722.17 at 10:00 ET -> 720.49 at 10:06 ET (+0.53% vs Wed close 716.70)",
+        "Stocklake 14:09Z snapshot: VIX 25.21, Fear&Greed 19.9 extreme fear; QQQ +0.91%, IWM +0.94%, GLD +1.7%, TLT -0.43% (10:00 ET)",
+        "Breadth: 5.1% of universe oversold vs 3.3% overbought; SPY RSI 39.8",
+        "VRTX -8.3% and OTLY -19.9% today (cause not found); Brazil EWZ +10.4%, PBR +5.2% but fading from highs",
+        "Stocktwits trending: MO, VRTX, MLTX, FECCF, FCEL, EWZ, OTLY, PBR, MDB, UNG -4.3%"
       ]
     },
     "rumors": [
       {
-        "text": "China pledged state buying of stocks and the bounce went global overnight (KOSPI +4.34%, all Mag 7 higher premarket)",
+        "text": "Jensen Huang/NVIDIA smuggling Blackwell chips to China ('breaking news')",
+        "source": "stocktwits",
+        "tickers": [
+          "NVDA"
+        ],
+        "names": {
+          "NVDA": "NVIDIA"
+        },
+        "direction": "down",
+        "credibility": 0.1,
+        "why": "Export-control violation would mean fines/sanctions risk for NVDA and chip-led index weakness; single poster, no source"
+      },
+      {
+        "text": "Gap fade continues: below 718 (prior day high) opens more downside toward the 716.7 gap fill",
+        "source": "stocktwits",
+        "tickers": [
+          "SPY"
+        ],
+        "names": {
+          "SPY": "SPDR S&P 500 ETF"
+        },
+        "direction": "down",
+        "credibility": 0.35,
+        "why": "Technical level talk; the fade from 727 to 720 is real, so the gap fill is in play into the half-day close"
+      },
+      {
+        "text": "China pledged state buying of stocks, driving the global overnight bounce (carried over from last hour, unconfirmed)",
         "source": "stocktwits",
         "tickers": [
           "SPY",
@@ -39,24 +66,11 @@
           "QQQ": "Invesco QQQ Trust"
         },
         "direction": "up",
-        "credibility": 0.4,
-        "why": "State-backed buying would support global risk appetite into the half day; SPY premarket +1.5% fits"
+        "credibility": 0.3,
+        "why": "Would support risk appetite, but the US open fade suggests it is priced in"
       },
       {
-        "text": "India-US trade deal nears completion even as Washington proposes 25% tariffs on India",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "up",
-        "credibility": 0.35,
-        "why": "A done deal would ease tariff risk; the 25% threat cuts the other way"
-      },
-      {
-        "text": "Largest overnight pump in history will be sold; gap to 716 gets filled, Monday gives it all back",
+        "text": "Build puts into December, market drifts lower until Dec 24",
         "source": "stocktwits",
         "tickers": [
           "SPY"
@@ -65,108 +79,75 @@
           "SPY": "SPDR S&P 500 ETF"
         },
         "direction": "down",
-        "credibility": 0.2,
-        "why": "Bear fade thesis; gap fills are common but not reliable on thin holiday sessions"
-      },
-      {
-        "text": "SPY 200-day SMA/EMA sit near 733.2-733.5, acting as resistance above 730",
-        "source": "stocktwits",
-        "tickers": [
-          "SPY"
-        ],
-        "names": {
-          "SPY": "SPDR S&P 500 ETF"
-        },
-        "direction": "down",
-        "credibility": 0.4,
-        "why": "Unverified level from one poster; would cap upside today"
-      },
-      {
-        "text": "AI debt bubble / AI spending collapse will trigger a correction (carried over, stale)",
-        "source": "stocktwits",
-        "tickers": [
-          "NVDA",
-          "META",
-          "ORCL"
-        ],
-        "names": {
-          "NVDA": "NVIDIA",
-          "META": "Meta Platforms",
-          "ORCL": "Oracle"
-        },
-        "direction": "down",
-        "credibility": 0.2,
-        "why": "Credit stress at AI borrowers would pressure chips and the index"
+        "credibility": 0.15,
+        "why": "Opinion, runs against usual December seasonality"
       }
     ],
     "names": {
       "SPY": "SPDR S&P 500 ETF",
       "QQQ": "Invesco QQQ Trust",
+      "NVDA": "NVIDIA",
+      "VRTX": "Vertex Pharmaceuticals",
+      "OTLY": "Oatly Group",
       "EWZ": "iShares MSCI Brazil ETF",
       "PBR": "Petroleo Brasileiro",
-      "NU": "Nu Holdings",
-      "VRTX": "Vertex Pharmaceuticals",
-      "CHWY": "Chewy",
-      "ABCL": "AbCellera Biologics",
-      "MDB": "MongoDB",
       "MO": "Altria Group",
       "MLTX": "MoonLake Immunotherapeutics",
-      "HPQ": "HP Inc",
-      "NVDA": "NVIDIA",
-      "META": "Meta Platforms",
-      "ORCL": "Oracle"
+      "FCEL": "FuelCell Energy",
+      "MDB": "MongoDB",
+      "UNG": "United States Natural Gas Fund"
     },
     "plays": [
       {
         "ticker": "SPY",
-        "direction": "up",
-        "horizon": "close",
-        "confidence": 0.54,
-        "reason": "Broad global risk-on gap from extreme-fear levels (F&G 15) into a thin half session where shorts tend to cover; trimmed for crowd gap-fill talk and 730/733 resistance",
-        "catalyst": "Black Friday half-day close 1pm ET"
+        "direction": "down",
+        "horizon": "1h",
+        "confidence": 0.53,
+        "reason": "Gap from 727 premarket is fading fast (720.5 now), NVDA weak, crowd selling calls; thin tape may drift toward 718/716.7 gap fill. Low conviction: extreme fear and holiday drift argue for support",
+        "catalyst": "Opening-gap fade on thin Black Friday half session"
       }
     ],
-    "whats_new": "Market reopens for a half day with SPY gapping +1.5% premarket to ~727 on a global bounce; last hour's unverified futures-up rumor proved right. Stocktwits SPY score jumped 57 to 77 (bullish tags still ~50%). New chatter: China state buying, India-US deal; Brazil ETFs/stocks up 11-13% and VRTX -8.5% with no cause found.",
+    "whats_new": "The +1.5% premarket gap is fading: SPY down from ~727 to 720.5 (+0.53%) after the open, so last hour's up-to-close play is under pressure. VIX eased to 25.2 and Fear&Greed ticked up to ~20 (still extreme fear); Stocktwits SPY score steady at 76 with tags split 50/50. New: NVDA China chip-smuggling claim (unsourced), OTLY -20%; Brazil names giving back part of their gains.",
     "sources": {
-      "market_pulse": "stocklake (snapshot 2026-11-26 20:14Z, prices as of Wed close); SPY premarket from stocktwits",
+      "market_pulse": "stocklake (snapshot 14:09Z, prices 10:00 ET); SPY latest from stocktwits 10:06 ET",
       "sentiment_flow": "stocktwits",
       "reddit": "unavailable (reddit fetch blocked)",
-      "news": "stocklake economic calendar; stocktwits posts/trending; web search (no same-day coverage)"
+      "news": "stocktwits posts/trending; web search (no same-day coverage); stocklake news feed unavailable (auth)"
     }
   },
   "votes": [
     {
       "reading": "spy_change_pct",
-      "value": 1.47,
+      "value": 0.53,
       "vote": 1,
       "why": "\u2265 0.3"
     },
     {
       "reading": "vix_change_pct",
-      "value": null,
-      "vote": 0,
-      "why": "missing"
+      "value": -5.9,
+      "vote": 1,
+      "why": "\u2264 -5.0"
     },
     {
       "reading": "fear_greed",
-      "value": 15.0,
+      "value": 20.0,
       "vote": -1,
       "why": "\u2264 45.0"
     },
     {
       "reading": "stocktwits_spy_score",
-      "value": 77.0,
+      "value": 76.0,
       "vote": 1,
       "why": "\u2265 60.0"
     }
   ],
-  "net_votes": 1,
+  "net_votes": 2,
   "min_net_votes": 2,
   "sources": {
-    "market_pulse": "stocklake (snapshot 2026-11-26 20:14Z, prices as of Wed close); SPY premarket from stocktwits",
+    "market_pulse": "stocklake (snapshot 14:09Z, prices 10:00 ET); SPY latest from stocktwits 10:06 ET",
     "sentiment_flow": "stocktwits",
     "reddit": "unavailable (reddit fetch blocked)",
-    "news": "stocklake economic calendar; stocktwits posts/trending; web search (no same-day coverage)"
+    "news": "stocktwits posts/trending; web search (no same-day coverage); stocklake news feed unavailable (auth)"
   },
-  "note": "Derived from live readings: net +1 votes (needs \u00b12) \u2192 neutral."
+  "note": "Derived from live readings: net +2 votes (needs \u00b12) \u2192 bullish."
 }
